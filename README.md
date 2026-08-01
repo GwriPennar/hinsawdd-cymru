@@ -12,11 +12,13 @@ The repository distinguishes between:
 - calculations derived in this repository;
 - provisional scenarios that have not yet been published officially.
 
+Each project README is intended to work as a self-contained public results report. Detailed methodology, validation records, source snapshots and machine-readable outputs remain inside the same project folder.
+
 ## Project registry
 
 | ID | Project | Status | Main result |
 |---|---|---|---|
-| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. |
+| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. The project README contains the full report and historical trend graphic. |
 
 ## Repository structure
 
