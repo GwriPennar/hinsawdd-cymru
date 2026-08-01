@@ -25,7 +25,7 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def latest_source_path() -> Path:
-    exact = sorted(RAW_DIR.glob("metoffice-wales-tmean-retrieved-*.txt"))
+    exact = sorted([*RAW_DIR.glob("metoffice-wales-tmean-source-*.txt"), *RAW_DIR.glob("metoffice-wales-tmean-retrieved-*.txt")])
     if exact:
         return exact[-1]
     if LEGACY_SOURCE.exists():
