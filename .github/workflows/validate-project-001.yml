@@ -53,7 +53,7 @@ jobs:
           git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
           find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*' -delete
 
-          STABLE=projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.txt
+          STABLE="$PWD/projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.txt"
           STABLE_MANIFEST=${STABLE%.txt}.provenance.json
           if [ -f "$STABLE" ]; then
             cmp "$TMP/source.txt" "$STABLE"
