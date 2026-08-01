@@ -40,8 +40,8 @@ The comparison is deliberately specific. It ranks like-for-like August-to-July p
 | July value needed to exceed previous high | **14.33°C** |
 | Rank among equivalent August-to-July periods | **1 of 142** |
 | Rank among all monthly-start 12-month windows | **4** |
-| Difference from derived 1991-2020 reference | **+1.21°C** |
-| Difference from derived 1961-1990 reference | **+2.02°C** |
+| Difference from derived 1991–2020 reference | **+1.21°C** |
+| Difference from derived 1961–1990 reference | **+2.02°C** |
 | Current trailing 10-year average | **10.02°C** |
 
 The exact July Wales area-average is not yet present in the source. The 18.0°C value is an **illustrative scenario**, not a Met Office estimate or a confidence interval.
