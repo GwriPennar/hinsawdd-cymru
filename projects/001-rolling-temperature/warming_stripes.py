@@ -14,8 +14,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-import matplotlib.pyplot as plt
+from matplotlib.cm import ScalarMappable
 from matplotlib.colors import ListedColormap, TwoSlopeNorm
+from matplotlib.patches import Patch
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -146,7 +148,7 @@ def _save_stripes(
     )
 
     if labelled:
-        ax = fig.add_axes([0.06, 0.19, 0.88, 0.58])
+        ax = fig.add_axes([0.06, 0.31, 0.88, 0.43])
     else:
         ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
 
@@ -172,7 +174,7 @@ def _save_stripes(
 
         fig.text(
             0.06,
-            0.91,
+            0.93,
             "WALES WARMING STRIPES",
             fontsize=28,
             fontweight="bold",
@@ -181,28 +183,54 @@ def _save_stripes(
         )
         fig.text(
             0.06,
-            0.855,
-            f"One stripe per calendar year, {first_year}–{last_year}",
-            fontsize=16,
+            0.872,
+            (
+                f"One stripe per calendar year, {first_year}–{last_year}. "
+                f"Colour shows the difference from the {reference} Wales average."
+            ),
+            fontsize=15,
             ha="left",
             va="top",
         )
+        fig.text(0.06, 0.285, str(first_year), fontsize=10, ha="left", va="top")
+        fig.text(0.94, 0.285, str(last_year), fontsize=10, ha="right", va="top")
+
+        colourbar_ax = fig.add_axes([0.30, 0.205, 0.40, 0.025])
+        mappable = ScalarMappable(norm=norm, cmap=cmap)
+        mappable.set_array([])
+        colourbar = fig.colorbar(
+            mappable,
+            cax=colourbar_ax,
+            orientation="horizontal",
+        )
+        colourbar.set_label(
+            f"Difference from {reference} Wales average (°C)",
+            fontsize=10,
+            labelpad=5,
+        )
+        ticks = [float(norm.vmin), 0.0, float(norm.vmax)]
+        colourbar.set_ticks(ticks)
+        colourbar.set_ticklabels(
+            [f"{ticks[0]:.1f}", "0", f"+{ticks[2]:.1f}"]
+        )
+        colourbar.ax.tick_params(labelsize=9, length=3)
+        colourbar.outline.set_edgecolor("#8a9099")
+        fig.text(0.275, 0.218, "Cooler", fontsize=9.5, ha="right", va="center")
+        fig.text(0.725, 0.218, "Warmer", fontsize=9.5, ha="left", va="center")
+
         fig.text(
             0.06,
-            0.115,
-            (
-                f"Blue years were cooler and red years warmer than the {reference} "
-                "Wales average."
-            ),
-            fontsize=12,
+            0.125,
+            "Each stripe is one year. The sequence moves from cooler blues towards warmer reds in recent decades.",
+            fontsize=11,
             ha="left",
             va="bottom",
         )
         fig.text(
             0.06,
-            0.07,
+            0.075,
             "Data: UK Met Office Wales annual mean temperature series.",
-            fontsize=10,
+            fontsize=9.5,
             ha="left",
             va="bottom",
         )
@@ -213,7 +241,7 @@ def _save_stripes(
                 "Climate-stripes design: Professor Ed Hawkins, University of Reading "
                 "(CC BY 4.0). Reproduction: Hinsawdd Cymru."
             ),
-            fontsize=10,
+            fontsize=9.5,
             ha="left",
             va="bottom",
         )
@@ -248,7 +276,7 @@ def _save_bars(
     )
 
     if with_scale:
-        ax = fig.add_axes([0.09, 0.20, 0.86, 0.63])
+        ax = fig.add_axes([0.09, 0.28, 0.86, 0.53])
     else:
         ax = fig.add_axes([0.025, 0.025, 0.95, 0.95])
 
@@ -299,26 +327,49 @@ def _save_bars(
         )
         fig.text(
             0.09,
-            0.875,
+            0.872,
             (
-                f"Annual mean temperature difference from the {reference} average, "
-                f"{first_year}–{last_year}"
+                f"One bar per calendar year, {first_year}–{last_year}. "
+                f"Height shows the difference from the {reference} Wales average."
             ),
             fontsize=15,
             ha="left",
             va="top",
         )
+
+        legend_handles = [
+            Patch(
+                facecolor=cmap(norm(-max_abs)),
+                edgecolor="none",
+                label=f"Cooler than {reference} average",
+            ),
+            Patch(
+                facecolor=cmap(norm(max_abs)),
+                edgecolor="none",
+                label=f"Warmer than {reference} average",
+            ),
+        ]
+        fig.legend(
+            handles=legend_handles,
+            loc="lower left",
+            bbox_to_anchor=(0.085, 0.145),
+            ncol=2,
+            frameon=False,
+            fontsize=10,
+            handlelength=1.8,
+            columnspacing=2.4,
+        )
         fig.text(
             0.09,
-            0.105,
-            "Blue bars are cooler than the reference average; red bars are warmer.",
+            0.115,
+            "Bars below zero are cooler than the reference average; bars above zero are warmer.",
             fontsize=10.5,
             ha="left",
             va="bottom",
         )
         fig.text(
             0.09,
-            0.065,
+            0.07,
             "Data: UK Met Office Wales annual mean temperature series.",
             fontsize=9.5,
             ha="left",
