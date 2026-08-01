@@ -237,12 +237,6 @@ The Wales area-average does not describe every place in Wales equally. Local con
 
 The Met Office may revise provisional or historical values when data and quality-control processes are updated. Each refresh therefore produces a new immutable snapshot rather than silently replacing the retained source.
 
-## Suggested public wording
-
-> I looked at the Met Office Wales monthly mean-temperature series and calculated the mean for the 12 months from 1 August 2025 to 31 July 2026, weighting each month by its number of days. The precise result remains provisional until the final July Wales figure is published, but the ranking is already clear. July would only need to average 14.33°C for this to become the warmest August-to-July period in the Welsh series, which begins in 1884. Under an illustrative July value of 18.0°C, the 12-month mean is approximately 10.63°C, around 1.2°C above the derived 1991-2020 reference for the same sequence of months.
-
-The result should not be shortened to “Wales has warmed by 2°C”. The 2.02°C value is the anomaly of one exceptional 12-month period against the older 1961-1990 reference, not an estimate of permanent long-term warming.
-
 ## Reproduce the report
 
 From the repository root:
