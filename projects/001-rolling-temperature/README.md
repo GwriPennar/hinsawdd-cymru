@@ -4,62 +4,37 @@
 
 **Research question:** Was the period from 1 August 2025 to 31 July 2026 the warmest equivalent August-to-July period in the Wales temperature record?
 
-## Result
-
-**Yes. The result is already robust, although the precise value remains provisional.**
-
-Using the Met Office Wales monthly mean-temperature series, weighted by the number of days in each month:
+<!-- BEGIN GENERATED RESULT -->
+## Current result
 
 | Measure | Result |
 |---|---:|
-| Central scenario, with July 2026 at 18.0°C | **10.63°C** |
-| Scenario range, with July from 17.8°C to 18.3°C | **10.61°C to 10.65°C** |
-| Previous highest August-to-July period, 2006-07 | **10.32°C** |
-| July 2026 value needed merely to exceed that previous period | **14.33°C** |
-| Difference from the reconstructed 1991-2020 baseline | **+1.21°C** |
-| Difference from the reconstructed 1961-1990 baseline | **+2.02°C** |
+| Illustrative July scenario | **18.0°C** |
+| August 2025 to July 2026 mean | **10.63°C** |
+| Tested scenario range | **10.61°C to 10.65°C** |
+| Previous August-to-July high | **10.32°C** |
+| July value needed to break that high | **14.33°C** |
+| Difference from derived 1991-2020 reference | **+1.21°C** |
+| August-to-July rank | **1** |
 
-The Met Office reported on 31 July that Wales was tracking its warmest July for mean temperature through 30 July. The exact July area-average had not yet been published. This project therefore does not invent an official value: it shows a central scenario and a sensitivity range.
-
-The important result is not sensitive to the final few hundredths. July would only need to average **14.33°C** for August 2025 to July 2026 to exceed the previous August-to-July high. The Met Office's own provisional assessment makes clear that July was far warmer than that threshold.
-
-Under the central 18.0°C scenario, this period ranks:
-
-- **1st** among equivalent August-to-July periods in the series;
-- **4th** among every possible monthly-start 12-month window. The three warmer overlapping windows all ended in spring or early summer 2007.
+The exact July Wales area-average is not yet present in the source. This is an **illustrative scenario**, not a Met Office estimate or confidence interval. The ranking is robust because July need only average 14.33°C to exceed the previous high.
+<!-- END GENERATED RESULT -->
 
 ![Wales August-to-July mean temperature chart](figures/wales_august_to_july_mean_temperature_provisional.svg)
 
+## What is official and what is derived?
+
+**Official Met Office input:** the published monthly Wales areal mean-temperature series, derived from HadUK-Grid.
+
+**Calculated here:** day-weighted August-to-July means, historical rankings, reference-period comparisons and sensitivity scenarios.
+
+**Not yet official:** the final July 2026 Wales area-average. Until it appears in the source series, 18.0°C is used only as an illustrative scenario.
+
 ## Suggested public wording
 
-> I looked at the Met Office Wales temperature series and calculated the mean for the 12 months from 1 August 2025 to 31 July 2026, weighting each month by its number of days. The precise July figure is still provisional, but the result is clear: this appears to be the warmest August-to-July period in the Welsh record, which begins in 1884. A reasonable provisional estimate is about 10.63°C, around 1.2°C above the 1991-2020 average for the same sequence of months.
+> I looked at the Met Office Wales monthly mean-temperature series and calculated the mean for the 12 months from 1 August 2025 to 31 July 2026, weighting each month by its number of days. The exact result remains provisional until the July Wales figure is published, but the ranking is already clear. July would only need to average 14.33°C for this to become the warmest August-to-July period in the Welsh series, which begins in 1884. If July matches or exceeds the previous published July record of 17.8°C, the 12-month mean will be at least approximately 10.61°C.
 
-This should not be shortened to “Wales has warmed by 2°C”. The +2.02°C figure is the anomaly of one exceptional 12-month period against the older 1961-1990 reference period, not an estimate of the permanent long-term warming level.
-
-## Method
-
-1. Use the Met Office National Climate Information Centre's monthly Wales mean-temperature series, beginning in 1884.
-2. Use the Wales **areal average**, derived from HadUK-Grid, rather than averaging a selection of weather stations.
-3. Construct every complete August-to-July period.
-4. Weight each monthly mean by the number of calendar days in that month:
-
-   ```text
-   period mean = sum(monthly mean × days in month) / total days
-   ```
-
-5. Rank equivalent August-to-July periods separately from all possible monthly-start 12-month windows.
-6. Calculate reference values from the published monthly series for 1961-1990 and 1991-2020.
-7. Keep the unpublished July 2026 value explicit as a scenario until the official monthly series is updated.
-
-The Met Office does not calculate the Wales value by giving every weather station an equal vote. Station observations inform regression and interpolation across a 1 km grid, taking account of factors including altitude, terrain, coastal influence and urban land use. The grid cells within Wales are then averaged to obtain the national areal value.
-
-The monthly HadUK-Grid product is its own interpolation exercise. It should therefore be preferred here to reconstructing a monthly national value from separate daily grid files.
-
-## Precision and limitations
-
-The public monthly series is rounded to one decimal place. Calculations from these published values can differ by a few hundredths of a degree from calculations using the underlying unrounded grid data. This does not affect the August-to-July ranking: the gap from the previous period is approximately 0.30°C even in the lowest July scenario tested.
-
-The retained raw snapshot contains official published months through June 2026. July 2026 is not inserted into that source file. It is added in memory by the analysis as an explicitly labelled scenario.
+This should not be shortened to “Wales has warmed by 2°C”. A one-year anomaly against an older reference period is not an estimate of permanent long-term warming.
 
 ## Reproduce
 
@@ -67,41 +42,35 @@ From the repository root:
 
 ```bash
 python projects/001-rolling-temperature/analysis.py
+python projects/001-rolling-temperature/verify.py \
+  --source projects/001-rolling-temperature/data/raw/<snapshot>.txt \
+  --manifest projects/001-rolling-temperature/data/raw/<snapshot>.provenance.json \
+  --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
+  --require-annual
 pytest
 ```
 
-Use a different July scenario:
-
-```bash
-python projects/001-rolling-temperature/analysis.py --july-2026 18.1
-```
-
-Refresh from the live Met Office series and rerun:
+Download a new immutable upstream snapshot and rerun:
 
 ```bash
 python projects/001-rolling-temperature/analysis.py --refresh
 ```
 
-When the live series contains July 2026, the script uses the published value rather than the provisional central scenario.
+A refresh writes a new timestamped source snapshot. It does not silently overwrite an earlier source file.
 
-## Outputs
+## Documentation
 
-- [`data/derived/summary.json`](data/derived/summary.json), headline figures and provenance
-- [`data/derived/august_to_july_mean_temperature.csv`](data/derived/august_to_july_mean_temperature.csv), all equivalent periods
-- `data/derived/all_rolling_12_month_windows.csv`, generated on each run for every monthly-start window
-- [`data/derived/july_2026_sensitivity.csv`](data/derived/july_2026_sensitivity.csv), tested July scenarios
-- [`figures/wales_august_to_july_mean_temperature_provisional.svg`](figures/wales_august_to_july_mean_temperature_provisional.svg), public graphic
+- [`METHODOLOGY.md`](METHODOLOGY.md), the observation-to-grid-to-analysis chain and calculation choices
+- [`VALIDATION.md`](VALIDATION.md), source reconciliation, independent rerun and known limitations
+- [`data/derived/summary.json`](data/derived/summary.json), machine-readable headline results and provenance
+- [`data/derived/annual_reconciliation.csv`](data/derived/annual_reconciliation.csv), monthly reconstruction against the official annual column
 
 ## Primary sources
 
-- Met Office, *Monthly, seasonal and annual mean air temperature for Wales*.
-- Met Office, *HadUK-Grid Methods* and *HadUK-Grid Frequently Asked Questions*.
-- Met Office, *An early look at the July statistics: just how dry has it been?*, 31 July 2026.
+- [Met Office Wales monthly, seasonal and annual mean-temperature series](https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/Wales.txt)
+- [HadUK-Grid methods](https://www.metoffice.gov.uk/research/climate/maps-and-data/data/haduk-grid/methods)
+- [HadUK-Grid frequently asked questions](https://www.metoffice.gov.uk/research/climate/maps-and-data/data/haduk-grid/faq)
+- [Met Office observations, station standards and quality control](https://weather.metoffice.gov.uk/learn-about/how-forecasts-are-made/observations/obs-critical-for-weather--climate)
+- [Reproducible Analytical Pipelines, Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/case-studies/using-reproducible-analytical-pipelines-rap-to-improve-statistics/)
 
-The source snapshot records its source URL, update time and retrieval date. Its SHA-256 digest is included in `summary.json`.
-
-## Licensing and attribution
-
-The Met Office states that HadUK-Grid is available under the Open Government Licence and asks users to acknowledge the source. The source data remain Crown copyright. The code in this repository is MIT licensed.
-
-This is an independent derived analysis, not an official Met Office statistic.
+The source data remain Crown copyright and subject to their original licence. This is an independent derived analysis, not an official Met Office statistic.

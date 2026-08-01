@@ -6,17 +6,17 @@ Open and reproducible analysis of public weather and climate data for Wales.
 
 Hinsawdd Cymru is a small, public-facing research repository. Each numbered project asks a specific question, retains its source and derived data, documents every assumption, and produces a result that can be checked independently.
 
-The repository is deliberately neutral. It distinguishes between:
+The repository distinguishes between:
 
 - values published by an authoritative source;
 - calculations derived in this repository;
-- provisional estimates or scenarios that have not yet been published officially.
+- provisional scenarios that have not yet been published officially.
 
 ## Project registry
 
 | ID | Project | Status | Main result |
 |---|---|---|---|
-| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional | The 12 months ending July 2026 are calculated to be the warmest August-to-July period in the Wales series, under every July scenario tested. |
+| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. |
 
 ## Repository structure
 
@@ -27,7 +27,11 @@ hinsawdd-cymru/
 └── projects/
     └── 001-rolling-temperature/
         ├── README.md
+        ├── METHODOLOGY.md
+        ├── VALIDATION.md
         ├── analysis.py
+        ├── fetch_source.py
+        ├── verify.py
         ├── data/
         │   ├── raw/
         │   └── derived/
@@ -37,7 +41,7 @@ hinsawdd-cymru/
 
 Each project is self-contained, while the Python environment is shared at repository level.
 
-## Reproduce the analysis
+## Reproduce Project 001
 
 ```bash
 python -m venv .venv
@@ -47,17 +51,21 @@ python projects/001-rolling-temperature/analysis.py
 pytest
 ```
 
-To download the latest Met Office Wales series before running:
+## Quality approach
 
-```bash
-python projects/001-rolling-temperature/analysis.py --refresh
-```
+Project 001 uses a lightweight Reproducible Analytical Pipeline:
+
+- immutable source snapshots with SHA-256 provenance;
+- automatic reconciliation against the official annual column;
+- a separate standard-library verification implementation;
+- generated machine-readable outputs and public documentation;
+- GitHub Actions validation on every change.
 
 ## Sources and licensing
 
-Project 001 uses the Met Office HadUK-Grid Wales areal mean-temperature series, which is made available under the Open Government Licence. Source attribution and the retained snapshot date are recorded within the project.
+Project 001 uses the Met Office HadUK-Grid Wales areal mean-temperature series, made available under the Open Government Licence. The source data remain subject to their original licence and Crown copyright.
 
-The analysis code is released under the [MIT License](LICENSE). Source datasets remain subject to their original licences.
+The analysis code is released under the [MIT License](LICENSE).
 
 ## Independence
 

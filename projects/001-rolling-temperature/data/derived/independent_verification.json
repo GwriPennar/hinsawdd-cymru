@@ -1,0 +1,22 @@
+{
+  "verification_status": "pass",
+  "failures": [],
+  "source_path": "/home/runner/work/hinsawdd-cymru/hinsawdd-cymru/projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.txt",
+  "source_sha256": "f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3",
+  "source_last_updated": "01-Jul-2026 11:33",
+  "first_published_month": "1884-01",
+  "last_published_month": "2026-06",
+  "july_2026_value_c": 18.0,
+  "july_2026_value_kind": "illustrative_scenario",
+  "period_mean_c": 10.626849315068494,
+  "rank_among_august_to_july_periods": 1,
+  "previous_record": {
+    "period": "2006-08 to 2007-07",
+    "mean_temperature_c": 10.315068493150685
+  },
+  "july_2026_mean_needed_to_break_previous_record_c": 14.329032258064515,
+  "annual_reconciliation_years": 142,
+  "annual_reconciliation_max_abs_difference_c": 0.021917808219178082,
+  "implementation": "independent Python standard library and Decimal",
+  "primary_summary_comparison": "pass"
+}

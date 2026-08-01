@@ -1,0 +1,95 @@
+name: Validate project 001
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Fetch exact upstream source
+        run: python projects/001-rolling-temperature/fetch_source.py --output-dir projects/001-rolling-temperature/data/raw
+      - name: Unit and integration tests
+        run: pytest -q
+      - name: Rebuild primary outputs
+        run: python projects/001-rolling-temperature/analysis.py --no-update-readme
+      - name: Independent verification
+        shell: bash
+        run: |
+          SOURCE=$(find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*.txt' | sort | tail -1)
+          MANIFEST="${SOURCE%.txt}.provenance.json"
+          python projects/001-rolling-temperature/verify.py \
+            --source "$SOURCE" \
+            --manifest "$MANIFEST" \
+            --require-annual \
+            --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
+            --json-out build/independent-verification.json
+      - name: Retain verified snapshot and outputs
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          SOURCE=$(find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*.txt' | sort | tail -1)
+          MANIFEST="${SOURCE%.txt}.provenance.json"
+          TMP=$(mktemp -d)
+          cp "$SOURCE" "$TMP/source.txt"
+          cp "$MANIFEST" "$TMP/provenance.json"
+
+          git fetch origin "$HEAD_REF"
+          git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
+          find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*' -delete
+
+          STABLE="$PWD/projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.txt"
+          STABLE_MANIFEST=${STABLE%.txt}.provenance.json
+          if [ -f "$STABLE" ]; then
+            cmp "$TMP/source.txt" "$STABLE"
+          else
+            cp "$TMP/source.txt" "$STABLE"
+            cp "$TMP/provenance.json" "$STABLE_MANIFEST"
+            rm -f projects/001-rolling-temperature/data/raw/wales_tmean_monthly_2026-07-01.txt
+          fi
+
+          python projects/001-rolling-temperature/analysis.py --source "$STABLE"
+          python projects/001-rolling-temperature/verify.py \
+            --source "$STABLE" \
+            --manifest "$STABLE_MANIFEST" \
+            --require-annual \
+            --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
+            --json-out projects/001-rolling-temperature/data/derived/independent_verification.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/001-rolling-temperature/README.md \
+            projects/001-rolling-temperature/data/raw \
+            projects/001-rolling-temperature/data/derived \
+            projects/001-rolling-temperature/figures
+          if ! git diff --cached --quiet; then
+            git commit -m "Retain verified Met Office source and outputs"
+            git push origin HEAD:"$HEAD_REF"
+          fi
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-001-validation-evidence
+          path: |
+            build/
+            projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-*.txt
+            projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-*.provenance.json
+            projects/001-rolling-temperature/data/derived/
+            projects/001-rolling-temperature/figures/
+          if-no-files-found: error
