@@ -19,6 +19,7 @@ from calculations import (
     reference_value_for_target_sequence,
     required_july_to_break_record,
     sensitivity_table,
+    weighted_mean,
     with_july_2026,
 )
 from fetch_source import SERIES_URL, download_source
