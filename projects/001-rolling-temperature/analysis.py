@@ -82,10 +82,29 @@ def load_source(path: Path | None = None) -> SourceBundle:
     header = next((i for i, line in enumerate(lines) if line.strip().lower().startswith("year")), None)
     if header is None:
         raise ValueError("Could not find the source data header")
-    wide = pd.read_fwf(StringIO("\n".join(lines[header:])), na_values=["NaN", "---"])
+    table_text = "\n".join(lines[header:])
+    header_line = lines[header]
+    header_matches = list(re.finditer(r"\S+", header_line))
+    header_names = [match.group(0) for match in header_matches]
+    if "ann" in header_names:
+        ends = [match.end() for match in header_matches]
+        colspecs = [(0 if index == 0 else ends[index - 1], ends[index]) for index in range(len(ends))]
+        rows = []
+        for raw in lines[header + 1 :]:
+            fields = [raw[start:end].strip() for start, end in colspecs]
+            if not fields or not fields[0].lstrip("-").isdigit():
+                continue
+            rows.append(fields)
+        wide = pd.DataFrame(rows, columns=header_names).replace({"": pd.NA, "NaN": pd.NA, "---": pd.NA})
+        for column in wide.columns:
+            wide[column] = pd.to_numeric(wide[column], errors="coerce")
+    else:
+        # Compatibility with the repository's original normalized transcription.
+        wide = pd.read_csv(StringIO(table_text), sep=r"\s+", na_values=["NaN", "---"])
     missing = {"year", *MONTHS}.difference(wide.columns)
     if missing:
         raise ValueError(f"Missing source columns: {sorted(missing)}")
+
 
     records: list[dict[str, object]] = []
     for row in wide.itertuples(index=False):
@@ -191,6 +210,7 @@ def reference_value_for_target_sequence(monthly: pd.DataFrame, start_year: int, 
     expected_rows = (end_year - start_year + 1) * 12
     if len(reference) != expected_rows:
         raise ValueError(f"Reference period is incomplete: expected {expected_rows} months, found {len(reference)}")
+    # HadUK-Grid climatologies average the corresponding monthly grids over the reference years.
     monthly_normals = reference.groupby("month")["mean_temperature_c"].mean()
     target = pd.date_range("2025-08-01", "2026-07-01", freq="MS")
     weights = [(date.month, calendar.monthrange(date.year, date.month)[1]) for date in target]
@@ -248,7 +268,7 @@ def make_figure(series: pd.DataFrame, output: Path, *, july_value_c: float, anal
     current = plot_data.iloc[-1]
     previous = plot_data.iloc[:-1].nlargest(1, "mean_temperature_c").iloc[0]
     ax.scatter([current.end_year], [current.mean_temperature_c], s=48, zorder=5)
-    ax.axhline(previous.mean_temperature_c, linestyle="--", linewidth=0.8)
+    ax.axhhline(previous.mean_temperature_c, linestyle="--", linewidth=0.8)
     ax.annotate(
         f"2025-26: {current.mean_temperature_c:.2f}°C",
         xy=(current.end_year, current.mean_temperature_c),
@@ -276,11 +296,6 @@ def make_figure(series: pd.DataFrame, output: Path, *, july_value_c: float, anal
 def _render_generated_result(summary: dict[str, object]) -> str:
     scenario = summary["july_2026_value_used_c"]
     label = "Published July input" if summary["analysis_status"] == "published-inputs" else "Illustrative July scenario"
-    note = (
-        "The July Wales area-average is published in the retained source."
-        if summary["analysis_status"] == "published-inputs"
-        else "The exact July Wales area-average is not yet present in the monthly source series. The value above is an **illustrative scenario**, not a Met Office estimate or a confidence interval."
-    )
     return f"""{RESULT_START}
 ## Current result
 
@@ -294,7 +309,7 @@ def _render_generated_result(summary: dict[str, object]) -> str:
 | Difference from derived 1991-2020 reference | **{summary['anomaly_vs_1991_2020_c']:+.2f}°C** |
 | August-to-July rank | **{summary['rank_among_august_to_july_periods']}** |
 
-{note} The record ranking is robust because July would only need to average {summary['july_2026_mean_needed_to_break_previous_august_to_july_record_c']:.2f}°C to exceed the previous August-to-July high.
+The exact July Wales area-average is not yet present in the monthly source series. The value above is an **illustrative scenario**, not a Met Office estimate or a confidence interval. The record ranking is nevertheless robust because July would only need to average {summary['july_2026_mean_needed_to_break_previous_august_to_july_record_c']:.2f}°C to exceed the previous August-to-July high.
 {RESULT_END}"""
 
 
@@ -304,8 +319,7 @@ def update_readme(summary: dict[str, object], path: Path = README_PATH) -> None:
     pattern = re.compile(re.escape(RESULT_START) + r".*?" + re.escape(RESULT_END), re.DOTALL)
     if not pattern.search(text):
         raise ValueError("README does not contain generated-result markers")
-    updated = pattern.sub(replacement, text)
-    path.write_text(updated if updated.endswith("\n") else updated + "\n", encoding="utf-8")
+    path.write_text(pattern.sub(replacement, text) + ("" if text.endswith("\n") else "\n"), encoding="utf-8")
 
 
 def run(
@@ -352,7 +366,7 @@ def run(
     max_annual_difference = float(reconciliation["absolute_difference_c"].max()) if not reconciliation.empty else None
     summary: dict[str, object] = {
         "analysis_status": status,
-        "source": SERIES_URL,
+        "source": SERIES _URL,
         "source_path": str(bundle.path.relative_to(PROJECT_DIR)) if bundle.path.is_relative_to(PROJECT_DIR) else str(bundle.path),
         "source_snapshot_kind": bundle.snapshot_kind,
         "source_snapshot_sha256": sha256(bundle.path),

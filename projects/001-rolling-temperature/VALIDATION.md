@@ -81,6 +81,31 @@ The project follows the UK statistical system's RAP principles by using:
 - an independent executable verification path;
 - clear separation of official, derived and provisional claims.
 
+## Verification run, 1 August 2026
+
+The project was rerun end to end against an exact-byte download of the public Met Office Wales series.
+
+| Item | Verified value |
+|---|---|
+| Source last updated | `01-Jul-2026 11:33` |
+| Exact source SHA-256 | `f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3` |
+| Published monthly coverage | January 1884 to June 2026 |
+| Complete years reconciled | 142 |
+| Maximum absolute difference from official annual column | **0.02192°C** |
+| Primary and independent period mean agreement | **Pass** |
+| Primary and independent historical rank agreement | **Pass** |
+| Primary and independent break-even July agreement | **Pass** |
+| Automated tests | **9 passed** |
+
+The two implementations produced the same practical result:
+
+- illustrative 18.0°C July scenario: **10.6268493151°C**;
+- rank among August-to-July periods: **1st**;
+- previous high: **10.3150684932°C**, August 2006 to July 2007;
+- July value required to exceed it: **14.3290322581°C**.
+
+The independent implementation uses Python's standard library and `Decimal`. It imports none of the pandas analysis functions. Differences at the last floating-point digits are below `3 × 10⁻¹⁴°C` and arise only from binary floating-point representation.
+
 ## Current status
 
-The validation workflow runs on every pull request and push. Its machine-readable verifier output and exact online source download are retained as workflow artifacts. Once the exact upstream snapshot is committed, this record will include the final source hash, maximum annual reconciliation difference and validation commit.
+The exact upstream snapshot and its manifest are retained in the repository. The validation workflow runs on every pull request and push, downloads the current upstream file again, reruns both implementations and retains the evidence as a workflow artifact.
