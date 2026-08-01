@@ -2,6 +2,14 @@
 
 This is an additional visualization for Project 001, following the warming-stripes model created by Professor Ed Hawkins at the University of Reading.
 
+## Pure stripes
+
+![Wales calendar-year warming stripes, 1884 to 2025](figures/wales_calendar_year_warming_stripes.png)
+
+## Labelled version
+
+![Labelled Wales calendar-year warming stripes, 1884 to 2025](figures/wales_calendar_year_warming_stripes_labelled.png)
+
 ## What each stripe means
 
 Each vertical stripe represents one **calendar year** in the official Met Office Wales annual mean-temperature series, from 1884 through the latest complete published calendar year.
