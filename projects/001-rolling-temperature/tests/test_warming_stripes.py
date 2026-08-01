@@ -64,9 +64,16 @@ def test_climate_stripes_and_bars_outputs_are_generated(tmp_path: Path) -> None:
     assert "Professor Ed Hawkins" in labelled_svg
     assert "University of Reading" in labelled_svg
     assert "1961–2010" in labelled_svg
+    assert "Difference from 1961–2010 Wales average" in labelled_svg
+    assert "Cooler" in labelled_svg
+    assert "Warmer" in labelled_svg
+    assert "Each stripe is one year" in labelled_svg
 
     bars_scale_svg = outputs.bars_with_scale_svg.read_text(encoding="utf-8")
     assert "WALES ANNUAL TEMPERATURE BARS" in bars_scale_svg
     assert "Difference from 1961–2010 average" in bars_scale_svg
-    assert "Blue bars are cooler" in bars_scale_svg
+    assert "One bar per calendar year" in bars_scale_svg
+    assert "Cooler than 1961–2010 average" in bars_scale_svg
+    assert "Warmer than 1961–2010 average" in bars_scale_svg
+    assert "Bars below zero" in bars_scale_svg
     assert "Professor Ed Hawkins" in bars_scale_svg
