@@ -35,7 +35,7 @@ def test_prepare_stripe_data_centres_reference_period() -> None:
     assert data["reference_period"].iloc[0] == "1961–2010"
 
 
-def test_warming_stripes_outputs_are_generated(tmp_path: Path) -> None:
+def test_climate_stripes_and_bars_outputs_are_generated(tmp_path: Path) -> None:
     annual_path = tmp_path / "annual.csv"
     _annual_fixture().to_csv(annual_path, index=False)
 
@@ -43,23 +43,30 @@ def test_warming_stripes_outputs_are_generated(tmp_path: Path) -> None:
         annual_path,
         pure_output_base=tmp_path / "pure",
         labelled_output_base=tmp_path / "labelled",
+        bars_output_base=tmp_path / "bars",
+        bars_scale_output_base=tmp_path / "bars_with_scale",
         data_output_path=tmp_path / "stripe_data.csv",
     )
 
-    for path in (
-        outputs.pure_png,
-        outputs.pure_svg,
-        outputs.labelled_png,
-        outputs.labelled_svg,
-        outputs.data_csv,
-    ):
+    for path in outputs.__dict__.values():
         assert path.exists()
 
-    assert mpimg.imread(outputs.pure_png).shape[:2] == (900, 1600)
-    assert mpimg.imread(outputs.labelled_png).shape[:2] == (900, 1600)
+    for path in (
+        outputs.pure_png,
+        outputs.labelled_png,
+        outputs.bars_png,
+        outputs.bars_with_scale_png,
+    ):
+        assert mpimg.imread(path).shape[:2] == (900, 1600)
 
     labelled_svg = outputs.labelled_svg.read_text(encoding="utf-8")
     assert "WALES WARMING STRIPES" in labelled_svg
     assert "Professor Ed Hawkins" in labelled_svg
     assert "University of Reading" in labelled_svg
     assert "1961–2010" in labelled_svg
+
+    bars_scale_svg = outputs.bars_with_scale_svg.read_text(encoding="utf-8")
+    assert "WALES ANNUAL TEMPERATURE BARS" in bars_scale_svg
+    assert "Difference from 1961–2010 average" in bars_scale_svg
+    assert "Blue bars are cooler" in bars_scale_svg
+    assert "Professor Ed Hawkins" in bars_scale_svg

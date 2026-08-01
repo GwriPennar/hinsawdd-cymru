@@ -1,7 +1,7 @@
-"""Render Wales calendar-year warming stripes from validated Met Office data.
+"""Render Wales calendar-year warming stripes and bars from validated data.
 
-The visual approach follows Professor Ed Hawkins' warming-stripes model at the
-University of Reading: one vertical stripe per calendar year, coloured by the
+The visual approach follows Professor Ed Hawkins' climate-stripes model at the
+University of Reading: one vertical mark per calendar year, coloured by the
 annual temperature anomaly relative to the 1961–2010 mean.
 
 This module uses the official annual values already retained in
@@ -27,6 +27,8 @@ ANNUAL_PATH = DERIVED_DIR / "annual_reconciliation.csv"
 OUTPUT_DATA_PATH = DERIVED_DIR / "wales_calendar_year_warming_stripes.csv"
 PURE_OUTPUT_BASE = FIGURES_DIR / "wales_calendar_year_warming_stripes"
 LABELLED_OUTPUT_BASE = FIGURES_DIR / "wales_calendar_year_warming_stripes_labelled"
+BARS_OUTPUT_BASE = FIGURES_DIR / "wales_calendar_year_temperature_bars"
+BARS_SCALE_OUTPUT_BASE = FIGURES_DIR / "wales_calendar_year_temperature_bars_with_scale"
 
 REFERENCE_START = 1961
 REFERENCE_END = 2010
@@ -40,6 +42,10 @@ class StripeOutputs:
     pure_svg: Path
     labelled_png: Path
     labelled_svg: Path
+    bars_png: Path
+    bars_svg: Path
+    bars_with_scale_png: Path
+    bars_with_scale_svg: Path
     data_csv: Path
 
 
@@ -90,9 +96,35 @@ def prepare_stripe_data(
 
 
 def _stripe_colormap() -> ListedColormap:
-    """Return a restrained 16-step blue-to-red warming-stripes palette."""
+    """Return a restrained 16-step blue-to-red climate-stripes palette."""
 
     return ListedColormap(sns.color_palette("RdBu_r", 16).as_hex())
+
+
+def _colour_scale(data: pd.DataFrame) -> tuple[ListedColormap, TwoSlopeNorm]:
+    anomalies = data["temperature_anomaly_c"].to_numpy(dtype=float)
+    colour_limit = float(np.max(np.abs(anomalies)))
+    if colour_limit == 0:
+        colour_limit = 1.0
+    return (
+        _stripe_colormap(),
+        TwoSlopeNorm(vmin=-colour_limit, vcenter=0.0, vmax=colour_limit),
+    )
+
+
+def _save_figure(
+    fig: plt.Figure,
+    output_base: Path,
+    *,
+    dpi: int = 100,
+) -> tuple[Path, Path]:
+    output_base.parent.mkdir(parents=True, exist_ok=True)
+    png_path = output_base.with_suffix(".png")
+    svg_path = output_base.with_suffix(".svg")
+    fig.savefig(png_path, dpi=dpi, facecolor="white")
+    fig.savefig(svg_path, facecolor="white")
+    plt.close(fig)
+    return png_path, svg_path
 
 
 def _save_stripes(
@@ -104,12 +136,7 @@ def _save_stripes(
     """Save one-stripe-per-year PNG and SVG files."""
 
     anomalies = data["temperature_anomaly_c"].to_numpy(dtype=float)
-    colour_limit = float(np.max(np.abs(anomalies)))
-    if colour_limit == 0:
-        colour_limit = 1.0
-
-    norm = TwoSlopeNorm(vmin=-colour_limit, vcenter=0.0, vmax=colour_limit)
-    cmap = _stripe_colormap()
+    cmap, norm = _colour_scale(data)
 
     dpi = 100
     fig = plt.figure(
@@ -183,7 +210,7 @@ def _save_stripes(
             0.06,
             0.04,
             (
-                "Warming-stripes design: Professor Ed Hawkins, University of Reading "
+                "Climate-stripes design: Professor Ed Hawkins, University of Reading "
                 "(CC BY 4.0). Reproduction: Hinsawdd Cymru."
             ),
             fontsize=10,
@@ -191,13 +218,127 @@ def _save_stripes(
             va="bottom",
         )
 
-    output_base.parent.mkdir(parents=True, exist_ok=True)
-    png_path = output_base.with_suffix(".png")
-    svg_path = output_base.with_suffix(".svg")
-    fig.savefig(png_path, dpi=dpi, facecolor="white")
-    fig.savefig(svg_path, facecolor="white")
-    plt.close(fig)
-    return png_path, svg_path
+    return _save_figure(fig, output_base, dpi=dpi)
+
+
+def _save_bars(
+    data: pd.DataFrame,
+    output_base: Path,
+    *,
+    with_scale: bool,
+) -> tuple[Path, Path]:
+    """Save variable-height annual anomaly bars, with or without chart furniture."""
+
+    years = data["year"].to_numpy(dtype=int)
+    anomalies = data["temperature_anomaly_c"].to_numpy(dtype=float)
+    cmap, norm = _colour_scale(data)
+    colours = cmap(norm(anomalies))
+
+    max_abs = float(np.max(np.abs(anomalies)))
+    y_limit = max(0.5, np.ceil((max_abs + 0.05) * 10) / 10)
+    first_year = int(years.min())
+    last_year = int(years.max())
+    reference = str(data["reference_period"].iloc[0])
+
+    dpi = 100
+    fig = plt.figure(
+        figsize=(IMAGE_WIDTH_PX / dpi, IMAGE_HEIGHT_PX / dpi),
+        dpi=dpi,
+        facecolor="white",
+    )
+
+    if with_scale:
+        ax = fig.add_axes([0.09, 0.20, 0.86, 0.63])
+    else:
+        ax = fig.add_axes([0.025, 0.025, 0.95, 0.95])
+
+    ax.bar(
+        years,
+        anomalies,
+        width=1.0,
+        align="center",
+        color=colours,
+        edgecolor=colours,
+        linewidth=0,
+    )
+    ax.axhline(0.0, color="#30343b", linewidth=1.0, zorder=3)
+    ax.set_xlim(first_year - 0.5, last_year + 0.5)
+    ax.set_ylim(-y_limit, y_limit)
+
+    if with_scale:
+        tick_years = [first_year]
+        tick_years.extend(
+            range(((first_year + 19) // 20) * 20, last_year + 1, 20)
+        )
+        if tick_years[-1] != last_year:
+            tick_years.append(last_year)
+        tick_years = sorted(set(tick_years))
+
+        ax.set_xticks(tick_years)
+        ax.set_xlabel("Calendar year", fontsize=12, labelpad=10)
+        ax.set_ylabel(
+            f"Difference from {reference} average (°C)",
+            fontsize=12,
+            labelpad=10,
+        )
+        ax.tick_params(axis="both", labelsize=10)
+        ax.yaxis.grid(True, color="#d7dbe0", linewidth=0.8, alpha=0.8)
+        ax.xaxis.grid(False)
+        ax.set_axisbelow(True)
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.spines[["left", "bottom"]].set_color("#8a9099")
+
+        fig.text(
+            0.09,
+            0.93,
+            "WALES ANNUAL TEMPERATURE BARS",
+            fontsize=27,
+            fontweight="bold",
+            ha="left",
+            va="top",
+        )
+        fig.text(
+            0.09,
+            0.875,
+            (
+                f"Annual mean temperature difference from the {reference} average, "
+                f"{first_year}–{last_year}"
+            ),
+            fontsize=15,
+            ha="left",
+            va="top",
+        )
+        fig.text(
+            0.09,
+            0.105,
+            "Blue bars are cooler than the reference average; red bars are warmer.",
+            fontsize=10.5,
+            ha="left",
+            va="bottom",
+        )
+        fig.text(
+            0.09,
+            0.065,
+            "Data: UK Met Office Wales annual mean temperature series.",
+            fontsize=9.5,
+            ha="left",
+            va="bottom",
+        )
+        fig.text(
+            0.09,
+            0.035,
+            (
+                "Climate-stripes model: Professor Ed Hawkins, University of Reading "
+                "(CC BY 4.0). Reproduction: Hinsawdd Cymru."
+            ),
+            fontsize=9.5,
+            ha="left",
+            va="bottom",
+        )
+    else:
+        ax.set_axis_off()
+
+    return _save_figure(fig, output_base, dpi=dpi)
 
 
 def generate_warming_stripes(
@@ -205,9 +346,11 @@ def generate_warming_stripes(
     *,
     pure_output_base: Path = PURE_OUTPUT_BASE,
     labelled_output_base: Path = LABELLED_OUTPUT_BASE,
+    bars_output_base: Path = BARS_OUTPUT_BASE,
+    bars_scale_output_base: Path = BARS_SCALE_OUTPUT_BASE,
     data_output_path: Path = OUTPUT_DATA_PATH,
 ) -> StripeOutputs:
-    """Create pure and labelled Wales calendar-year warming-stripes outputs."""
+    """Create stripes, anomaly bars and their labelled Wales outputs."""
 
     if not annual_path.exists():
         raise FileNotFoundError(
@@ -225,11 +368,25 @@ def generate_warming_stripes(
         labelled_output_base,
         labelled=True,
     )
+    bars_png, bars_svg = _save_bars(
+        data,
+        bars_output_base,
+        with_scale=False,
+    )
+    bars_with_scale_png, bars_with_scale_svg = _save_bars(
+        data,
+        bars_scale_output_base,
+        with_scale=True,
+    )
     return StripeOutputs(
         pure_png=pure_png,
         pure_svg=pure_svg,
         labelled_png=labelled_png,
         labelled_svg=labelled_svg,
+        bars_png=bars_png,
+        bars_svg=bars_svg,
+        bars_with_scale_png=bars_with_scale_png,
+        bars_with_scale_svg=bars_with_scale_svg,
         data_csv=data_output_path,
     )
 
