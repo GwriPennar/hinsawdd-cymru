@@ -28,6 +28,8 @@ jobs:
         run: python projects/001-rolling-temperature/analysis.py --no-update-readme
       - name: Build square social chart
         run: python projects/001-rolling-temperature/social_chart.py
+      - name: Build Wales warming stripes
+        run: python projects/001-rolling-temperature/warming_stripes.py
       - name: Independent verification
         shell: bash
         run: |
@@ -67,6 +69,7 @@ jobs:
 
           python projects/001-rolling-temperature/analysis.py --source "$STABLE"
           python projects/001-rolling-temperature/social_chart.py
+          python projects/001-rolling-temperature/warming_stripes.py
           python projects/001-rolling-temperature/verify.py \
             --source "$STABLE" \
             --manifest "$STABLE_MANIFEST" \
