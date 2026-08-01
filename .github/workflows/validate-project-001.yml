@@ -20,44 +20,31 @@ jobs:
           cache: pip
       - name: Install
         run: python -m pip install -e ".[dev]"
+      - name: Fetch exact upstream source
+        run: python projects/001-rolling-temperature/fetch_source.py --output-dir projects/001-rolling-temperature/data/raw
       - name: Unit and integration tests
         run: pytest -q
       - name: Rebuild primary outputs
         run: python projects/001-rolling-temperature/analysis.py --no-update-readme
-      - name: Independent offline verification
+      - name: Independent verification
         shell: bash
         run: |
           SOURCE=$(find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*.txt' | sort | tail -1)
-          if [ -z "$SOURCE" ]; then
-            SOURCE=projects/001-rolling-temperature/data/raw/wales_tmean_monthly_2026-07-01.txt
-            MANIFEST_ARGS=()
-          else
-            MANIFEST="${SOURCE%.txt}.provenance.json"
-            MANIFEST_ARGS=(--manifest "$MANIFEST" --require-annual)
-          fi
-          python projects/001-rolling-temperature/verify.py \
-            --source "$SOURCE" \
-            "${MANIFEST_ARGS[@]}" \
-            --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
-            --json-out build/offline-verification.json
-      - name: Fetch exact upstream source
-        run: python projects/001-rolling-temperature/fetch_source.py --output-dir build/upstream
-      - name: Verify current upstream source independently
-        shell: bash
-        run: |
-          SOURCE=$(find build/upstream -name '*.txt' | head -1)
           MANIFEST="${SOURCE%.txt}.provenance.json"
           python projects/001-rolling-temperature/verify.py \
             --source "$SOURCE" \
             --manifest "$MANIFEST" \
             --require-annual \
-            --json-out build/upstream-verification.json
+            --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
+            --json-out build/independent-verification.json
       - name: Upload validation evidence
         uses: actions/upload-artifact@v4
         with:
           name: project-001-validation-evidence
           path: |
             build/
+            projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-retrieved-*.txt
+            projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-retrieved-*.provenance.json
             projects/001-rolling-temperature/data/derived/
             projects/001-rolling-temperature/figures/
           if-no-files-found: error
