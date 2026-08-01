@@ -19,16 +19,81 @@
     10.652328767123288
   ],
   "rank_among_august_to_july_periods": 1,
+  "august_to_july_period_count": 142,
   "previous_august_to_july_record": {
     "period": "2006-08 to 2007-07",
     "mean_temperature_c": 10.315068493150687
   },
+  "margin_over_previous_record_c": 0.31178082191780554,
   "july_2026_mean_needed_to_break_previous_august_to_july_record_c": 14.32903225806454,
   "anomaly_vs_1961_1990_c": 2.0193150684931496,
   "anomaly_vs_1991_2020_c": 1.2084931506849301,
   "derived_reference_1961_1990_c": 8.607534246575343,
   "derived_reference_1991_2020_c": 9.418356164383562,
+  "trailing_10_period_mean_c": 10.017622127404746,
   "rank_among_all_monthly_start_12_month_windows": 4,
+  "top_august_to_july_periods": [
+    {
+      "rank": 1,
+      "period": "2025-08 to 2026-07",
+      "mean_temperature_c": 10.626849315068492,
+      "status": "illustrative scenario"
+    },
+    {
+      "rank": 2,
+      "period": "2006-08 to 2007-07",
+      "mean_temperature_c": 10.315068493150687,
+      "status": "published inputs"
+    },
+    {
+      "rank": 3,
+      "period": "2023-08 to 2024-07",
+      "mean_temperature_c": 10.293442622950819,
+      "status": "published inputs"
+    },
+    {
+      "rank": 4,
+      "period": "2021-08 to 2022-07",
+      "mean_temperature_c": 10.273698630136986,
+      "status": "published inputs"
+    },
+    {
+      "rank": 5,
+      "period": "2022-08 to 2023-07",
+      "mean_temperature_c": 10.22109589041096,
+      "status": "published inputs"
+    },
+    {
+      "rank": 6,
+      "period": "2024-08 to 2025-07",
+      "mean_temperature_c": 10.206301369863013,
+      "status": "published inputs"
+    },
+    {
+      "rank": 7,
+      "period": "2013-08 to 2014-07",
+      "mean_temperature_c": 10.107397260273974,
+      "status": "published inputs"
+    },
+    {
+      "rank": 8,
+      "period": "2016-08 to 2017-07",
+      "mean_temperature_c": 10.020000000000001,
+      "status": "published inputs"
+    },
+    {
+      "rank": 9,
+      "period": "1997-08 to 1998-07",
+      "mean_temperature_c": 9.904383561643835,
+      "status": "published inputs"
+    },
+    {
+      "rank": 10,
+      "period": "2015-08 to 2016-07",
+      "mean_temperature_c": 9.830054644808744,
+      "status": "published inputs"
+    }
+  ],
   "annual_reconciliation_years": 142,
   "annual_reconciliation_max_abs_difference_c": 0.021917808219177104,
   "precision_note": "Derived from monthly values rounded to 0.1\u00b0C; report headline values to 0.01\u00b0C and anomalies approximately."
