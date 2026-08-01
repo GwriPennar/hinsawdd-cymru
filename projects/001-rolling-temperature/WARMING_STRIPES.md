@@ -10,11 +10,16 @@ Each asset is generated from the same validated official Met Office Wales annual
 
 The pure version deliberately removes words, numbers and axes. Each vertical stripe represents one calendar year.
 
-## Labelled warming stripes
+## Explained warming stripes
 
-<a href="figures/wales_calendar_year_warming_stripes_labelled.png"><img src="figures/wales_calendar_year_warming_stripes_labelled.png" alt="Labelled Wales calendar-year warming stripes, 1884 to 2025" width="100%"></a>
+<a href="figures/wales_calendar_year_warming_stripes_labelled.png"><img src="figures/wales_calendar_year_warming_stripes_labelled.png" alt="Explained Wales calendar-year warming stripes with temperature-anomaly colour scale, 1884 to 2025" width="100%"></a>
 
-This version keeps the stripes but adds the date range, a plain-language explanation, data source and attribution.
+This version keeps the stripes and adds:
+
+- a title and date range;
+- the first and last calendar years;
+- a horizontal Celsius colour scale showing cooler to warmer annual differences;
+- a short interpretation, data source and attribution.
 
 ## Temperature bars
 
@@ -22,11 +27,18 @@ This version keeps the stripes but adds the date range, a plain-language explana
 
 The bars use the same colours and data as the stripes, but their height also shows how far each year was above or below the reference average. This is the minimal bars version, without axes or labels.
 
-## Temperature bars with scale
+## Explained temperature bars
 
-<a href="figures/wales_calendar_year_temperature_bars_with_scale.png"><img src="figures/wales_calendar_year_temperature_bars_with_scale.png" alt="Wales annual temperature anomaly bars with a Celsius scale, 1884 to 2025" width="100%"></a>
+<a href="figures/wales_calendar_year_temperature_bars_with_scale.png"><img src="figures/wales_calendar_year_temperature_bars_with_scale.png" alt="Explained Wales annual temperature anomaly bars with Celsius scale and legend, 1884 to 2025" width="100%"></a>
 
-This version adds a zero line, calendar-year labels and a Celsius scale. It is the clearest asset for readers who want to see both the direction and the size of the annual differences.
+This version adds:
+
+- a title and date range;
+- a zero line, calendar-year labels and Celsius axis;
+- a cooler-than-average and warmer-than-average legend;
+- a short interpretation, data source and attribution.
+
+It is the clearest asset for readers who want to see both the direction and the size of the annual differences.
 
 ## What the colours and bars mean
 
