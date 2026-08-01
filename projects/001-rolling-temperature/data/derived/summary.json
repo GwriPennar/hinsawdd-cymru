@@ -1,11 +1,14 @@
 {
-  "analysis_status": "provisional",
+  "analysis_status": "provisional-scenario",
   "source": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/Wales.txt",
-  "source_snapshot_sha256": "8dc3a404ab9cb7e231ec3192e188ab52ec66fa2e3bd66ed3766a32300237e276",
-  "source_last_updated": "2026-07-01 11:33",
-  "met_office_july_early_look": "https://www.metoffice.gov.uk/about-us/news-and-media/media-centre/weather-and-climate-news/2026/an-early-look-at-the-july-statistics-just-how-dry-has-it-been-",
+  "source_path": "data/raw/metoffice-wales-tmean-source-2026-07-01.txt",
+  "source_snapshot_kind": "exact_upstream_snapshot",
+  "source_snapshot_sha256": "f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3",
+  "source_last_updated": "01-Jul-2026 11:33",
+  "source_provenance_manifest": "data/raw/metoffice-wales-tmean-source-2026-07-01.provenance.json",
   "period": "2025-08-01 to 2026-07-31",
   "july_2026_value_used_c": 18.0,
+  "july_2026_value_kind": "illustrative_scenario",
   "july_2026_scenario_range_c": [
     17.8,
     18.3
@@ -21,10 +24,12 @@
     "mean_temperature_c": 10.315068493150687
   },
   "july_2026_mean_needed_to_break_previous_august_to_july_record_c": 14.32903225806454,
-  "anomaly_vs_1961_1990_c": 2.0190934752254783,
-  "anomaly_vs_1991_2020_c": 1.2084014818643887,
-  "baseline_1961_1990_c": 8.607755839843014,
-  "baseline_1991_2020_c": 9.418447833204104,
+  "anomaly_vs_1961_1990_c": 2.0193150684931496,
+  "anomaly_vs_1991_2020_c": 1.2084931506849301,
+  "derived_reference_1961_1990_c": 8.607534246575343,
+  "derived_reference_1991_2020_c": 9.418356164383562,
   "rank_among_all_monthly_start_12_month_windows": 4,
-  "precision_note": "Derived from published monthly values rounded to 0.1°C; figures may differ by hundredths from calculations using unrounded grids."
+  "annual_reconciliation_years": 142,
+  "annual_reconciliation_max_abs_difference_c": 0.021917808219177104,
+  "precision_note": "Derived from monthly values rounded to 0.1\u00b0C; report headline values to 0.01\u00b0C and anomalies approximately."
 }

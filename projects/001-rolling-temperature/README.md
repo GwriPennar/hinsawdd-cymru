@@ -17,7 +17,7 @@
 | Difference from derived 1991-2020 reference | **+1.21°C** |
 | August-to-July rank | **1** |
 
-The exact July Wales area-average is not yet present in the monthly source series. The value above is an **illustrative scenario**, not a Met Office estimate or a confidence interval. The record ranking is nevertheless robust because July would only need to average 14.33°C to exceed the previous August-to-July high.
+The exact July Wales area-average is not yet present in the source. This is an **illustrative scenario**, not a Met Office estimate or confidence interval. The ranking is robust because July need only average 14.33°C to exceed the previous high.
 <!-- END GENERATED RESULT -->
 
 ![Wales August-to-July mean temperature chart](figures/wales_august_to_july_mean_temperature_provisional.svg)
