@@ -1,0 +1,30 @@
+{
+  "analysis_status": "provisional",
+  "source": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/Wales.txt",
+  "source_snapshot_sha256": "8dc3a404ab9cb7e231ec3192e188ab52ec66fa2e3bd66ed3766a32300237e276",
+  "source_last_updated": "2026-07-01 11:33",
+  "met_office_july_early_look": "https://www.metoffice.gov.uk/about-us/news-and-media/media-centre/weather-and-climate-news/2026/an-early-look-at-the-july-statistics-just-how-dry-has-it-been-",
+  "period": "2025-08-01 to 2026-07-31",
+  "july_2026_value_used_c": 18.0,
+  "july_2026_scenario_range_c": [
+    17.8,
+    18.3
+  ],
+  "period_mean_central_c": 10.626849315068492,
+  "period_mean_scenario_range_c": [
+    10.60986301369863,
+    10.652328767123288
+  ],
+  "rank_among_august_to_july_periods": 1,
+  "previous_august_to_july_record": {
+    "period": "2006-08 to 2007-07",
+    "mean_temperature_c": 10.315068493150687
+  },
+  "july_2026_mean_needed_to_break_previous_august_to_july_record_c": 14.32903225806454,
+  "anomaly_vs_1961_1990_c": 2.0190934752254783,
+  "anomaly_vs_1991_2020_c": 1.2084014818643887,
+  "baseline_1961_1990_c": 8.607755839843014,
+  "baseline_1991_2020_c": 9.418447833204104,
+  "rank_among_all_monthly_start_12_month_windows": 4,
+  "precision_note": "Derived from published monthly values rounded to 0.1°C; figures may differ by hundredths from calculations using unrounded grids."
+}

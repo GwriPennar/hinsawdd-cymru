@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="714.24pt" height="358.229922pt" viewBox="0 0 714.24 358.229922" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-08-01T12:10:36.546669</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator><cc:Agent><dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title></cc:Agent></dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs><style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style></defs>
+ <g id="figure_1">
+  <g id="patch_1"><path d="M 0 358.229922 L 714.24 358.229922 L 714.24 0 L 0 0 z" style="fill: #ffffff"/></g>
+  <g id="axes_1">
+   <g id="patch_2"><path d="M 63.72 288.658125 L 707.04 288.658125 L 707.04 22.318125 L 63.72 22.318125 z" style="fill: #ffffff"/></g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1"><g id="text_1"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="72.22294" y="306.516406">1880</text></g></g>
+    <g id="xtick_2"><g id="text_2"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="155.178453" y="306.516406">1900</text></g></g>
+    <g id="xtick_3"><g id="text_3"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="238.133965" y="306.516406">1920</text></g></g>
+    <g id="xtick_4"><g id="text_4"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="321.089478" y="306.516406">1940</text></g></g>
+    <g id="xtick_5"><g id="text_5"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="404.04499" y="306.516406">1960</text></g></g>
+    <g id="xtick_6"><g id="text_6"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="487.000503" y="306.516406">1980</text></g></g>
+    <g id="xtick_7"><g id="text_7"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="569.956015" y="306.516406">2000</text></g></g>
+    <g id="xtick_8"><g id="text_8"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="652.911528" y="306.516406">2020</text></g></g>
+    <g id="text_9"><text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="385.38" y="321.922187">Period end year</text></g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1"><g id="text_10"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="279.845071">7.0</text></g></g>
+    <g id="ytick_2"><g id="text_11"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="247.364583">7.5</text></g></g>
+    <g id="ytick_3"><g id="text_12"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="214.884095">8.0</text></g></g>
+    <g id="ytick_4"><g id="text_13"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="182.403607">8.5</text></g></g>
+    <g id="ytick_5"><g id="text_14"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="149.923119">9.0</text></g></g>
+    <g id="ytick_6"><g id="text_15"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="117.442631">9.5</text></g></g>
+    <g id="ytick_7"><g id="text_16"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="84.962144">10.0</text></g></g>
+    <g id="ytick_8"><g id="text_17"><text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="54.22" y="52.481656">10.5</text></g></g>
+    <g id="text_18"><text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="23.232188" y="155.488125" transform="rotate(-90 23.232188 155.488125)">Mean temperature (°C)</text></g>
+   </g>
+   <g id="line2d_1"><path d="M 92.961818 195.666034 L 97.109594 256.782749 L 101.257369 199.919678 L 105.405145 275.470722 L 109.552921 196.805059 L 113.700696 192.693874 L 117.848472 232.756087 L 121.996248 224.229635 L 126.144023 160.195587 L 130.291799 163.114349 L 134.439574 231.492466 L 138.58735 136.780793 L 142.735126 214.976333 L 151.030677 118.584964 L 155.178453 174.00642 L 159.326228 169.361321 L 163.474004 210.509162 L 167.621779 185.966386 L 171.769555 196.754325 L 175.917331 174.451403 L 180.065106 217.823963 L 184.212882 189.187735 L 188.360658 185.306252 L 192.508433 185.85959 L 196.656209 184.720564 L 200.803985 161.227817 L 204.95176 129.326261 L 209.099536 186.322372 L 213.247311 123.372458 L 217.395087 167.706115 L 221.542863 197.695025 L 225.690638 218.055354 L 229.838414 171.212254 L 233.98619 198.371269 L 238.133965 176.840083 L 242.281741 127.412511 L 246.429516 168.48922 L 250.577292 179.078768 L 254.725068 211.290642 L 258.872843 145.530387 L 263.020619 172.048756 L 267.168395 170.197758 L 271.31617 173.769508 L 275.463946 205.917395 L 279.611721 165.392465 L 283.759497 182.994226 L 287.907273 185.519259 L 292.055048 141.276807 L 296.202824 162.598234 L 300.3506 131.078844 L 304.498375 187.666869 L 308.646151 150.424742 L 312.793926 160.51591 L 316.941702 140.778492 L 325.237253 206.842894 L 329.385029 171.977559 L 333.532805 118.602763 L 337.68058 156.979044 L 341.828356 153.112177 L 345.976132 147.8975 L 350.123907 210.17104 L 354.271683 115.57084 L 358.419458 119.474799 L 362.567234 105.539371 L 366.71501 221.436832 L 370.862785 141.892442 L 375.010561 199.296768 L 379.158337 162.29571 L 383.306112 180.627113 L 387.453888 170.7522 L 391.601663 126.682804 L 395.749439 181.000899 L 399.897215 128.373609 L 404.04499 110.317186 L 412.340542 201.450224 L 416.488317 255.964046 L 420.636093 178.046993 L 424.783868 195.327912 L 428.931644 183.225552 L 433.07942 162.491438 L 437.227195 191.731347 L 441.374971 181.908533 L 445.522747 174.148815 L 449.670522 154.108809 L 453.818298 164.930528 L 457.966074 171.781767 L 462.113849 154.571526 L 466.261625 162.740628 L 470.4094 133.532744 L 474.557176 185.752794 L 478.704952 181.107694 L 482.852727 210.918546 L 487.000503 174.639205 L 491.148279 163.185546 L 495.296054 170.891866 L 499.44383 151.012054 L 503.591605 151.60112 L 511.887157 211.84398 L 516.034932 201.414625 L 520.182708 150.26994 L 524.330484 117.873057 L 528.478259 97.58386 L 532.626035 164.253439 L 536.77381 116.795549 L 540.921586 157.045434 L 545.069362 184.257847 L 549.217137 104.969858 L 553.364913 157.192051 L 557.512689 139.158885 L 561.660464 86.994312 L 565.80824 106.322476 L 569.956015 115.269096 L 574.103791 145.352459 L 578.251567 106.464805 L 582.399342 100.876407 L 586.547118 116.280798 L 590.694894 94.11332 L 594.842669 106.927587 L 598.990445 60.315878 L 603.138221 107.175608 L 607.285996 144.622752 L 615.581547 163.256743 L 619.729323 99.969552 L 623.877099 176.943046 L 628.024874 73.806389 L 632.17265 125.330187 L 636.320426 91.822796 L 640.468201 79.483784 L 644.615977 107.24791 L 648.763752 94.11332 L 652.911528 94.698164 L 657.059304 122.251232 L 661.207079 63.003249 L 665.354855 66.420391 L 669.502631 61.720659 L 673.650406 67.381489 L 677.798182 40.06228" clip-path="url(#p08c689a00a)" style="fill: none; stroke: #4c72b0; stroke-width: 1.1; stroke-linecap: round"/></g>
+   <g id="line2d_2"><path d="M 109.552921 224.928848 L 130.291799 209.763377 L 151.030677 184.035895 L 171.769555 180.396703 L 192.508433 188.922656 L 213.247311 173.759842 L 233.98619 173.800949 L 254.725068 181.615124 L 275.463946 173.057503 L 296.202824 170.52448 L 316.941702 160.824585 L 337.68058 160.172493 L 358.419458 157.748644 L 379.158337 157.668748 L 399.897215 161.789775 L 420.636093 168.753747 L 441.374971 181.478563 L 462.113849 173.422623 L 482.852727 169.359385 L 503.591605 168.53822 L 524.330484 167.277119 L 545.069362 158.137753 L 565.80824 131.457371 L 586.547118 117.888115 L 607.285996 109.739871 L 628.024874 118.17024 L 648.763752 116.654525 L 669.502631 90.609169" clip-path="url(#p08c689a00a)" style="fill: none; stroke: #dd8452; stroke-width: 2.5; stroke-linecap: round"/></g>
+   <g id="line2d_3"><path d="M 63.72 60.315878 L 707.04 60.315878" clip-path="url(#p08c689a00a)" style="fill: none; stroke-dasharray: 2.96,1.28; stroke: #4c72b0; stroke-width: 0.8"/></g>
+   <g id="patch_3"><path d="M 63.72 288.658125 L 63.72 22.318125" style="fill: none; stroke: #262626; stroke-width: 1.25"/></g>
+   <g id="patch_4"><path d="M 63.72 288.658125 L 707.04 288.658125" style="fill: none; stroke: #262626; stroke-width: 1.25"/></g>
+   <g id="text_19"><text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #262626" x="665.354855" y="34.215793">2025-26 provisional: 10.63°C</text></g>
+   <g id="text_20"><text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #262626" x="385.38" y="16.318125">Wales: August-to-July mean temperature</text></g>
+   <g id="PathCollection_1"><defs><path id="m230b9da76b" d="M 0 3.354102 C 1.852 3.354102 3.354102 1.852 3.354102 0 C 3.354102 -1.852 1.852 -3.354102 0 -3.354102 C -1.852 -3.354102 -3.354102 -1.852 -3.354102 0 C -3.354102 1.852 -1.852 3.354102 0 3.354102 z" style="stroke: #4c72b0"/></defs><g clip-path="url(#p08c689a00a)"><use xlink:href="#m230b9da76b" x="677.798182" y="40.06228" style="fill: #4c72b0; stroke: #4c72b0"/></g></g>
+  </g>
+  <g id="text_21"><text style="font-size: 6.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #262626" x="7.2" y="349.678125">Met Office Wales monthly HadUK-Grid series. Months weighted by days. July 2026 = 18.0°C provisional scenario.</text></g>
+ </g>
+ <defs><clipPath id="p08c689a00a"><rect x="63.72" y="22.318125" width="643.32" height="266.34"/></clipPath></defs>
+</svg>

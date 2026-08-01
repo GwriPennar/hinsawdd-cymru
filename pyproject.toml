@@ -1,0 +1,17 @@
+[project]
+name = "hinsawdd-cymru"
+version = "0.1.0"
+description = "Open and reproducible analysis of public weather and climate data for Wales"
+requires-python = ">=3.11"
+dependencies = [
+  "matplotlib>=3.8",
+  "pandas>=2.2",
+  "requests>=2.32",
+  "seaborn>=0.13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["projects/001-rolling-temperature/tests"]
