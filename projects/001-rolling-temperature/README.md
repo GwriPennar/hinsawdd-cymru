@@ -118,7 +118,6 @@ These are anomalies for one unusually warm 12-month period. They must not be res
 The final Wales July 2026 monthly area-average was not present in the retained Met Office source when this report was generated. The precise 10.63°C figure can therefore change by a few hundredths when July is published.
 
 The script automatically uses the published July value once it appears in the official monthly series. The retained source is never edited to insert a scenario.
-
 ## Data source and provenance
 
 The project uses the Met Office National Climate Information Centre's published monthly, seasonal and annual mean air-temperature series for Wales.
@@ -246,8 +245,11 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 python projects/001-rolling-temperature/analysis.py
+python projects/001-rolling-temperature/social_chart.py
 pytest
 ```
+
+`analysis.py` performs the calculation and produces the original full-width report figure. `social_chart.py` is a presentation-only extension: it reads the validated derived CSV and `summary.json`, then produces the square dark Seaborn version without recalculating the result.
 
 Run the independent verifier against the retained source:
 
@@ -275,6 +277,12 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 - [`METHODOLOGY.md`](METHODOLOGY.md), detailed observation-to-grid-to-analysis methodology
 - [`VALIDATION.md`](VALIDATION.md), end-to-end validation record and acceptance criteria
 
+### Analysis and figure code
+
+- [`analysis.py`](analysis.py), primary calculation, derived outputs and original report figure
+- [`social_chart.py`](social_chart.py), square dark social figure rendered from the validated derived outputs
+- [`verify.py`](verify.py), independent standard-library and `Decimal` verification
+
 ### Machine-readable results
 
 - [`data/derived/summary.json`](data/derived/summary.json), headline results and source provenance
@@ -287,8 +295,15 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 
 ### Graphics
 
-- [`figures/wales_august_to_july_mean_temperature_provisional.svg`](figures/wales_august_to_july_mean_temperature_provisional.svg), scalable public figure
+Original full-width report figure:
+
+- [`figures/wales_august_to_july_mean_temperature_provisional.svg`](figures/wales_august_to_july_mean_temperature_provisional.svg), scalable vector version
 - [`figures/wales_august_to_july_mean_temperature_provisional.png`](figures/wales_august_to_july_mean_temperature_provisional.png), high-resolution raster version
+
+Square dark social figure:
+
+- [`figures/wales_august_to_july_mean_temperature_square_dark.svg`](figures/wales_august_to_july_mean_temperature_square_dark.svg), scalable vector version
+- [`figures/wales_august_to_july_mean_temperature_square_dark.png`](figures/wales_august_to_july_mean_temperature_square_dark.png), 1080 × 1080 raster version
 
 ## Technical appendices
 
