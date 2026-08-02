@@ -1,0 +1,5 @@
+training_end_year,test_start_year,test_end_year,training_observations,actual_test_mean_anomaly_c,predicted_test_mean_anomaly_c,mean_anomaly_error_c,annual_mae_c,annual_rmse_c
+1990,1991,2000,21,-0.225655,-0.505894,-0.280240,0.434329,0.523081
+2000,2001,2010,31,0.075384,0.013133,-0.062251,0.363115,0.435814
+2010,2011,2020,41,0.121611,0.331112,0.209501,0.359604,0.509239
+2015,2016,2025,46,0.519587,0.293233,-0.226353,0.310605,0.351931
