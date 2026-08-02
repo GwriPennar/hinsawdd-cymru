@@ -55,6 +55,8 @@ jobs:
           cp "$SOURCE" "$TMP/source.txt"
           cp "$MANIFEST" "$TMP/provenance.json"
 
+          git reset --hard
+          git clean -fd
           git fetch origin "$HEAD_REF"
           git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
           find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*' -delete
