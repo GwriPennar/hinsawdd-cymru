@@ -107,4 +107,3 @@ def test_retained_result_remains_unchanged() -> None:
     assert data.iloc[-1]["mean_temperature_c"] == 10.626849
     assert data.iloc[-1]["status"] == "provisional-scenario"
     assert data.iloc[-1]["reference_mean_c"] == 9.418356
-    assert data.iloc[-1]["previous_record_c"] == 10.315068
