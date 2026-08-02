@@ -28,8 +28,10 @@ jobs:
         run: python projects/001-rolling-temperature/analysis.py --no-update-readme
       - name: Build square social chart
         run: python projects/001-rolling-temperature/social_chart.py
-      - name: Build Wales warming stripes
+      - name: Build Wales calendar-year warming stripes
         run: python projects/001-rolling-temperature/warming_stripes.py
+      - name: Build Wales August-to-July warming stripes
+        run: python projects/001-rolling-temperature/august_to_july_stripes.py
       - name: Independent verification
         shell: bash
         run: |
@@ -53,6 +55,8 @@ jobs:
           cp "$SOURCE" "$TMP/source.txt"
           cp "$MANIFEST" "$TMP/provenance.json"
 
+          git reset --hard
+          git clean -fd
           git fetch origin "$HEAD_REF"
           git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
           find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*' -delete
@@ -70,6 +74,7 @@ jobs:
           python projects/001-rolling-temperature/analysis.py --source "$STABLE"
           python projects/001-rolling-temperature/social_chart.py
           python projects/001-rolling-temperature/warming_stripes.py
+          python projects/001-rolling-temperature/august_to_july_stripes.py
           python projects/001-rolling-temperature/verify.py \
             --source "$STABLE" \
             --manifest "$STABLE_MANIFEST" \
@@ -79,10 +84,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add projects/001-rolling-temperature/README.md \
-            projects/001-rolling-temperature/data/raw \
-            projects/001-rolling-temperature/data/derived \
-            projects/001-rolling-temperature/figures
+          git add -A projects/001-rolling-temperature
           if ! git diff --cached --quiet; then
             git commit -m "Retain verified Met Office source and outputs"
             git push origin HEAD:"$HEAD_REF"

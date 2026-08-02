@@ -246,10 +246,12 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 python projects/001-rolling-temperature/analysis.py
 python projects/001-rolling-temperature/social_chart.py
+python projects/001-rolling-temperature/warming_stripes.py
+python projects/001-rolling-temperature/august_to_july_stripes.py
 pytest
 ```
 
-`analysis.py` performs the calculation and produces the original full-width report figure. `social_chart.py` is a presentation-only extension: it reads the validated derived CSV and `summary.json`, then produces the square dark Seaborn version without recalculating the result.
+`analysis.py` performs the scientific calculation and produces the original full-width report figure. The presentation modules read validated derived outputs without introducing a second scientific method: `social_chart.py` produces the square dark chart, `warming_stripes.py` retains the calendar-year stripes and bars, and `august_to_july_stripes.py` produces the additional complete August-to-July stripes and bars documented in [`WARMING_STRIPES.md`](WARMING_STRIPES.md).
 
 Run the independent verifier against the retained source:
 
@@ -281,6 +283,9 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 
 - [`analysis.py`](analysis.py), primary calculation, derived outputs and original report figure
 - [`social_chart.py`](social_chart.py), square dark social figure rendered from the validated derived outputs
+- [`warming_stripes.py`](warming_stripes.py), retained calendar-year stripes and temperature bars
+- [`august_to_july_stripes.py`](august_to_july_stripes.py), additional August-to-July stripes and temperature bars
+- [`WARMING_STRIPES.md`](WARMING_STRIPES.md), full-width previews and interpretation for both annual boundaries
 - [`verify.py`](verify.py), independent standard-library and `Decimal` verification
 
 ### Machine-readable results
@@ -291,6 +296,8 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 - [`data/derived/all_rolling_12_month_windows.csv`](data/derived/all_rolling_12_month_windows.csv), all complete monthly-start 12-month windows
 - [`data/derived/july_2026_sensitivity.csv`](data/derived/july_2026_sensitivity.csv), tested July scenarios
 - [`data/derived/annual_reconciliation.csv`](data/derived/annual_reconciliation.csv), reconstructed and official annual values
+- [`data/derived/wales_calendar_year_warming_stripes.csv`](data/derived/wales_calendar_year_warming_stripes.csv), calendar-year reference and anomalies used by the retained calendar graphics
+- [`data/derived/wales_august_to_july_warming_stripes.csv`](data/derived/wales_august_to_july_warming_stripes.csv), August-to-July reference, anomalies and published/provisional status used by the new graphics
 - [`data/derived/independent_verification.json`](data/derived/independent_verification.json), second-implementation verification result
 
 ### Graphics
@@ -304,6 +311,14 @@ Square dark social figure:
 
 - [`figures/wales_august_to_july_mean_temperature_square_dark.svg`](figures/wales_august_to_july_mean_temperature_square_dark.svg), scalable vector version
 - [`figures/wales_august_to_july_mean_temperature_square_dark.png`](figures/wales_august_to_july_mean_temperature_square_dark.png), 1080 × 1080 raster version
+
+Calendar-year and August-to-July warming stripes and temperature bars:
+
+- [`WARMING_STRIPES.md`](WARMING_STRIPES.md), full-width clickable previews of all retained PNG assets and links to their SVG counterparts
+- `figures/wales_august_to_july_warming_stripes.{png,svg}`
+- `figures/wales_august_to_july_warming_stripes_explained.{png,svg}`
+- `figures/wales_august_to_july_temperature_bars.{png,svg}`
+- `figures/wales_august_to_july_temperature_bars_explained.{png,svg}`
 
 ## Technical appendices
 
