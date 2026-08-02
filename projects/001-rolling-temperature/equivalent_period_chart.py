@@ -28,8 +28,6 @@ OUTPUT_CSV = DERIVED_DIR / "wales_august_to_july_temperature_line_chart.csv"
 WIDTH_PX = 1600
 HEIGHT_PX = 900
 DPI = 100
-REFERENCE_START_END_YEAR = 1991
-REFERENCE_END_END_YEAR = 2020
 TREND_BANDWIDTH_YEARS = 7.0
 
 VALUE_COLOUR = "#101a66"
@@ -117,13 +115,14 @@ def prepare_chart_data(
     values = chart["mean_temperature_c"].to_numpy(dtype=float)
     chart["smoothed_trend_c"] = gaussian_smooth(years, values)
 
-    reference_mask = chart["end_year"].between(
-        REFERENCE_START_END_YEAR,
-        REFERENCE_END_END_YEAR,
-    )
-    if int(reference_mask.sum()) != 30:
-        raise ValueError("Expected 30 August-to-July periods in the 1991-2020 reference")
-    reference_mean = float(chart.loc[reference_mask, "mean_temperature_c"].mean())
+    try:
+        reference_mean = float(summary["derived_reference_1991_2020_c"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError(
+            "summary.json must contain the validated derived_reference_1991_2020_c"
+        ) from exc
+    if not np.isfinite(reference_mean):
+        raise ValueError("The validated 1991-2020 reference must be finite")
 
     published = chart[chart["status"] == "published-inputs"]
     if published.empty:
@@ -205,8 +204,20 @@ def render_chart(
     source_last_updated = str(metadata["source_last_updated"])
 
     ax.axhline(reference, color=REFERENCE_COLOUR, linewidth=2.3, zorder=2)
-    ax.axhline(lowest, color=LOWEST_COLOUR, linewidth=2.3, linestyle=(0, (9, 6)), zorder=2)
-    ax.axhline(highest, color=HIGHEST_COLOUR, linewidth=2.3, linestyle=(0, (9, 6)), zorder=2)
+    ax.axhline(
+        lowest,
+        color=LOWEST_COLOUR,
+        linewidth=2.3,
+        linestyle=(0, (9, 6)),
+        zorder=2,
+    )
+    ax.axhline(
+        highest,
+        color=HIGHEST_COLOUR,
+        linewidth=2.3,
+        linestyle=(0, (9, 6)),
+        zorder=2,
+    )
     ax.axhline(latest, color=LATEST_COLOUR, linewidth=2.3, zorder=2)
 
     latest_year = int(years[-1])
@@ -235,7 +246,11 @@ def render_chart(
             "edgecolor": LATEST_COLOUR,
             "alpha": 0.96,
         },
-        arrowprops={"arrowstyle": "-", "color": LATEST_COLOUR, "linewidth": 1.1},
+        arrowprops={
+            "arrowstyle": "-",
+            "color": LATEST_COLOUR,
+            "linewidth": 1.1,
+        },
         zorder=8,
     )
 
@@ -246,7 +261,9 @@ def render_chart(
     ax.set_xlim(int(years[0]) - 1, latest_year + 1)
 
     decade_ticks = list(range(1890, 2030, 10))
-    decade_ticks = [year for year in decade_ticks if years[0] <= year <= latest_year]
+    decade_ticks = [
+        year for year in decade_ticks if years[0] <= year <= latest_year
+    ]
     if latest_year not in decade_ticks:
         decade_ticks.append(latest_year)
     ax.set_xticks(decade_ticks)
@@ -271,17 +288,65 @@ def render_chart(
         fontsize=12.5,
     )
 
-    ax.grid(True, which="major", linestyle=":", linewidth=1.0, color=GRID_COLOUR, alpha=0.72)
+    ax.grid(
+        True,
+        which="major",
+        linestyle=":",
+        linewidth=1.0,
+        color=GRID_COLOUR,
+        alpha=0.72,
+    )
     ax.spines["top"].set_visible(True)
     ax.spines["right"].set_visible(True)
 
     legend_handles = [
-        Line2D([0], [0], color=REFERENCE_COLOUR, lw=2.5, label="1991–2020 equivalent-period reference"),
-        Line2D([0], [0], color=LOWEST_COLOUR, lw=2.5, linestyle=(0, (9, 6)), label="lowest published period"),
-        Line2D([0], [0], color=HIGHEST_COLOUR, lw=2.5, linestyle=(0, (9, 6)), label="highest published period"),
-        Line2D([0], [0], color=LATEST_COLOUR, lw=2.5, label="latest 2025–26"),
-        Line2D([0], [0], color=VALUE_COLOUR, marker="o", lw=2.0, markersize=4, label="period value"),
-        Line2D([0], [0], color=TREND_COLOUR, lw=2.5, linestyle="--", label="smoothed trend"),
+        Line2D(
+            [0],
+            [0],
+            color=REFERENCE_COLOUR,
+            lw=2.5,
+            label="1991–2020 equivalent-period reference",
+        ),
+        Line2D(
+            [0],
+            [0],
+            color=LOWEST_COLOUR,
+            lw=2.5,
+            linestyle=(0, (9, 6)),
+            label="lowest published period",
+        ),
+        Line2D(
+            [0],
+            [0],
+            color=HIGHEST_COLOUR,
+            lw=2.5,
+            linestyle=(0, (9, 6)),
+            label="highest published period",
+        ),
+        Line2D(
+            [0],
+            [0],
+            color=LATEST_COLOUR,
+            lw=2.5,
+            label="latest 2025–26",
+        ),
+        Line2D(
+            [0],
+            [0],
+            color=VALUE_COLOUR,
+            marker="o",
+            lw=2.0,
+            markersize=4,
+            label="period value",
+        ),
+        Line2D(
+            [0],
+            [0],
+            color=TREND_COLOUR,
+            lw=2.5,
+            linestyle="--",
+            label="smoothed trend",
+        ),
     ]
     ax.legend(
         handles=legend_handles,
@@ -306,7 +371,10 @@ def render_chart(
     fig.text(
         0.5,
         0.955,
-        f"Source: Met Office Wales HadUK-Grid series, last updated {source_last_updated}",
+        (
+            "Source: Met Office Wales HadUK-Grid series, "
+            f"last updated {source_last_updated}"
+        ),
         ha="center",
         va="top",
         fontsize=10.5,
