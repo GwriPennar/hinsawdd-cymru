@@ -14,4 +14,7 @@ dependencies = [
 dev = ["pytest>=8.0"]
 
 [tool.pytest.ini_options]
-testpaths = ["projects/001-rolling-temperature/tests"]
+testpaths = [
+  "projects/001-rolling-temperature/tests",
+  "projects/002-temperature-pathways/tests",
+]
