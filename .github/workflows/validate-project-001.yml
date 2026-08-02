@@ -88,11 +88,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add projects/001-rolling-temperature/README.md \
-            projects/001-rolling-temperature/data/raw \
-            projects/001-rolling-temperature/data/derived \
-            projects/001-rolling-temperature/figures \
-            projects/001-rolling-temperature/_update_readme_for_august_july_assets.py
+          git add -A projects/001-rolling-temperature
           if ! git diff --cached --quiet; then
             git commit -m "Retain verified Met Office source and outputs"
             git push origin HEAD:"$HEAD_REF"
