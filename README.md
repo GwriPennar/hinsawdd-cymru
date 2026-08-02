@@ -20,6 +20,18 @@ Each project README is intended to work as a self-contained public results repor
 |---|---|---|---|
 | [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. The project README contains the full report and historical trend graphic. |
 
+<!-- BEGIN PROJECT 001 CHART PREVIEWS -->
+## Project 001 visual summary
+
+The standard line chart reproduces the conventional historical-series view with complete August-to-July periods. The square dark-mode version presents the same validated data for compact viewing.
+
+<a href="projects/001-rolling-temperature/figures/wales_august_to_july_mean_temperature_line_chart.png"><img src="projects/001-rolling-temperature/figures/wales_august_to_july_mean_temperature_line_chart.png" alt="Wales August-to-July mean-temperature line chart" width="100%"></a>
+
+<p align="center"><a href="projects/001-rolling-temperature/figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png"><img src="projects/001-rolling-temperature/figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png" alt="Square dark-mode Wales August-to-July mean-temperature line chart" width="72%"></a></p>
+
+The final 2025–26 point remains provisional because July 2026 is represented by a clearly labelled illustrative scenario until the official Met Office Wales monthly value is published. [Read the full Project 001 report](projects/001-rolling-temperature/).
+<!-- END PROJECT 001 CHART PREVIEWS -->
+
 ## Repository structure
 
 ```text
@@ -50,6 +62,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 python projects/001-rolling-temperature/analysis.py
+python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
 pytest
 ```
 

@@ -64,6 +64,26 @@ The record conclusion is already robust: July 2026 would need to average only **
 | 10 | 2015-08 to 2016-07 | **9.83°C** | published inputs |
 <!-- END GENERATED RESULT -->
 
+<!-- BEGIN LINE CHART PREVIEWS -->
+## Reproduced line-chart views
+
+The following charts show the same validated August-to-July series in two presentation formats. Both use the calendar-day-weighted values produced by `analysis.py`; neither introduces a second temperature calculation.
+
+### Standard light view
+
+<a href="figures/wales_august_to_july_mean_temperature_line_chart.png"><img src="figures/wales_august_to_july_mean_temperature_line_chart.png" alt="Wales August-to-July mean-temperature line chart" width="100%"></a>
+
+[Open the standard chart as SVG](figures/wales_august_to_july_mean_temperature_line_chart.svg)
+
+### Square dark-mode view
+
+<p align="center"><a href="figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png"><img src="figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png" alt="Square dark-mode Wales August-to-July mean-temperature line chart" width="78%"></a></p>
+
+[Open the dark-mode chart as SVG](figures/wales_august_to_july_mean_temperature_line_chart_square_dark.svg)
+
+Both views show 2025–26 as an illustrative scenario because the retained official Met Office source still ends in June 2026. Full presentation notes are in [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md).
+<!-- END LINE CHART PREVIEWS -->
+
 ## Historical trend since records began
 
 ![Wales August-to-July mean temperature from 1884-85 to 2025-26](figures/wales_august_to_july_mean_temperature_provisional.svg)
@@ -248,10 +268,11 @@ python projects/001-rolling-temperature/analysis.py
 python projects/001-rolling-temperature/social_chart.py
 python projects/001-rolling-temperature/warming_stripes.py
 python projects/001-rolling-temperature/august_to_july_stripes.py
+python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
 pytest
 ```
 
-`analysis.py` performs the scientific calculation and produces the original full-width report figure. The presentation modules read validated derived outputs without introducing a second scientific method: `social_chart.py` produces the square dark chart, `warming_stripes.py` retains the calendar-year stripes and bars, and `august_to_july_stripes.py` produces the additional complete August-to-July stripes and bars documented in [`WARMING_STRIPES.md`](WARMING_STRIPES.md).
+`analysis.py` performs the scientific calculation and produces the original full-width report figure. The presentation modules read validated derived outputs without introducing a second scientific method: `social_chart.py` produces the original square dark chart, `warming_stripes.py` retains the calendar-year stripes and bars, `august_to_july_stripes.py` produces the additional complete August-to-July stripes and bars, and `line_chart_variants.py` produces the standard and square dark-mode line-chart views.
 
 Run the independent verifier against the retained source:
 
@@ -285,6 +306,8 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 - [`social_chart.py`](social_chart.py), square dark social figure rendered from the validated derived outputs
 - [`warming_stripes.py`](warming_stripes.py), retained calendar-year stripes and temperature bars
 - [`august_to_july_stripes.py`](august_to_july_stripes.py), additional August-to-July stripes and temperature bars
+- [`line_chart_variants.py`](line_chart_variants.py), standard and square dark-mode August-to-July line charts
+- [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md), line-chart interpretation and reproduction notes
 - [`WARMING_STRIPES.md`](WARMING_STRIPES.md), full-width previews and interpretation for both annual boundaries
 - [`verify.py`](verify.py), independent standard-library and `Decimal` verification
 
@@ -298,6 +321,7 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 - [`data/derived/annual_reconciliation.csv`](data/derived/annual_reconciliation.csv), reconstructed and official annual values
 - [`data/derived/wales_calendar_year_warming_stripes.csv`](data/derived/wales_calendar_year_warming_stripes.csv), calendar-year reference and anomalies used by the retained calendar graphics
 - [`data/derived/wales_august_to_july_warming_stripes.csv`](data/derived/wales_august_to_july_warming_stripes.csv), August-to-July reference, anomalies and published/provisional status used by the new graphics
+- [`data/derived/wales_august_to_july_temperature_line_chart.csv`](data/derived/wales_august_to_july_temperature_line_chart.csv), presentation data and descriptive smoothed trend used by both line-chart variants
 - [`data/derived/independent_verification.json`](data/derived/independent_verification.json), second-implementation verification result
 
 ### Graphics
@@ -311,6 +335,12 @@ Square dark social figure:
 
 - [`figures/wales_august_to_july_mean_temperature_square_dark.svg`](figures/wales_august_to_july_mean_temperature_square_dark.svg), scalable vector version
 - [`figures/wales_august_to_july_mean_temperature_square_dark.png`](figures/wales_august_to_july_mean_temperature_square_dark.png), 1080 × 1080 raster version
+
+Standard and square dark-mode August-to-July line charts:
+
+- `figures/wales_august_to_july_mean_temperature_line_chart.{png,svg}`
+- `figures/wales_august_to_july_mean_temperature_line_chart_square_dark.{png,svg}`
+- [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md), full previews and interpretation
 
 Calendar-year and August-to-July warming stripes and temperature bars:
 
