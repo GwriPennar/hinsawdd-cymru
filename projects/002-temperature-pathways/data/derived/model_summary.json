@@ -1,0 +1,93 @@
+{
+  "model_status": "illustrative-statistical-extrapolation",
+  "warning": "This is a continuation of observed statistical trends, not a physical climate forecast or emissions-scenario projection.",
+  "configuration": {
+    "fit_start_end_year": 1970,
+    "projection_end_year": 2125,
+    "bootstrap_replicates": 2000,
+    "bootstrap_block_length": 5,
+    "random_seed": 20260802,
+    "backtest_horizon_years": 10,
+    "backtest_cutoffs": [
+      1990,
+      2000,
+      2010,
+      2015
+    ]
+  },
+  "source_project": "001-rolling-temperature",
+  "source_snapshot_sha256": "f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3",
+  "source_last_updated": "01-Jul-2026 11:33",
+  "source_last_published_month": "2026-06",
+  "reference_mean_1991_2020_c": 9.418356164383562,
+  "latest_context_period": "2025-08 to 2026-07",
+  "latest_context_mean_c": 10.626849,
+  "latest_context_status": "provisional-scenario",
+  "latest_context_used_for_training": false,
+  "training_boundary_note": "Only published-input periods are fitted; the provisional 2025-26 point is context only.",
+  "primary_fit": {
+    "intercept_at_2000_c": -0.14562002015936526,
+    "slope_c_per_year": 0.02758344340396447,
+    "r_squared": 0.5147533954651877,
+    "residual_standard_error_c": 0.44081402787535656,
+    "observation_count": 56,
+    "first_end_year": 1970,
+    "last_end_year": 2025,
+    "slope_c_per_decade": 0.2758344340396447
+  },
+  "full_record_sensitivity_fit": {
+    "intercept_at_2000_c": -0.16914324606514086,
+    "slope_c_per_year": 0.009933470525279332,
+    "r_squared": 0.3860284127168899,
+    "residual_standard_error_c": 0.5135529544472989,
+    "observation_count": 141,
+    "first_end_year": 1885,
+    "last_end_year": 2025,
+    "slope_c_per_decade": 0.09933470525279332
+  },
+  "theil_sen_sensitivity_fit": {
+    "intercept_at_2000_c": -0.05596160605022839,
+    "slope_c_per_year": 0.027654639583333303,
+    "r_squared": 0.4940150623833144,
+    "residual_standard_error_c": 0.45013517174485257,
+    "observation_count": 56,
+    "first_end_year": 1970,
+    "last_end_year": 2025,
+    "slope_c_per_decade": 0.276546395833333
+  },
+  "milestones": {
+    "2050": {
+      "primary_mean_temperature_c": 10.651908314422421,
+      "bootstrap_95_lower_c": 10.193932106873783,
+      "bootstrap_95_upper_c": 11.054439703671626,
+      "full_record_sensitivity_c": 9.745886444582387,
+      "theil_sen_sensitivity_c": 10.7451265375
+    },
+    "2100": {
+      "primary_mean_temperature_c": 12.031080484620643,
+      "bootstrap_95_lower_c": 11.178969700445414,
+      "bootstrap_95_upper_c": 12.807313918031161,
+      "full_record_sensitivity_c": 10.242559970846354,
+      "theil_sen_sensitivity_c": 12.127858516666663
+    },
+    "2125": {
+      "primary_mean_temperature_c": 12.720666569719755,
+      "bootstrap_95_lower_c": 11.673804591468851,
+      "bootstrap_95_upper_c": 13.697057711223879,
+      "full_record_sensitivity_c": 10.490896733978339,
+      "theil_sen_sensitivity_c": 12.819224506249997
+    }
+  },
+  "backtest_summary": {
+    "origins": 4,
+    "mean_absolute_ten_year_mean_error_c": 0.19458628351749963,
+    "mean_annual_mae_c": 0.36691338879520025,
+    "mean_annual_rmse_c": 0.45501629376217817
+  },
+  "outputs": {
+    "png": "figures/wales_temperature_pathways_linear_regression.png",
+    "svg": "figures/wales_temperature_pathways_linear_regression.svg",
+    "projection_csv": "data/derived/linear_regression_projection.csv",
+    "backtest_csv": "data/derived/backtest_results.csv"
+  }
+}

@@ -13,7 +13,24 @@ The answer is useful as a transparent baseline, but it must not be confused with
 <!-- BEGIN GENERATED RESULT -->
 ## Headline baseline result
 
-Run `model.py` to generate the verified result block.
+> **This is not a physical climate forecast.** It is a transparent test of what happens if the observed modern linear relationship continues unchanged.
+
+| Measure | Result |
+|---|---:|
+| Published observations used for primary fit | **56** |
+| Primary fit period end years | **1970–2025** |
+| Primary observed slope | **+0.276°C per decade** |
+| Primary linear-fit R² | **0.515** |
+| Illustrative 2050 mean | **10.65°C** |
+| 2050 bootstrap trend-fit range | **10.19 to 11.05°C** |
+| Illustrative 2100 mean | **12.03°C** |
+| 2100 bootstrap trend-fit range | **11.18 to 12.81°C** |
+| Mean absolute error of ten-year mean hindcasts | **0.19°C** |
+| Mean annual hindcast RMSE | **0.46°C** |
+
+The primary fit excludes the provisional 2025–26 scenario point. It uses only published-input August-to-July periods ending from **1970 to 2025**. The latest provisional point is retained on the chart as context.
+
+The wide difference between the modern-period and full-record sensitivity lines is itself an important result: long-range straight-line extrapolation depends heavily on the chosen historical window. Project 002 therefore publishes this model as a **baseline for comparison**, not as the preferred estimate of Wales's physical future climate.
 <!-- END GENERATED RESULT -->
 
 ## Main chart

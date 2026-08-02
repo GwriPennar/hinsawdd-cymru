@@ -1,0 +1,17 @@
+{
+  "verification_status": "pass",
+  "failures": [],
+  "implementation": "independent Python standard library and Decimal",
+  "published_training_observations": 56,
+  "fit_start_end_year": 1970,
+  "verified_intercept_at_2000_c": "-0.1456198557758031442241968557758031442242",
+  "verified_slope_c_per_year": "0.02758344340396445659603554340396445659603",
+  "verified_slope_c_per_decade": "0.2758344340396445659603554340396445659603",
+  "verified_primary_milestones_c": {
+    "2050": "10.65190847880598168557758031442241968558",
+    "2100": "12.03108064900420451537935748462064251538",
+    "2125": "12.72066673410331593028024606971975393028"
+  },
+  "source_snapshot_sha256": "f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3",
+  "source_project_verification": "pass"
+}
