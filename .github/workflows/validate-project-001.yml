@@ -26,15 +26,7 @@ jobs:
         run: pytest -q
       - name: Rebuild primary outputs
         run: python projects/001-rolling-temperature/analysis.py --no-update-readme
-      - name: Build square social chart
-        run: python projects/001-rolling-temperature/social_chart.py
-      - name: Build Wales calendar-year warming stripes
-        run: python projects/001-rolling-temperature/warming_stripes.py
-      - name: Build Wales August-to-July warming stripes
-        run: python projects/001-rolling-temperature/august_to_july_stripes.py
-      - name: Build Wales August-to-July line chart
-        run: python projects/001-rolling-temperature/equivalent_period_chart.py
-      - name: Independent verification
+      - name: Independent verification before presentation rendering
         shell: bash
         run: |
           SOURCE=$(find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*.txt' | sort | tail -1)
@@ -45,6 +37,14 @@ jobs:
             --require-annual \
             --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
             --json-out build/independent-verification.json
+      - name: Build square social chart
+        run: python projects/001-rolling-temperature/social_chart.py
+      - name: Build Wales calendar-year warming stripes
+        run: python projects/001-rolling-temperature/warming_stripes.py
+      - name: Build Wales August-to-July warming stripes
+        run: python projects/001-rolling-temperature/august_to_july_stripes.py
+      - name: Build standard and dark line-chart variants
+        run: python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
       - name: Retain verified snapshot and outputs
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         env:
@@ -74,20 +74,20 @@ jobs:
           fi
 
           python projects/001-rolling-temperature/analysis.py --source "$STABLE"
-          python projects/001-rolling-temperature/social_chart.py
-          python projects/001-rolling-temperature/warming_stripes.py
-          python projects/001-rolling-temperature/august_to_july_stripes.py
-          python projects/001-rolling-temperature/equivalent_period_chart.py
           python projects/001-rolling-temperature/verify.py \
             --source "$STABLE" \
             --manifest "$STABLE_MANIFEST" \
             --require-annual \
             --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
             --json-out projects/001-rolling-temperature/data/derived/independent_verification.json
+          python projects/001-rolling-temperature/social_chart.py
+          python projects/001-rolling-temperature/warming_stripes.py
+          python projects/001-rolling-temperature/august_to_july_stripes.py
+          python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A projects/001-rolling-temperature
+          git add README.md projects/001-rolling-temperature
           if ! git diff --cached --quiet; then
             git commit -m "Retain verified Met Office source and outputs"
             git push origin HEAD:"$HEAD_REF"
@@ -98,6 +98,7 @@ jobs:
         with:
           name: project-001-validation-evidence
           path: |
+            README.md
             build/
             projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-*.txt
             projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-*.provenance.json
