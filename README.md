@@ -78,9 +78,9 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 python projects/001-rolling-temperature/analysis.py
 python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
+pytest
 python projects/002-temperature-pathways/model.py
 python projects/002-temperature-pathways/verify.py
-pytest
 ```
 
 ## Quality approach
