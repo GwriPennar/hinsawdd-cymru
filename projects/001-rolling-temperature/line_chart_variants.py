@@ -214,8 +214,12 @@ def render_dark(
     trend = chart["smoothed_trend_c"].to_numpy(dtype=float)
     latest = float(metadata["latest_c"])
     latest_year = int(years[-1])
-    previous = float(metadata["previous_record_c"])
-    previous_year = int(metadata["previous_record_year"])
+    published = chart[chart["status"] == "published-inputs"]
+    if published.empty:
+        raise ValueError("No published-input periods found")
+    previous_row = published.nlargest(1, "mean_temperature_c").iloc[0]
+    previous = float(previous_row["mean_temperature_c"])
+    previous_year = int(previous_row["end_year"])
 
     fig, ax = plt.subplots(figsize=(SQUARE_PX / DPI, SQUARE_PX / DPI), dpi=DPI)
     fig.patch.set_facecolor(background)
