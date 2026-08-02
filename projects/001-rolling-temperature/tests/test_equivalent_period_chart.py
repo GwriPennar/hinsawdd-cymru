@@ -45,6 +45,7 @@ def _summary_fixture() -> dict[str, object]:
     return {
         "july_2026_value_used_c": 18.0,
         "source_last_updated": "01-Jul-2026 11:33",
+        "derived_reference_1991_2020_c": 9.25,
     }
 
 
@@ -61,18 +62,15 @@ def test_gaussian_smoother_is_finite_and_deterministic() -> None:
     assert first.max() <= values.max()
 
 
-def test_prepare_chart_data_uses_equivalent_period_reference() -> None:
+def test_prepare_chart_data_uses_validated_project_reference() -> None:
     chart, metadata = prepare_chart_data(_period_fixture(), _summary_fixture())
-    reference = chart[chart["end_year"].between(1991, 2020)]
     published = chart[chart["status"] == "published-inputs"]
 
     assert chart.iloc[0]["period"] == "1884-08 to 1885-07"
     assert chart.iloc[-1]["period"] == "2025-08 to 2026-07"
     assert chart["end_year"].tolist() == list(range(1885, 2027))
-    assert len(reference) == 30
-    assert metadata["reference_mean_c"] == pytest.approx(
-        reference["mean_temperature_c"].mean()
-    )
+    assert metadata["reference_mean_c"] == pytest.approx(9.25)
+    assert chart["reference_mean_c"].unique().tolist() == pytest.approx([9.25])
     assert metadata["lowest_published_c"] == pytest.approx(
         published["mean_temperature_c"].min()
     )
@@ -119,6 +117,7 @@ def test_line_chart_outputs_dimensions_text_and_csv(tmp_path: Path) -> None:
     assert output_data.iloc[0]["period"] == "1884-08 to 1885-07"
     assert output_data.iloc[-1]["period"] == "2025-08 to 2026-07"
     assert output_data["smoothed_trend_c"].notna().all()
+    assert output_data["reference_mean_c"].unique().tolist() == pytest.approx([9.25])
 
 
 def test_retained_project_result_is_unchanged() -> None:
