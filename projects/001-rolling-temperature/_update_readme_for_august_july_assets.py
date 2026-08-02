@@ -5,7 +5,6 @@ from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parent
 README = PROJECT_DIR / "README.md"
-WORKFLOW = PROJECT_DIR.parents[1] / ".github/workflows/validate-project-001.yml"
 SCRIPT = Path(__file__).resolve()
 
 
@@ -14,14 +13,13 @@ def replace_once(text: str, old: str, new: str) -> str:
 
     if text.count(old) != 1:
         raise RuntimeError(
-            f"Expected one README/workflow match, found {text.count(old)}: "
-            f"{old[:80]!r}"
+            f"Expected one README match, found {text.count(old)}: {old[:80]!r}"
         )
     return text.replace(old, new, 1)
 
 
 def main() -> None:
-    """Patch README, remove this migration from the workflow, then self-delete."""
+    """Patch the Project 001 README once, then self-delete."""
 
     text = README.read_text(encoding="utf-8")
     text = replace_once(
@@ -67,15 +65,6 @@ def main() -> None:
         "## Technical appendices",
     )
     README.write_text(text, encoding="utf-8")
-
-    workflow = WORKFLOW.read_text(encoding="utf-8")
-    migration_block = (
-        "          if [ -f projects/001-rolling-temperature/_update_readme_for_august_july_assets.py ]; then\n"
-        "            python projects/001-rolling-temperature/_update_readme_for_august_july_assets.py\n"
-        "          fi\n"
-    )
-    workflow = replace_once(workflow, migration_block, "")
-    WORKFLOW.write_text(workflow, encoding="utf-8")
     SCRIPT.unlink()
 
 
