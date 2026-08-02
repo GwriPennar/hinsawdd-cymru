@@ -19,10 +19,12 @@ The chart therefore differs from a normal January-to-December calendar-year char
 The graphic includes:
 
 - every August-to-July mean temperature in the validated derived series;
-- a 1991–2020 reference calculated from the 30 equivalent periods ending in those years;
+- the existing validated Project 001 1991–2020 reference for the August-to-July target sequence;
 - the lowest and highest periods based entirely on published Met Office monthly inputs;
 - the latest 2025–26 result as a separate horizontal line and labelled point;
 - a deterministic Gaussian-smoothed line to make the broad historical direction easier to see.
+
+The 1991–2020 guide is read directly from `summary.json`. Project 001 derives it from the published 1991–2020 monthly climatology and applies the calendar-day weights of the August-to-July target sequence. The presentation script does not define a second reference calculation.
 
 The smoothed line is descriptive presentation, not a climate projection, attribution model or estimate of a formal warming rate.
 
