@@ -10,7 +10,8 @@ The repository distinguishes between:
 
 - values published by an authoritative source;
 - calculations derived in this repository;
-- provisional scenarios that have not yet been published officially.
+- provisional scenarios that have not yet been published officially;
+- statistical extrapolations that are not physical climate forecasts.
 
 Each project README is intended to work as a self-contained public results report. Detailed methodology, validation records, source snapshots and machine-readable outputs remain inside the same project folder.
 
@@ -20,6 +21,7 @@ Each project README is intended to work as a self-contained public results repor
 |---|---|---|---|
 | [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. The project README contains the full report and historical trend graphic. |
 | [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | A transparent modern-period linear regression is published as an illustrative comparison baseline, with backtesting, uncertainty and sensitivity lines. It is explicitly not a physical climate forecast. |
+| [003](projects/003-wales-rainfall/) | Wales rainfall since 1836 | Full historical analysis and statistical baseline | The official Wales HadUK-Grid rainfall record is reconstructed as complete August-to-July totals, with current incomplete data kept separate, seasonal trends, independent verification and a secondary illustrative projection. |
 
 <!-- BEGIN PROJECT 001 CHART PREVIEWS -->
 ## Project 001 visual summary
@@ -35,11 +37,19 @@ The final 2025–26 point remains provisional because July 2026 is represented b
 
 ## Project 002 visual summary
 
-Project 002 asks what a deliberately simple continuation of the observed Wales trend would imply. The result is a statistical baseline for comparison with future UKCP or UKCI ensemble work, not a physical climate forecast.
+Project 002 asks what a deliberately simple continuation of the observed Wales temperature trend would imply. The result is a statistical baseline for comparison with future UKCP or UKCI ensemble work, not a physical climate forecast.
 
 <a href="projects/002-temperature-pathways/figures/wales_temperature_pathways_linear_regression.png"><img src="projects/002-temperature-pathways/figures/wales_temperature_pathways_linear_regression.png" alt="Wales temperature pathways linear-regression baseline" width="100%"></a>
 
 The primary fit uses only published-input August-to-July periods ending from 1970 onward. The provisional 2025–26 point is displayed but excluded from training. [Read the Project 002 report](projects/002-temperature-pathways/).
+
+## Project 003 visual summary
+
+Project 003 starts with the official Wales rainfall record from 1836, reconstructs complete August-to-July totals and examines the latest incomplete period only on a like-for-like August-to-June basis.
+
+<a href="projects/003-wales-rainfall/figures/wales_august_to_july_rainfall_history.png"><img src="projects/003-wales-rainfall/figures/wales_august_to_july_rainfall_history.png" alt="Wales August-to-July rainfall history since 1836" width="100%"></a>
+
+The forecast element is secondary and explicitly labelled as an illustrative statistical continuation rather than a physical rainfall forecast. [Read the Project 003 report](projects/003-wales-rainfall/).
 
 ## Repository structure
 
@@ -57,11 +67,20 @@ hinsawdd-cymru/
     │   ├── data/
     │   ├── figures/
     │   └── tests/
-    └── 002-temperature-pathways/
+    ├── 002-temperature-pathways/
+    │   ├── README.md
+    │   ├── PLAN.md
+    │   ├── OFFICIAL_EVIDENCE_AUDIT.md
+    │   ├── model.py
+    │   ├── verify.py
+    │   ├── data/
+    │   ├── figures/
+    │   └── tests/
+    └── 003-wales-rainfall/
         ├── README.md
-        ├── PLAN.md
-        ├── OFFICIAL_EVIDENCE_AUDIT.md
-        ├── model.py
+        ├── METHODOLOGY.md
+        ├── fetch_source.py
+        ├── analysis.py
         ├── verify.py
         ├── data/
         ├── figures/
@@ -81,6 +100,9 @@ python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
 pytest
 python projects/002-temperature-pathways/model.py
 python projects/002-temperature-pathways/verify.py
+python projects/003-wales-rainfall/fetch_source.py --output-dir projects/003-wales-rainfall/data/raw
+python projects/003-wales-rainfall/analysis.py
+python projects/003-wales-rainfall/verify.py
 ```
 
 ## Quality approach
@@ -91,12 +113,12 @@ The repository uses a lightweight Reproducible Analytical Pipeline:
 - automatic reconciliation against official published values where available;
 - separate standard-library verification implementations;
 - generated machine-readable outputs and public documentation;
-- explicit separation of published inputs, provisional scenarios and modelled outputs;
+- explicit separation of published inputs, incomplete or provisional periods and modelled outputs;
 - GitHub Actions validation on every scientific change.
 
 ## Sources and licensing
 
-Project 001 uses the Met Office HadUK-Grid Wales areal mean-temperature series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. The source data remain subject to their original licence and Crown copyright.
+Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. The source data remain subject to their original licence and Crown copyright.
 
 The analysis code is released under the [MIT License](LICENSE).
 
