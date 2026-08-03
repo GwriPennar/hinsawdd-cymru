@@ -14,7 +14,13 @@ PROJECT_DIR = Path(__file__).resolve().parent
 RAW_DIR = PROJECT_DIR / "data/raw"
 DERIVED_DIR = PROJECT_DIR / "data/derived"
 MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-MONTH_NUMBER = {name: index for index, name in enumerate(MONTHS, start=1)}
+SEASONS = ["win", "spr", "sum", "aut"]
+FIELD_SPECS = (
+    [("year", 0, 4)]
+    + [(name, 5 + 7 * index, 12 + 7 * index) for index, name in enumerate(MONTHS)]
+    + [(name, 89 + 8 * index, 97 + 8 * index) for index, name in enumerate(SEASONS)]
+    + [("ann", 121, 129)]
+)
 
 
 def discover_source() -> Path:
@@ -26,39 +32,42 @@ def discover_source() -> Path:
     return candidates[-1]
 
 
-def parse_fixed_width(path: Path) -> tuple[dict[tuple[int, int], Decimal], dict[int, Decimal], str]:
+def parse_source(path: Path) -> tuple[dict[tuple[int, int], Decimal], dict[int, Decimal], str]:
     text = path.read_text(encoding="utf-8")
     if "Monthly, seasonal and annual total precipitation amount for Wales" not in text:
         raise ValueError("Unexpected source content")
-    last_updated_match = re.search(r"^Last updated\s+(.+)$", text, re.MULTILINE)
-    if last_updated_match is None:
+    updated_match = re.search(r"^Last updated\s+(.+)$", text, re.MULTILINE)
+    if updated_match is None:
         raise ValueError("Missing Last updated field")
     lines = text.splitlines()
     header_index = next(i for i, line in enumerate(lines) if line.lstrip().startswith("year"))
-    matches = list(re.finditer(r"\S+", lines[header_index]))
-    columns = [match.group(0).lower() for match in matches]
-    starts = [match.start() for match in matches]
+    if re.findall(r"\S+", lines[header_index].lower()) != ["year", *MONTHS, *SEASONS, "ann"]:
+        raise ValueError("Unexpected source columns")
+
     monthly: dict[tuple[int, int], Decimal] = {}
     annual: dict[int, Decimal] = {}
-
     for line in lines[header_index + 1 :]:
-        if not re.match(r"^\s*\d{4}\b", line):
+        if not re.match(r"^\d{4}\b", line):
             continue
-        values: dict[str, str] = {}
-        for index, column in enumerate(columns):
-            end = starts[index + 1] if index + 1 < len(starts) else None
-            values[column] = line[starts[index] : end].strip()
-        year = int(values["year"])
-        for name in MONTHS:
-            raw = values[name]
+        padded = line.ljust(129)
+        fields = {name: padded[start:end].strip() for name, start, end in FIELD_SPECS}
+        year = int(fields["year"])
+        for month, name in enumerate(MONTHS, start=1):
+            raw = fields[name]
             if raw not in {"", "---"}:
-                monthly[(year, MONTH_NUMBER[name])] = Decimal(raw)
-        if values["ann"] not in {"", "---"}:
-            annual[year] = Decimal(values["ann"])
-    return monthly, annual, last_updated_match.group(1).strip()
+                monthly[(year, month)] = Decimal(raw)
+        raw_annual = fields["ann"]
+        if raw_annual not in {"", "---"}:
+            annual[year] = Decimal(raw_annual)
+    return monthly, annual, updated_match.group(1).strip()
 
 
-def period_total(monthly: dict[tuple[int, int], Decimal], end_year: int, months: int, end_month: int) -> Decimal | None:
+def period_total(
+    monthly: dict[tuple[int, int], Decimal],
+    end_year: int,
+    months: int,
+    end_month: int,
+) -> Decimal | None:
     end_index = end_year * 12 + end_month - 1
     keys: list[tuple[int, int]] = []
     for offset in range(months - 1, -1, -1):
@@ -70,7 +79,11 @@ def period_total(monthly: dict[tuple[int, int], Decimal], end_year: int, months:
     return sum((monthly[key] for key in keys), Decimal("0"))
 
 
-def complete_series(monthly: dict[tuple[int, int], Decimal], months: int, end_month: int) -> list[tuple[int, Decimal]]:
+def period_series(
+    monthly: dict[tuple[int, int], Decimal],
+    months: int,
+    end_month: int,
+) -> list[tuple[int, Decimal]]:
     first_year = min(year for year, _ in monthly)
     last_year = max(year for year, _ in monthly)
     rows: list[tuple[int, Decimal]] = []
@@ -110,7 +123,7 @@ def close(actual: float, expected: Decimal, tolerance: Decimal = Decimal("0.0000
 
 def run(source: Path, manifest: Path, summary_path: Path) -> dict[str, object]:
     failures: list[str] = []
-    monthly, annual, last_updated = parse_fixed_width(source)
+    monthly, annual, last_updated = parse_source(source)
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
     manifest_data = json.loads(manifest.read_text(encoding="utf-8"))
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
@@ -121,8 +134,8 @@ def run(source: Path, manifest: Path, summary_path: Path) -> dict[str, object]:
     if summary.get("source_last_updated") != last_updated:
         failures.append("summary Last updated mismatch")
 
-    complete = complete_series(monthly, 12, 7)
-    partials = complete_series(monthly, 11, 6)
+    complete = period_series(monthly, 12, 7)
+    partials = period_series(monthly, 11, 6)
     complete_reference = reference(monthly, list(range(1, 13)))
     partial_reference = reference(monthly, [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6])
     latest_year, latest_total = complete[-1]
@@ -131,24 +144,18 @@ def run(source: Path, manifest: Path, summary_path: Path) -> dict[str, object]:
     wettest_year, wettest_total = max(complete, key=lambda item: item[1])
     driest_year, driest_total = min(complete, key=lambda item: item[1])
 
-    if summary.get("complete_period_count") != len(complete):
-        failures.append("complete-period count mismatch")
-    if summary["latest_complete_period"]["end_year"] != latest_year:
-        failures.append("latest complete end year mismatch")
-    if not close(summary["latest_complete_period"]["rainfall_total_mm"], latest_total):
-        failures.append("latest complete total mismatch")
-    if not close(summary["current_incomplete_period"]["rainfall_total_mm"], partial_total):
-        failures.append("current partial total mismatch")
-    if summary["current_incomplete_period"]["wetness_rank"] != partial_rank:
-        failures.append("current partial rank mismatch")
-    if not close(summary["reference_1991_2020_august_july_mm"], complete_reference):
-        failures.append("August-to-July reference mismatch")
-    if not close(summary["reference_1991_2020_august_june_mm"], partial_reference):
-        failures.append("August-to-June reference mismatch")
-    if summary["wettest_complete_periods"][0]["rainfall_total_mm"] != float(wettest_total):
-        failures.append("wettest period mismatch")
-    if summary["driest_complete_periods"][0]["rainfall_total_mm"] != float(driest_total):
-        failures.append("driest period mismatch")
+    checks = [
+        (summary.get("complete_period_count") == len(complete), "complete-period count mismatch"),
+        (summary["latest_complete_period"]["end_year"] == latest_year, "latest complete end year mismatch"),
+        (close(summary["latest_complete_period"]["rainfall_total_mm"], latest_total), "latest complete total mismatch"),
+        (close(summary["current_incomplete_period"]["rainfall_total_mm"], partial_total), "current partial total mismatch"),
+        (summary["current_incomplete_period"]["wetness_rank"] == partial_rank, "current partial rank mismatch"),
+        (close(summary["reference_1991_2020_august_july_mm"], complete_reference), "August-to-July reference mismatch"),
+        (close(summary["reference_1991_2020_august_june_mm"], partial_reference), "August-to-June reference mismatch"),
+        (close(summary["wettest_complete_periods"][0]["rainfall_total_mm"], wettest_total), "wettest period mismatch"),
+        (close(summary["driest_complete_periods"][0]["rainfall_total_mm"], driest_total), "driest period mismatch"),
+    ]
+    failures.extend(message for passed, message in checks if not passed)
 
     full_intercept, full_slope = linear_fit(complete)
     modern_rows = [(year, value) for year, value in complete if year >= 1970]
@@ -165,13 +172,13 @@ def run(source: Path, manifest: Path, summary_path: Path) -> dict[str, object]:
         if not close(summary["statistical_projection"]["milestones"][str(year)]["primary_projection_mm"], prediction):
             failures.append(f"primary {year} projection mismatch")
 
-    reconciliation_differences: list[Decimal] = []
+    differences: list[Decimal] = []
     for year, official in annual.items():
-        months = [monthly.get((year, month)) for month in range(1, 13)]
-        if all(value is not None for value in months):
-            reconstructed = sum((value for value in months if value is not None), Decimal("0"))
-            reconciliation_differences.append(reconstructed - official)
-    max_reconciliation = max(abs(value) for value in reconciliation_differences)
+        values = [monthly.get((year, month)) for month in range(1, 13)]
+        if all(value is not None for value in values):
+            reconstructed = sum((value for value in values if value is not None), Decimal("0"))
+            differences.append(reconstructed - official)
+    max_reconciliation = max(abs(value) for value in differences)
     if not close(summary["annual_reconciliation"]["max_abs_difference_mm"], max_reconciliation):
         failures.append("annual reconciliation mismatch")
 
@@ -201,7 +208,10 @@ def run(source: Path, manifest: Path, summary_path: Path) -> dict[str, object]:
         "annual_reconciliation_max_abs_difference_mm": str(max_reconciliation),
     }
     DERIVED_DIR.mkdir(parents=True, exist_ok=True)
-    (DERIVED_DIR / "independent_verification.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    (DERIVED_DIR / "independent_verification.json").write_text(
+        json.dumps(result, indent=2) + "\n",
+        encoding="utf-8",
+    )
     if failures:
         raise SystemExit("; ".join(failures))
     return result
