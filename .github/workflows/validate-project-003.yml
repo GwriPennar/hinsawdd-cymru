@@ -88,7 +88,17 @@ jobs:
           git add projects/003-wales-rainfall
           if ! git diff --cached --quiet; then
             git commit -m "Retain verified Wales rainfall source and outputs"
-            git push origin HEAD:"$HEAD_REF"
+            pushed=false
+            for attempt in 1 2 3; do
+              if git push origin HEAD:"$HEAD_REF"; then
+                pushed=true
+                break
+              fi
+              echo "Branch moved during retention push; rebasing attempt $attempt"
+              git fetch origin "$HEAD_REF"
+              git rebase "origin/$HEAD_REF"
+            done
+            test "$pushed" = true
           fi
       - name: Upload validation evidence
         if: always()
