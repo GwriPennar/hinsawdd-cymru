@@ -1,0 +1,28 @@
+{
+  "verification_status": "pass",
+  "failures": [],
+  "implementation": "independent Python standard library and Decimal",
+  "source_sha256": "bc5b95d3cb2a0ffcb1cc91d6241bb8e597bd5ad128ed12a8b3616118d6bf5ca4",
+  "source_last_updated": "01-Jul-2026 11:33",
+  "first_published_month": "1836-01",
+  "last_published_month": "2026-06",
+  "complete_august_to_july_periods": 189,
+  "latest_complete_end_year": 2025,
+  "latest_complete_total_mm": "1290.2",
+  "current_august_to_june_end_year": 2026,
+  "current_august_to_june_total_mm": "1538.2",
+  "current_august_to_june_wetness_rank": 19,
+  "reference_1991_2020_august_july_mm": "1464.7599999999999999999999999999999999999999999999",
+  "reference_1991_2020_august_june_mm": "1366.1733333333333333333333333333333333333333333334",
+  "wettest_complete_end_year": 2024,
+  "wettest_complete_total_mm": "1862.5",
+  "driest_complete_end_year": 1934,
+  "driest_complete_total_mm": "899.5",
+  "verified_full_record_slope_mm_per_decade": "10.624577400949181464299045486055564443022449741375",
+  "verified_modern_slope_mm_per_decade": "31.671462747778537252221462747778537252221462747779",
+  "verified_primary_milestones_mm": {
+    "2050": "1601.8519651401230348598769651401230348598769651401",
+    "2100": "1760.2092788790157211209842788790157211209842788790"
+  },
+  "annual_reconciliation_max_abs_difference_mm": "0.2"
+}
