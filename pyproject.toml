@@ -17,4 +17,5 @@ dev = ["pytest>=8.0"]
 testpaths = [
   "projects/001-rolling-temperature/tests",
   "projects/002-temperature-pathways/tests",
+  "projects/003-wales-rainfall/tests",
 ]
