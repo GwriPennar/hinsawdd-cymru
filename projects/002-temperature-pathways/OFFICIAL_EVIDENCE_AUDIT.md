@@ -8,7 +8,7 @@ This is the source-decision baseline for later official-projection work. It is n
 
 ### Climate Adaptation Strategy for Wales 2024
 
-The current published national adaptation strategy was issued on 22 October 2024 under the 2021–2026 Welsh Government administration. It describes existing and planned adaptation activity across government.
+The current published national adaptation strategy was issued on 22 October 2024. It describes existing and planned adaptation activity across government.
 
 Official source:
 
@@ -16,9 +16,9 @@ Official source:
 
 Project 002 interpretation:
 
-- it is the current national policy baseline identified by this audit;
+- it is the current published national policy baseline identified by this audit;
 - it is primarily an adaptation strategy, not a newly generated Wales temperature-projection ensemble;
-- policy ownership after the 2026 election and any new commitments should be assessed separately through current Welsh Government and Senedd records.
+- its current status and any subsequent updates should be assessed through official Welsh Government publications, formal monitoring reports and relevant Senedd proceedings.
 
 ### Climate Change Committee assessment of Wales
 
@@ -31,8 +31,14 @@ Official source:
 Project 002 interpretation:
 
 - the 2023 assessment is the latest dedicated CCC Wales adaptation-progress report identified in this audit;
-- the 2024 strategy responded to that policy context;
-- a later policy strand should test whether the new administration has adopted an updated monitoring or projection timetable.
+- the 2024 strategy responded to that evidence and policy context;
+- a later evidence review should establish whether an updated monitoring or projection timetable has since been published.
+
+### Welsh evidence-review boundary
+
+Project 002 may use official Welsh Government publications and formal Senedd records to establish technical assumptions, update cycles, monitoring arrangements and public accountability for scientific evidence.
+
+This review does not assess political parties, manifestos, electoral positions or political performance. Senedd material is relevant only where it records official evidence, formal scrutiny, ministerial statements or published commitments concerning the scientific and monitoring framework.
 
 ## United Kingdom
 

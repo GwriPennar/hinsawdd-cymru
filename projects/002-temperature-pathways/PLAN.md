@@ -92,18 +92,20 @@ Possible conclusions:
 
 No conclusion that an official projection is outdated should be based solely on the provisional 2025–26 point.
 
-## Stage E: Welsh policy and Senedd strand
+## Stage E: official Welsh evidence context
 
-This is related but analytically separate from the model.
+This is related to the scientific analysis but remains separate from the numerical model. Its purpose is to document the official evidence, assumptions, monitoring arrangements and update cycles used in Wales.
 
 Tasks:
 
-- identify the latest Welsh Government adaptation strategy, monitoring framework and formal assessments;
-- search current Senedd plenary records and XML for climate projection, adaptation and resilience statements;
-- identify Plaid Cymru commitments, questions and motions after the 2026 election;
-- distinguish new-government commitments from inherited 2021–2026 policy;
-- assess whether policy documents specify an update cycle tied to UKCI, CCRA4 or new observations;
-- prepare evidence-based questions requesting an updated Wales-specific climate projection and monitoring statement where gaps remain.
+- identify the latest Welsh Government strategies, monitoring frameworks, formal assessments and technical statements;
+- review relevant official Senedd proceedings and published committee or plenary records where they clarify scientific evidence, assumptions, responsibilities or update timetables;
+- distinguish clearly between scientific evidence, formal government policy and parliamentary scrutiny;
+- assess whether official documents specify an update cycle tied to UKCI, CCRA4 or new observations;
+- record evidence gaps, ambiguities or inconsistencies without attributing them to a political party;
+- prepare neutral research questions requesting current Wales-specific projections, monitoring arrangements and source provenance where these are unclear.
+
+This strand does not assess political parties, manifestos, electoral positions or political performance.
 
 ## Update cycle
 
