@@ -1,0 +1,246 @@
+{
+  "analysis_status": "published-observations-with-incomplete-current-period",
+  "source_url": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/date/Wales.txt",
+  "source_path": "data/raw/metoffice-wales-rainfall-source-2026-07-01.txt",
+  "source_sha256": "bc5b95d3cb2a0ffcb1cc91d6241bb8e597bd5ad128ed12a8b3616118d6bf5ca4",
+  "source_last_updated": "01-Jul-2026 11:33",
+  "first_published_month": "1836-01",
+  "last_published_month": "2026-06",
+  "reference_1991_2020_august_july_mm": 1464.76,
+  "reference_1991_2020_august_june_mm": 1366.173333333333,
+  "complete_period_count": 189,
+  "latest_complete_period": {
+    "period": "2024-08 to 2025-07",
+    "rainfall_total_mm": 1290.2,
+    "percentage_of_1991_2020": 88.08268931429039,
+    "end_year": 2025
+  },
+  "current_incomplete_period": {
+    "period": "2025-08 to 2026-06",
+    "months": 11,
+    "rainfall_total_mm": 1538.2,
+    "percentage_of_partial_reference": 112.59186242838881,
+    "wetness_rank": 19,
+    "comparison_period_count": 190,
+    "missing_month": "2026-07",
+    "complete_period_rank_withheld": true
+  },
+  "wettest_complete_periods": [
+    {
+      "rank": 1,
+      "period": "2023-08 to 2024-07",
+      "rainfall_total_mm": 1862.5,
+      "percentage_of_1991_2020": 127.15393648106175
+    },
+    {
+      "rank": 2,
+      "period": "2006-08 to 2007-07",
+      "rainfall_total_mm": 1810.4,
+      "percentage_of_1991_2020": 123.59703978808815
+    },
+    {
+      "rank": 3,
+      "period": "2000-08 to 2001-07",
+      "rainfall_total_mm": 1808.6000000000001,
+      "percentage_of_1991_2020": 123.47415276222726
+    },
+    {
+      "rank": 4,
+      "period": "1876-08 to 1877-07",
+      "rainfall_total_mm": 1774.1000000000001,
+      "percentage_of_1991_2020": 121.11881809989352
+    },
+    {
+      "rank": 5,
+      "period": "2019-08 to 2020-07",
+      "rainfall_total_mm": 1769.4,
+      "percentage_of_1991_2020": 120.79794642125674
+    },
+    {
+      "rank": 6,
+      "period": "2015-08 to 2016-07",
+      "rainfall_total_mm": 1738.6000000000004,
+      "percentage_of_1991_2020": 118.69521286763704
+    },
+    {
+      "rank": 7,
+      "period": "1852-08 to 1853-07",
+      "rainfall_total_mm": 1716.3000000000002,
+      "percentage_of_1991_2020": 117.17277915836041
+    },
+    {
+      "rank": 8,
+      "period": "2020-08 to 2021-07",
+      "rainfall_total_mm": 1702.3000000000002,
+      "percentage_of_1991_2020": 116.21699117944237
+    },
+    {
+      "rank": 9,
+      "period": "1929-08 to 1930-07",
+      "rainfall_total_mm": 1699.8999999999999,
+      "percentage_of_1991_2020": 116.05314181162782
+    },
+    {
+      "rank": 10,
+      "period": "1919-08 to 1920-07",
+      "rainfall_total_mm": 1679.6000000000001,
+      "percentage_of_1991_2020": 114.66724924219669
+    }
+  ],
+  "driest_complete_periods": [
+    {
+      "rank": 1,
+      "period": "1933-08 to 1934-07",
+      "rainfall_total_mm": 899.4999999999999,
+      "percentage_of_1991_2020": 61.409377645484575
+    },
+    {
+      "rank": 2,
+      "period": "1975-08 to 1976-07",
+      "rainfall_total_mm": 949.2,
+      "percentage_of_1991_2020": 64.80242497064366
+    },
+    {
+      "rank": 3,
+      "period": "1854-08 to 1855-07",
+      "rainfall_total_mm": 964.8,
+      "percentage_of_1991_2020": 65.86744586143804
+    },
+    {
+      "rank": 4,
+      "period": "1857-08 to 1858-07",
+      "rainfall_total_mm": 968.1999999999999,
+      "percentage_of_1991_2020": 66.09956579917528
+    },
+    {
+      "rank": 5,
+      "period": "1955-08 to 1956-07",
+      "rainfall_total_mm": 1021.6999999999999,
+      "percentage_of_1991_2020": 69.7520412900407
+    },
+    {
+      "rank": 6,
+      "period": "1853-08 to 1854-07",
+      "rainfall_total_mm": 1023.7,
+      "percentage_of_1991_2020": 69.88858242988613
+    },
+    {
+      "rank": 7,
+      "period": "1855-08 to 1856-07",
+      "rainfall_total_mm": 1038.2,
+      "percentage_of_1991_2020": 70.87850569376553
+    },
+    {
+      "rank": 8,
+      "period": "1844-08 to 1845-07",
+      "rainfall_total_mm": 1045.2,
+      "percentage_of_1991_2020": 71.35639968322455
+    },
+    {
+      "rank": 9,
+      "period": "1895-08 to 1896-07",
+      "rainfall_total_mm": 1062.2,
+      "percentage_of_1991_2020": 72.51699937191076
+    },
+    {
+      "rank": 10,
+      "period": "1920-08 to 1921-07",
+      "rainfall_total_mm": 1066.5,
+      "percentage_of_1991_2020": 72.81056282257843
+    }
+  ],
+  "annual_reconciliation": {
+    "years": 190,
+    "max_abs_difference_mm": 0.20000000000004547
+  },
+  "trends": {
+    "full_record": {
+      "intercept_at_2000_mm": 1440.7688433258088,
+      "slope_mm_per_year": 1.0624577400949182,
+      "r_squared": 0.09131053319894433,
+      "residual_standard_error_mm": 183.83752868160443,
+      "observation_count": 189,
+      "first_end_year": 1837,
+      "last_end_year": 2025,
+      "slope_mm_per_decade": 10.624577400949182
+    },
+    "modern_1970_onward": {
+      "intercept_at_2000_mm": 1443.4946514012306,
+      "slope_mm_per_year": 3.1671462747778545,
+      "r_squared": 0.07249201340423983,
+      "residual_standard_error_mm": 186.46921941795316,
+      "observation_count": 56,
+      "first_end_year": 1970,
+      "last_end_year": 2025,
+      "slope_mm_per_decade": 31.671462747778545
+    },
+    "modern_theil_sen": {
+      "intercept_at_2000_mm": 1473.0042857142857,
+      "slope_mm_per_year": 3.2971428571428474,
+      "r_squared": 0.04880819751565013,
+      "residual_standard_error_mm": 188.83494810948852,
+      "observation_count": 56,
+      "first_end_year": 1970,
+      "last_end_year": 2025,
+      "slope_mm_per_decade": 32.971428571428476
+    }
+  },
+  "statistical_projection": {
+    "warning": "Illustrative continuation of observed statistical relationships; not a physical climate forecast.",
+    "primary_fit": {
+      "intercept_at_2000_mm": 1443.4946514012306,
+      "slope_mm_per_year": 3.1671462747778545,
+      "r_squared": 0.07249201340423983,
+      "residual_standard_error_mm": 186.46921941795316,
+      "observation_count": 56,
+      "first_end_year": 1970,
+      "last_end_year": 2025,
+      "slope_mm_per_decade": 31.671462747778545
+    },
+    "full_record_sensitivity_fit": {
+      "intercept_at_2000_mm": 1440.7688433258088,
+      "slope_mm_per_year": 1.0624577400949182,
+      "r_squared": 0.09131053319894433,
+      "residual_standard_error_mm": 183.83752868160443,
+      "observation_count": 189,
+      "first_end_year": 1837,
+      "last_end_year": 2025,
+      "slope_mm_per_decade": 10.624577400949182
+    },
+    "theil_sen_sensitivity_fit": {
+      "intercept_at_2000_mm": 1473.0042857142857,
+      "slope_mm_per_year": 3.2971428571428474,
+      "r_squared": 0.04880819751565013,
+      "residual_standard_error_mm": 188.83494810948852,
+      "observation_count": 56,
+      "first_end_year": 1970,
+      "last_end_year": 2025,
+      "slope_mm_per_decade": 32.971428571428476
+    },
+    "bootstrap_replicates": 2000,
+    "bootstrap_block_length": 5,
+    "random_seed": 20260803,
+    "milestones": {
+      "2050": {
+        "primary_projection_mm": 1601.8519651401234,
+        "bootstrap_95_lower_mm": 1479.4138743484916,
+        "bootstrap_95_upper_mm": 1737.2036869722433,
+        "full_record_sensitivity_mm": 1493.8917303305548,
+        "theil_sen_sensitivity_mm": 1637.8614285714282
+      },
+      "2100": {
+        "primary_projection_mm": 1760.209278879016,
+        "bootstrap_95_lower_mm": 1526.231350436639,
+        "bootstrap_95_upper_mm": 2005.0716449951065,
+        "full_record_sensitivity_mm": 1547.0146173353007,
+        "theil_sen_sensitivity_mm": 1802.7185714285706
+      }
+    }
+  },
+  "backtest_summary": {
+    "origins": 4,
+    "mean_absolute_ten_year_mean_error_mm": 51.77534771601847,
+    "mean_annual_mae_mm": 175.89779745381588,
+    "mean_annual_rmse_mm": 210.38548278716934
+  }
+}
