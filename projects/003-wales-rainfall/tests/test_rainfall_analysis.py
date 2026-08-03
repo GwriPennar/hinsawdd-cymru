@@ -19,15 +19,14 @@ SPEC.loader.exec_module(analysis)
 
 def _official_style_source(path: Path) -> None:
     header = "year    jan    feb    mar    apr    may    jun    jul    aug    sep    oct    nov    dec     win     spr     sum     aut     ann"
-    matches = list(__import__("re").finditer(r"\S+", header))
-    columns = [match.group(0) for match in matches]
-    starts = [match.start() for match in matches]
 
     def row(values: dict[str, str]) -> str:
-        chars = [" "] * 135
-        for column, start in zip(columns, starts):
-            value = values.get(column, "")
-            chars[start : start + len(value)] = list(value)
+        chars = [" "] * 129
+        for name, start, end in analysis.FIELD_SPECS:
+            value = values.get(name, "")
+            if len(value) > end - start:
+                raise ValueError(f"Fixture value too wide for {name}")
+            chars[start:end] = list(value.rjust(end - start))
         return "".join(chars).rstrip()
 
     lines = [
@@ -37,9 +36,9 @@ def _official_style_source(path: Path) -> None:
         "Areal series, starting in 1836",
         "Last updated 01-Jul-2026 11:33",
         header,
-        row({"year": "1836", **{month: "10.0" for month in analysis.MONTH_COLUMNS}, "ann": "120.0"}),
+        row({"year": "1836", **{month: "10.0" for month in analysis.MONTH_COLUMNS}, "win": "---", "ann": "120.0"}),
         row({"year": "1837", **{month: "20.0" for month in analysis.MONTH_COLUMNS}, "ann": "240.0"}),
-        row({"year": "1838", "jan": "30.0", "feb": "40.0"}),
+        row({"year": "1838", "jan": "30.0", "feb": "40.0", "win": "90.0"}),
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -51,22 +50,25 @@ def test_fixed_width_parser_preserves_missing_months(tmp_path: Path) -> None:
     assert len(bundle.monthly) == 26
     assert bundle.monthly.iloc[-1]["date"] == pd.Timestamp("1838-02-01")
     assert pd.isna(bundle.annual.loc[bundle.annual["year"] == 1838, "jul"]).all()
+    assert bundle.annual.loc[bundle.annual["year"] == 1838, "win"].iloc[0] == 90.0
     reconciliation = analysis.annual_reconciliation(bundle)
     assert reconciliation["difference_mm"].abs().max() == 0
 
 
-def test_august_to_july_sums_monthly_totals() -> None:
+def test_august_to_july_sums_only_complete_calendar_window() -> None:
     dates = pd.date_range("2000-01-01", "2002-12-01", freq="MS")
     monthly = pd.DataFrame({
         "date": dates,
         "year": dates.year,
         "month": dates.month,
-        "month_name": [analysis.MONTH_COLUMNS[m - 1] for m in dates.month],
+        "month_name": [analysis.MONTH_COLUMNS[month - 1] for month in dates.month],
         "rainfall_mm": np.arange(1, len(dates) + 1, dtype=float),
     })
     periods = analysis.august_to_july_series(monthly)
     first = periods.iloc[0]
-    expected = monthly[(monthly["date"] >= "2000-08-01") & (monthly["date"] <= "2001-07-01")]["rainfall_mm"].sum()
+    expected = monthly[
+        (monthly["date"] >= "2000-08-01") & (monthly["date"] <= "2001-07-01")
+    ]["rainfall_mm"].sum()
     assert first.period == "2000-08 to 2001-07"
     assert first.rainfall_total_mm == expected
 
@@ -77,11 +79,16 @@ def test_reference_is_sum_of_monthly_1991_2020_normals() -> None:
         "date": dates,
         "year": dates.year,
         "month": dates.month,
-        "month_name": [analysis.MONTH_COLUMNS[m - 1] for m in dates.month],
+        "month_name": [analysis.MONTH_COLUMNS[month - 1] for month in dates.month],
         "rainfall_mm": dates.month.astype(float),
     })
     assert analysis.reference_total(monthly, 1991, 2020, list(range(1, 13))) == 78.0
-    assert analysis.reference_total(monthly, 1991, 2020, [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6]) == 71.0
+    assert analysis.reference_total(
+        monthly,
+        1991,
+        2020,
+        [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
+    ) == 71.0
 
 
 def test_linear_fit_recovers_known_trend() -> None:
@@ -106,3 +113,4 @@ def test_history_figure_has_exact_dimensions(tmp_path: Path) -> None:
     analysis.make_history_figure(series, partial, 1200.0, output, "01-Jul-2026 11:33")
     with Image.open(output.with_suffix(".png")) as image:
         assert image.size == (1600, 900)
+    assert "July is not yet published" in output.with_suffix(".svg").read_text(encoding="utf-8")
