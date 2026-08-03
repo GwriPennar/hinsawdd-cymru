@@ -15,8 +15,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from fetch_source import SERIES_URL
-
+SERIES_URL = "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/date/Wales.txt"
 PROJECT_DIR = Path(__file__).resolve().parent
 RAW_DIR = PROJECT_DIR / "data/raw"
 DERIVED_DIR = PROJECT_DIR / "data/derived"
@@ -27,6 +26,14 @@ RESULT_END = "<!-- END GENERATED RESULT -->"
 MONTH_COLUMNS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
 MONTH_NUMBERS = {name: index for index, name in enumerate(MONTH_COLUMNS, start=1)}
 SEASON_COLUMNS = ["win", "spr", "sum", "aut"]
+# Official country-series fields are wider than the short labels in the header.
+# Explicit spans preserve blank recent months followed by seasonal values.
+FIELD_SPECS = (
+    [("year", 0, 4)]
+    + [(name, 5 + 7 * index, 12 + 7 * index) for index, name in enumerate(MONTH_COLUMNS)]
+    + [(name, 89 + 8 * index, 97 + 8 * index) for index, name in enumerate(SEASON_COLUMNS)]
+    + [("ann", 121, 129)]
+)
 
 
 @dataclass(frozen=True)
@@ -88,28 +95,28 @@ def discover_source() -> Path:
     return candidates[-1]
 
 
-def _fixed_width_rows(text: str) -> tuple[list[str], list[dict[str, str]]]:
+def _fixed_width_rows(text: str) -> list[dict[str, str]]:
     lines = text.splitlines()
     header_index = next((i for i, line in enumerate(lines) if line.lstrip().startswith("year")), None)
     if header_index is None:
         raise ValueError("Could not locate the official source table header")
-    matches = list(re.finditer(r"\S+", lines[header_index]))
-    columns = [match.group(0).lower() for match in matches]
-    starts = [match.start() for match in matches]
-    if columns != ["year", *MONTH_COLUMNS, *SEASON_COLUMNS, "ann"]:
-        raise ValueError(f"Unexpected rainfall columns: {columns}")
+    header_tokens = re.findall(r"\S+", lines[header_index].lower())
+    expected_tokens = ["year", *MONTH_COLUMNS, *SEASON_COLUMNS, "ann"]
+    if header_tokens != expected_tokens:
+        raise ValueError(f"Unexpected rainfall columns: {header_tokens}")
+
     rows: list[dict[str, str]] = []
     for line in lines[header_index + 1 :]:
-        if not re.match(r"^\s*\d{4}\b", line):
+        if not re.match(r"^\d{4}\b", line):
             continue
-        row: dict[str, str] = {}
-        for index, column in enumerate(columns):
-            end = starts[index + 1] if index + 1 < len(starts) else None
-            row[column] = line[starts[index] : end].strip()
+        padded = line.ljust(129)
+        row = {name: padded[start:end].strip() for name, start, end in FIELD_SPECS}
+        if not re.fullmatch(r"\d{4}", row["year"]):
+            raise ValueError(f"Could not parse rainfall year from line: {line!r}")
         rows.append(row)
     if not rows:
         raise ValueError("No rainfall rows were parsed")
-    return columns, rows
+    return rows
 
 
 def load_source(path: Path) -> SourceBundle:
@@ -125,11 +132,10 @@ def load_source(path: Path) -> SourceBundle:
     if updated_match is None:
         raise ValueError("Missing source Last updated field")
 
-    columns, rows = _fixed_width_rows(text)
     parsed: list[dict[str, float | int | None]] = []
-    for row in rows:
+    for row in _fixed_width_rows(text):
         item: dict[str, float | int | None] = {"year": int(row["year"])}
-        for column in columns[1:]:
+        for column in [*MONTH_COLUMNS, *SEASON_COLUMNS, "ann"]:
             raw = row[column]
             item[column] = None if raw in {"", "---"} else float(raw)
         parsed.append(item)
@@ -177,14 +183,13 @@ def annual_reconciliation(bundle: SourceBundle) -> pd.DataFrame:
 
 def _rolling_periods(monthly: pd.DataFrame, months: int, ending_month: int) -> pd.DataFrame:
     data = monthly.set_index("date")["rainfall_mm"].sort_index()
-    totals = data.rolling(months, min_periods=months).sum()
-    selected = totals[(totals.index.month == ending_month) & totals.notna()]
     rows: list[dict[str, object]] = []
-    for end_date, total in selected.items():
+    for end_date in data.index[data.index.month == ending_month]:
         start_date = end_date - pd.DateOffset(months=months - 1)
         expected = pd.date_range(start_date, end_date, freq="MS")
         if len(expected) != months or not expected.isin(data.index).all():
             continue
+        total = float(data.loc[expected].sum())
         rows.append({
             "period": f"{start_date.year:04d}-{start_date.month:02d} to {end_date.year:04d}-{end_date.month:02d}",
             "start_date": start_date.strftime("%Y-%m-%d"),
@@ -192,7 +197,7 @@ def _rolling_periods(monthly: pd.DataFrame, months: int, ending_month: int) -> p
             "start_year": int(start_date.year),
             "end_year": int(end_date.year),
             "months": months,
-            "rainfall_total_mm": float(total),
+            "rainfall_total_mm": total,
             "status": "published-inputs",
         })
     return pd.DataFrame(rows)
@@ -274,7 +279,11 @@ def fit_theil_sen(years: pd.Series | np.ndarray, values: pd.Series | np.ndarray)
     )
 
 
-def bootstrap_projection(training: pd.DataFrame, years: np.ndarray, config: AnalysisConfig) -> tuple[np.ndarray, np.ndarray]:
+def bootstrap_projection(
+    training: pd.DataFrame,
+    years: np.ndarray,
+    config: AnalysisConfig,
+) -> tuple[np.ndarray, np.ndarray]:
     x_years = training["end_year"].to_numpy(dtype=float)
     values = training["rainfall_total_mm"].to_numpy(dtype=float)
     base = fit_linear(x_years, values)
@@ -287,17 +296,25 @@ def bootstrap_projection(training: pd.DataFrame, years: np.ndarray, config: Anal
         sample: list[float] = []
         while len(sample) < n:
             start = int(rng.integers(0, n))
-            sample.extend(float(residuals[(start + offset) % n]) for offset in range(config.bootstrap_block_length))
-        boot_fit = fit_linear(x_years, fitted + np.asarray(sample[:n]))
-        predictions[replicate] = boot_fit.predict(years)
+            sample.extend(
+                float(residuals[(start + offset) % n])
+                for offset in range(config.bootstrap_block_length)
+            )
+        predictions[replicate] = fit_linear(x_years, fitted + np.asarray(sample[:n])).predict(years)
     return np.quantile(predictions, 0.025, axis=0), np.quantile(predictions, 0.975, axis=0)
 
 
 def run_backtests(series: pd.DataFrame, config: AnalysisConfig) -> pd.DataFrame:
     rows: list[dict[str, float | int]] = []
     for cutoff in config.backtest_cutoffs:
-        training = series[(series["end_year"] >= config.modern_fit_start_end_year) & (series["end_year"] <= cutoff)]
-        actual = series[(series["end_year"] > cutoff) & (series["end_year"] <= cutoff + config.backtest_horizon_years)]
+        training = series[
+            (series["end_year"] >= config.modern_fit_start_end_year)
+            & (series["end_year"] <= cutoff)
+        ]
+        actual = series[
+            (series["end_year"] > cutoff)
+            & (series["end_year"] <= cutoff + config.backtest_horizon_years)
+        ]
         if len(training) < 10 or len(actual) != config.backtest_horizon_years:
             continue
         predictions = fit_linear(training["end_year"], training["rainfall_total_mm"]).predict(actual["end_year"])
@@ -320,44 +337,56 @@ def seasonal_trends(annual: pd.DataFrame, reference: float, modern_start: int) -
     rows: list[dict[str, object]] = []
     for column in SEASON_COLUMNS:
         subset = annual[["year", column]].dropna().rename(columns={column: "rainfall_mm"})
-        full = fit_linear(subset["year"], subset["rainfall_mm"])
-        modern_subset = subset[subset["year"] >= modern_start]
-        modern = fit_linear(modern_subset["year"], modern_subset["rainfall_mm"])
+        modern = subset[subset["year"] >= modern_start]
         rows.append({
             "season": labels[column],
-            "full_record_slope_mm_per_decade": full.slope_mm_per_decade,
-            "modern_slope_mm_per_decade": modern.slope_mm_per_decade,
+            "full_record_slope_mm_per_decade": fit_linear(subset["year"], subset["rainfall_mm"]).slope_mm_per_decade,
+            "modern_slope_mm_per_decade": fit_linear(modern["year"], modern["rainfall_mm"]).slope_mm_per_decade,
             "reference_1991_2020_annual_mm": reference,
         })
     return pd.DataFrame(rows)
 
 
-def make_history_figure(series: pd.DataFrame, partial: pd.Series, partial_reference_mm: float, output: Path, source_last_updated: str) -> None:
+def make_history_figure(
+    series: pd.DataFrame,
+    partial: pd.Series,
+    partial_reference_mm: float,
+    output: Path,
+    source_last_updated: str,
+) -> None:
     data = series.copy()
     data["trailing_10_period_mean_mm"] = data["rainfall_total_mm"].rolling(10, min_periods=10).mean()
     reference = float(data["reference_1991_2020_mm"].iloc[0])
-    wettest, driest, latest = data.nlargest(1, "rainfall_total_mm").iloc[0], data.nsmallest(1, "rainfall_total_mm").iloc[0], data.iloc[-1]
+    wettest = data.nlargest(1, "rainfall_total_mm").iloc[0]
+    driest = data.nsmallest(1, "rainfall_total_mm").iloc[0]
+    latest = data.iloc[-1]
     sns.set_theme(style="whitegrid", context="talk")
     plt.rcParams.update({"font.family": "DejaVu Sans", "svg.fonttype": "none"})
     fig, ax = plt.subplots(figsize=(16, 9), dpi=100)
     ax.plot(data["end_year"], data["rainfall_total_mm"], linewidth=1.15, alpha=0.68, label="Complete August-to-July totals")
     ax.plot(data["end_year"], data["trailing_10_period_mean_mm"], linewidth=3.0, label="Trailing 10-period mean")
     ax.axhline(reference, linestyle="--", linewidth=2.0, label="Derived 1991–2020 reference")
-    for row, label, offset in ((wettest, "Wettest", (12, 16)), (driest, "Driest", (12, -32)), (latest, "Latest complete", (-12, 16))):
+    annotations = (
+        (wettest, "Wettest", (-100, -58), "right"),
+        (driest, "Driest", (12, 12), "left"),
+        (latest, "Latest complete", (-12, 18), "right"),
+    )
+    for row, label, offset, alignment in annotations:
         ax.scatter([row.end_year], [row.rainfall_total_mm], s=70, zorder=6)
         ax.annotate(
             f"{label}\n{row.period}: {row.rainfall_total_mm:.1f} mm",
             (row.end_year, row.rainfall_total_mm),
             xytext=offset,
             textcoords="offset points",
-            ha="right" if offset[0] < 0 else "left",
+            ha=alignment,
             fontsize=9,
         )
     partial_percent = float(partial["rainfall_total_mm"]) / partial_reference_mm * 100.0
     ax.text(
         0.015,
         0.965,
-        f"Current incomplete period, Aug 2025–Jun 2026: {partial['rainfall_total_mm']:.1f} mm\n{partial_percent:.1f}% of the derived 1991–2020 August–June reference; July is not yet published",
+        f"Current incomplete period, Aug 2025–Jun 2026: {partial['rainfall_total_mm']:.1f} mm\n"
+        f"{partial_percent:.1f}% of the derived 1991–2020 August–June reference; July is not yet published",
         transform=ax.transAxes,
         va="top",
         fontsize=11,
@@ -366,18 +395,31 @@ def make_history_figure(series: pd.DataFrame, partial: pd.Series, partial_refere
     ax.set_title("Wales August-to-July rainfall since records began", fontsize=24, fontweight="bold", pad=18)
     ax.set_xlabel("Period end year")
     ax.set_ylabel("Total precipitation (mm)")
-    ax.set_xlim(int(data["end_year"].min()) - 1, int(data["end_year"].max()) + 2)
+    ax.set_xlim(int(data["end_year"].min()) - 1, int(data["end_year"].max()) + 4)
     ax.spines[["top", "right"]].set_visible(False)
     ax.legend(frameon=True, loc="upper right", fontsize=10)
-    fig.text(0.01, 0.012, f"Data source: Met Office National Climate Information Centre, Wales HadUK-Grid 1 km areal rainfall series. Source last updated {source_last_updated}. Monthly rainfall totals are summed; no temperature-style day weighting is applied.", fontsize=8.5)
-    fig.tight_layout(rect=(0, 0.045, 1, 1))
+    fig.text(
+        0.01,
+        0.012,
+        f"Data source: Met Office National Climate Information Centre, Wales HadUK-Grid 1 km areal rainfall series. "
+        f"Source last updated {source_last_updated}. Monthly rainfall totals are summed; no temperature-style day weighting is applied.",
+        fontsize=8.5,
+    )
+    fig.subplots_adjust(left=0.08, right=0.98, top=0.89, bottom=0.10)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output.with_suffix(".png"), dpi=100, facecolor="white")
     fig.savefig(output.with_suffix(".svg"), facecolor="white")
     plt.close(fig)
 
 
-def make_projection_figure(series: pd.DataFrame, primary: LinearFit, full: LinearFit, robust: LinearFit, projection: pd.DataFrame, output: Path) -> None:
+def make_projection_figure(
+    series: pd.DataFrame,
+    primary: LinearFit,
+    full: LinearFit,
+    robust: LinearFit,
+    projection: pd.DataFrame,
+    output: Path,
+) -> None:
     data = series.copy()
     data["trailing_10_period_mean_mm"] = data["rainfall_total_mm"].rolling(10, min_periods=10).mean()
     reference = float(data["reference_1991_2020_mm"].iloc[0])
@@ -390,7 +432,13 @@ def make_projection_figure(series: pd.DataFrame, primary: LinearFit, full: Linea
     ax.plot(data["end_year"], data["trailing_10_period_mean_mm"], linewidth=2.6, label="Trailing 10-period mean")
     fit_years = np.arange(primary.first_end_year, primary.last_end_year + 1)
     ax.plot(fit_years, primary.predict(fit_years), linewidth=2.8, label="Modern OLS fit, 1970–2025")
-    ax.fill_between(years, future["bootstrap_95_lower_mm"], future["bootstrap_95_upper_mm"], alpha=0.22, label="95% trend-fit bootstrap range")
+    ax.fill_between(
+        years,
+        future["bootstrap_95_lower_mm"],
+        future["bootstrap_95_upper_mm"],
+        alpha=0.22,
+        label="95% trend-fit bootstrap range",
+    )
     ax.plot(years, future["primary_projection_mm"], linewidth=3.0, linestyle="--", label="Illustrative continuation")
     ax.plot(years, full.predict(years), linewidth=1.8, linestyle=":", label="Full-record OLS sensitivity")
     ax.plot(years, robust.predict(years), linewidth=1.8, linestyle="-.", label="Modern Theil–Sen sensitivity")
@@ -399,16 +447,36 @@ def make_projection_figure(series: pd.DataFrame, primary: LinearFit, full: Linea
     for milestone in (2050, 2100):
         row = projection.loc[projection["end_year"] == milestone].iloc[0]
         ax.scatter([milestone], [row.primary_projection_mm], s=75, zorder=7)
-        ax.annotate(f"{milestone}: {row.primary_projection_mm:.0f} mm", (milestone, row.primary_projection_mm), xytext=(-8, 14), textcoords="offset points", ha="right", fontsize=10)
+        ax.annotate(
+            f"{milestone}: {row.primary_projection_mm:.0f} mm",
+            (milestone, row.primary_projection_mm),
+            xytext=(-8, 14),
+            textcoords="offset points",
+            ha="right",
+            fontsize=10,
+        )
     ax.set_title("Wales rainfall: illustrative statistical continuation", fontsize=24, fontweight="bold", pad=18)
-    ax.text(0.5, 1.01, "Observed August-to-July totals and transparent regression sensitivities — not a physical climate forecast", transform=ax.transAxes, ha="center", fontsize=12)
+    ax.text(
+        0.5,
+        1.01,
+        "Observed August-to-July totals and transparent regression sensitivities — not a physical climate forecast",
+        transform=ax.transAxes,
+        ha="center",
+        fontsize=12,
+    )
     ax.set_xlabel("Period end year")
     ax.set_ylabel("Total precipitation (mm)")
     ax.set_xlim(int(data["end_year"].min()), int(projection["end_year"].max()) + 2)
     ax.spines[["top", "right"]].set_visible(False)
     ax.legend(frameon=True, loc="upper left", ncol=2, fontsize=9.5)
-    fig.text(0.01, 0.012, "Illustrative continuation of observed statistical relationships only. It does not represent UKCP/UKCI, emissions scenarios, future circulation changes, physical hydrology or year-to-year forecast skill.", fontsize=8.5)
-    fig.tight_layout(rect=(0, 0.045, 1, 1))
+    fig.text(
+        0.01,
+        0.012,
+        "Illustrative continuation of observed statistical relationships only. It does not represent UKCP/UKCI, emissions scenarios, "
+        "future circulation changes, physical hydrology or year-to-year forecast skill.",
+        fontsize=8.5,
+    )
+    fig.subplots_adjust(left=0.08, right=0.98, top=0.87, bottom=0.10)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output.with_suffix(".png"), dpi=100, facecolor="white")
     fig.savefig(output.with_suffix(".svg"), facecolor="white")
@@ -418,7 +486,9 @@ def make_projection_figure(series: pd.DataFrame, primary: LinearFit, full: Linea
 def _period_table(rows: list[dict[str, object]], heading: str) -> str:
     output = [heading, "", "| Rank | Period | Rainfall | % of 1991–2020 |", "|---:|---|---:|---:|"]
     for item in rows:
-        output.append(f"| {item['rank']} | {item['period']} | **{item['rainfall_total_mm']:.1f} mm** | {item['percentage_of_1991_2020']:.1f}% |")
+        output.append(
+            f"| {item['rank']} | {item['period']} | **{item['rainfall_total_mm']:.1f} mm** | {item['percentage_of_1991_2020']:.1f}% |"
+        )
     return "\n".join(output)
 
 
@@ -462,13 +532,28 @@ The projection is deliberately secondary. It is a transparent statistical baseli
     README_PATH.write_text(pattern.sub(block, text), encoding="utf-8")
 
 
-def run(source_path: Path | None = None, *, config: AnalysisConfig = AnalysisConfig(), update_project_readme: bool = True) -> dict[str, object]:
+def run(
+    source_path: Path | None = None,
+    *,
+    config: AnalysisConfig = AnalysisConfig(),
+    update_project_readme: bool = True,
+) -> dict[str, object]:
     source_path = source_path or discover_source()
     bundle = load_source(source_path)
     DERIVED_DIR.mkdir(parents=True, exist_ok=True)
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    complete_reference = reference_total(bundle.monthly, config.reference_start_year, config.reference_end_year, list(range(1, 13)))
-    partial_reference = reference_total(bundle.monthly, config.reference_start_year, config.reference_end_year, [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6])
+    complete_reference = reference_total(
+        bundle.monthly,
+        config.reference_start_year,
+        config.reference_end_year,
+        list(range(1, 13)),
+    )
+    partial_reference = reference_total(
+        bundle.monthly,
+        config.reference_start_year,
+        config.reference_end_year,
+        [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
+    )
     complete = attach_reference(august_to_july_series(bundle.monthly), complete_reference)
     partials = august_to_june_series(bundle.monthly)
     partials["reference_1991_2020_august_june_mm"] = partial_reference
@@ -497,15 +582,12 @@ def run(source_path: Path | None = None, *, config: AnalysisConfig = AnalysisCon
     season_trends = seasonal_trends(bundle.annual, complete_reference, config.modern_fit_start_end_year)
 
     def ranked_rows(frame: pd.DataFrame) -> list[dict[str, object]]:
-        return [
-            {
-                "rank": index,
-                "period": row.period,
-                "rainfall_total_mm": float(row.rainfall_total_mm),
-                "percentage_of_1991_2020": float(row.percentage_of_1991_2020),
-            }
-            for index, row in enumerate(frame.itertuples(), start=1)
-        ]
+        return [{
+            "rank": index,
+            "period": row.period,
+            "rainfall_total_mm": float(row.rainfall_total_mm),
+            "percentage_of_1991_2020": float(row.percentage_of_1991_2020),
+        } for index, row in enumerate(frame.itertuples(), start=1)]
 
     wet_rows = ranked_rows(complete.nlargest(10, "rainfall_total_mm"))
     dry_rows = ranked_rows(complete.nsmallest(10, "rainfall_total_mm"))
@@ -585,8 +667,21 @@ def run(source_path: Path | None = None, *, config: AnalysisConfig = AnalysisCon
     projection.to_csv(DERIVED_DIR / "rainfall_statistical_projection.csv", index=False, float_format="%.6f")
     backtests.to_csv(DERIVED_DIR / "backtest_results.csv", index=False, float_format="%.6f")
     (DERIVED_DIR / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
-    make_history_figure(complete, current_partial, partial_reference, FIGURES_DIR / "wales_august_to_july_rainfall_history", bundle.source_last_updated)
-    make_projection_figure(complete, primary, full, robust, projection, FIGURES_DIR / "wales_rainfall_statistical_projection")
+    make_history_figure(
+        complete,
+        current_partial,
+        partial_reference,
+        FIGURES_DIR / "wales_august_to_july_rainfall_history",
+        bundle.source_last_updated,
+    )
+    make_projection_figure(
+        complete,
+        primary,
+        full,
+        robust,
+        projection,
+        FIGURES_DIR / "wales_rainfall_statistical_projection",
+    )
     if update_project_readme:
         update_readme(summary)
     return summary
