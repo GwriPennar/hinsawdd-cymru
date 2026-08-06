@@ -1,0 +1,36 @@
+name: Bootstrap dark Project 003 suite
+
+on:
+  push:
+    branches:
+      - agent/dark-dryness-rainfall-charts
+    paths:
+      - ".bootstrap/**"
+      - ".github/workflows/bootstrap-dark-suite.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/dark-dryness-rainfall-charts
+      - name: Reconstruct and apply payload
+        shell: bash
+        run: |
+          cat .bootstrap/part-* | base64 --decode > /tmp/dark-suite.tar.gz
+          echo "1c3712fefca45234f90215d0e1dccee70872c9938099a801a3877b1d12aaeeb1  /tmp/dark-suite.tar.gz" | sha256sum --check
+          tar -xzf /tmp/dark-suite.tar.gz
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap-dark-suite.yml
+      - name: Commit applied project
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add dark-mode Wales rainfall and dryness suite"
+          git push origin HEAD:agent/dark-dryness-rainfall-charts
