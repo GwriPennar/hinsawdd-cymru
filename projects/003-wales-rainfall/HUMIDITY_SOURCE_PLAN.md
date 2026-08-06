@@ -1,5 +1,7 @@
 # Relative humidity source plan
 
+**Status:** awaiting an official CEDA `hurs` source snapshot or authenticated CI access; no substitute dataset will be used.
+
 ## Purpose
 
 Add a reproducible Wales-wide mean relative-humidity history using the same scientific and presentation boundaries as the temperature and rainfall projects.
