@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "source_url": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/date/Wales.txt",
+  "retrieved_at_utc": "2026-08-06T19:02:59Z",
+  "source_last_updated": "03-Aug-2026 09:28",
+  "http_status": 200,
+  "content_type": "text/plain",
+  "etag": "\"a4f0ebf02309d2f8d93eaea5f3e6bde0:1785762672.617723\"",
+  "last_modified": "Mon, 03 Aug 2026 13:11:12 GMT",
+  "byte_count": 25031,
+  "sha256": "76689a9e338385da59d7e9eba92f2293ba09482c486f3280cdeca84238b7189e",
+  "exact_upstream_bytes": true,
+  "transformation": "none"
+}

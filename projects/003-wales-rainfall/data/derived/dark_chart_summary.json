@@ -1,0 +1,85 @@
+{
+  "analysis_status": "published-observations-through-july-2026",
+  "source_coverage": {
+    "rainfall_first_month": "1836-01",
+    "rainfall_last_month": "2026-07",
+    "raindays_first_month": "1891-01",
+    "raindays_last_month": "2026-07"
+  },
+  "source_last_updated": {
+    "rainfall": "03-Aug-2026 09:28",
+    "raindays1mm": "03-Aug-2026 09:28"
+  },
+  "complete_august_to_july_period_count": 190,
+  "reference_1991_2020": {
+    "august_to_july_rainfall_mm": 1464.7599999999998,
+    "july_rainfall_mm": 98.58666666666666,
+    "august_to_july_raindays_ge_1mm": 173.0966666666667
+  },
+  "latest_complete_august_to_july": {
+    "period": "2025-08 to 2026-07",
+    "rainfall_total_mm": 1547.5,
+    "percentage_of_1991_2020": 105.64870695540569,
+    "rain_days_ge_1mm": 178.90000000000003,
+    "rain_days_percentage_of_1991_2020": 103.35265458606943
+  },
+  "july_2026": {
+    "rainfall_mm": 9.3,
+    "percentage_of_1991_2020": 9.433324317013797,
+    "dryness_rank": 1,
+    "comparison_years": 191
+  },
+  "driest_complete_august_to_july": {
+    "period": "1933-08 to 1934-07",
+    "rainfall_total_mm": 899.4999999999999
+  },
+  "wettest_complete_august_to_july": {
+    "period": "2023-08 to 2024-07",
+    "rainfall_total_mm": 1862.5
+  },
+  "statistical_projection": {
+    "warning": "Illustrative continuation of observed statistical relationships; not a physical climate forecast.",
+    "primary_fit": {
+      "intercept_at_2000": 1443.9532624665114,
+      "slope_per_year": 3.206455794659062,
+      "r_squared": 0.07788206631857808,
+      "residual_standard_error": 184.78777184040737,
+      "observation_count": 57,
+      "first_year": 1970,
+      "last_year": 2026,
+      "slope_per_decade": 32.064557946590625
+    },
+    "full_record_fit": {
+      "intercept_at_2000": 1442.0811213023835,
+      "slope_per_year": 1.0755369225856963,
+      "r_squared": 0.0946269678179874,
+      "residual_standard_error": 183.43680510786405,
+      "observation_count": 190,
+      "first_year": 1837,
+      "last_year": 2026,
+      "slope_per_decade": 10.755369225856963
+    },
+    "theil_sen_fit": {
+      "intercept_at_2000": 1471.4519230769229,
+      "slope_per_year": 3.235192307692306,
+      "r_squared": 0.05680127682622538,
+      "residual_standard_error": 186.8880775746277,
+      "observation_count": 57,
+      "first_year": 1970,
+      "last_year": 2026,
+      "slope_per_decade": 32.35192307692306
+    },
+    "milestones": {
+      "2050": {
+        "primary_projection_mm": 1604.2760521994646,
+        "bootstrap_95_lower_mm": 1484.6521460477002,
+        "bootstrap_95_upper_mm": 1730.8090521494744
+      },
+      "2100": {
+        "primary_projection_mm": 1764.5988419324176,
+        "bootstrap_95_lower_mm": 1529.7291219250583,
+        "bootstrap_95_upper_mm": 1999.0658262933468
+      }
+    }
+  }
+}

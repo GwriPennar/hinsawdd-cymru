@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "source_url": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Raindays1mm/date/Wales.txt",
+  "retrieved_at_utc": "2026-08-06T19:03:00Z",
+  "source_last_updated": "03-Aug-2026 09:28",
+  "http_status": 200,
+  "content_type": "text/plain",
+  "etag": "\"d3a731c315dc71cbfc1f7e69924398d6:1785762687.346962\"",
+  "last_modified": "Mon, 03 Aug 2026 13:11:27 GMT",
+  "byte_count": 17970,
+  "sha256": "6e3dac6ca6f66f5cae9a5fee1a4b5331c4a8b3f81af83d4998cc3c26ef1ce4f3",
+  "exact_upstream_bytes": true,
+  "transformation": "none",
+  "metric": "days with precipitation amount >= 1 mm"
+}
