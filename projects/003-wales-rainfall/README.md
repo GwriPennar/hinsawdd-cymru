@@ -1,114 +1,106 @@
-# 003: Glawiad Cymru
+# 003: Glawiad a Sychder Cymru
 
-## Wales rainfall since 1836
+## Wales rainfall and dryness
 
 **Adroddiad canlyniadau / Results report**
 
-Project 003 asks:
+Project 003 now asks four linked but distinct questions:
 
-> How has Wales-wide rainfall changed since records began, what does the latest complete August-to-July period show, and what does a deliberately simple statistical continuation produce?
+1. How has Wales-wide rainfall changed since records began?
+2. How unusual was the latest dry month?
+3. Has the number of rain days changed alongside rainfall totals?
+4. What does a deliberately simple statistical continuation produce?
 
-The primary evidence is the official Met Office National Climate Information Centre Wales areal rainfall series derived from HadUK-Grid 1 km observations. Monthly rainfall totals begin in 1836.
+The primary evidence is from official Met Office National Climate Information Centre Wales area-average series derived from HadUK-Grid 1 km observations:
+
+- monthly rainfall totals from 1836;
+- monthly counts of days with at least 1 mm precipitation from 1891.
+
+All current public charts use the repository dark theme. Each chart is generated in a 1600 × 900 widescreen version and a 1080 × 1080 square version. Earlier light charts are retained as historical outputs but are no longer the publication default.
 
 <!-- BEGIN GENERATED RESULT -->
 ## Headline results
 
 | Measure | Result |
 |---|---:|
-| Official monthly source coverage | **1836-01 to 2026-06** |
-| Complete August-to-July periods | **189** |
-| Derived 1991–2020 August-to-July reference | **1464.8 mm** |
-| Latest complete period | **2024-08 to 2025-07** |
-| Latest complete rainfall | **1290.2 mm**, 88.1% of reference |
-| Current incomplete period | **2025-08 to 2026-06**, 11 published months |
-| Current incomplete rainfall | **1538.2 mm**, 112.6% of the like-for-like August–June reference |
-| Current partial rank among historical August–June periods | **19 of 190** |
-| Full-record trend | **+10.6 mm per decade** |
-| Modern trend, 1970 onward | **+31.7 mm per decade** |
-| Illustrative 2050 continuation | **1602 mm** |
-| Illustrative 2100 continuation | **1760 mm** |
+| Official rainfall coverage | **1836-01 to 2026-07** |
+| Complete August-to-July periods | **190** |
+| 1991–2020 August-to-July reference | **1464.8 mm** |
+| Latest complete period | **2025-08 to 2026-07** |
+| Latest complete rainfall | **1547.5 mm**, 105.6% of reference |
+| July 2026 rainfall | **9.3 mm**, 9.4% of the July reference |
+| July 2026 dryness rank | **1 of 191 Julys** |
+| Latest rain days ≥1 mm | **178.9 days**, 103.4% of reference |
+| Driest complete period | **1933-08 to 1934-07**, 899.5 mm |
+| Wettest complete period | **2023-08 to 2024-07**, 1862.5 mm |
+| Modern rainfall trend, 1970 onward | **+32.1 mm per decade** |
+| Illustrative 2050 continuation | **1604 mm** |
+| Illustrative 2100 continuation | **1765 mm** |
 
-The official Wales series currently stops at June 2026. The August 2025–July 2026 total is therefore **not complete and is not ranked against complete twelve-month periods**. It is compared only with historical August-to-June totals until July is published.
+July 2026 was the driest July in the Wales series beginning in 1836. That does **not** mean the complete August 2025–July 2026 period was exceptionally dry: its total was slightly above the 1991–2020 August-to-July reference. Monthly dryness, annual rainfall and formal drought status are therefore kept separate.
 
-The projection is deliberately secondary. It is a transparent statistical baseline, not a physical rainfall forecast or an official Met Office, UKCP or UKCI projection.
-
-### Wettest complete periods
-
-| Rank | Period | Rainfall | % of 1991–2020 |
-|---:|---|---:|---:|
-| 1 | 2023-08 to 2024-07 | **1862.5 mm** | 127.2% |
-| 2 | 2006-08 to 2007-07 | **1810.4 mm** | 123.6% |
-| 3 | 2000-08 to 2001-07 | **1808.6 mm** | 123.5% |
-| 4 | 1876-08 to 1877-07 | **1774.1 mm** | 121.1% |
-| 5 | 2019-08 to 2020-07 | **1769.4 mm** | 120.8% |
-| 6 | 2015-08 to 2016-07 | **1738.6 mm** | 118.7% |
-| 7 | 1852-08 to 1853-07 | **1716.3 mm** | 117.2% |
-| 8 | 2020-08 to 2021-07 | **1702.3 mm** | 116.2% |
-| 9 | 1929-08 to 1930-07 | **1699.9 mm** | 116.1% |
-| 10 | 1919-08 to 1920-07 | **1679.6 mm** | 114.7% |
-
-### Driest complete periods
-
-| Rank | Period | Rainfall | % of 1991–2020 |
-|---:|---|---:|---:|
-| 1 | 1933-08 to 1934-07 | **899.5 mm** | 61.4% |
-| 2 | 1975-08 to 1976-07 | **949.2 mm** | 64.8% |
-| 3 | 1854-08 to 1855-07 | **964.8 mm** | 65.9% |
-| 4 | 1857-08 to 1858-07 | **968.2 mm** | 66.1% |
-| 5 | 1955-08 to 1956-07 | **1021.7 mm** | 69.8% |
-| 6 | 1853-08 to 1854-07 | **1023.7 mm** | 69.9% |
-| 7 | 1855-08 to 1856-07 | **1038.2 mm** | 70.9% |
-| 8 | 1844-08 to 1845-07 | **1045.2 mm** | 71.4% |
-| 9 | 1895-08 to 1896-07 | **1062.2 mm** | 72.5% |
-| 10 | 1920-08 to 1921-07 | **1066.5 mm** | 72.8% |
+The continuation values are a transparent statistical baseline, not a physical climate forecast or an official Met Office, UKCP or UKCI projection.
 <!-- END GENERATED RESULT -->
 
-## Main historical chart
+## Dark chart suite
 
-![Wales August-to-July rainfall history](figures/wales_august_to_july_rainfall_history.svg)
+### Rainfall history
 
-This chart shows every complete August-to-July rainfall total, the trailing ten-period mean and the derived 1991–2020 reference.
+![Wales August-to-July rainfall history, dark mode](figures/wales_august_to_july_rainfall_history_dark.svg)
 
-The current period beginning in August 2025 is treated separately because the official country series currently contains data only through June 2026. Its August-to-June total is compared only with historical August-to-June periods. It is not ranked against complete twelve-month totals until July is published.
+[Square version](figures/wales_august_to_july_rainfall_history_dark_square.svg)
 
-## Statistical projection chart
+Every complete August-to-July total is shown with a trailing ten-period mean and the derived 1991–2020 reference.
 
-![Wales rainfall statistical projection](figures/wales_rainfall_statistical_projection.svg)
+### How dry was July 2026?
 
-The projection is deliberately placed after the historical analysis. It includes:
+![Wales July rainfall history, dark mode](figures/wales_july_rainfall_history_dark.svg)
 
-- a modern-period ordinary least-squares fit using complete published periods ending from 1970 onward;
-- a full-record regression sensitivity;
-- a robust Theil–Sen modern-period sensitivity;
-- a moving-block bootstrap range for uncertainty in the fitted statistical trend;
-- fixed-origin ten-year backtests.
+[Square version](figures/wales_july_rainfall_history_dark_square.svg)
 
-> **This is not a physical climate forecast.** It does not represent UKCP, UKCI, future emissions, atmospheric circulation, hydrology or flood risk. It is a transparent baseline for later comparison with official climate-projection ensembles.
+This chart compares every July from 1836 to 2026. July 2026 recorded 9.3 mm in the Wales area-average series, 9.4% of the 1991–2020 July reference.
 
-## Why rainfall first?
+### Annual-scale dryness and wetness
 
-Rainfall is the strongest next variable for a long historical Wales analysis because the official monthly HadUK-Grid country series begins in 1836. Humidity and several related variables begin much later, generally from 1961. A scientifically meaningful drought analysis would also require a defined index, such as SPI or SPEI, rather than treating low rainfall alone as drought.
+![Wales August-to-July rainfall percentage anomaly, dark mode](figures/wales_august_to_july_rainfall_dryness_dark.svg)
 
-Project 003 therefore remains focused on precipitation totals. Humidity, soil moisture, evapotranspiration and drought indices should be handled as separate, explicitly defined projects.
+[Square version](figures/wales_august_to_july_rainfall_dryness_dark_square.svg)
 
-## Met Office framework adopted
+The bars show the percentage difference between each complete August-to-July rainfall total and the 1991–2020 reference. Orange means below the reference and blue means above it. This is a rainfall anomaly presentation, not a formal drought index.
 
-The project follows the official data boundary:
+### Rain-day frequency
 
-- source variable: total precipitation amount in millimetres;
-- source geography: Wales land-area average from the HadUK-Grid 1 km product;
-- monthly totals are summed, not averaged;
-- annual reconstructed totals are reconciled against the official annual column;
-- the 1991–2020 comparison is expressed in millimetres and as a percentage of the reference;
-- provisional or incomplete periods are kept separate from complete published periods;
-- the exact source bytes, retrieval metadata and SHA-256 digest are retained.
+![Wales August-to-July rain-day history, dark mode](figures/wales_august_to_july_raindays_history_dark.svg)
 
-Official background:
+[Square version](figures/wales_august_to_july_raindays_history_dark_square.svg)
 
-- https://www.metoffice.gov.uk/research/climate/maps-and-data/data/haduk-grid/haduk-grid
-- https://www.metoffice.gov.uk/research/climate/maps-and-data/data/haduk-grid/datasets
-- https://www.metoffice.gov.uk/research/climate/maps-and-data/about/archives
-- https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/date/Wales.txt
+This companion measure counts days with at least 1 mm precipitation. It helps distinguish total rainfall from how frequently measurable rain occurs.
+
+### Statistical continuation
+
+![Wales rainfall statistical continuation, dark mode](figures/wales_rainfall_statistical_projection_dark.svg)
+
+[Square version](figures/wales_rainfall_statistical_projection_dark_square.svg)
+
+The chart includes a modern ordinary least-squares fit, a moving-block bootstrap trend-fit range and sensitivity fits. It is deliberately labelled as a statistical continuation rather than a climate forecast.
+
+## What “dryness” means here
+
+There is no single all-purpose Met Office dryness number used by this project. The current observational framework uses complementary measures:
+
+- actual rainfall in millimetres;
+- rainfall as a percentage of the 1991–2020 normal;
+- rainfall anomaly in percentage points;
+- days with at least 1 mm precipitation;
+- a clearly specified time window, either one calendar month or a complete August-to-July period.
+
+Formal meteorological, agricultural, hydrological and water-supply drought assessments are not interchangeable. A later drought-index project may add SPI or related indices, but only with the required daily or monthly dataset, accumulation window and validation clearly stated.
+
+## Relative humidity
+
+Mean relative humidity is an official HadUK-Grid variable (`hurs`) beginning in 1961. The current country-level release is distributed through CEDA as NetCDF and requires a registered CEDA account for access.
+
+Humidity is therefore specified as the next separate source-ingestion task in [`HUMIDITY_SOURCE_PLAN.md`](HUMIDITY_SOURCE_PLAN.md). It is not approximated from another provider and is not silently substituted for a drought index.
 
 ## Reproduce
 
@@ -118,36 +110,46 @@ From the repository root:
 python projects/003-wales-rainfall/fetch_source.py \
   --output-dir projects/003-wales-rainfall/data/raw
 
-python projects/003-wales-rainfall/analysis.py \
-  --source projects/003-wales-rainfall/data/raw/<retrieved-source>.txt
+python projects/003-wales-rainfall/fetch_raindays_source.py \
+  --output-dir projects/003-wales-rainfall/data/raw
 
-python projects/003-wales-rainfall/verify.py \
-  --source projects/003-wales-rainfall/data/raw/<retrieved-source>.txt \
-  --manifest projects/003-wales-rainfall/data/raw/<retrieved-source>.provenance.json
+python projects/003-wales-rainfall/dark_climate_charts.py \
+  --rainfall-source projects/003-wales-rainfall/data/raw/<rainfall-source>.txt \
+  --raindays-source projects/003-wales-rainfall/data/raw/<raindays-source>.txt \
+  --output-dir projects/003-wales-rainfall/figures \
+  --derived-dir projects/003-wales-rainfall/data/derived \
+  --update-readme
+
+python projects/003-wales-rainfall/verify_dark.py \
+  --rainfall-source projects/003-wales-rainfall/data/raw/<rainfall-source>.txt \
+  --rainfall-manifest projects/003-wales-rainfall/data/raw/<rainfall-source>.provenance.json \
+  --raindays-source projects/003-wales-rainfall/data/raw/<raindays-source>.txt \
+  --raindays-manifest projects/003-wales-rainfall/data/raw/<raindays-source>.provenance.json
 ```
 
-## Outputs
+## Current outputs
 
-### Data
+### Derived data
 
-- `data/derived/wales_monthly_rainfall.csv`
-- `data/derived/wales_official_annual_and_seasonal_rainfall.csv`
-- `data/derived/annual_reconciliation.csv`
-- `data/derived/august_to_july_rainfall.csv`
-- `data/derived/august_to_june_rainfall.csv`
-- `data/derived/seasonal_trends.csv`
-- `data/derived/rainfall_statistical_projection.csv`
-- `data/derived/backtest_results.csv`
-- `data/derived/summary.json`
-- `data/derived/independent_verification.json`
+- `data/derived/dark_august_to_july_rainfall.csv`
+- `data/derived/july_rainfall_history.csv`
+- `data/derived/august_to_july_raindays1mm.csv`
+- `data/derived/dark_rainfall_statistical_projection.csv`
+- `data/derived/dark_chart_summary.json`
+- `data/derived/independent_dark_verification.json`
 
 ### Figures
 
-- `figures/wales_august_to_july_rainfall_history.{png,svg}`
-- `figures/wales_rainfall_statistical_projection.{png,svg}`
+Every stem below has `.png` and `.svg` versions, plus a `_square` pair:
+
+- `wales_august_to_july_rainfall_history_dark`
+- `wales_july_rainfall_history_dark`
+- `wales_august_to_july_rainfall_dryness_dark`
+- `wales_august_to_july_raindays_history_dark`
+- `wales_rainfall_statistical_projection_dark`
 
 ## Interpretation boundary
 
-This repository analyses a Wales-wide area average. It does not show local rainfall differences, short-duration downpours, river flows, groundwater, soil moisture, flood probability or drought severity. Those require different spatial and physical datasets.
+This repository analyses Wales-wide area averages. It does not show local rainfall differences, short-duration downpours, river flows, groundwater, soil moisture, crop stress, water-company operational status, flood probability or formal drought severity.
 
-Hinsawdd Cymru is independent. These are reproducible calculations from Met Office data, not official Met Office products or forecasts.
+Hinsawdd Cymru is independent. These are reproducible calculations from official Met Office data, not official Met Office products or forecasts.

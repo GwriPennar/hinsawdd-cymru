@@ -1,149 +1,137 @@
 # Project 003 methodology
 
-## Scientific question
+## Scientific questions
 
-Project 003 measures Wales-wide precipitation totals using the official Met Office HadUK-Grid country series, then asks whether there are detectable long-term changes in complete August-to-July totals and seasons.
+Project 003 measures Wales-wide rainfall totals and rain-day frequency using official Met Office HadUK-Grid country series. It separates three observational scales:
 
-A secondary statistical extrapolation is included only as a transparent comparison baseline.
+- individual calendar months, currently with a dedicated July history;
+- complete August-to-July periods;
+- descriptive long-term trends and a secondary statistical continuation.
 
-## Source
+A low-rainfall month is not automatically described as a complete-year drought, and neither rainfall total nor relative humidity alone is treated as a formal drought index.
 
-The source file is the Met Office National Climate Information Centre Wales rainfall areal series:
+## Official sources
+
+### Rainfall
 
 `https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Rainfall/date/Wales.txt`
 
-The file states that it contains monthly, seasonal and annual total precipitation for Wales from HadUK-Grid 1 km gridded climate data. The monthly series begins in 1836.
+The monthly Wales area-average series begins in 1836 and reports total precipitation in millimetres.
 
-The exact response bytes are retained with:
+### Rain days
 
-- retrieval timestamp;
-- source `Last updated` value;
-- HTTP metadata where available;
-- byte count;
-- SHA-256 digest;
-- an explicit statement that no transformation was applied to the raw snapshot.
+`https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Raindays1mm/date/Wales.txt`
 
-## Parsing
+The monthly Wales area-average series begins in 1891 and reports the number of days with precipitation amount at least 1 mm.
 
-The official text file is fixed-width. Blank cells in the most recent incomplete year must remain missing. The parser therefore uses the column positions in the official header rather than splitting only on whitespace.
+The exact HTTP response bytes are retained for both sources with retrieval timestamp, upstream `Last updated` value, byte count, SHA-256 digest and a statement that the raw snapshot is untransformed.
 
-The parser validates:
+## Parsing and continuity
 
-- the official source description;
-- the 1836 start year;
+Both official text files are fixed-width. The parser uses the official column positions rather than whitespace splitting so that blank recent months remain missing.
+
+Validation checks include:
+
+- the metric-specific source description;
 - expected monthly, seasonal and annual columns;
-- non-negative rainfall totals;
-- continuous monthly coverage from the first to the latest published month.
+- continuous monthly coverage from the first to latest published month;
+- a valid source update field;
+- separate source identity checks so rainfall cannot be mistaken for rain days.
 
-## Annual reconciliation
+## August-to-July construction
 
-For every complete calendar year, the twelve published monthly totals are summed and compared with the official annual value.
+A complete period sums the twelve monthly values from August through the following July.
 
-Small differences are expected because the published monthly values are rounded to 0.1 mm before reconstruction. The independent verifier reproduces the reconciliation using `Decimal` arithmetic.
+- rainfall totals are additive in millimetres;
+- rain-day counts are additive in days;
+- no temperature-style calendar-day weighting is applied;
+- only periods containing all twelve published months are retained.
 
-## August-to-July periods
+With the source updated on 3 August 2026, the latest complete period is August 2025 to July 2026.
 
-A complete period is the sum of twelve monthly totals from August through the following July. Rainfall totals are additive, so no temperature-style calendar-day weighting is applied.
+## July history
 
-The first complete equivalent period is August 1836 to July 1837.
+The July chart uses the official July rainfall value from every available year. Each value is compared with the mean July rainfall for 1991–2020.
 
-The official source currently ends in June 2026. Therefore:
-
-- August 2024 to July 2025 is the latest complete period;
-- August 2025 to June 2026 is an incomplete eleven-month period;
-- no July value is invented or modelled;
-- the current incomplete period is compared only with historical August-to-June totals;
-- its rank among complete August-to-July periods is withheld.
+The dryness rank is ascending: the smallest July rainfall receives rank 1. Ties use the minimum shared rank.
 
 ## Reference period
 
-The August-to-July 1991–2020 reference is constructed from the official monthly series:
+For each metric:
 
-1. calculate the mean January rainfall across 1991–2020;
+1. calculate the mean January value across 1991–2020;
 2. repeat for every calendar month;
-3. sum the twelve monthly normals once each.
+3. sum the twelve monthly normals for an August-to-July reference.
 
-The August-to-June reference uses the same method but omits July.
+For the dedicated July chart, only the 1991–2020 July normal is used.
 
-Results are reported as:
+Results are reported as actual values and percentages of the relevant reference. The August-to-July dryness chart uses:
 
-- total millimetres;
-- difference from the reference in millimetres;
-- percentage of the 1991–2020 reference.
+`100 × observed total / reference total − 100`
 
-This follows the Met Office convention of expressing rainfall anomalies as percentages of a climatological average while retaining the actual total.
+This is a precipitation anomaly, not SPI, SPEI or an operational drought declaration.
+
+## Rain-day frequency
+
+The rain-day series complements total rainfall by asking how many days recorded at least 1 mm. It does not measure:
+
+- rainfall intensity within a wet day;
+- the spacing or persistence of consecutive dry days;
+- soil-moisture deficit;
+- river flow or reservoir storage.
+
+Those require daily sequences or other physical datasets.
 
 ## Descriptive trends
 
-The historical analysis retains:
+The current analysis retains:
 
 - individual complete August-to-July totals;
 - trailing ten-period means;
-- full-record ordinary least-squares trend;
-- modern-period ordinary least-squares trend from period end year 1970 onward;
-- modern-period Theil–Sen robust trend;
-- separate full-record and modern trends for winter, spring, summer and autumn.
+- full-record ordinary least-squares rainfall trend;
+- modern ordinary least-squares rainfall trend from period end year 1970 onward;
+- modern Theil-Sen sensitivity.
 
-These are descriptive trends. They do not attribute causes or estimate flood or drought risk.
+These trends are descriptive. The low coefficient of determination and substantial year-to-year variability are published rather than hidden.
 
-## Statistical extrapolation
+## Statistical continuation
 
-The primary illustrative model fits ordinary least squares to complete published August-to-July totals ending from 1970 through the latest complete period.
+The primary illustrative continuation fits ordinary least squares to complete August-to-July rainfall totals ending from 1970 onward.
 
-Sensitivity checks include:
+Sensitivity checks include full-record ordinary least squares and modern Theil-Sen estimation. A deterministic circular moving-block bootstrap resamples five-period residual blocks to form a 95% trend-fit range.
 
-- ordinary least squares across the full record;
-- Theil–Sen estimation across the modern period.
+The continuation does not include emissions scenarios, climate-model structure, future atmospheric circulation, regional downscaling, hydrology or year-to-year predictive skill. It must not be presented as an official climate projection.
 
-A deterministic circular moving-block bootstrap resamples five-period residual blocks. The resulting 2.5th and 97.5th percentiles describe uncertainty in the fitted statistical trend under the model assumptions.
+## Dark publication standard
 
-The range does not include:
+All newly published Project 003 charts use the same dark visual system:
 
-- emissions-scenario uncertainty;
-- climate-model structural uncertainty;
-- changes in atmospheric circulation;
-- regional downscaling uncertainty;
-- future land-use or hydrological change;
-- year-to-year weather prediction uncertainty.
+- background `#080c16`;
+- plot panel `#0f172a`;
+- restrained grid and text hierarchy;
+- 1600 × 900 widescreen PNG/SVG;
+- 1080 × 1080 square PNG/SVG;
+- source, update date and 1991–2020 reference on every figure.
 
-It must not be described as an official climate projection.
-
-## Backtesting
-
-Fixed-origin tests fit the modern model using data available through selected historical cutoff years, then compare predictions with the following ten complete periods.
-
-Metrics include:
-
-- annual mean absolute error;
-- annual root-mean-square error;
-- error in the following ten-period mean.
-
-This tests the limited short-horizon behaviour of the statistical baseline. It does not validate a century-scale physical forecast.
+Earlier light outputs remain for provenance but are not the default presentation layer.
 
 ## Independent verification
 
-`verify.py` uses only the Python standard library and `Decimal`. It independently reproduces:
+`verify_dark.py` uses the Python standard library and `Decimal` independently of pandas and NumPy. It checks:
 
-- source digest and coverage;
-- annual reconciliation;
-- complete and partial period construction;
-- 1991–2020 references;
-- wettest and driest complete periods;
-- current August-to-June rank;
-- full-record and modern linear slopes;
-- primary 2050 and 2100 extrapolations.
+- both source manifests and SHA-256 digests;
+- source update fields and coverage;
+- complete August-to-July construction;
+- rainfall, July and rain-day references;
+- latest rainfall and rain-day totals;
+- July 2026 value, rank and comparison count;
+- generated summary values against an independent reconstruction from the raw sources;
+- presence, exact dimensions and dark background of all five wide/square figure pairs.
+
+## Relative humidity boundary
+
+HadUK-Grid mean relative humidity (`hurs`) begins in 1961. The current country release is distributed as NetCDF through the registered CEDA service. It is deliberately handled as a separate source-ingestion task so that provenance, units, temporal aggregation and missing-data behaviour can be verified before charting or extrapolation.
 
 ## Scope exclusions
 
-Project 003 does not yet analyse:
-
-- humidity;
-- soil moisture;
-- evapotranspiration;
-- SPI or SPEI drought indices;
-- rainfall intensity at hourly or daily scales;
-- river discharge;
-- groundwater;
-- local flood risk.
-
-Those are distinct scientific questions and require additional datasets and methods.
+Project 003 does not claim to measure local drought severity, soil moisture, evapotranspiration, river discharge, groundwater, reservoir status, rainfall intensity, flood probability or crop stress. Formal SPI/SPEI work and humidity are separate defined extensions.
