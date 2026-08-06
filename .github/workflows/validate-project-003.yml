@@ -31,37 +31,50 @@ jobs:
         run: python -m pip install -e ".[dev]"
       - name: Fetch exact Met Office rainfall source
         run: python projects/003-wales-rainfall/fetch_source.py --output-dir projects/003-wales-rainfall/data/raw
+      - name: Fetch exact Met Office rain-days source
+        run: python projects/003-wales-rainfall/fetch_raindays_source.py --output-dir projects/003-wales-rainfall/data/raw
       - name: Unit and integration tests
         run: pytest -q
-      - name: Build rainfall history and statistical baseline
+      - name: Build dark rainfall and dryness suite
         shell: bash
         run: |
-          SOURCE=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
-          python projects/003-wales-rainfall/analysis.py --source "$SOURCE" --no-update-readme
-      - name: Independent rainfall verification
+          RAINFALL=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
+          RAINDAYS=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-raindays1mm-retrieved-*.txt' | sort | tail -1)
+          python projects/003-wales-rainfall/dark_climate_charts.py \
+            --rainfall-source "$RAINFALL" \
+            --raindays-source "$RAINDAYS" \
+            --output-dir projects/003-wales-rainfall/figures \
+            --derived-dir projects/003-wales-rainfall/data/derived
+      - name: Independent dark-suite verification
         shell: bash
         run: |
-          SOURCE=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
-          MANIFEST="${SOURCE%.txt}.provenance.json"
-          python projects/003-wales-rainfall/verify.py --source "$SOURCE" --manifest "$MANIFEST"
-      - name: Retain verified rainfall source and outputs
+          RAINFALL=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
+          RAINDAYS=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-raindays1mm-retrieved-*.txt' | sort | tail -1)
+          python projects/003-wales-rainfall/verify_dark.py \
+            --rainfall-source "$RAINFALL" \
+            --rainfall-manifest "${RAINFALL%.txt}.provenance.json" \
+            --raindays-source "$RAINDAYS" \
+            --raindays-manifest "${RAINDAYS%.txt}.provenance.json"
+      - name: Retain verified sources and dark outputs
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         env:
           HEAD_REF: ${{ github.head_ref }}
         shell: bash
         run: |
-          SOURCE=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
-          MANIFEST="${SOURCE%.txt}.provenance.json"
+          RAINFALL=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
+          RAINDAYS=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-raindays1mm-retrieved-*.txt' | sort | tail -1)
           TMP=$(mktemp -d)
-          cp "$SOURCE" "$TMP/source.txt"
-          cp "$MANIFEST" "$TMP/provenance.json"
+          cp "$RAINFALL" "$TMP/rainfall.txt"
+          cp "${RAINFALL%.txt}.provenance.json" "$TMP/rainfall.provenance.json"
+          cp "$RAINDAYS" "$TMP/raindays.txt"
+          cp "${RAINDAYS%.txt}.provenance.json" "$TMP/raindays.provenance.json"
 
           git reset --hard
           git clean -fd
           git fetch origin "$HEAD_REF"
           git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
 
-          SOURCE_DATE=$(python - "$TMP/provenance.json" <<'PY'
+          SOURCE_DATE=$(python - "$TMP/rainfall.provenance.json" <<'PY'
           import json
           import sys
           from datetime import datetime
@@ -69,25 +82,44 @@ jobs:
           print(datetime.strptime(value, "%d-%b-%Y").strftime("%Y-%m-%d"))
           PY
           )
-          STABLE="$PWD/projects/003-wales-rainfall/data/raw/metoffice-wales-rainfall-source-${SOURCE_DATE}.txt"
-          STABLE_MANIFEST=${STABLE%.txt}.provenance.json
-          mkdir -p "$(dirname "$STABLE")"
-          if [ -f "$STABLE" ]; then
-            cmp "$TMP/source.txt" "$STABLE"
-          else
-            cp "$TMP/source.txt" "$STABLE"
-            cp "$TMP/provenance.json" "$STABLE_MANIFEST"
-          fi
-          find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*' -delete
+          RAW="$PWD/projects/003-wales-rainfall/data/raw"
+          STABLE_RAIN="$RAW/metoffice-wales-rainfall-source-${SOURCE_DATE}.txt"
+          STABLE_RAIN_MANIFEST=${STABLE_RAIN%.txt}.provenance.json
+          STABLE_DAYS="$RAW/metoffice-wales-raindays1mm-source-${SOURCE_DATE}.txt"
+          STABLE_DAYS_MANIFEST=${STABLE_DAYS%.txt}.provenance.json
+          mkdir -p "$RAW"
 
-          python projects/003-wales-rainfall/analysis.py --source "$STABLE"
-          python projects/003-wales-rainfall/verify.py --source "$STABLE" --manifest "$STABLE_MANIFEST"
+          if [ -f "$STABLE_RAIN" ]; then
+            cmp "$TMP/rainfall.txt" "$STABLE_RAIN"
+          else
+            cp "$TMP/rainfall.txt" "$STABLE_RAIN"
+            cp "$TMP/rainfall.provenance.json" "$STABLE_RAIN_MANIFEST"
+          fi
+          if [ -f "$STABLE_DAYS" ]; then
+            cmp "$TMP/raindays.txt" "$STABLE_DAYS"
+          else
+            cp "$TMP/raindays.txt" "$STABLE_DAYS"
+            cp "$TMP/raindays.provenance.json" "$STABLE_DAYS_MANIFEST"
+          fi
+          find "$RAW" -name 'metoffice-wales-*-retrieved-*' -delete
+
+          python projects/003-wales-rainfall/dark_climate_charts.py \
+            --rainfall-source "$STABLE_RAIN" \
+            --raindays-source "$STABLE_DAYS" \
+            --output-dir projects/003-wales-rainfall/figures \
+            --derived-dir projects/003-wales-rainfall/data/derived \
+            --update-readme
+          python projects/003-wales-rainfall/verify_dark.py \
+            --rainfall-source "$STABLE_RAIN" \
+            --rainfall-manifest "$STABLE_RAIN_MANIFEST" \
+            --raindays-source "$STABLE_DAYS" \
+            --raindays-manifest "$STABLE_DAYS_MANIFEST"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add projects/003-wales-rainfall
           if ! git diff --cached --quiet; then
-            git commit -m "Retain verified Wales rainfall source and outputs"
+            git commit -m "Retain verified Wales dark rainfall outputs"
             pushed=false
             for attempt in 1 2 3; do
               if git push origin HEAD:"$HEAD_REF"; then
@@ -104,11 +136,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: project-003-validation-evidence
+          name: project-003-dark-validation-evidence
           path: |
             projects/003-wales-rainfall/data/raw/
             projects/003-wales-rainfall/data/derived/
             projects/003-wales-rainfall/figures/
             projects/003-wales-rainfall/README.md
             projects/003-wales-rainfall/METHODOLOGY.md
+            projects/003-wales-rainfall/HUMIDITY_SOURCE_PLAN.md
           if-no-files-found: error

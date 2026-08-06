@@ -1,0 +1,12 @@
+{
+  "verification_status": "pass",
+  "failures": [],
+  "rainfall_source_sha256": "76689a9e338385da59d7e9eba92f2293ba09482c486f3280cdeca84238b7189e",
+  "raindays_source_sha256": "6e3dac6ca6f66f5cae9a5fee1a4b5331c4a8b3f81af83d4998cc3c26ef1ce4f3",
+  "latest_complete_end_year": 2026,
+  "latest_complete_rainfall_mm": "1547.5",
+  "latest_complete_raindays_ge_1mm": "178.9",
+  "july_2026_rainfall_mm": "9.3",
+  "july_2026_dryness_rank": 1,
+  "verified_figure_pairs": 5
+}
