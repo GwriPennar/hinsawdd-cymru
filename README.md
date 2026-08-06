@@ -13,7 +13,7 @@ The repository distinguishes between:
 - provisional scenarios that have not yet been published officially;
 - statistical extrapolations that are not physical climate forecasts.
 
-Each project README is intended to work as a self-contained public results report. Detailed methodology, validation records, source snapshots and machine-readable outputs remain inside the same project folder.
+Each project README is intended to work as a self-contained public results report. Detailed methodology, validation records, source snapshots and machine-readable outputs remain inside the same project folder. New public graphics follow the dark-mode-first system documented in [VISUAL_STYLE.md](VISUAL_STYLE.md).
 
 ## Project registry
 
@@ -21,7 +21,7 @@ Each project README is intended to work as a self-contained public results repor
 |---|---|---|---|
 | [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. The project README contains the full report and historical trend graphic. |
 | [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | A transparent modern-period linear regression is published as an illustrative comparison baseline, with backtesting, uncertainty and sensitivity lines. It is explicitly not a physical climate forecast. |
-| [003](projects/003-wales-rainfall/) | Wales rainfall since 1836 | Full historical analysis and statistical baseline | The official Wales HadUK-Grid rainfall record is reconstructed as complete August-to-July totals, with current incomplete data kept separate, seasonal trends, independent verification and a secondary illustrative projection. |
+| [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis and statistical baseline | July 2026 was exceptionally dry, but the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. Rainfall totals and rain-day counts are kept distinct from formal drought indices. |
 
 <!-- BEGIN PROJECT 001 CHART PREVIEWS -->
 ## Project 001 visual summary
@@ -45,17 +45,22 @@ The primary fit uses only published-input August-to-July periods ending from 197
 
 ## Project 003 visual summary
 
-Project 003 starts with the official Wales rainfall record from 1836, reconstructs complete August-to-July totals and examines the latest incomplete period only on a like-for-like August-to-June basis.
+Project 003 uses the official Met Office Wales rainfall and rain-days-at-least-1-mm series. It compares complete August-to-July periods, individual Julys and rain-day counts without treating any one measure as a formal drought declaration.
 
-<a href="projects/003-wales-rainfall/figures/wales_august_to_july_rainfall_history.png"><img src="projects/003-wales-rainfall/figures/wales_august_to_july_rainfall_history.png" alt="Wales August-to-July rainfall history since 1836" width="100%"></a>
+**The time window changes the result.** July 2026 recorded **9.3 mm**, only **9.4% of the 1991–2020 July average**, making it the driest of 191 Julys in the series. The complete August 2025–July 2026 period recorded **1,547.5 mm**, or **105.6% of its 1991–2020 reference**, so the full twelve-month period was slightly wetter than normal.
 
-The forecast element is secondary and explicitly labelled as an illustrative statistical continuation rather than a physical rainfall forecast. [Read the Project 003 report](projects/003-wales-rainfall/).
+<a href="projects/003-wales-rainfall/figures/wales_august_to_july_rainfall_history_dark.png"><img src="projects/003-wales-rainfall/figures/wales_august_to_july_rainfall_history_dark.png" alt="Dark-mode Wales August-to-July rainfall history since 1836" width="100%"></a>
+
+<p align="center"><a href="projects/003-wales-rainfall/figures/wales_july_rainfall_history_dark_square.png"><img src="projects/003-wales-rainfall/figures/wales_july_rainfall_history_dark_square.png" alt="Square dark-mode history of July rainfall in Wales" width="72%"></a></p>
+
+The statistical continuation remains an illustrative comparison baseline, not an official Met Office, UKCP or year-to-year physical forecast. Relative humidity is being developed separately from the official HadUK-Grid `hurs` source. [Read the full Project 003 report](projects/003-wales-rainfall/).
 
 ## Repository structure
 
 ```text
 hinsawdd-cymru/
 ├── README.md
+├── VISUAL_STYLE.md
 ├── pyproject.toml
 └── projects/
     ├── 001-rolling-temperature/
@@ -79,9 +84,11 @@ hinsawdd-cymru/
     └── 003-wales-rainfall/
         ├── README.md
         ├── METHODOLOGY.md
+        ├── HUMIDITY_SOURCE_PLAN.md
         ├── fetch_source.py
-        ├── analysis.py
-        ├── verify.py
+        ├── fetch_raindays_source.py
+        ├── dark_climate_charts.py
+        ├── verify_dark.py
         ├── data/
         ├── figures/
         └── tests/
@@ -101,8 +108,19 @@ pytest
 python projects/002-temperature-pathways/model.py
 python projects/002-temperature-pathways/verify.py
 python projects/003-wales-rainfall/fetch_source.py --output-dir projects/003-wales-rainfall/data/raw
-python projects/003-wales-rainfall/analysis.py
-python projects/003-wales-rainfall/verify.py
+python projects/003-wales-rainfall/fetch_raindays_source.py --output-dir projects/003-wales-rainfall/data/raw
+RAINFALL=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-rainfall-retrieved-*.txt' | sort | tail -1)
+RAINDAYS=$(find projects/003-wales-rainfall/data/raw -name 'metoffice-wales-raindays1mm-retrieved-*.txt' | sort | tail -1)
+python projects/003-wales-rainfall/dark_climate_charts.py \
+  --rainfall-source "$RAINFALL" \
+  --raindays-source "$RAINDAYS" \
+  --output-dir projects/003-wales-rainfall/figures \
+  --derived-dir projects/003-wales-rainfall/data/derived
+python projects/003-wales-rainfall/verify_dark.py \
+  --rainfall-source "$RAINFALL" \
+  --rainfall-manifest "${RAINFALL%.txt}.provenance.json" \
+  --raindays-source "$RAINDAYS" \
+  --raindays-manifest "${RAINDAYS%.txt}.provenance.json"
 ```
 
 ## Quality approach
