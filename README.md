@@ -2,7 +2,7 @@
 
 **Data agored, dadansoddiad tryloyw, ffeithiau am hinsawdd Cymru.**
 
-Open and reproducible analysis of public weather and climate data for Wales.
+Open and reproducible analysis of public weather, climate and climate-related resource data for Wales.
 
 Hinsawdd Cymru is a small, public-facing research repository. Each numbered project asks a specific question, retains its source and derived data, documents every assumption, and produces a result that can be checked independently.
 
@@ -11,7 +11,8 @@ The repository distinguishes between:
 - values published by an authoritative source;
 - calculations derived in this repository;
 - provisional scenarios that have not yet been published officially;
-- statistical extrapolations that are not physical climate forecasts.
+- statistical extrapolations that are not physical climate forecasts;
+- modelled resource-demand scenarios that are not measured observations.
 
 Each project README is intended to work as a self-contained public results report. Detailed methodology, validation records, source snapshots and machine-readable outputs remain inside the same project folder. New public graphics follow the dark-mode-first system documented in [VISUAL_STYLE.md](VISUAL_STYLE.md).
 
@@ -22,6 +23,7 @@ Each project README is intended to work as a self-contained public results repor
 | [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. The project README contains the full report and historical trend graphic. |
 | [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | A transparent modern-period linear regression is published as an illustrative comparison baseline, with backtesting, uncertainty and sensitivity lines. It is explicitly not a physical climate forecast. |
 | [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis and statistical baseline | July 2026 was exceptionally dry, but the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. Rainfall totals and rain-day counts are kept distinct from formal drought indices. |
+| [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Wales received about 920 Ml/day from its two main public suppliers in 2024–25. Current Welsh colocation data-centre direct water use is modelled at about 0.2–2.7 Ml/day, with a central scenario of 0.7 Ml/day (about 0.08% of that public-supply baseline). This is an estimate, not a measured national total. |
 
 <!-- BEGIN PROJECT 001 CHART PREVIEWS -->
 ## Project 001 visual summary
@@ -55,6 +57,16 @@ Project 003 uses the official Met Office Wales rainfall and rain-days-at-least-1
 
 The statistical continuation remains an illustrative comparison baseline, not an official Met Office, UKCP or year-to-year physical forecast. Relative humidity is being developed separately from the official HadUK-Grid `hurs` source. [Read the full Project 003 report](projects/003-wales-rainfall/).
 
+## Project 004 summary
+
+Project 004 asks where public water goes in Wales and how large direct operational water use by data centres is likely to be in comparison with the national public-supply system.
+
+Welsh Government reports approximately **920 Ml/day** supplied in 2024–25 by Dŵr Cymru Welsh Water and Hafren Dyfrdwy. The best currently retained household/non-household split is a historical Dŵr Cymru regulatory estimate of roughly **76% household / 24% non-household customer consumption**; it is labelled historical because the years and supplier coverage have not yet been fully reconciled to the 2024–25 national total.
+
+For data centres, Project 004 uses the UK Government estimate of **154 MW operational Welsh colocation IT capacity** rather than multiplying a directory count of buildings. A low/central/high direct-WUE sensitivity gives approximately **0.18, 0.72 and 2.66 Ml/day**, or **0.02%, 0.08% and 0.29%** of the current 920 Ml/day public-supply comparison baseline.
+
+Those are **modelled scenarios, not measured Welsh data-centre totals**. The project separately records the evidence that local water-network constraints can matter even when the Wales-wide percentage is small, and it keeps planned capacity separate from current operations. [Read the full Project 004 report](projects/004-wales-water-consumption/).
+
 ## Repository structure
 
 ```text
@@ -81,17 +93,25 @@ hinsawdd-cymru/
     │   ├── data/
     │   ├── figures/
     │   └── tests/
-    └── 003-wales-rainfall/
+    ├── 003-wales-rainfall/
+    │   ├── README.md
+    │   ├── METHODOLOGY.md
+    │   ├── HUMIDITY_SOURCE_PLAN.md
+    │   ├── fetch_source.py
+    │   ├── fetch_raindays_source.py
+    │   ├── dark_climate_charts.py
+    │   ├── verify_dark.py
+    │   ├── data/
+    │   ├── figures/
+    │   └── tests/
+    └── 004-wales-water-consumption/
         ├── README.md
         ├── METHODOLOGY.md
-        ├── HUMIDITY_SOURCE_PLAN.md
-        ├── fetch_source.py
-        ├── fetch_raindays_source.py
-        ├── dark_climate_charts.py
-        ├── verify_dark.py
-        ├── data/
-        ├── figures/
-        └── tests/
+        ├── SOURCES.md
+        ├── analysis.py
+        └── data/
+            ├── data-centre-evidence-register.csv
+            └── scenarios.csv
 ```
 
 Each project is self-contained, while the Python environment is shared at repository level.
@@ -121,25 +141,27 @@ python projects/003-wales-rainfall/verify_dark.py \
   --rainfall-manifest "${RAINFALL%.txt}.provenance.json" \
   --raindays-source "$RAINDAYS" \
   --raindays-manifest "${RAINDAYS%.txt}.provenance.json"
+python projects/004-wales-water-consumption/analysis.py
 ```
 
 ## Quality approach
 
 The repository uses a lightweight Reproducible Analytical Pipeline:
 
-- immutable or checksum-pinned source boundaries;
+- immutable or checksum-pinned source boundaries where source files are directly ingested;
 - automatic reconciliation against official published values where available;
-- separate standard-library verification implementations;
+- separate standard-library verification implementations where appropriate;
 - generated machine-readable outputs and public documentation;
 - explicit separation of published inputs, incomplete or provisional periods and modelled outputs;
+- explicit separation of measured values from resource-demand sensitivity scenarios;
 - GitHub Actions validation on every scientific change.
 
 ## Sources and licensing
 
-Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. The source data remain subject to their original licence and Crown copyright.
+Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. Project 004 uses public Welsh Government, UK Government, NRW, Ofwat and Senedd Research publications together with operator technical disclosures and peer-reviewed research; its calculated data-centre scenarios are independent derived estimates rather than official statistics.
 
-The analysis code is released under the [MIT License](LICENSE).
+Source data remain subject to their original licences and copyright. The analysis code is released under the [MIT License](LICENSE).
 
 ## Independence
 
-This is an independent project and is not an official Met Office, Welsh Government or UK Government product. Derived results should be described as independent calculations from official data, not as figures published or endorsed by those organisations.
+This is an independent project and is not an official Met Office, Welsh Government, Senedd Cymru, Natural Resources Wales, Ofwat or UK Government product. Derived results should be described as independent calculations from cited public evidence, not as figures published or endorsed by those organisations.
