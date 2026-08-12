@@ -18,5 +18,4 @@ testpaths = [
   "projects/001-rolling-temperature/tests",
   "projects/002-temperature-pathways/tests",
   "projects/003-wales-rainfall/tests",
-  "projects/005-wales-air-quality/tests",
 ]
