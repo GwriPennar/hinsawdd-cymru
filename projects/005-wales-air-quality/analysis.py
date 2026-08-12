@@ -71,8 +71,26 @@ def load_stations(path: Path) -> list[Station]:
 def _normalise_column(value: str) -> str:
     text = str(value).strip().lower()
     text = text.replace("₂", "2").replace("₁₀", "10")
+    text = re.sub(r"<\s*sub\s*>", "", text)
+    text = re.sub(r"<\s*/\s*sub\s*>", "", text)
+    text = re.sub(r"<[^>]+>", "", text)
     text = re.sub(r"\s+", " ", text)
     return text
+
+
+def _table_text(text: str) -> str:
+    """Return the tabular portion of a UK-AIR annual site CSV.
+
+    UK-AIR annual files include descriptive preamble rows before the real
+    Date,time header. Locate the header by content rather than assuming a
+    fixed row count so the parser remains robust to preamble changes.
+    """
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        first_two = [part.strip().strip('"').lower() for part in line.split(',', 2)[:2]]
+        if first_two == ["date", "time"]:
+            return "\n".join(lines[index:])
+    raise ValueError("UK-AIR table header 'Date,time' not found")
 
 
 def find_measurement_column(columns: Iterable[str], pollutant: str) -> str | None:
@@ -100,7 +118,7 @@ def _find_column(columns: Iterable[str], exact: str) -> str:
 
 
 def parse_uk_air_csv(text: str, station: Station) -> pd.DataFrame:
-    raw = pd.read_csv(StringIO(text))
+    raw = pd.read_csv(StringIO(_table_text(text)))
     date_col = _find_column(raw.columns, "date")
     time_col = _find_column(raw.columns, "time")
 
