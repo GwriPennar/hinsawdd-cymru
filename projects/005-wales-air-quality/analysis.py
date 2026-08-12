@@ -79,12 +79,7 @@ def _normalise_column(value: str) -> str:
 
 
 def _table_text(text: str) -> str:
-    """Return the tabular portion of a UK-AIR annual site CSV.
-
-    UK-AIR annual files include descriptive preamble rows before the real
-    Date,time header. Locate the header by content rather than assuming a
-    fixed row count so the parser remains robust to preamble changes.
-    """
+    """Return the tabular portion of a UK-AIR annual site CSV."""
     lines = text.splitlines()
     for index, line in enumerate(lines):
         first_two = [part.strip().strip('"').lower() for part in line.split(',', 2)[:2]]
@@ -250,6 +245,42 @@ def build_summary(daily: pd.DataFrame, start: pd.Timestamp, end: pd.Timestamp) -
     return pd.DataFrame(rows).sort_values("station_name").reset_index(drop=True)
 
 
+def build_period_comparison(
+    daily: pd.DataFrame,
+    recent_start: pd.Timestamp,
+    end: pd.Timestamp,
+    period_days: int,
+) -> pd.DataFrame:
+    previous_start = recent_start - pd.Timedelta(days=period_days)
+    previous_end = recent_start - pd.Timedelta(days=1)
+    id_cols = ["station_code", "station_name", "site_type"]
+
+    def period_summary(start: pd.Timestamp, stop: pd.Timestamp, prefix: str) -> pd.DataFrame:
+        subset = daily[daily["date"].between(start, stop)].copy()
+        grouped = subset.groupby(id_cols, dropna=False)["pm25"]
+        out = grouped.agg(["count", "mean"]).reset_index()
+        out = out.rename(
+            columns={"count": f"{prefix}_valid_days", "mean": f"{prefix}_pm25_mean"}
+        )
+        out[f"{prefix}_coverage_pct"] = (
+            100 * out[f"{prefix}_valid_days"] / period_days
+        ).round(1)
+        return out
+
+    previous = period_summary(previous_start, previous_end, "previous")
+    recent = period_summary(recent_start, end, "recent")
+    result = previous.merge(recent, on=id_cols, how="outer")
+    result["pm25_change"] = result["recent_pm25_mean"] - result["previous_pm25_mean"]
+    result["pm25_change_pct"] = (
+        100 * result["pm25_change"] / result["previous_pm25_mean"]
+    ).round(1)
+    result["previous_start_utc"] = previous_start.isoformat()
+    result["previous_end_utc"] = previous_end.isoformat()
+    result["recent_start_utc"] = recent_start.isoformat()
+    result["recent_end_utc"] = end.isoformat()
+    return result.sort_values("station_name").reset_index(drop=True)
+
+
 def select_windows(daily: pd.DataFrame, rolling_days: int, recent_days: int):
     latest = pd.Timestamp(daily["date"].max())
     rolling_start = latest - pd.Timedelta(days=rolling_days - 1)
@@ -276,6 +307,8 @@ def write_outputs(
     recent.to_csv(derived_dir / "pm25_recent_daily.csv", index=False)
     summary = build_summary(daily, rolling_start, latest)
     summary.to_csv(derived_dir / "pm25_station_summary.csv", index=False)
+    comparison = build_period_comparison(daily, recent_start, latest, recent_days)
+    comparison.to_csv(derived_dir / "pm25_recent_vs_previous.csv", index=False)
 
     metadata = {
         "latest_observation_day_utc": latest.isoformat(),
