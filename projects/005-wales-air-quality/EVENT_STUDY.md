@@ -2,9 +2,12 @@
 
 ## Purpose
 
-This document separates **observed particulate events** from **source attribution**. It records what the AURN instruments measured, when an external fire incident was reported, and what evidence is still required before connecting the two.
+This document separates **observed particulate events** from **source attribution**. It records what the AURN instruments measured, when external fire incidents were reported, and what independent evidence is still required before connecting the two.
 
-The current event-study window is mid-July 2026 because it contains a broad Welsh particulate episode and the start of the significant Blaenavon wildfire. The separate 11 August smoke-transport episode remains a prospective case study until the official source files contain that reporting day.
+Two event windows are now retained:
+
+- mid-July 2026, which provides useful positive and negative controls around the start of the significant Blaenavon wildfire;
+- the **11 August 2026 overnight particulate episode**, which is now present in the official AURN annual files and is analysed at hourly physical-clock resolution because Swansea daily coverage is incomplete.
 
 ## Data-quality check before event attribution
 
@@ -19,7 +22,7 @@ Project 005 therefore retains the raw value but adds a conservative sensitivity 
 
 In the retained baseline this flags **one observation only**. The screen does not automatically label the value invalid and does not alter the raw file. It produces a parallel `pm25_screened` sensitivity series for event analysis.
 
-This matters because the unscreened Swansea 14 July daily mean is 30.57 µg/m³. Removing only that flagged hour from the sensitivity calculation gives about 12.4 µg/m³ for the remaining valid hours and prevents a single provisional excursion from dominating the event narrative.
+The unscreened Swansea 14 July daily mean is 30.57 µg/m³. Removing only that flagged hour from the sensitivity calculation leaves roughly **12.4 µg/m³** across the remaining valid hours and prevents a single provisional excursion from dominating the event narrative.
 
 ## Mid-July observational sequence
 
@@ -27,7 +30,7 @@ This matters because the unscreened Swansea 14 July daily mean is 30.57 µg/m³.
 
 The network event screen shows the strongest common recent PM2.5 signal on **17–18 July**, before the Blaenavon fire was first reported.
 
-On 18 July the median QC-screened daily PM2.5 value across the seven reference stations was approximately **16.38 µg/m³**, with all seven stations reporting and all seven above their own rolling-year 90th percentile threshold.
+On 18 July the median QC-screened daily PM2.5 value across the seven reference stations was approximately **16.38 µg/m³**, with all seven stations reporting and all seven above their own rolling-year 90th-percentile threshold.
 
 This is an important negative-control result: the broad mid-July rise cannot have been caused by the Blaenavon wildfire because it predates the reported start of that incident.
 
@@ -59,20 +62,69 @@ Cardiff Centre recorded a separate provisional particulate episode on the mornin
 
 At 11:00 PM2.5 remained about **56 µg/m³** while PM10 was about **61.84 µg/m³**. This coherent fine-particulate rise, with PM2.5 close to PM10, is a useful transported-aerosol candidate. It still cannot be assigned to wildfire without meteorological and satellite support.
 
+## 11 August 2026 overnight event
+
+The latest official source snapshot now includes **11 August 2026**.
+
+The daily baseline continues to enforce the 18-hour completeness rule. Swansea Roadside has only five observations assigned to the 11 August AURN reporting day and therefore has **no published Project 005 daily mean** for that date.
+
+For event analysis, however, AURN's `10 August 24:00` record is physically midnight at the start of 11 August. Combining that physical-clock observation with the five subsequent reporting-day records gives six real Swansea measurements from **00:00 to 05:00 GMT**:
+
+| GMT hour ending | PM2.5 | PM10 | NO2 |
+|---|---:|---:|---:|
+| 00:00 | 51 | 48.31 | 10.52 |
+| 01:00 | 10 | 16.43 | 7.65 |
+| 02:00 | 27 | 35.75 | 8.03 |
+| 03:00 | 27 | 29.95 | 7.08 |
+| 04:00 | 47 | 44.45 | 10.71 |
+| 05:00 | 48 | 52.18 | 10.14 |
+
+Across those six physical-clock hours:
+
+- mean PM2.5: **35.0 µg/m³**;
+- maximum PM2.5: **51.0 µg/m³** at midnight GMT;
+- Swansea's preceding-365-day hourly PM2.5 95th percentile: **20.0 µg/m³**;
+- **5 of 6 hours** were at or above that station-specific 95th-percentile threshold;
+- mean PM10: **37.84 µg/m³**;
+- mean NO2: **9.02 µg/m³**;
+- mean PM2.5/PM10 ratio: approximately **0.88**.
+
+The simultaneous PM2.5 and PM10 rise, combined with relatively modest NO2 in the observed hours, is **compatible with a fine-particle aerosol episode and is not well described as a simple traffic-only spike**. That is still not a wildfire attribution.
+
+Coverage at Swansea stops after 05:00, so the event cannot be summarised as a valid full-day Swansea mean.
+
+### Same-day spatial context
+
+The physical-clock 11 August summary shows a west/south-west-heavy pattern in this seven-site network:
+
+- **Swansea Roadside:** 6 valid hours, mean PM2.5 **35.0**, 5 hours at/above its prior-year hourly p95;
+- **Port Talbot Margam:** 24 hours, mean **13.96**, 6 hours at/above its p95 of 17;
+- **Narberth:** 24 hours, mean **10.02**, 4 hours at/above its p95 of 13.73;
+- **Cardiff Centre:** 21 hours, mean **7.19**, no hours at/above its p95;
+- **Newport:** 24 hours, mean **5.73**, none at/above its p95;
+- **Wrexham:** 24 hours, mean **5.63**, none at/above its p95;
+- **Chepstow A48:** 20 hours, mean **5.55**, none at/above its p95.
+
+This spatial pattern is useful evidence for the next attribution stage. It is **compatible with transported aerosol affecting western/south-western sites more strongly**, but wind and satellite evidence are required before relating it to the Blaenavon fire or any other source.
+
+The dedicated chart `wales_aurn_pm25_aug11_smoke_window_dark` plots the physical-clock hourly observations and makes Swansea's later missing coverage explicit.
+
 ## Recent-period site-relative result
 
-To distinguish common regional variation from station-specific excess, Project 005 now calculates for each station-day:
+To distinguish common regional variation from station-specific excess, Project 005 calculates for each station-day:
 
 `site PM2.5 - median PM2.5 at the other reporting AURN sites`
 
 At least four peer stations are required. This is an observational residual, **not source apportionment**.
 
-For the latest 70-day window versus the preceding 70 days:
+For the latest 70-day window, **3 June–11 August 2026**, versus the preceding 70 days:
 
-- **Swansea Roadside**: mean site-relative PM2.5 increases from about **+1.66 to +3.78 µg/m³**, a change of **+2.13 µg/m³**. Its correlation with the other-station median remains high at about 0.88, while its PM2.5–NO2 correlation rises from about 0.52 to 0.72.
-- **Port Talbot Margam**: mean site-relative PM2.5 increases from about **+0.55 to +3.27 µg/m³**, a change of **+2.73 µg/m³**. Its correlation with the other-station median rises from about 0.87 to 0.92, while its PM2.5–NO2 correlation remains around 0.46.
+- **Swansea Roadside:** QC-screened mean rises from **8.91 to 10.03 µg/m³ (+12.6%)**. Its mean site-relative PM2.5 increases from **+1.68 to +3.79 µg/m³**, a change of **+2.11 µg/m³**. Correlation with the other-station median remains about 0.88, while PM2.5–NO2 correlation rises from about 0.51 to 0.71.
+- **Port Talbot Margam:** mean rises from **7.91 to 9.99 µg/m³ (+26.3%)**. Its site-relative mean increases from **+0.54 to +3.35 µg/m³**, a change of **+2.80 µg/m³**. Correlation with the other-station median is about 0.91 in the recent window, while PM2.5–NO2 correlation remains about 0.46.
 
-The cautious interpretation is that both sites share substantial regional variability but also show a larger local/site-relative excess in the recent period. Swansea's stronger recent PM2.5–NO2 relationship is **compatible with** a larger local combustion/traffic contribution, but it does not identify a source. Port Talbot's pattern is different and remains compatible with several local or industrial explanations.
+The cautious interpretation is that both sites share substantial regional variability but also show a larger local/site-relative excess in the recent period. Swansea's stronger recent PM2.5–NO2 relationship is compatible with a larger local combustion/traffic contribution to its longer-window mean, but it does not identify a source. Port Talbot's pattern is different and remains compatible with several local or industrial explanations.
+
+The QC sensitivity is visible rather than hidden: Swansea's recent raw-period change would be **+15.7%** if the single provisional 430 µg/m³ excursion were left in the daily average, compared with **+12.6%** in the screened sensitivity series.
 
 ## Fire timeline sources
 
