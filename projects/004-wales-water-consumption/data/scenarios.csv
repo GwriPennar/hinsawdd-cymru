@@ -1,0 +1,7 @@
+scope,scenario,capacity_mw,load_factor,wue_l_per_kwh,water_ml_per_day,comparison_supply_ml_per_day,share_percent,status
+current_colocation,low_water,154,0.50,0.10,0.184800,920,0.020087,modelled_sensitivity
+current_colocation,central,154,0.65,0.30,0.720720,920,0.078339,modelled_sensitivity
+current_colocation,high_water,154,0.80,0.90,2.661120,920,0.289252,modelled_sensitivity
+future_illustrative_1gw,low_water,1000,0.50,0.10,1.200000,920,0.130435,illustrative_not_forecast
+future_illustrative_1gw,central,1000,0.65,0.30,4.680000,920,0.508696,illustrative_not_forecast
+future_illustrative_1gw,high_water,1000,0.80,0.90,17.280000,920,1.878261,illustrative_not_forecast
