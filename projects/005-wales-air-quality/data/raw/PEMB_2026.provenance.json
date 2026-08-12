@@ -2,8 +2,8 @@
   "site_code": "PEMB",
   "year": 2026,
   "url": "https://uk-air.defra.gov.uk/datastore/data_files/site_data/PEMB_2026.csv?v=1",
-  "retrieved_utc": "2026-08-12T01:09:27.202133+00:00",
-  "sha256": "0fb3c6803c5ab542cb5a5d173b968f2f76bc403f612e752ab3190d57a8dafabc",
-  "bytes": 738406,
+  "retrieved_utc": "2026-08-12T01:31:40.790696+00:00",
+  "sha256": "87468fd1ca9c838f47659def8c7bd75e24073dd01b3e6167c8d3e44d646b6df1",
+  "bytes": 741858,
   "status": "provisional or ratified according to upstream record"
 }

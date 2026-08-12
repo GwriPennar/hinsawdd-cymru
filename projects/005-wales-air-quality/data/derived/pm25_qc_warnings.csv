@@ -1,0 +1,2 @@
+timestamp,reporting_date,station_code,station_name,pm25,pm25_status,pm10,pm10_status,pm25_qc_reason
+2026-07-14 01:00:00+00:00,2026-07-14 00:00:00+00:00,SWA1,Swansea Roadside,430.0,P,16.425,P,provisional PM2.5 >=100 and >2x collocated PM10; review before event attribution

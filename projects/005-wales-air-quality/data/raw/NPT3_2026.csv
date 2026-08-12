@@ -1,4 +1,4 @@
-Data supplied by UK-AIR on 11/8/2026
+Data supplied by UK-AIR on 12/8/2026
 All Data GMT hour ending 
 Status: R =Ratified P=Provisional,P*=As supplied
 ,,Newport,,,,,,,,,,,,,,,,,,,,,,,
@@ -5332,3 +5332,27 @@ Date,time,"PM<sub>10</sub> particulate matter (Hourly measured)",status,unit,"Ni
 10-08-2026,22:00,17.000,P,ugm-3 (FIDAS),0.49892,P,ugm-3,19.69875,P,ugm-3,20.46375,P,ugm-3,4.906,P,ugm-3 (Ref.eq)
 10-08-2026,23:00,18.000,P,ugm-3 (FIDAS),0.74838,P,ugm-3,8.03250,P,ugm-3,9.18000,P,ugm-3,4.811,P,ugm-3 (Ref.eq)
 10-08-2026,24:00,15.400,P,ugm-3 (FIDAS),0.62365,P,ugm-3,6.50250,P,ugm-3,7.45875,P,ugm-3,4.623,P,ugm-3 (Ref.eq)
+11-08-2026,01:00,13.300,P,ugm-3 (FIDAS),0.74838,P,ugm-3,6.12000,P,ugm-3,7.26750,P,ugm-3,4.340,P,ugm-3 (Ref.eq)
+11-08-2026,02:00,13.800,P,ugm-3 (FIDAS),0.62365,P,ugm-3,5.92875,P,ugm-3,6.88500,P,ugm-3,4.245,P,ugm-3 (Ref.eq)
+11-08-2026,03:00,10.500,P,ugm-3 (FIDAS),0.87311,P,ugm-3,6.50250,P,ugm-3,7.84125,P,ugm-3,3.774,P,ugm-3 (Ref.eq)
+11-08-2026,04:00,11.800,P,ugm-3 (FIDAS),1.24730,P,ugm-3,8.98875,P,ugm-3,10.90125,P,ugm-3,3.962,P,ugm-3 (Ref.eq)
+11-08-2026,05:00,12.200,P,ugm-3 (FIDAS),2.36987,P,ugm-3,15.30000,P,ugm-3,18.93375,P,ugm-3,3.962,P,ugm-3 (Ref.eq)
+11-08-2026,06:00,11.700,P,ugm-3 (FIDAS),3.36771,P,ugm-3,15.68250,P,ugm-3,20.84625,P,ugm-3,3.962,P,ugm-3 (Ref.eq)
+11-08-2026,07:00,17.400,P,ugm-3 (FIDAS),3.61717,P,ugm-3,16.06500,P,ugm-3,21.61125,P,ugm-3,4.717,P,ugm-3 (Ref.eq)
+11-08-2026,08:00,19.400,P,ugm-3 (FIDAS),3.74190,P,ugm-3,13.57875,P,ugm-3,19.31625,P,ugm-3,6.415,P,ugm-3 (Ref.eq)
+11-08-2026,09:00,19.100,P,ugm-3 (FIDAS),2.49460,P,ugm-3,8.60625,P,ugm-3,12.43125,P,ugm-3,7.076,P,ugm-3 (Ref.eq)
+11-08-2026,10:00,19.000,P,ugm-3 (FIDAS),1.87095,P,ugm-3,6.12000,P,ugm-3,8.98875,P,ugm-3,6.132,P,ugm-3 (Ref.eq)
+11-08-2026,11:00,18.300,P,ugm-3 (FIDAS),1.37203,P,ugm-3,4.59000,P,ugm-3,6.69375,P,ugm-3,5.943,P,ugm-3 (Ref.eq)
+11-08-2026,12:00,20.900,P,ugm-3 (FIDAS),1.12257,P,ugm-3,4.20750,P,ugm-3,5.92875,P,ugm-3,6.132,P,ugm-3 (Ref.eq)
+11-08-2026,13:00,18.800,P,ugm-3 (FIDAS),1.12257,P,ugm-3,4.01625,P,ugm-3,5.73750,P,ugm-3,6.132,P,ugm-3 (Ref.eq)
+11-08-2026,14:00,19.200,P,ugm-3 (FIDAS),0.99784,P,ugm-3,3.82500,P,ugm-3,5.35500,P,ugm-3,5.943,P,ugm-3 (Ref.eq)
+11-08-2026,15:00,20.000,P,ugm-3 (FIDAS),0.74838,P,ugm-3,2.86875,P,ugm-3,4.01625,P,ugm-3,5.849,P,ugm-3 (Ref.eq)
+11-08-2026,16:00,19.800,P,ugm-3 (FIDAS),0.99784,P,ugm-3,2.86875,P,ugm-3,4.39875,P,ugm-3,5.849,P,ugm-3 (Ref.eq)
+11-08-2026,17:00,19.200,P,ugm-3 (FIDAS),0.74838,P,ugm-3,3.25125,P,ugm-3,4.39875,P,ugm-3,5.660,P,ugm-3 (Ref.eq)
+11-08-2026,18:00,21.500,P,ugm-3 (FIDAS),0.74838,P,ugm-3,3.25125,P,ugm-3,4.39875,P,ugm-3,5.849,P,ugm-3 (Ref.eq)
+11-08-2026,19:00,16.800,P,ugm-3 (FIDAS),0.87311,P,ugm-3,4.39875,P,ugm-3,5.73750,P,ugm-3,5.472,P,ugm-3 (Ref.eq)
+11-08-2026,20:00,28.400,P,ugm-3 (FIDAS),0.74838,P,ugm-3,10.32750,P,ugm-3,11.47500,P,ugm-3,9.717,P,ugm-3 (Ref.eq)
+11-08-2026,21:00,32.900,P,ugm-3 (FIDAS),0.62365,P,ugm-3,12.04875,P,ugm-3,13.00500,P,ugm-3,8.962,P,ugm-3 (Ref.eq)
+11-08-2026,22:00,18.300,P,ugm-3 (FIDAS),0.37419,P,ugm-3,9.94500,P,ugm-3,10.51875,P,ugm-3,6.792,P,ugm-3 (Ref.eq)
+11-08-2026,23:00,16.000,P,ugm-3 (FIDAS),0.62365,P,ugm-3,7.07625,P,ugm-3,8.03250,P,ugm-3,6.038,P,ugm-3 (Ref.eq)
+11-08-2026,24:00,13.600,P,ugm-3 (FIDAS),0.62365,P,ugm-3,12.62250,P,ugm-3,13.57875,P,ugm-3,5.566,P,ugm-3 (Ref.eq)

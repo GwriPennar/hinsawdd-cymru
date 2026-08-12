@@ -1,10 +1,12 @@
 {
-  "latest_observation_day_utc": "2026-08-10T00:00:00+00:00",
-  "rolling_start_utc": "2025-08-11T00:00:00+00:00",
-  "recent_start_utc": "2026-06-02T00:00:00+00:00",
+  "latest_observation_day_utc": "2026-08-11T00:00:00+00:00",
+  "rolling_start_utc": "2025-08-12T00:00:00+00:00",
+  "recent_start_utc": "2026-06-03T00:00:00+00:00",
   "rolling_days": 365,
   "recent_days": 70,
   "daily_minimum_hourly_capture": 18,
   "pm25_station_count_with_valid_daily_data": 7,
-  "scientific_boundary": "Observational baseline only. No wildfire, traffic, industrial or meteorological attribution is made by this stage."
+  "pm25_qc_warning_count": 1,
+  "qc_rule": "screen sensitivity only: provisional PM2.5 >=100 and >2x collocated PM10; raw retained",
+  "scientific_boundary": "Observational decomposition only. QC sensitivity and site-relative residuals are not source apportionment or wildfire attribution."
 }

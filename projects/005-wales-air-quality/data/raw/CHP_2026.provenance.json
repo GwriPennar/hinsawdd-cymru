@@ -2,8 +2,8 @@
   "site_code": "CHP",
   "year": 2026,
   "url": "https://uk-air.defra.gov.uk/datastore/data_files/site_data/CHP_2026.csv?v=1",
-  "retrieved_utc": "2026-08-12T01:09:26.766348+00:00",
-  "sha256": "d67308f95985a143176e14f8b71bcc4bd2d6cec5412ed81768fb499042ea32f8",
-  "bytes": 561026,
+  "retrieved_utc": "2026-08-12T01:31:40.255337+00:00",
+  "sha256": "e5285b99ba6081c1b2fcb190deb4a9a4ffb83f03867c57e43d04f86f03432d58",
+  "bytes": 563343,
   "status": "provisional or ratified according to upstream record"
 }

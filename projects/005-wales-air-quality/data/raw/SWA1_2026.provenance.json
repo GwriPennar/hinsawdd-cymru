@@ -2,8 +2,8 @@
   "site_code": "SWA1",
   "year": 2026,
   "url": "https://uk-air.defra.gov.uk/datastore/data_files/site_data/SWA1_2026.csv?v=1",
-  "retrieved_utc": "2026-08-12T01:09:28.473973+00:00",
-  "sha256": "0e9e47ec26d24fb90bf5385c18d42d1fad47a62958cf51c7d0192dee8c60febd",
-  "bytes": 573847,
+  "retrieved_utc": "2026-08-12T01:31:42.347399+00:00",
+  "sha256": "8de4a586b50dfc3ea1ac6755fd5a5612bc3fe7b3b9874b8fc63ea1d1b753d6a4",
+  "bytes": 575010,
   "status": "provisional or ratified according to upstream record"
 }
