@@ -8,9 +8,7 @@ Project 005 begins with observations. It does **not** assume that wildfires, tra
 
 ## Stage A — reference-grade PM2.5 baseline
 
-The first stage uses the Welsh sites in the UK Automatic Urban and Rural Network (AURN) that currently measure hourly PM2.5. AURN is the UK reference-grade automatic monitoring network, and its pre-formatted annual CSV files are published by DEFRA UK-AIR and updated daily.
-
-The retained Stage A station set is:
+The first stage uses the Welsh sites in the UK Automatic Urban and Rural Network (AURN) retained as currently measuring hourly PM2.5. AURN annual CSV files are downloaded directly from DEFRA UK-AIR, with exact source bytes and SHA-256 provenance retained for reproducibility.
 
 | Site | Code | Type |
 |---|---:|---|
@@ -22,81 +20,135 @@ The retained Stage A station set is:
 | Swansea Roadside | SWA1 | Urban Traffic |
 | Wrexham | WREX | Urban Traffic |
 
-Site type remains explicit throughout the analysis. A roadside value is not silently treated as equivalent to a rural-background value.
+Site type remains explicit throughout the analysis. A roadside value is not silently treated as equivalent to a rural-background value and the network is not collapsed into an unweighted “Wales mean”.
 
-## First live baseline
+## Current validated baseline
 
-The first validated live run downloaded the 2025 and 2026 official AURN files for all seven stations. The latest reporting day present in that snapshot was **10 August 2026**, giving a rolling baseline from **11 August 2025 to 10 August 2026** and a recent 70-day window from **2 June to 10 August 2026**.
+The latest retained official snapshot includes **11 August 2026**. The rolling baseline is **12 August 2025 to 11 August 2026** and the current 70-day window is **3 June to 11 August 2026**, compared with the immediately preceding 70 days.
 
-| Site | Rolling-year mean PM2.5 | Valid rolling-year days | Previous 70-day mean | Recent 70-day mean | Change |
+The table uses the QC-screened sensitivity series described below; raw measurements remain retained.
+
+| Site | Rolling-year mean PM2.5 | Valid days | Previous 70-day mean | Recent 70-day mean | Change |
 |---|---:|---:|---:|---:|---:|
-| Cardiff Centre | 7.84 µg/m³ | 343/365 | 8.22 | 7.00 | -14.9% |
-| Chepstow A48 | 8.09 µg/m³ | 355/365 | 8.45 | 6.77 | -19.9% |
-| Narberth | 5.66 µg/m³ | 347/365 | 6.21 | 5.10 | -17.9% |
-| Newport | 6.76 µg/m³ | 365/365 | 6.78 | 6.66 | -1.8% |
-| Port Talbot Margam | 7.48 µg/m³ | 345/365 | 7.90 | 9.86 | **+24.9%** |
-| Swansea Roadside | 8.42 µg/m³ | 292/365 | 8.87 | 10.24 | **+15.4%** |
-| Wrexham | 5.86 µg/m³ | 359/365 | 5.36 | 4.92 | -8.3% |
+| Cardiff Centre | 7.82 µg/m³ | 344/365 | 8.24 | 7.03 | -14.6% |
+| Chepstow A48 | 8.05 µg/m³ | 355/365 | 8.45 | 6.79 | -19.7% |
+| Narberth | 5.65 µg/m³ | 347/365 | 6.22 | 5.20 | -16.5% |
+| Newport | 6.74 µg/m³ | 365/365 | 6.80 | 6.68 | -1.7% |
+| Port Talbot Margam | 7.49 µg/m³ | 345/365 | 7.91 | 9.99 | **+26.3%** |
+| Swansea Roadside | 8.33 µg/m³ | 291/365 | 8.91 | 10.03 | **+12.6%** |
+| Wrexham | 5.86 µg/m³ | 359/365 | 5.36 | 4.98 | -7.1% |
 
-The first observational result is therefore **not a Wales-wide deterioration**. In this seven-site reference network, the recent period is higher at Port Talbot Margam and Swansea Roadside, almost unchanged at Newport, and lower at the other four stations. Because Swansea is an urban-traffic site and Port Talbot Margam is urban-industrial, this pattern cannot be treated as evidence of wildfire pollution without further work.
+The observational result remains **not a Wales-wide deterioration**. The recent period is higher at Port Talbot Margam and Swansea Roadside, broadly stable at Newport, and lower at the other four reference sites.
 
-The recent window also contains short-lived particulate episodes. The highest valid recent daily PM2.5 mean in this snapshot is **30.57 µg/m³ at Swansea Roadside on 14 July 2026**. The time-series charts retain these peaks for later event-by-event investigation rather than assigning a cause here.
+## QC sensitivity: preserve raw data, flag before attribution
 
-The **11 August Blaenavon fire/smoke episode is not yet represented in this snapshot**, because the annual AURN files available to this run ended on 10 August. It is therefore a later event-study target, not part of the baseline result above.
+The retained Swansea file contains a provisional **430 µg/m³ PM2.5** value at 01:00 on 14 July while collocated PM10 is only **16.425 µg/m³**. Project 005 does not delete it. Instead it creates a parallel `pm25_screened` sensitivity series that flags a value only when it is provisional, PM2.5 is at least 100 µg/m³, collocated PM10 is present, and PM2.5 is more than twice PM10.
+
+That rule currently flags **one observation**. Swansea's recent-window change is **+12.6%** in the screened sensitivity series versus **+15.7%** in the raw series. This makes the influence of the provisional excursion visible rather than hiding it.
+
+Coherent high-particulate events in which PM2.5 and PM10 rise together are retained untouched.
+
+## Regional versus site-specific change
+
+Project 005 also compares each station with the same-day median PM2.5 at the other reporting AURN sites, requiring at least four peers. The derived residual is observational context, **not source apportionment**.
+
+In the latest 70-day window:
+
+- **Swansea Roadside** shifts from a mean site-relative excess of **+1.68 to +3.79 µg/m³**, a change of **+2.11 µg/m³**. It continues to track the wider network strongly, while its PM2.5–NO2 correlation is higher in the recent period.
+- **Port Talbot Margam** shifts from **+0.54 to +3.35 µg/m³**, a change of **+2.80 µg/m³**, while also remaining strongly correlated with wider-network variability.
+
+The current evidence is therefore consistent with **common regional variability plus an additional local/site-specific component** at both sites. It does not identify the source of either component.
+
+## 11 August overnight particulate event
+
+The official files now contain the episode that was missing from the first snapshot.
+
+Swansea Roadside has only five observations assigned to the 11 August AURN reporting day, so the daily baseline correctly refuses to publish a Swansea daily mean. For event analysis, however, AURN's `10 August 24:00` record is physically midnight on 11 August. Together with the next five records, this gives six physical-clock Swansea observations from **00:00–05:00 GMT**.
+
+Across those six hours:
+
+- mean PM2.5: **35.0 µg/m³**;
+- maximum: **51.0 µg/m³** at midnight GMT;
+- prior-365-day Swansea hourly PM2.5 p95: **20.0 µg/m³**;
+- **5 of 6** observed hours were at or above that threshold;
+- mean PM10: **37.84 µg/m³**;
+- mean NO2: **9.02 µg/m³**;
+- mean PM2.5/PM10 ratio: approximately **0.88**.
+
+The simultaneous PM2.5/PM10 rise with relatively modest NO2 is a credible particulate episode and is not well described as a simple traffic-only spike. **It is not, by itself, proof that the Blaenavon fire caused the episode.** Swansea coverage stops after 05:00.
+
+The same physical-clock day is also elevated at Port Talbot Margam (mean PM2.5 **13.96**, 6 hours at/above its prior-year p95) and Narberth (**10.02**, 4 hours at/above its p95), while Cardiff, Newport, Wrexham and Chepstow remain lower. This spatial pattern is useful for the next wind/satellite attribution stage.
+
+[Read the event-study register](EVENT_STUDY.md) for the July controls, 11 August hourly evidence and attribution rules.
 
 ## Visual summary
 
-The recent-period chart keeps every station visible rather than collapsing the network into a single national mean.
+The recent-period chart keeps every station visible rather than collapsing the network into a single national average.
 
-<a href="figures/wales_aurn_pm25_recent_dark.png"><img src="figures/wales_aurn_pm25_recent_dark.png" alt="Measured PM2.5 across Welsh AURN stations during the recent 70-day period" width="100%"></a>
+<a href="figures/wales_aurn_pm25_recent_dark.png"><img src="figures/wales_aurn_pm25_recent_dark.png" alt="Measured PM2.5 across Welsh AURN stations during the recent period" width="100%"></a>
 
-The within-station comparison makes the initial result easier to see: Port Talbot Margam and Swansea Roadside rise during the recent 70 days while most other reference sites fall or remain broadly stable.
+The within-station comparison shows the divergent recent change at Swansea and Port Talbot.
 
-<a href="figures/wales_aurn_pm25_recent_vs_previous_dark.png"><img src="figures/wales_aurn_pm25_recent_vs_previous_dark.png" alt="Recent 70-day PM2.5 means compared with the preceding 70 days at Welsh AURN stations" width="100%"></a>
+<a href="figures/wales_aurn_pm25_recent_vs_previous_dark.png"><img src="figures/wales_aurn_pm25_recent_vs_previous_dark.png" alt="Recent PM2.5 means compared with the preceding 70 days" width="100%"></a>
 
-## Initial outputs
+The site-relative view separates shared network movement from each station's excess relative to its peers.
 
-Running `analysis.py` downloads the current and previous calendar-year AURN files for each station, retains the exact source bytes and SHA-256 provenance records, and builds:
+<a href="figures/wales_aurn_pm25_site_relative_change_dark.png"><img src="figures/wales_aurn_pm25_site_relative_change_dark.png" alt="Station-relative PM2.5 change across Welsh AURN sites" width="100%"></a>
 
-- combined hourly observations;
-- daily means requiring at least 18 valid hourly values for a station-day;
-- a latest rolling 365-day PM2.5 dataset;
-- a latest 70-day PM2.5 dataset for the recent dry-period view;
-- a within-station comparison of the recent 70 days with the immediately preceding 70 days;
-- station-level coverage, mean, median, 95th percentile and maximum summaries;
-- a machine-readable run summary.
+The dedicated 11 August chart uses physical GMT hour-ending time and makes Swansea's incomplete later coverage explicit.
 
-It then produces the dark-mode chart suite in both 1600×900 and 1080×1080 PNG/SVG forms:
+<a href="figures/wales_aurn_pm25_aug11_smoke_window_dark.png"><img src="figures/wales_aurn_pm25_aug11_smoke_window_dark.png" alt="Hourly PM2.5 across Welsh AURN stations during the 11 August overnight particulate episode" width="100%"></a>
+
+## Outputs
+
+`analysis.py` builds the baseline, QC and event-screen evidence:
+
+- retained raw annual source files plus provenance;
+- combined hourly observations during a run;
+- raw and QC-screened daily means with a minimum 18-hour completeness rule;
+- rolling 365-day and recent 70-day PM2.5 datasets;
+- recent-versus-previous station comparisons;
+- QC warning table;
+- same-day site-relative PM2.5 residuals and summaries;
+- recent network event screen and coherent hourly July candidates;
+- machine-readable run summary.
+
+`aug11_event.py` consumes the validated hourly baseline output and produces:
+
+- `pm25_aug11_hourly.csv`;
+- `pm25_aug11_event_summary.csv`;
+- the dedicated 11 August hourly chart in wide and square PNG/SVG forms.
+
+The full dark chart suite now contains eight families:
 
 1. `wales_aurn_pm25_rolling_year_dark`
 2. `wales_aurn_pm25_recent_dark`
 3. `wales_aurn_pm25_station_distribution_dark`
 4. `wales_aurn_pm25_recent_vs_previous_dark`
-5. `wales_aurn_pm25_station_map_dark`
+5. `wales_aurn_pm25_site_relative_change_dark`
+6. `wales_aurn_pm25_july_event_screen_dark`
+7. `wales_aurn_pm25_aug11_smoke_window_dark`
+8. `wales_aurn_pm25_station_map_dark`
 
-The visual system follows the repository-wide [dark-mode publication standard](../../VISUAL_STYLE.md).
+Each is generated as 1600×900 and 1080×1080 PNG/SVG under the repository-wide [dark publication standard](../../VISUAL_STYLE.md).
 
 ## Interpretation boundary
 
-This stage answers **what was measured**, not **why it happened**.
+This project distinguishes **measurement**, **quality-control sensitivity**, **event screening** and **attribution**.
 
-A later wildfire case study may combine:
+A wildfire attribution requires several independent layers to agree: a credible ground event, overlapping fire timing, wind/dispersion evidence, satellite/fire evidence where available, and consideration of alternative explanations such as traffic, industry, dust or wider regional aerosol.
 
-- anomalous PM2.5 observations;
-- fire timing and location;
-- wind speed and direction;
-- NASA satellite smoke/fire observations;
-- atmospheric transport or dispersion products.
+A smoke plume seen from satellite is not itself a ground-level concentration measurement, and a coincident PM2.5 rise is not by itself proof of wildfire causation.
 
-Those layers will be introduced only after the observational baseline is established. A smoke plume seen from satellite is not itself a ground-level air-quality measurement, and a coincident PM2.5 rise is not by itself proof of wildfire attribution.
+## Broader Welsh network and meteorology
 
-## Broader Welsh network
+Air Quality in Wales publishes additional automatic local-authority monitoring data. That broader network remains a later ingestion stage so heterogeneous sites are added with explicit network and environment metadata.
 
-Air Quality in Wales publishes additional automatic local-authority monitoring data, including hourly pollutant concentrations. That broader network is reserved for Stage B so that the first national picture has a clear, quality-controlled AURN baseline before heterogeneous local sites are added.
+For attribution, Air Quality in Wales also exposes site-linked modelled winds at Swansea and measured/modelled winds at Port Talbot Margam. Those products will be added with their documented spatial-resolution limitations rather than substituted with consumer weather feeds.
 
 ## Data status
 
-Recent AURN observations can be provisional. The Welsh Air Quality Database explains that near-real-time AURN values are uploaded hourly after basic automated screening and are subsequently subject to verification and ratification. Project 005 therefore retains source provenance and avoids presenting recent values as final ratified statistics.
+Recent AURN observations can be provisional and may later be verified, ratified or revised. Project 005 retains source provenance and reports the upstream status rather than presenting recent values as final ratified statistics.
 
 ## Reproduce
 
@@ -106,23 +158,18 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 
 python projects/005-wales-air-quality/analysis.py
+python projects/005-wales-air-quality/aug11_event.py
 pytest -q projects/005-wales-air-quality/tests
 ```
 
-Optional windows:
-
-```bash
-python projects/005-wales-air-quality/analysis.py \
-  --rolling-days 365 \
-  --recent-days 70
-```
+The baseline can also be re-analysed from already retained source files with `analysis.py --use-retained`.
 
 ## Next stages
 
-- **Stage A:** AURN PM2.5 observational baseline and chart suite.
-- **Stage B:** add the broader Air Quality in Wales automatic network with explicit network/site-type metadata.
-- **Stage C:** add PM10, NO2 and ozone comparative views.
-- **Stage D:** investigate individual high-particulate episodes, beginning with recent summer 2026 fire/smoke episodes if the measured data justify it.
-- **Stage E:** meteorology, satellite and atmospheric-dispersion attribution, kept separate from the raw observational result.
+- **Stage A:** reference-grade AURN PM2.5 baseline — implemented.
+- **Stage B:** broader Air Quality in Wales automatic network with explicit metadata.
+- **Stage C:** systematic PM10, NO2 and ozone comparative views.
+- **Stage D:** event screening — underway, with July controls and the 11 August hourly case retained.
+- **Stage E:** wind, satellite and atmospheric-dispersion attribution, kept separate from the raw observational result.
 
-PFAS/“forever chemical” site proximity is outside Project 005's initial scope. It may justify a separate environmental-exposure project rather than being folded into air-quality attribution without evidence.
+PFAS/“forever chemical” site proximity remains outside Project 005's air-quality attribution scope and is better treated as a separate environmental-exposure project.
