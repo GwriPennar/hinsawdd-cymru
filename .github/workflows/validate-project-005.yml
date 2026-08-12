@@ -1,0 +1,70 @@
+name: Validate project 005
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "projects/005-wales-air-quality/**"
+      - "pyproject.toml"
+      - ".github/workflows/validate-project-005.yml"
+  pull_request:
+    paths:
+      - "projects/005-wales-air-quality/**"
+      - "README.md"
+      - "pyproject.toml"
+      - ".github/workflows/validate-project-005.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Unit and synthetic chart tests
+        run: pytest -q projects/005-wales-air-quality/tests
+
+      - name: Fetch AURN observations and build derived data/charts
+        run: python projects/005-wales-air-quality/analysis.py
+
+      - name: Verify expected chart files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for stem in \
+            wales_aurn_pm25_rolling_year_dark \
+            wales_aurn_pm25_recent_dark \
+            wales_aurn_pm25_station_distribution_dark \
+            wales_aurn_pm25_station_map_dark
+          do
+            test -s "projects/005-wales-air-quality/figures/${stem}.png"
+            test -s "projects/005-wales-air-quality/figures/${stem}.svg"
+            test -s "projects/005-wales-air-quality/figures/${stem}_square.png"
+            test -s "projects/005-wales-air-quality/figures/${stem}_square.svg"
+          done
+          test -s projects/005-wales-air-quality/data/derived/summary.json
+          test -s projects/005-wales-air-quality/data/derived/pm25_station_summary.csv
+
+      - name: Upload Project 005 validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-005-air-quality-validation-evidence
+          path: |
+            projects/005-wales-air-quality/data/raw/
+            projects/005-wales-air-quality/data/derived/
+            projects/005-wales-air-quality/figures/
+            projects/005-wales-air-quality/README.md
+            projects/005-wales-air-quality/METHODOLOGY.md
+            projects/005-wales-air-quality/SOURCES.md
+          if-no-files-found: error
