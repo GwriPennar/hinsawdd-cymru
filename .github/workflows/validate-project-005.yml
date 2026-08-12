@@ -37,8 +37,11 @@ jobs:
       - name: Unit and synthetic chart tests
         run: pytest -q projects/005-wales-air-quality/tests
 
-      - name: Fetch AURN observations and build derived data/charts
+      - name: Fetch AURN observations and build baseline data/charts
         run: python projects/005-wales-air-quality/analysis.py
+
+      - name: Build 11 August physical-clock event study
+        run: python projects/005-wales-air-quality/aug11_event.py
 
       - name: Verify expected chart files and derived evidence
         shell: bash
@@ -51,6 +54,7 @@ jobs:
             wales_aurn_pm25_recent_vs_previous_dark \
             wales_aurn_pm25_site_relative_change_dark \
             wales_aurn_pm25_july_event_screen_dark \
+            wales_aurn_pm25_aug11_smoke_window_dark \
             wales_aurn_pm25_station_map_dark
           do
             test -s "projects/005-wales-air-quality/figures/${stem}.png"
@@ -67,7 +71,9 @@ jobs:
             pm25_site_relative_change.csv \
             pm25_event_screen.csv \
             pm25_event_screen_top15.csv \
-            pm25_july_hourly_event_candidates.csv
+            pm25_july_hourly_event_candidates.csv \
+            pm25_aug11_hourly.csv \
+            pm25_aug11_event_summary.csv
           do
             test -s "projects/005-wales-air-quality/data/derived/${file}"
           done
@@ -107,6 +113,8 @@ jobs:
             projects/005-wales-air-quality/data/derived/pm25_event_screen.csv \
             projects/005-wales-air-quality/data/derived/pm25_event_screen_top15.csv \
             projects/005-wales-air-quality/data/derived/pm25_july_hourly_event_candidates.csv \
+            projects/005-wales-air-quality/data/derived/pm25_aug11_hourly.csv \
+            projects/005-wales-air-quality/data/derived/pm25_aug11_event_summary.csv \
             projects/005-wales-air-quality/data/derived/summary.json \
             projects/005-wales-air-quality/figures
           if git diff --cached --quiet; then
