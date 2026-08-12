@@ -1,0 +1,9 @@
+{
+  "site_code": "WREX",
+  "year": 2026,
+  "url": "https://uk-air.defra.gov.uk/datastore/data_files/site_data/WREX_2026.csv?v=1",
+  "retrieved_utc": "2026-08-12T01:08:41.614882+00:00",
+  "sha256": "56a5c3da45a52e0245af1df7d36d84ee038088f5863ea18c342901d297addc3c",
+  "bytes": 678617,
+  "status": "provisional or ratified according to upstream record"
+}
