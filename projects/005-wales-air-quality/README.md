@@ -24,6 +24,26 @@ The retained Stage A station set is:
 
 Site type remains explicit throughout the analysis. A roadside value is not silently treated as equivalent to a rural-background value.
 
+## First live baseline
+
+The first validated live run downloaded the 2025 and 2026 official AURN files for all seven stations. The latest reporting day present in that snapshot was **10 August 2026**, giving a rolling baseline from **11 August 2025 to 10 August 2026** and a recent 70-day window from **2 June to 10 August 2026**.
+
+| Site | Rolling-year mean PM2.5 | Valid rolling-year days | Previous 70-day mean | Recent 70-day mean | Change |
+|---|---:|---:|---:|---:|---:|
+| Cardiff Centre | 7.84 µg/m³ | 343/365 | 8.22 | 7.00 | -14.9% |
+| Chepstow A48 | 8.09 µg/m³ | 355/365 | 8.45 | 6.77 | -19.9% |
+| Narberth | 5.66 µg/m³ | 347/365 | 6.21 | 5.10 | -17.9% |
+| Newport | 6.76 µg/m³ | 365/365 | 6.78 | 6.66 | -1.8% |
+| Port Talbot Margam | 7.48 µg/m³ | 345/365 | 7.90 | 9.86 | **+24.9%** |
+| Swansea Roadside | 8.42 µg/m³ | 292/365 | 8.87 | 10.24 | **+15.4%** |
+| Wrexham | 5.86 µg/m³ | 359/365 | 5.36 | 4.92 | -8.3% |
+
+The first observational result is therefore **not a Wales-wide deterioration**. In this seven-site reference network, the recent period is higher at Port Talbot Margam and Swansea Roadside, almost unchanged at Newport, and lower at the other four stations. Because Swansea is an urban-traffic site and Port Talbot Margam is urban-industrial, this pattern cannot be treated as evidence of wildfire pollution without further work.
+
+The recent window also contains short-lived particulate episodes. The highest valid recent daily PM2.5 mean in this snapshot is **30.57 µg/m³ at Swansea Roadside on 14 July 2026**. The time-series charts retain these peaks for later event-by-event investigation rather than assigning a cause here.
+
+The **11 August Blaenavon fire/smoke episode is not yet represented in this snapshot**, because the annual AURN files available to this run ended on 10 August. It is therefore a later event-study target, not part of the baseline result above.
+
 ## Initial outputs
 
 Running `analysis.py` downloads the current and previous calendar-year AURN files for each station, retains the exact source bytes and SHA-256 provenance records, and builds:
@@ -32,15 +52,17 @@ Running `analysis.py` downloads the current and previous calendar-year AURN file
 - daily means requiring at least 18 valid hourly values for a station-day;
 - a latest rolling 365-day PM2.5 dataset;
 - a latest 70-day PM2.5 dataset for the recent dry-period view;
+- a within-station comparison of the recent 70 days with the immediately preceding 70 days;
 - station-level coverage, mean, median, 95th percentile and maximum summaries;
 - a machine-readable run summary.
 
-It then produces the first dark-mode chart suite in both 1600×900 and 1080×1080 PNG/SVG forms:
+It then produces the dark-mode chart suite in both 1600×900 and 1080×1080 PNG/SVG forms:
 
 1. `wales_aurn_pm25_rolling_year_dark`
 2. `wales_aurn_pm25_recent_dark`
 3. `wales_aurn_pm25_station_distribution_dark`
-4. `wales_aurn_pm25_station_map_dark`
+4. `wales_aurn_pm25_recent_vs_previous_dark`
+5. `wales_aurn_pm25_station_map_dark`
 
 The visual system follows the repository-wide [dark-mode publication standard](../../VISUAL_STYLE.md).
 
