@@ -9,7 +9,14 @@ import pandas as pd
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT))
 
-from analysis import Station, daily_means, find_measurement_column, parse_uk_air_csv, select_windows
+from analysis import (
+    Station,
+    build_period_comparison,
+    daily_means,
+    find_measurement_column,
+    parse_uk_air_csv,
+    select_windows,
+)
 from charts import render_all_charts
 
 
@@ -80,6 +87,23 @@ def test_daily_mean_requires_18_valid_hours():
     assert second["pm25_hours"] == 24
 
 
+def test_period_comparison_is_within_station():
+    dates = pd.date_range("2026-01-01", periods=8, freq="D", tz="UTC")
+    rows = []
+    for date, value in zip(dates, [4, 4, 4, 4, 8, 8, 8, 8]):
+        rows.append({
+            "date": date,
+            "station_code": "A",
+            "station_name": "Alpha",
+            "site_type": "Urban Background",
+            "pm25": value,
+        })
+    result = build_period_comparison(pd.DataFrame(rows), dates[4], dates[7], 4)
+    assert result.loc[0, "previous_pm25_mean"] == 4.0
+    assert result.loc[0, "recent_pm25_mean"] == 8.0
+    assert result.loc[0, "pm25_change_pct"] == 100.0
+
+
 def _png_dimensions(path: Path):
     data = path.read_bytes()
     assert data[:8] == b"\x89PNG\r\n\x1a\n"
@@ -114,8 +138,11 @@ def test_dark_chart_suite_dimensions(tmp_path):
     render_all_charts(daily, stations, metadata, tmp_path)
 
     stems = [
-        "wales_aurn_pm25_rolling_year_dark", "wales_aurn_pm25_recent_dark",
-        "wales_aurn_pm25_station_distribution_dark", "wales_aurn_pm25_station_map_dark",
+        "wales_aurn_pm25_rolling_year_dark",
+        "wales_aurn_pm25_recent_dark",
+        "wales_aurn_pm25_station_distribution_dark",
+        "wales_aurn_pm25_recent_vs_previous_dark",
+        "wales_aurn_pm25_station_map_dark",
     ]
     for stem in stems:
         assert _png_dimensions(tmp_path / f"{stem}.png") == (1600, 900)
