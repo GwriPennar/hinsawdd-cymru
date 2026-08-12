@@ -64,8 +64,12 @@ def _header(ax, title: str, subtitle: str):
 
 
 def _station_palette(names):
-    colors = sns.color_palette("icefire", n_colors=max(3, len(names)))
-    return dict(zip(sorted(names), colors))
+    canonical = [
+        "#22d3ee", "#60a5fa", "#a78bfa", "#f59e0b",
+        "#fb7185", "#f43f5e", "#34d399",
+    ]
+    ordered = sorted(names)
+    return {name: canonical[index % len(canonical)] for index, name in enumerate(ordered)}
 
 
 def line_chart(data, output_dir, filename, title, subtitle, square):
@@ -83,8 +87,11 @@ def line_chart(data, output_dir, filename, title, subtitle, square):
     ax.set_ylabel("Daily mean PM₂.₅ (µg/m³)")
     ax.set_xlabel("Date")
     ax.set_ylim(bottom=0)
-    ax.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=5, maxticks=10))
-    ax.xaxis.set_major_formatter(mdates.ConciseDateFormatter(ax.xaxis.get_major_locator()))
+    locator = mdates.AutoDateLocator(minticks=5, maxticks=10)
+    formatter = mdates.ConciseDateFormatter(locator)
+    formatter.show_offset = False
+    ax.xaxis.set_major_locator(locator)
+    ax.xaxis.set_major_formatter(formatter)
     legend = ax.legend(loc="upper left", ncol=1 if square else 2, fontsize=8.5,
                        frameon=True, facecolor=AX_BG, edgecolor=GRID)
     for text in legend.get_texts():
@@ -119,8 +126,8 @@ def station_map(stations, output_dir, square):
     _header(ax, "Reference-grade PM₂.₅ monitoring sites used in Project 005",
             "Welsh AURN baseline stations; position shown by longitude and latitude, not a modelled pollution surface.")
     types = sorted({s.site_type for s in stations})
-    colors = sns.color_palette("icefire", n_colors=max(3, len(types)))
-    color_by_type = dict(zip(types, colors))
+    type_colors = ["#22d3ee", "#60a5fa", "#f59e0b", "#fb7185"]
+    color_by_type = {site_type: type_colors[index % len(type_colors)] for index, site_type in enumerate(types)}
     for station in stations:
         ax.scatter(station.longitude, station.latitude, s=100 if square else 85,
                    marker=SITE_TYPE_MARKERS.get(station.site_type, "o"),
