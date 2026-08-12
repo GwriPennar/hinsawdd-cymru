@@ -39,6 +39,24 @@ def test_parser_handles_hour_24_and_numeric_missing_values():
     assert parsed.loc[0, "pm25"] == 8.5
 
 
+def test_parser_handles_real_uk_air_preamble_and_html_pollutant_names():
+    station = Station("CARD", "Cardiff Centre", "Urban Background", 51.48, -3.18)
+    text = """Data supplied by UK-AIR on 1/5/2026
+All Data GMT hour ending 
+Status: R =Ratified P=Provisional,P*=As supplied
+,,Cardiff Centre,,,,,,,,
+Date,time,"PM<sub>10</sub> particulate matter (Hourly measured)",status,unit,"Nitrogen dioxide",status,unit,"Ozone",status,unit,"PM<sub>2.5</sub> particulate matter (Hourly measured)",status,unit
+ 
+01-01-2025,01:00,11.594,R,ugm-3,15.0,R,ugm-3,75.3,R,ugm-3,4.000,R,ugm-3
+"""
+    parsed = parse_uk_air_csv(text, station)
+    assert len(parsed) == 1
+    assert parsed.loc[0, "pm25"] == 4.0
+    assert parsed.loc[0, "pm10"] == 11.594
+    assert parsed.loc[0, "no2"] == 15.0
+    assert parsed.loc[0, "o3"] == 75.3
+
+
 def test_daily_mean_requires_18_valid_hours():
     station = Station("TEST", "Test Site", "Urban Background", 51.5, -3.2)
     timestamps = pd.date_range("2026-08-01", periods=48, freq="h", tz="UTC")
