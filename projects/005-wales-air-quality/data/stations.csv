@@ -1,0 +1,8 @@
+code,name,site_type,latitude,longitude,uk_air_id
+CARD,Cardiff Centre,Urban Background,51.481780,-3.176250,UKA00217
+CHP,Chepstow A48,Urban Traffic,51.638094,-2.678731,UKA00515
+PEMB,Narberth,Rural Background,51.782616,-4.692370,UKA00323
+NPT3,Newport,Urban Background,51.601203,-2.977281,UKA00380
+PT4,Port Talbot Margam,Urban Industrial,51.583950,-3.770822,UKA00501
+SWA1,Swansea Roadside,Urban Traffic,51.632696,-3.947374,UKA00497
+WREX,Wrexham,Urban Traffic,53.042282,-3.002829,UKA00440
