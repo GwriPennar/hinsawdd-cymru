@@ -2,9 +2,12 @@ name: Validate project 005
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - agent/project-005-wales-air-quality-baseline
     paths:
       - "projects/005-wales-air-quality/**"
+      - "README.md"
       - "pyproject.toml"
       - ".github/workflows/validate-project-005.yml"
   pull_request:
