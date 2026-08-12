@@ -75,7 +75,7 @@ jobs:
           if-no-files-found: error
 
       - name: Retain validated Project 005 snapshot on branch
-        if: github.event_name == 'push' && github.ref_name == 'agent/project-005-wales-air-quality-baseline' && !startsWith(github.event.head_commit.message, 'Retain Project 005 validated snapshot')
+        if: github.event_name == 'push' && github.ref_name == 'agent/project-005-wales-air-quality-baseline' && !startsWith(github.event.head_commit.message, 'Persist Project 005 generated evidence')
         shell: bash
         run: |
           set -euo pipefail
@@ -94,5 +94,5 @@ jobs:
             echo "Validated snapshot already retained."
             exit 0
           fi
-          git commit -m "Retain Project 005 validated snapshot"
+          git commit -m "Persist Project 005 generated evidence"
           git push origin HEAD:"${GITHUB_REF_NAME}"
