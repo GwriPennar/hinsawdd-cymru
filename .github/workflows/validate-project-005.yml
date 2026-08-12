@@ -1,0 +1,125 @@
+name: Validate project 005
+
+on:
+  push:
+    branches:
+      - main
+      - agent/project-005-wales-air-quality-baseline
+    paths:
+      - "projects/005-wales-air-quality/**"
+      - "README.md"
+      - "pyproject.toml"
+      - ".github/workflows/validate-project-005.yml"
+  pull_request:
+    paths:
+      - "projects/005-wales-air-quality/**"
+      - "README.md"
+      - "pyproject.toml"
+      - ".github/workflows/validate-project-005.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Unit and synthetic chart tests
+        run: pytest -q projects/005-wales-air-quality/tests
+
+      - name: Fetch AURN observations and build baseline data/charts
+        run: python projects/005-wales-air-quality/analysis.py
+
+      - name: Build 11 August physical-clock event study
+        run: python projects/005-wales-air-quality/aug11_event.py
+
+      - name: Verify expected chart files and derived evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          for stem in \
+            wales_aurn_pm25_rolling_year_dark \
+            wales_aurn_pm25_recent_dark \
+            wales_aurn_pm25_station_distribution_dark \
+            wales_aurn_pm25_recent_vs_previous_dark \
+            wales_aurn_pm25_site_relative_change_dark \
+            wales_aurn_pm25_july_event_screen_dark \
+            wales_aurn_pm25_aug11_smoke_window_dark \
+            wales_aurn_pm25_station_map_dark
+          do
+            test -s "projects/005-wales-air-quality/figures/${stem}.png"
+            test -s "projects/005-wales-air-quality/figures/${stem}.svg"
+            test -s "projects/005-wales-air-quality/figures/${stem}_square.png"
+            test -s "projects/005-wales-air-quality/figures/${stem}_square.svg"
+          done
+          for file in \
+            summary.json \
+            pm25_station_summary.csv \
+            pm25_recent_vs_previous.csv \
+            pm25_qc_warnings.csv \
+            pm25_site_relative_daily.csv \
+            pm25_site_relative_change.csv \
+            pm25_event_screen.csv \
+            pm25_event_screen_top15.csv \
+            pm25_july_hourly_event_candidates.csv \
+            pm25_aug11_hourly.csv \
+            pm25_aug11_event_summary.csv
+          do
+            test -s "projects/005-wales-air-quality/data/derived/${file}"
+          done
+
+      - name: Upload Project 005 validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-005-air-quality-validation-evidence
+          path: |
+            projects/005-wales-air-quality/data/raw/
+            projects/005-wales-air-quality/data/derived/
+            projects/005-wales-air-quality/figures/
+            projects/005-wales-air-quality/README.md
+            projects/005-wales-air-quality/METHODOLOGY.md
+            projects/005-wales-air-quality/SOURCES.md
+            projects/005-wales-air-quality/EVENT_STUDY.md
+          if-no-files-found: error
+
+      - name: Retain validated Project 005 snapshot on branch
+        if: github.event_name == 'push' && github.ref_name == 'agent/project-005-wales-air-quality-baseline' && !startsWith(github.event.head_commit.message, 'Persist Project 005 generated evidence')
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f \
+            projects/005-wales-air-quality/data/raw \
+            projects/005-wales-air-quality/data/derived/aurn_daily_means.csv \
+            projects/005-wales-air-quality/data/derived/pm25_rolling_year_daily.csv \
+            projects/005-wales-air-quality/data/derived/pm25_recent_daily.csv \
+            projects/005-wales-air-quality/data/derived/pm25_station_summary.csv \
+            projects/005-wales-air-quality/data/derived/pm25_recent_vs_previous.csv \
+            projects/005-wales-air-quality/data/derived/pm25_qc_warnings.csv \
+            projects/005-wales-air-quality/data/derived/pm25_site_relative_daily.csv \
+            projects/005-wales-air-quality/data/derived/pm25_site_relative_change.csv \
+            projects/005-wales-air-quality/data/derived/pm25_event_screen.csv \
+            projects/005-wales-air-quality/data/derived/pm25_event_screen_top15.csv \
+            projects/005-wales-air-quality/data/derived/pm25_july_hourly_event_candidates.csv \
+            projects/005-wales-air-quality/data/derived/pm25_aug11_hourly.csv \
+            projects/005-wales-air-quality/data/derived/pm25_aug11_event_summary.csv \
+            projects/005-wales-air-quality/data/derived/summary.json \
+            projects/005-wales-air-quality/figures
+          if git diff --cached --quiet; then
+            echo "Validated snapshot already retained."
+            exit 0
+          fi
+          git commit -m "Persist Project 005 generated evidence"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

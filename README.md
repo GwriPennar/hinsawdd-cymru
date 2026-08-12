@@ -24,6 +24,7 @@ Each project README is intended to work as a self-contained public results repor
 | [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | A transparent modern-period linear regression is published as an illustrative comparison baseline, with backtesting, uncertainty and sensitivity lines. It is explicitly not a physical climate forecast. |
 | [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis and statistical baseline | July 2026 was exceptionally dry, but the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. Rainfall totals and rain-day counts are kept distinct from formal drought indices. |
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Wales received about 920 Ml/day from its two main public suppliers in 2024–25. Current Welsh colocation data-centre direct water use is modelled at about 0.2–2.7 Ml/day, with a central scenario of 0.7 Ml/day (about 0.08% of that public-supply baseline). This is an estimate, not a measured national total. |
+| [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Builds a reference-grade PM2.5 baseline from Welsh AURN monitoring stations, with rolling-year and recent-period views. The first stage measures before attempting wildfire or other source attribution. |
 
 <!-- BEGIN PROJECT 001 CHART PREVIEWS -->
 ## Project 001 visual summary
@@ -67,6 +68,12 @@ For data centres, Project 004 uses the UK Government estimate of **154 MW operat
 
 Those are **modelled scenarios, not measured Welsh data-centre totals**. The project separately records the evidence that local water-network constraints can matter even when the Wales-wide percentage is small, and it keeps planned capacity separate from current operations. [Read the full Project 004 report](projects/004-wales-water-consumption/).
 
+## Project 005 summary
+
+Project 005 starts with direct ground observations of air pollution rather than an air-quality app or an atmospheric model. Stage A uses the Welsh Automatic Urban and Rural Network (AURN) sites currently measuring hourly PM2.5 and retains each station's environment type rather than manufacturing an unweighted national average.
+
+The first analysis produces a rolling 365-day view, a recent 70-day view, station distributions and a monitoring-site map in the repository's dark publication style. Recent values are treated as potentially provisional. Wildfire, traffic, industrial and meteorological attribution is explicitly deferred until the measured record itself shows a pattern worth investigating. [Read the Project 005 baseline](projects/005-wales-air-quality/).
+
 ## Repository structure
 
 ```text
@@ -104,14 +111,23 @@ hinsawdd-cymru/
     │   ├── data/
     │   ├── figures/
     │   └── tests/
-    └── 004-wales-water-consumption/
+    ├── 004-wales-water-consumption/
+    │   ├── README.md
+    │   ├── METHODOLOGY.md
+    │   ├── SOURCES.md
+    │   ├── analysis.py
+    │   └── data/
+    │       ├── data-centre-evidence-register.csv
+    │       └── scenarios.csv
+    └── 005-wales-air-quality/
         ├── README.md
         ├── METHODOLOGY.md
         ├── SOURCES.md
         ├── analysis.py
-        └── data/
-            ├── data-centre-evidence-register.csv
-            └── scenarios.csv
+        ├── charts.py
+        ├── data/
+        ├── figures/
+        └── tests/
 ```
 
 Each project is self-contained, while the Python environment is shared at repository level.
@@ -142,6 +158,7 @@ python projects/003-wales-rainfall/verify_dark.py \
   --raindays-source "$RAINDAYS" \
   --raindays-manifest "${RAINDAYS%.txt}.provenance.json"
 python projects/004-wales-water-consumption/analysis.py
+python projects/005-wales-air-quality/analysis.py
 ```
 
 ## Quality approach
@@ -154,14 +171,15 @@ The repository uses a lightweight Reproducible Analytical Pipeline:
 - generated machine-readable outputs and public documentation;
 - explicit separation of published inputs, incomplete or provisional periods and modelled outputs;
 - explicit separation of measured values from resource-demand sensitivity scenarios;
+- explicit separation of measured air-quality observations from later source attribution;
 - GitHub Actions validation on every scientific change.
 
 ## Sources and licensing
 
-Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. Project 004 uses public Welsh Government, UK Government, NRW, Ofwat and Senedd Research publications together with operator technical disclosures and peer-reviewed research; its calculated data-centre scenarios are independent derived estimates rather than official statistics.
+Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. Project 004 uses public Welsh Government, UK Government, NRW, Ofwat and Senedd Research publications together with operator technical disclosures and peer-reviewed research; its calculated data-centre scenarios are independent derived estimates rather than official statistics. Project 005 uses DEFRA UK-AIR AURN automatic monitoring data for its Stage A observational baseline and reserves the broader Welsh Air Quality Database for a later stage.
 
 Source data remain subject to their original licences and copyright. The analysis code is released under the [MIT License](LICENSE).
 
 ## Independence
 
-This is an independent project and is not an official Met Office, Welsh Government, Senedd Cymru, Natural Resources Wales, Ofwat or UK Government product. Derived results should be described as independent calculations from cited public evidence, not as figures published or endorsed by those organisations.
+This is an independent project and is not an official Met Office, Welsh Government, Senedd Cymru, Natural Resources Wales, Ofwat, DEFRA or UK Government product. Derived results should be described as independent calculations from cited public evidence, not as figures published or endorsed by those organisations.
