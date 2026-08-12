@@ -48,6 +48,7 @@ jobs:
             wales_aurn_pm25_rolling_year_dark \
             wales_aurn_pm25_recent_dark \
             wales_aurn_pm25_station_distribution_dark \
+            wales_aurn_pm25_recent_vs_previous_dark \
             wales_aurn_pm25_station_map_dark
           do
             test -s "projects/005-wales-air-quality/figures/${stem}.png"
@@ -57,6 +58,7 @@ jobs:
           done
           test -s projects/005-wales-air-quality/data/derived/summary.json
           test -s projects/005-wales-air-quality/data/derived/pm25_station_summary.csv
+          test -s projects/005-wales-air-quality/data/derived/pm25_recent_vs_previous.csv
 
       - name: Upload Project 005 validation evidence
         if: always()
