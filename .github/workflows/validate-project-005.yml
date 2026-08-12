@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -73,3 +73,26 @@ jobs:
             projects/005-wales-air-quality/METHODOLOGY.md
             projects/005-wales-air-quality/SOURCES.md
           if-no-files-found: error
+
+      - name: Retain validated Project 005 snapshot on branch
+        if: github.event_name == 'push' && github.ref_name == 'agent/project-005-wales-air-quality-baseline' && !startsWith(github.event.head_commit.message, 'Retain Project 005 validated snapshot')
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f \
+            projects/005-wales-air-quality/data/raw \
+            projects/005-wales-air-quality/data/derived/aurn_daily_means.csv \
+            projects/005-wales-air-quality/data/derived/pm25_rolling_year_daily.csv \
+            projects/005-wales-air-quality/data/derived/pm25_recent_daily.csv \
+            projects/005-wales-air-quality/data/derived/pm25_station_summary.csv \
+            projects/005-wales-air-quality/data/derived/pm25_recent_vs_previous.csv \
+            projects/005-wales-air-quality/data/derived/summary.json \
+            projects/005-wales-air-quality/figures
+          if git diff --cached --quiet; then
+            echo "Validated snapshot already retained."
+            exit 0
+          fi
+          git commit -m "Retain Project 005 validated snapshot"
+          git push origin HEAD:"${GITHUB_REF_NAME}"
