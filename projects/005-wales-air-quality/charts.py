@@ -121,6 +121,55 @@ def distribution_chart(data, output_dir, square):
     _save(fig, output_dir / f"wales_aurn_pm25_station_distribution_dark{suffix}")
 
 
+def period_comparison_chart(comparison, output_dir, square):
+    fig, ax = _new_figure(square)
+    _header(
+        ax,
+        "PM₂.₅ in the recent dry period versus the preceding 70 days",
+        "Station means from valid daily observations; comparison is within station, not a Wales-wide average.",
+    )
+    work = comparison.dropna(subset=["previous_pm25_mean", "recent_pm25_mean"]).copy()
+    work = work.sort_values("pm25_change_pct")
+    y = range(len(work))
+    for yi, row in zip(y, work.itertuples(index=False)):
+        ax.plot(
+            [row.previous_pm25_mean, row.recent_pm25_mean],
+            [yi, yi],
+            color=GRID,
+            linewidth=2.0,
+            zorder=1,
+        )
+        ax.scatter(row.previous_pm25_mean, yi, s=70, color=MUTED,
+                   edgecolor=TEXT, linewidth=0.5, zorder=2)
+        ax.scatter(row.recent_pm25_mean, yi, s=90, color=CYAN,
+                   edgecolor=TEXT, linewidth=0.6, zorder=3)
+        ax.text(
+            max(row.previous_pm25_mean, row.recent_pm25_mean) + 0.18,
+            yi,
+            f"{row.pm25_change_pct:+.0f}%",
+            color=TEXT,
+            fontsize=9,
+            va="center",
+        )
+    ax.set_yticks(list(y))
+    ax.set_yticklabels(work["station_name"].tolist(), color=MUTED)
+    ax.set_xlabel("Mean daily PM₂.₅ (µg/m³)")
+    ax.set_ylabel("")
+    ax.grid(True, axis="x", color=GRID, alpha=0.38)
+    ax.grid(False, axis="y")
+    ax.scatter([], [], s=70, color=MUTED, edgecolor=TEXT, linewidth=0.5,
+               label="Previous 70 days")
+    ax.scatter([], [], s=90, color=CYAN, edgecolor=TEXT, linewidth=0.6,
+               label="Recent 70 days")
+    legend = ax.legend(loc="lower right", fontsize=8.5, facecolor=AX_BG, edgecolor=GRID)
+    for text in legend.get_texts():
+        text.set_color(TEXT)
+    fig.subplots_adjust(left=0.24 if not square else 0.28, right=0.96, top=0.86, bottom=0.12)
+    _footer(fig)
+    suffix = "_square" if square else ""
+    _save(fig, output_dir / f"wales_aurn_pm25_recent_vs_previous_dark{suffix}")
+
+
 def station_map(stations, output_dir, square):
     fig, ax = _new_figure(square)
     _header(ax, "Reference-grade PM₂.₅ monitoring sites used in Project 005",
@@ -159,6 +208,8 @@ def render_all_charts(daily, stations, metadata, output_dir):
     recent_start = pd.Timestamp(metadata["recent_start_utc"])
     rolling = daily[daily["date"].between(rolling_start, latest)].copy()
     recent = daily[daily["date"].between(recent_start, latest)].copy()
+    from analysis import build_period_comparison
+    comparison = build_period_comparison(daily, recent_start, latest, metadata["recent_days"])
 
     rolling_subtitle = (f"Daily means, {rolling_start:%d %b %Y} to {latest:%d %b %Y}; "
                         "minimum 18 valid hourly values per station-day.")
@@ -171,4 +222,5 @@ def render_all_charts(daily, stations, metadata, output_dir):
         line_chart(recent, output_dir, f"wales_aurn_pm25_recent_dark{suffix}",
                    "Measured PM₂.₅ across Wales: recent dry-period window", recent_subtitle, square)
         distribution_chart(rolling, output_dir, square)
+        period_comparison_chart(comparison, output_dir, square)
         station_map(stations, output_dir, square)
