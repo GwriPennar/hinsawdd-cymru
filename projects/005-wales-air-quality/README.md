@@ -44,6 +44,16 @@ The recent window also contains short-lived particulate episodes. The highest va
 
 The **11 August Blaenavon fire/smoke episode is not yet represented in this snapshot**, because the annual AURN files available to this run ended on 10 August. It is therefore a later event-study target, not part of the baseline result above.
 
+## Visual summary
+
+The recent-period chart keeps every station visible rather than collapsing the network into a single national mean.
+
+<a href="figures/wales_aurn_pm25_recent_dark.png"><img src="figures/wales_aurn_pm25_recent_dark.png" alt="Measured PM2.5 across Welsh AURN stations during the recent 70-day period" width="100%"></a>
+
+The within-station comparison makes the initial result easier to see: Port Talbot Margam and Swansea Roadside rise during the recent 70 days while most other reference sites fall or remain broadly stable.
+
+<a href="figures/wales_aurn_pm25_recent_vs_previous_dark.png"><img src="figures/wales_aurn_pm25_recent_vs_previous_dark.png" alt="Recent 70-day PM2.5 means compared with the preceding 70 days at Welsh AURN stations" width="100%"></a>
+
 ## Initial outputs
 
 Running `analysis.py` downloads the current and previous calendar-year AURN files for each station, retains the exact source bytes and SHA-256 provenance records, and builds:
