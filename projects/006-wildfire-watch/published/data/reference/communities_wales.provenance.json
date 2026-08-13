@@ -1,0 +1,20 @@
+{
+  "dataset": "Communities (Wales)",
+  "organisation": "Welsh Government, Geography & Technology",
+  "upstream_layer": "geonode:communites_wales",
+  "retrieved_or_loaded_at_utc": "2026-08-13T21:24:11.339060+00:00",
+  "mode": "live_official",
+  "source": "https://datamap.gov.wales/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=geonode:communites_wales&outputFormat=json&srsName=EPSG:4326",
+  "sha256": "f536a837a89c8ae266b2122a5f6491dd7c1913453b7d5d2eb1ab2e210d40f81b",
+  "bytes": 47369915,
+  "crs_requested": "EPSG:4326",
+  "licence": "Open Government Licence",
+  "contains_os_data": "Contains OS data \u00a9 Crown copyright and database right 2025",
+  "extent": [
+    -5.67030246,
+    51.37454189,
+    -2.64986448,
+    53.43579838
+  ],
+  "feature_count": 878
+}

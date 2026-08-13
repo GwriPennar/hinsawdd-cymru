@@ -1,0 +1,84 @@
+{
+  "generated_at_utc": "2026-08-13T21:23:58.991029+00:00",
+  "detection_count": 1660,
+  "incident_count": 152,
+  "wales_watch_detection_count": 1191,
+  "wales_watch_incident_count": 28,
+  "source_count": 3,
+  "sources": [
+    "VIIRS_NOAA20_NRT",
+    "VIIRS_NOAA21_NRT",
+    "VIIRS_SNPP_NRT"
+  ],
+  "earliest_detection_utc": "2026-08-12T01:09:00+00:00",
+  "latest_detection_utc": "2026-08-13T14:22:00+00:00",
+  "cluster_distance_km": 5.0,
+  "cluster_time_hours": 18.0,
+  "wales_watch_bbox": [
+    -5.6,
+    51.2,
+    -2.55,
+    53.5
+  ],
+  "status": "satellite thermal anomalies; not confirmed wildfire incidents",
+  "input_mode": "live_nrt",
+  "snapshot_dir": "data/raw/20260813T212355Z",
+  "input_manifests": [
+    {
+      "source": "VIIRS_SNPP_NRT",
+      "retrieved_at_utc": "2026-08-13T21:23:55.416307+00:00",
+      "sha256": "03c06b2c9d7f740d3effee138e5dba3aa4ab7b3f2635b3560daf8e13f1f2a0ec",
+      "bytes": 47038,
+      "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_SNPP_NRT/-8.8,49.7,2,61/2",
+      "bbox": [
+        -8.8,
+        49.7,
+        2.0,
+        61.0
+      ],
+      "day_range": 2,
+      "date": null
+    },
+    {
+      "source": "VIIRS_NOAA20_NRT",
+      "retrieved_at_utc": "2026-08-13T21:23:55.416307+00:00",
+      "sha256": "e2420c603db14db57c6b665387817cf5dccfba9082b7ad1a7588a28ba1950755",
+      "bytes": 48345,
+      "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_NOAA20_NRT/-8.8,49.7,2,61/2",
+      "bbox": [
+        -8.8,
+        49.7,
+        2.0,
+        61.0
+      ],
+      "day_range": 2,
+      "date": null
+    },
+    {
+      "source": "VIIRS_NOAA21_NRT",
+      "retrieved_at_utc": "2026-08-13T21:23:55.416307+00:00",
+      "sha256": "50610564b4843e6ecd4647218a2527a80c17685c4a1799cb8e4b3f063521aa88",
+      "bytes": 41179,
+      "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_NOAA21_NRT/-8.8,49.7,2,61/2",
+      "bbox": [
+        -8.8,
+        49.7,
+        2.0,
+        61.0
+      ],
+      "day_range": 2,
+      "date": null
+    }
+  ],
+  "query_bbox": [
+    -8.8,
+    49.7,
+    2.0,
+    61.0
+  ],
+  "query_days": 2,
+  "query_date": null,
+  "official_wales_candidate_cluster_count": 23,
+  "boundary_sha256": "f536a837a89c8ae266b2122a5f6491dd7c1913453b7d5d2eb1ab2e210d40f81b",
+  "boundary_dataset": "Communities (Wales)"
+}

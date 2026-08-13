@@ -1,0 +1,3805 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.20107,
+          51.83039
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-9D9EB66",
+        "detection_count": 665,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:09:00+00:00",
+        "last_detected_utc": "2026-08-13T14:22:00+00:00",
+        "duration_hours": 37.22,
+        "peak_frp_mw": 209.75,
+        "mean_frp_mw": 14.77,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.77843,
+          52.09116
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-6F3E560",
+        "detection_count": 219,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-13T14:22:00+00:00",
+        "duration_hours": 26.3,
+        "peak_frp_mw": 297.62,
+        "mean_frp_mw": 21.58,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.05329,
+          51.75452
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-9EBC5A7",
+        "detection_count": 33,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T13:46:00+00:00",
+        "last_detected_utc": "2026-08-13T14:22:00+00:00",
+        "duration_hours": 24.6,
+        "peak_frp_mw": 16.21,
+        "mean_frp_mw": 7.2,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.50019,
+          52.28107
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-A574779",
+        "detection_count": 130,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T13:46:00+00:00",
+        "last_detected_utc": "2026-08-13T14:22:00+00:00",
+        "duration_hours": 24.6,
+        "peak_frp_mw": 195.38,
+        "mean_frp_mw": 13.41,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.34423,
+          51.7689
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-3BDAC7A",
+        "detection_count": 43,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:11:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 36.83,
+        "peak_frp_mw": 17.08,
+        "mean_frp_mw": 4.54,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.42365,
+          51.63189
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C6523DE",
+        "detection_count": 20,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T11:47:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 2.23,
+        "peak_frp_mw": 55.49,
+        "mean_frp_mw": 15.31,
+        "max_confidence": "high",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.72493,
+          53.42333
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-9BFEDF9",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T14:01:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.16,
+        "mean_frp_mw": 6.16,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5517,
+          52.15832
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-0A1D515",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T13:25:00+00:00",
+        "duration_hours": 1.07,
+        "peak_frp_mw": 4.16,
+        "mean_frp_mw": 3.53,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1856,
+          51.57409
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C966462",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T13:25:00+00:00",
+        "last_detected_utc": "2026-08-13T13:25:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.23,
+        "mean_frp_mw": 3.23,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.73363,
+          51.57956
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1A5AF17",
+        "detection_count": 19,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:11:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 11.48,
+        "peak_frp_mw": 10.74,
+        "mean_frp_mw": 4.26,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.40884,
+          51.49798
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-B51B3F3",
+        "detection_count": 5,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T11:47:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.88,
+        "peak_frp_mw": 9.02,
+        "mean_frp_mw": 6.38,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.95817,
+          51.55576
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-B3D05BB",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.35,
+        "mean_frp_mw": 1.35,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.83806,
+          53.27279
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-3EA1758",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T12:21:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.94,
+        "mean_frp_mw": 2.94,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.63681,
+          52.11184
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-4052B22",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T11:47:00+00:00",
+        "last_detected_utc": "2026-08-13T11:47:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.92,
+        "mean_frp_mw": 4.92,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.02971,
+          51.68423
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-0A23BDD",
+        "detection_count": 12,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:30:00+00:00",
+        "last_detected_utc": "2026-08-13T03:38:00+00:00",
+        "duration_hours": 26.13,
+        "peak_frp_mw": 2.4,
+        "mean_frp_mw": 1.56,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.39344,
+          51.39727
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-5B5BE4A",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:58:00+00:00",
+        "last_detected_utc": "2026-08-13T03:38:00+00:00",
+        "duration_hours": 1.67,
+        "peak_frp_mw": 1.29,
+        "mean_frp_mw": 0.98,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.15633,
+          51.63208
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-A89900B",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:58:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 0.88,
+        "peak_frp_mw": 1.23,
+        "mean_frp_mw": 0.88,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.93045,
+          51.64457
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-47E7D28",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:34:00+00:00",
+        "last_detected_utc": "2026-08-13T02:34:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.35,
+        "mean_frp_mw": 0.35,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.91953,
+          53.48712
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-6CA5EEE",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T14:22:00+00:00",
+        "last_detected_utc": "2026-08-12T14:22:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 8.74,
+        "mean_frp_mw": 5.76,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.60792,
+          51.9203
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-F3D889F",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T13:46:00+00:00",
+        "last_detected_utc": "2026-08-12T13:46:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.36,
+        "mean_frp_mw": 6.36,
+        "max_confidence": "high",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.89998,
+          51.34078
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-9A8892D",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T13:44:00+00:00",
+        "last_detected_utc": "2026-08-12T13:44:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.32,
+        "mean_frp_mw": 2.32,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.45188,
+          51.67452
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-3E83B08",
+        "detection_count": 11,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:11:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 11.8,
+        "peak_frp_mw": 6.23,
+        "mean_frp_mw": 2.2,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.46007,
+          52.90134
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-38E435C",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.14,
+        "mean_frp_mw": 2.67,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.73241,
+          51.78561
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-27B6973",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.58,
+        "mean_frp_mw": 4.58,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.39573,
+          51.39794
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-631BF88",
+        "detection_count": 5,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T03:13:00+00:00",
+        "duration_hours": 0.97,
+        "peak_frp_mw": 1.35,
+        "mean_frp_mw": 0.85,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.14003,
+          51.48139
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-321564F",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:51:00+00:00",
+        "last_detected_utc": "2026-08-12T02:51:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.59,
+        "mean_frp_mw": 0.59,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.05939,
+          53.15109
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-044F5EA",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T02:15:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.45,
+        "mean_frp_mw": 0.45,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.18547,
+          51.57549
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-056CFE8",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T02:15:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.83,
+        "mean_frp_mw": 0.83,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.14853,
+          52.43241
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-44211B5",
+        "detection_count": 24,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T14:22:00+00:00",
+        "duration_hours": 2.02,
+        "peak_frp_mw": 32.57,
+        "mean_frp_mw": 12.22,
+        "max_confidence": "high",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.89008,
+          52.1676
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C164E01",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T14:22:00+00:00",
+        "last_detected_utc": "2026-08-13T14:22:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 13.68,
+        "mean_frp_mw": 11.4,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.78155,
+          52.47009
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C356943",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 1.67,
+        "peak_frp_mw": 9.33,
+        "mean_frp_mw": 4.9,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.37506,
+          52.6597
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-AF9220F",
+        "detection_count": 8,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 1.35,
+        "peak_frp_mw": 12.08,
+        "mean_frp_mw": 5.19,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.89822,
+          52.40824
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-59559E2",
+        "detection_count": 4,
+        "satellite_count": 2,
+        "satellites": "N, N21",
+        "sources": "VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T13:25:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 0.6,
+        "peak_frp_mw": 20.63,
+        "mean_frp_mw": 9.7,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.70948,
+          51.11589
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-BB4BA43",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T14:01:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.59,
+        "mean_frp_mw": 4.96,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.48402,
+          52.85526
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-A22957B",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T14:01:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 9.24,
+        "mean_frp_mw": 7.93,
+        "max_confidence": "high",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.24855,
+          52.73888
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-A948B40",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T14:01:00+00:00",
+        "last_detected_utc": "2026-08-13T14:01:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.12,
+        "mean_frp_mw": 4.29,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.23345,
+          52.4826
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-4D791A0",
+        "detection_count": 30,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:09:00+00:00",
+        "last_detected_utc": "2026-08-13T13:25:00+00:00",
+        "duration_hours": 36.27,
+        "peak_frp_mw": 9.97,
+        "mean_frp_mw": 3.51,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.14367,
+          50.87962
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-392A265",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T13:25:00+00:00",
+        "last_detected_utc": "2026-08-13T13:25:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 23.07,
+        "mean_frp_mw": 18.91,
+        "max_confidence": "high",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.4416,
+          54.42142
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-DAA9327",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T13:25:00+00:00",
+        "last_detected_utc": "2026-08-13T13:25:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 7.48,
+        "mean_frp_mw": 7.48,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.53254,
+          54.84096
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-384E41A",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:42:00+00:00",
+        "last_detected_utc": "2026-08-13T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.87,
+        "mean_frp_mw": 2.87,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.27972,
+          54.6953
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-0B40273",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:42:00+00:00",
+        "last_detected_utc": "2026-08-13T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.28,
+        "mean_frp_mw": 4.28,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.36482,
+          53.75936
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-944C6A3",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:42:00+00:00",
+        "last_detected_utc": "2026-08-13T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.11,
+        "mean_frp_mw": 3.78,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.20782,
+          53.79852
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-FE99926",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:42:00+00:00",
+        "last_detected_utc": "2026-08-13T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.19,
+        "mean_frp_mw": 1.19,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.26743,
+          54.63123
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-63E0CDC",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:42:00+00:00",
+        "last_detected_utc": "2026-08-13T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.43,
+        "mean_frp_mw": 1.43,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.60061,
+          53.56874
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-167D174",
+        "detection_count": 30,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 34.42,
+        "peak_frp_mw": 6.45,
+        "mean_frp_mw": 2.35,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.65055,
+          53.42846
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-3BCCC36",
+        "detection_count": 12,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 23.68,
+        "peak_frp_mw": 12.91,
+        "mean_frp_mw": 6.25,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.24521,
+          53.63385
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1A93F46",
+        "detection_count": 10,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:09:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 11.52,
+        "peak_frp_mw": 3.84,
+        "mean_frp_mw": 2.42,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0778,
+          50.92759
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-3FAD4BE",
+        "detection_count": 4,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.32,
+        "peak_frp_mw": 13.84,
+        "mean_frp_mw": 7.21,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.79236,
+          50.86256
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-B69C1D5",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.61,
+        "mean_frp_mw": 3.61,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.26624,
+          52.4191
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-13C42E9",
+        "detection_count": 4,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.64,
+        "mean_frp_mw": 2.24,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.13546,
+          52.36399
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-4B87097",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 7.36,
+        "mean_frp_mw": 5.82,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.36248,
+          52.2878
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-E162D1B",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.4,
+        "mean_frp_mw": 1.4,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.53709,
+          52.23956
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-EBBC802",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.54,
+        "mean_frp_mw": 4.42,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.42943,
+          52.19616
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C42A5B0",
+        "detection_count": 7,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.84,
+        "mean_frp_mw": 2.94,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.92332,
+          52.10414
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-20B0168",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.95,
+        "mean_frp_mw": 4.34,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.07305,
+          52.10378
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-7D2BF5F",
+        "detection_count": 6,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 7.13,
+        "mean_frp_mw": 3.27,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.2954,
+          52.1726
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-9839823",
+        "detection_count": 4,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.97,
+        "mean_frp_mw": 2.17,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.9879,
+          53.0667
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-889AF98",
+        "detection_count": 6,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 13.7,
+        "mean_frp_mw": 5.8,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.05798,
+          52.9347
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-08D9D67",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.8,
+        "mean_frp_mw": 2.08,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.05376,
+          53.12358
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-3F1DA7A",
+        "detection_count": 11,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 17.2,
+        "mean_frp_mw": 13.64,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.94923,
+          52.90186
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-06CBD89",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.7,
+        "mean_frp_mw": 1.7,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.79331,
+          52.45044
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-CB476AF",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.83,
+        "mean_frp_mw": 1.83,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.04406,
+          52.66082
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1C428EE",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.72,
+        "mean_frp_mw": 0.72,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.02501,
+          52.77969
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C4B278F",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.0,
+        "mean_frp_mw": 1.68,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.74278,
+          51.82769
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-9D51728",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 7.51,
+        "mean_frp_mw": 4.4,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.81308,
+          51.78399
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-165C89B",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.54,
+        "mean_frp_mw": 1.54,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.22069,
+          51.93875
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-4A3B83F",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.58,
+        "mean_frp_mw": 2.31,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.48124,
+          51.98654
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-02557B8",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.77,
+        "mean_frp_mw": 4.77,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.19563,
+          52.06375
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-184F489",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 12.64,
+        "mean_frp_mw": 9.43,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.06117,
+          52.08746
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-C673243",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.4,
+        "mean_frp_mw": 2.4,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.01284,
+          51.70319
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-79F06AE",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.82,
+        "mean_frp_mw": 3.77,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.3729,
+          51.58561
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-364452C",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.48,
+        "mean_frp_mw": 1.48,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.03702,
+          53.1954
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1AAC831",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.12,
+        "mean_frp_mw": 3.12,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.26883,
+          51.38576
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-975FD69",
+        "detection_count": 7,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 11.18,
+        "mean_frp_mw": 4.66,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.92009,
+          51.38466
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-0FC8476",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.2,
+        "mean_frp_mw": 1.2,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.95058,
+          51.30174
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1DEE6AD",
+        "detection_count": 8,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 8.54,
+        "mean_frp_mw": 6.29,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.45792,
+          51.19556
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-E9F3C59",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.66,
+        "mean_frp_mw": 3.66,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.57725,
+          51.09096
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-73C11CF",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.66,
+        "mean_frp_mw": 3.66,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.09078,
+          53.23171
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-EBF3D38",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.02,
+        "mean_frp_mw": 3.02,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.93522,
+          53.63589
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1309BBA",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.27,
+        "mean_frp_mw": 1.27,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.0849,
+          50.8828
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-40DF31A",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T12:40:00+00:00",
+        "last_detected_utc": "2026-08-13T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.13,
+        "mean_frp_mw": 1.13,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9379,
+          53.54946
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-71CA686",
+        "detection_count": 8,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:56:00+00:00",
+        "last_detected_utc": "2026-08-13T12:21:00+00:00",
+        "duration_hours": 10.42,
+        "peak_frp_mw": 6.66,
+        "mean_frp_mw": 2.64,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.64112,
+          53.81112
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-7141A2D",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T12:21:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 18.32,
+        "mean_frp_mw": 14.48,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.44037,
+          52.72344
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-3ED5F13",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T12:21:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.88,
+        "mean_frp_mw": 2.88,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.40784,
+          53.67452
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-F4BF06A",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T12:21:00+00:00",
+        "last_detected_utc": "2026-08-13T12:21:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.61,
+        "mean_frp_mw": 2.61,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.12203,
+          52.92623
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-CDEE67D",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T11:47:00+00:00",
+        "last_detected_utc": "2026-08-13T11:47:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.51,
+        "mean_frp_mw": 3.51,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.673,
+          56.00938
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-31A92DD",
+        "detection_count": 3,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:32:00+00:00",
+        "last_detected_utc": "2026-08-13T04:12:00+00:00",
+        "duration_hours": 1.67,
+        "peak_frp_mw": 3.68,
+        "mean_frp_mw": 2.82,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.36511,
+          50.83121
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-E4BA06B",
+        "detection_count": 3,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:34:00+00:00",
+        "last_detected_utc": "2026-08-13T03:38:00+00:00",
+        "duration_hours": 1.07,
+        "peak_frp_mw": 2.41,
+        "mean_frp_mw": 2.15,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.5833,
+          50.60889
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-17AB28D",
+        "detection_count": 28,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 14.78,
+        "peak_frp_mw": 30.06,
+        "mean_frp_mw": 8.94,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.65575,
+          50.0998
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-03A3422",
+        "detection_count": 16,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 14.78,
+        "peak_frp_mw": 157.26,
+        "mean_frp_mw": 41.7,
+        "max_confidence": "high",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.19806,
+          53.00218
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-15F71F1",
+        "detection_count": 3,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T13:46:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 13.08,
+        "peak_frp_mw": 4.98,
+        "mean_frp_mw": 2.65,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.75357,
+          53.33844
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-2F13798",
+        "detection_count": 3,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:56:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 0.92,
+        "peak_frp_mw": 1.28,
+        "mean_frp_mw": 0.93,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.54668,
+          52.64096
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-1A10399",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T01:56:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 0.92,
+        "peak_frp_mw": 0.84,
+        "mean_frp_mw": 0.7,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.90594,
+          52.52718
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-4BE686E",
+        "detection_count": 3,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:58:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 0.88,
+        "peak_frp_mw": 0.47,
+        "mean_frp_mw": 0.33,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.85718,
+          53.26406
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-FA56220",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:32:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 0.32,
+        "peak_frp_mw": 1.01,
+        "mean_frp_mw": 0.86,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.10943,
+          53.00683
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-89541E7",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-13T02:51:00+00:00",
+        "last_detected_utc": "2026-08-13T02:51:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.77,
+        "mean_frp_mw": 0.77,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.78354,
+          51.31575
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-FDF70B5",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N, N21",
+        "sources": "VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T01:58:00+00:00",
+        "last_detected_utc": "2026-08-13T02:34:00+00:00",
+        "duration_hours": 0.6,
+        "peak_frp_mw": 0.61,
+        "mean_frp_mw": 0.52,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.38143,
+          53.88786
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-9A12FD8",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:32:00+00:00",
+        "last_detected_utc": "2026-08-13T02:32:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.88,
+        "mean_frp_mw": 0.88,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.30457,
+          56.09657
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-7E62BC8",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:32:00+00:00",
+        "last_detected_utc": "2026-08-13T02:32:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.82,
+        "mean_frp_mw": 0.82,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.81215,
+          54.80296
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-AFAF7FA",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-13T02:32:00+00:00",
+        "last_detected_utc": "2026-08-13T02:32:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.42,
+        "mean_frp_mw": 0.42,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.69212,
+          50.84169
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-5627B40",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T01:58:00+00:00",
+        "last_detected_utc": "2026-08-13T01:58:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.41,
+        "mean_frp_mw": 0.41,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.38538,
+          53.68479
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260813-A0430DE",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-13T01:56:00+00:00",
+        "last_detected_utc": "2026-08-13T01:56:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.72,
+        "mean_frp_mw": 0.72,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.14116,
+          54.57001
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-A230F9A",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T14:22:00+00:00",
+        "last_detected_utc": "2026-08-12T14:22:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.86,
+        "mean_frp_mw": 4.86,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.72326,
+          54.00048
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-3176322",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T14:22:00+00:00",
+        "last_detected_utc": "2026-08-12T14:22:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 5.45,
+        "mean_frp_mw": 5.45,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.14381,
+          53.14011
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-EA9852C",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T13:46:00+00:00",
+        "duration_hours": 1.1,
+        "peak_frp_mw": 5.03,
+        "mean_frp_mw": 3.73,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.72309,
+          52.24381
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-8BE908E",
+        "detection_count": 3,
+        "satellite_count": 2,
+        "satellites": "N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T13:46:00+00:00",
+        "duration_hours": 0.78,
+        "peak_frp_mw": 8.96,
+        "mean_frp_mw": 6.55,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.5606,
+          52.48746
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-A56951D",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T13:46:00+00:00",
+        "last_detected_utc": "2026-08-12T13:46:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 5.64,
+        "mean_frp_mw": 5.64,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.39679,
+          53.02881
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-1ADD778",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T13:46:00+00:00",
+        "last_detected_utc": "2026-08-12T13:46:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.84,
+        "mean_frp_mw": 2.84,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.68791,
+          50.87712
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-DC6C74A",
+        "detection_count": 5,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-12T13:44:00+00:00",
+        "duration_hours": 1.67,
+        "peak_frp_mw": 11.53,
+        "mean_frp_mw": 7.19,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.6061,
+          51.46656
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-3F6A6E9",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T13:44:00+00:00",
+        "last_detected_utc": "2026-08-12T13:44:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 24.1,
+        "mean_frp_mw": 24.1,
+        "max_confidence": "high",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.64437,
+          50.95404
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-7CDB712",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.92,
+        "peak_frp_mw": 13.32,
+        "mean_frp_mw": 7.1,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.09821,
+          51.01427
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-C327A85",
+        "detection_count": 3,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.92,
+        "peak_frp_mw": 3.38,
+        "mean_frp_mw": 2.59,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1283,
+          51.53001
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-9EFC338",
+        "detection_count": 3,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.92,
+        "peak_frp_mw": 5.89,
+        "mean_frp_mw": 4.83,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.78664,
+          52.47876
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-B43239E",
+        "detection_count": 3,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.32,
+        "peak_frp_mw": 6.07,
+        "mean_frp_mw": 3.47,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.64287,
+          53.72673
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-93E42DA",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.84,
+        "mean_frp_mw": 1.84,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.1669,
+          53.5903
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-81CE2BD",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.68,
+        "mean_frp_mw": 1.68,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.95241,
+          53.49245
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-E60EF55",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.81,
+        "mean_frp_mw": 3.81,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.47353,
+          53.10376
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-250AA06",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.4,
+        "mean_frp_mw": 4.4,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.40562,
+          52.52454
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-14158EF",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.96,
+        "mean_frp_mw": 1.96,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.43434,
+          50.81757
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-9ACEDB0",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.18,
+        "mean_frp_mw": 4.3,
+        "max_confidence": "low",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.02219,
+          50.36138
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-B5246F2",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.99,
+        "mean_frp_mw": 2.99,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.93087,
+          50.33111
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-25E5DAC",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.65,
+        "mean_frp_mw": 1.65,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.18185,
+          50.15742
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-37B9550",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T12:59:00+00:00",
+        "last_detected_utc": "2026-08-12T12:59:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.56,
+        "mean_frp_mw": 1.56,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.90135,
+          57.59125
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-FFA004A",
+        "detection_count": 4,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:42:00+00:00",
+        "last_detected_utc": "2026-08-12T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.74,
+        "mean_frp_mw": 3.5,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.36616,
+          57.11343
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-217C292",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:42:00+00:00",
+        "last_detected_utc": "2026-08-12T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.04,
+        "mean_frp_mw": 6.04,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.02968,
+          57.69098
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-AEDA837",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:42:00+00:00",
+        "last_detected_utc": "2026-08-12T12:42:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.51,
+        "mean_frp_mw": 2.51,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.03925,
+          52.47698
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-5FBE62F",
+        "detection_count": 12,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:09:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 11.52,
+        "peak_frp_mw": 20.73,
+        "mean_frp_mw": 5.64,
+        "max_confidence": "nominal",
+        "daynight": "D,N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.31762,
+          54.72841
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-B110B9D",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.05,
+        "mean_frp_mw": 3.6,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.08147,
+          52.13456
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-C4331FC",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.25,
+        "mean_frp_mw": 2.25,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.50706,
+          52.43279
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-958E8DA",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 15.53,
+        "mean_frp_mw": 6.53,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.01891,
+          53.4089
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-5EC8763",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.57,
+        "mean_frp_mw": 4.01,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.29941,
+          52.01051
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-46CF853",
+        "detection_count": 3,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 11.92,
+        "mean_frp_mw": 8.42,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.82286,
+          51.84888
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-7140388",
+        "detection_count": 11,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 5.44,
+        "mean_frp_mw": 3.35,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.69291,
+          51.36339
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-9602B31",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.33,
+        "mean_frp_mw": 2.08,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.36862,
+          51.35359
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-92BDB3A",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 1.8,
+        "mean_frp_mw": 1.58,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.33642,
+          51.15478
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-306177D",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.09,
+        "mean_frp_mw": 3.06,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.08684,
+          51.35894
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-664920C",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.91,
+        "mean_frp_mw": 2.91,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.52928,
+          51.6662
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-29FA1C0",
+        "detection_count": 5,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 6.17,
+        "mean_frp_mw": 4.63,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.93771,
+          51.81354
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-3F6AABF",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 3.14,
+        "mean_frp_mw": 3.14,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.66135,
+          51.70395
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-82619E9",
+        "detection_count": 2,
+        "satellite_count": 1,
+        "satellites": "N",
+        "sources": "VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T12:40:00+00:00",
+        "last_detected_utc": "2026-08-12T12:40:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 2.93,
+        "mean_frp_mw": 2.93,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.21944,
+          52.10932
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-07F9629",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T12:04:00+00:00",
+        "last_detected_utc": "2026-08-12T12:04:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 4.93,
+        "mean_frp_mw": 4.93,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.36531,
+          50.83013
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-F5A2575",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T03:13:00+00:00",
+        "duration_hours": 0.97,
+        "peak_frp_mw": 1.8,
+        "mean_frp_mw": 1.5,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.24414,
+          53.63417
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-25E89BB",
+        "detection_count": 7,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:30:00+00:00",
+        "last_detected_utc": "2026-08-12T03:10:00+00:00",
+        "duration_hours": 1.67,
+        "peak_frp_mw": 3.26,
+        "mean_frp_mw": 1.56,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.38368,
+          53.88889
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-492D1A4",
+        "detection_count": 3,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:30:00+00:00",
+        "last_detected_utc": "2026-08-12T03:10:00+00:00",
+        "duration_hours": 1.67,
+        "peak_frp_mw": 1.04,
+        "mean_frp_mw": 0.78,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.35874,
+          53.43637
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-BC578F9",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N, N20",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:51:00+00:00",
+        "last_detected_utc": "2026-08-12T03:10:00+00:00",
+        "duration_hours": 0.32,
+        "peak_frp_mw": 0.22,
+        "mean_frp_mw": 0.2,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.75337,
+          53.33881
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-0807B5B",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:30:00+00:00",
+        "last_detected_utc": "2026-08-12T02:51:00+00:00",
+        "duration_hours": 1.35,
+        "peak_frp_mw": 1.11,
+        "mean_frp_mw": 0.84,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.54774,
+          52.64075
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-30F64E5",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N, N21",
+        "sources": "VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T02:51:00+00:00",
+        "duration_hours": 0.6,
+        "peak_frp_mw": 0.75,
+        "mean_frp_mw": 0.7,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.85633,
+          53.26367
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-C31C0C0",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N, N21",
+        "sources": "VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T02:51:00+00:00",
+        "duration_hours": 0.6,
+        "peak_frp_mw": 0.86,
+        "mean_frp_mw": 0.78,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.33342,
+          53.76894
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-B515964",
+        "detection_count": 2,
+        "satellite_count": 2,
+        "satellites": "N, N21",
+        "sources": "VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T02:51:00+00:00",
+        "duration_hours": 0.6,
+        "peak_frp_mw": 0.81,
+        "mean_frp_mw": 0.59,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.03208,
+          52.5281
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-AAF8B49",
+        "detection_count": 4,
+        "satellite_count": 3,
+        "satellites": "N, N20, N21",
+        "sources": "VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, VIIRS_SNPP_NRT",
+        "first_detected_utc": "2026-08-12T01:09:00+00:00",
+        "last_detected_utc": "2026-08-12T02:15:00+00:00",
+        "duration_hours": 1.1,
+        "peak_frp_mw": 1.02,
+        "mean_frp_mw": 0.85,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.16117,
+          55.04832
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-5714126",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-12T02:15:00+00:00",
+        "last_detected_utc": "2026-08-12T02:15:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.92,
+        "mean_frp_mw": 0.92,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.60558,
+          50.95754
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260812-A1A780F",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N20",
+        "sources": "VIIRS_NOAA20_NRT",
+        "first_detected_utc": "2026-08-12T01:30:00+00:00",
+        "last_detected_utc": "2026-08-12T01:30:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 0.66,
+        "mean_frp_mw": 0.66,
+        "max_confidence": "nominal",
+        "daynight": "N",
+        "in_wales_watch_bbox": false
+      }
+    }
+  ]
+}
