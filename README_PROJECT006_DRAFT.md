@@ -1,1 +1,0 @@
-Project 006 is published as a provisional first public release. It maps public NASA FIRMS thermal anomalies over Wales with reproducible Python code and keeps satellite evidence separate from external incident corroboration. See projects/006-wildfire-watch/README.md for caveats and methodology.
