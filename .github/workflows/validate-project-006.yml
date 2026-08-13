@@ -71,3 +71,56 @@ jobs:
             /tmp/project-006-validation/data/derived/
             /tmp/project-006-validation/site/
           if-no-files-found: error
+
+  live-firms-smoke-test:
+    if: github.event_name == 'push' && github.ref_name == 'agent/project-006-wildfire-watch'
+    runs-on: ubuntu-latest
+    env:
+      NASA_FIRMS_MAP_KEY: ${{ secrets.NASA_FIRMS_MAP_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check repository secret
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${NASA_FIRMS_MAP_KEY:-}" || { echo "NASA_FIRMS_MAP_KEY repository secret is missing"; exit 1; }
+          echo "NASA FIRMS repository secret is available."
+
+      - name: Build from live NASA FIRMS VIIRS data
+        run: |
+          python projects/006-wildfire-watch/build.py \
+            --days 2 \
+            --bbox uk \
+            --output-root /tmp/project-006-live
+
+      - name: Verify live outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/project-006-live/data/derived/detections.csv
+          test -s /tmp/project-006-live/data/derived/incidents.csv
+          test -s /tmp/project-006-live/data/derived/incidents.geojson
+          test -s /tmp/project-006-live/data/derived/summary.json
+          test -s /tmp/project-006-live/site/index.html
+          grep -q "not a confirmed wildfire" /tmp/project-006-live/site/index.html
+          cat /tmp/project-006-live/data/derived/summary.json
+
+      - name: Upload live FIRMS evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-006-live-firms-evidence
+          path: |
+            /tmp/project-006-live/data/raw/
+            /tmp/project-006-live/data/derived/
+            /tmp/project-006-live/site/
+          if-no-files-found: error
+          retention-days: 7
