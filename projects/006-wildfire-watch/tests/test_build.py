@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+import requests
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_DIR))
@@ -62,6 +63,24 @@ def test_build_outputs_writes_geojson_summary_and_map(tmp_path: Path):
     assert "not a confirmed wildfire" in site
     assert "leaflet.markercluster" in site
     assert "MAP_KEY" not in site
+
+
+def test_request_failures_do_not_expose_map_key():
+    secret = "synthetic-secret-map-key"
+
+    class BrokenSession:
+        def get(self, url, timeout):
+            raise requests.Timeout(f"timeout while requesting {url}")
+
+    try:
+        build.fetch_firms_csv(
+            BrokenSession(), secret, "VIIRS_SNPP_NRT", build.UK_BBOX, 2
+        )
+    except RuntimeError as exc:
+        assert secret not in str(exc)
+        assert "Timeout" in str(exc)
+    else:
+        raise AssertionError("Expected RuntimeError")
 
 
 def test_retained_loader_rejects_empty_directory(tmp_path: Path):
