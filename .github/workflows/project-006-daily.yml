@@ -1,6 +1,11 @@
 name: Project 006 daily wildfire watch
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/project-006-daily.yml"
   schedule:
     - cron: "20 7 * * *"
   workflow_dispatch:
@@ -53,8 +58,7 @@ jobs:
           mod.add_location_links(pd.read_csv(path)).to_csv(path, index=False)
           PY
       - name: Correlate external incidents
-        run: |
-          python projects/006-wildfire-watch/corroboration.py --output-root projects/006-wildfire-watch/published --register projects/006-wildfire-watch/data/reference/external_wildfire_incidents.csv
+        run: python projects/006-wildfire-watch/corroboration.py --output-root projects/006-wildfire-watch/published --register projects/006-wildfire-watch/data/reference/external_wildfire_incidents.csv
       - name: Append cumulative history
         run: python projects/006-wildfire-watch/history.py --append-detections projects/006-wildfire-watch/published/data/derived/detections.csv
       - name: Verify outputs
