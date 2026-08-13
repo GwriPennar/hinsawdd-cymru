@@ -2,15 +2,15 @@
 
 ## Question
 
-Where is NASA detecting recent fire/thermal anomalies over Wales and the wider UK, and how can repeated satellite detections be turned into an inspectable public map **without claiming that every hotspot is a wildfire**?
+Where is NASA detecting recent fire/thermal anomalies over Wales, and how can those observations be turned into a reproducible situational-awareness map **without claiming that every hotspot is a wildfire**?
 
-Project 006 is the satellite counterpart to [Project 005 — Wales air quality](../005-wales-air-quality/). Project 005 starts from measured ground-level pollution. Project 006 starts from space-based thermal anomalies. A later attribution stage can ask whether timing, wind, smoke imagery, fire-service reports and measured PM2.5 line up.
+Project 006 is the satellite counterpart to [Project 005 — Wales air quality](../005-wales-air-quality/). Project 005 starts from measured ground-level pollution. Project 006 starts from space-based thermal anomalies and now keeps a separate external-incident corroboration layer.
 
-## Stage A — working MVP
+## Pipeline
 
-The first build is implemented as a reproducible NASA FIRMS pipeline:
+The current reproducible pipeline is:
 
-**NASA FIRMS VIIRS → retained source CSV + SHA-256 provenance → normalised detections → spatial/temporal clustering → GeoJSON + interactive Leaflet map**
+**NASA FIRMS VIIRS → retained source CSV + SHA-256 provenance → normalised detections → spatial/temporal clustering → official Wales boundary → candidate-location table → satellite evidence band → external incident correlation → maps + CSV/GeoJSON evidence**
 
 The three default near-real-time feeds are:
 
@@ -20,53 +20,73 @@ The three default near-real-time feeds are:
 
 NASA's VIIRS active-fire product has a nominal 375 m nadir resolution. FIRMS returns fire/thermal-anomaly pixels, not a verified national wildfire incident register.
 
-## What the map means
+## Scientific map
 
-The generated `site/index.html` is centred on Wales but queries the wider UK by default. It has two distinct kinds of grouping:
+`scientific_map.py` uses the official Welsh Government DataMapWales **Communities (Wales)** boundary in EPSG:4326 and generates the canonical dark Hinsawdd Cymru outputs:
 
-1. **Scientific grouping:** nearby VIIRS detections close in time are combined into a *thermal-anomaly cluster* using the explicit heuristic below.
-2. **Display grouping:** Leaflet MarkerCluster combines nearby map markers into numbered circles when zoomed out, in the same broad interaction pattern as public fire-tracker maps.
+- 1600 × 900 PNG and SVG;
+- 1080 × 1080 PNG and SVG;
+- `wales_candidate_locations.csv`.
 
-Clicking a marker shows the cluster ID, number of detections, satellites, first/latest detection time, peak Fire Radiative Power (FRP) and highest FIRMS confidence label present.
+The map is generated programmatically with Python, pandas, Matplotlib and Seaborn. Generative-image tools are not used for scientific plots or data marks.
 
-Every popup states: **thermal-anomaly cluster, not a confirmed wildfire.**
+## Satellite evidence bands
 
-## Current clustering rule
+The satellite layer answers only: **how much supporting satellite evidence is present at this location?** It is not a wildfire probability.
 
-Stage A uses a deliberately simple and inspectable rule:
+Current descriptive bands are:
 
-- detections are joined when they are within **5 km**;
-- and within **18 hours**;
-- joins are transitive, so a chain of compatible detections becomes one cluster;
-- the default parameters are reported in `summary.json` and can be changed from the command line.
+- **strong satellite evidence** — high FIRMS confidence, at least two satellites, persistence of at least one hour, plus either at least 10 detections or peak FRP of at least 20 MW;
+- **plausible** — nominal/high FIRMS confidence plus at least one supporting feature such as repeat detections, multiple satellites or a stronger thermal signal;
+- **low** — a weak or isolated observation that does not meet the above rules.
 
-This is a display/research heuristic, not a NASA fire-event product and not a fire-service incident definition. It will be calibrated against known Welsh incidents before it is treated as anything stronger.
+No NASA observation is deleted merely because an industrial or persistent heat source is suspected.
 
-## Wales watch window
+## External corroboration layer
 
-The MVP highlights a rectangular Wales watch window:
+`corroboration.py` adds a **separate** evidence layer using a curated, auditable incident register:
 
-`west -5.6, south 51.2, east -2.55, north 53.5`
+`data/reference/external_wildfire_incidents.csv`
 
-That rectangle is **not the legal or cartographic boundary of Wales** and may include small neighbouring areas. It exists only to make the first build usable without adding a heavyweight GIS dependency or silently embedding an uncited boundary. Stage B will replace it with a checksum-pinned authoritative Wales boundary.
+The register currently prioritises:
 
-## Outputs
+1. fire and rescue services;
+2. Welsh Government / NRW / police;
+3. reputable news reports when useful as a secondary source.
 
-A live run writes immutable source snapshots under `data/raw/<UTC timestamp>/` and creates:
+Every record contains an incident name, approximate reported location, incident time window, source class, source URL, publication time, location precision and a short source statement.
+
+Clusters are matched deterministically by distance and time. The default spatial radius is 12 km because many public incident descriptions identify a mountain, valley or locality rather than an ignition coordinate.
+
+The external statuses are deliberately conservative:
+
+- **official_current_match** — an official incident record is spatially close and overlaps the satellite observation window;
+- **multiple_source_current_match** — at least two independent external sources are spatially close and overlap the satellite window;
+- **known_recent_wildfire_site** — a documented wildfire occurred nearby within the previous 45 days, but this does **not** confirm the current satellite signal;
+- **no_current_match** — no current matching record exists in the curated register. This is **not evidence that no fire exists**; public incident reporting is incomplete.
+
+The corroboration run writes:
 
 ```text
 data/derived/
-├── detections.csv
-├── clustered_detections.csv
-├── incidents.csv
-├── incidents.geojson
-└── summary.json
-
-site/
-└── index.html
+├── wales_candidate_locations_corroborated.csv
+└── external_corroboration_matches.csv
 ```
 
-The raw provenance JSON stores the FIRMS source, retrieval time, checksum, query window and a **redacted API endpoint**. The NASA map key is never written to provenance or generated HTML.
+This lets the project say, for example, that a cluster is **strong satellite evidence at a known recent wildfire site**, rather than collapsing both facts into a single unsupported “confirmed fire” label.
+
+## Current clustering rule
+
+Nearby VIIRS detections are combined into a thermal-anomaly cluster when they are:
+
+- within **5 km**; and
+- within **18 hours**.
+
+Joins are transitive. This is a transparent research/display heuristic and not a NASA fire-event product or a fire-service incident definition.
+
+## Official Wales boundary
+
+The original rectangular MVP screen has been superseded for scientific outputs by the Welsh Government DataMapWales Communities (Wales) dataset. The exact GeoJSON and a provenance manifest are retained during live runs.
 
 ## Reproduce
 
@@ -78,34 +98,26 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-Request a free FIRMS `MAP_KEY` from NASA and expose it as an environment variable:
+For a live NASA build:
 
 ```bash
 export NASA_FIRMS_MAP_KEY="..."
 python projects/006-wildfire-watch/build.py --days 2
+python projects/006-wildfire-watch/scientific_map.py \
+  --output-root projects/006-wildfire-watch
+python projects/006-wildfire-watch/corroboration.py \
+  --output-root projects/006-wildfire-watch
 ```
 
-The NASA FIRMS Area API supports day ranges from 1 to 5. The default query is the UK bounding box and the most recent two days.
-
-To reproduce the derived outputs without calling NASA again, point the build at a retained snapshot:
-
-```bash
-python projects/006-wildfire-watch/build.py \
-  --input-dir projects/006-wildfire-watch/data/raw/20260813T120000Z
-```
-
-To test the project without credentials or network access:
+For credential-free tests:
 
 ```bash
 pytest -q projects/006-wildfire-watch/tests
-python projects/006-wildfire-watch/build.py \
-  --input-dir projects/006-wildfire-watch/tests/fixtures \
-  --output-root /tmp/hinsawdd-cymru-wildfire-watch
 ```
 
 ## Evidence boundary
 
-A VIIRS detection can be caused by an active fire, but the dataset is a **fire and thermal anomaly** product. Project 006 therefore does not infer ignition cause, fire size, smoke exposure or public-health impact from a marker alone.
+A VIIRS detection can be caused by an active fire, but FIRMS is a **fire and thermal anomaly** product. Project 006 therefore does not infer ignition cause, burned area, smoke exposure or public-health impact from a marker alone.
 
 Important limitations include:
 
@@ -113,31 +125,27 @@ Important limitations include:
 - cloud and smoke can obscure the surface;
 - industrial heat and other persistent hot sources can appear;
 - the same physical event can generate many pixels and be observed by several satellites;
-- FRP is useful intensity information but is not a direct measure of burned area or ground-level pollution;
+- FRP is intensity information, not a direct measure of burned area or ground-level pollution;
+- an external report may identify a broad locality rather than a precise coordinate;
+- absence from the curated external register does not mean an incident did not occur;
 - recent NRT observations may later be superseded by NASA Standard Processing records.
 
 ## Relationship to Project 005
 
-Project 005 already establishes the ground-observation side of the question: measured Welsh AURN PM2.5, event screening and a strict separation between measurement and attribution.
+A later attribution record can combine multiple independent layers:
 
-Project 006 provides one of the independent evidence layers needed for the next step. A future wildfire-attribution record should require agreement between several layers, for example:
-
-**credible ground incident + satellite timing/location + wind/dispersion + smoke evidence + measured air-quality response + consideration of alternatives**.
+**credible ground incident + satellite timing/location + wind/dispersion + smoke evidence + measured PM2.5 response + consideration of alternatives**.
 
 No single layer is sufficient by itself.
 
-## Live deployment status
-
-The code, synthetic fixtures, provenance model, clustering, GeoJSON and interactive map generator are implemented. The repository does **not** contain a NASA credential. A live automated refresh can be enabled once `NASA_FIRMS_MAP_KEY` is added as a GitHub Actions secret; the validation workflow deliberately remains credential-free.
-
 ## Next stages
 
-1. Replace the rectangular Wales watch window with an authoritative national boundary.
-2. Add a documented persistent/static heat-source screen so industrial anomalies are not casually presented as fire candidates.
-3. Validate the clustering parameters against known Welsh wildfire episodes and negative controls.
-4. Reconcile historical NRT detections with NASA Standard Processing data when available.
-5. Join Project 006 candidates to Project 005 PM2.5 event windows and authoritative wind data, without collapsing coincidence into causation.
-6. Add verified incident references from fire services or other authoritative ground sources as a separate evidence class.
-7. Only then consider a continuously refreshed public deployment.
+1. Expand the curated incident register with additional official current/recent Welsh incidents and preserve source provenance.
+2. Add nearest-settlement context alongside official community names.
+3. Build recurrence history and persistent/static heat-source screening.
+4. Add vegetation/land-cover context.
+5. Calculate cross-pass spatial growth and persistence metrics.
+6. Connect candidate windows to Project 005 PM2.5 and authoritative wind/dispersion evidence without treating coincidence as causation.
+7. Introduce scheduled live refresh only after the corroboration and interpretation labels are stable.
 
-See [METHODOLOGY.md](METHODOLOGY.md) for the processing contract and [SOURCES.md](SOURCES.md) for the primary-source register.
+See [METHODOLOGY.md](METHODOLOGY.md) and [SOURCES.md](SOURCES.md) for the processing and source contracts.
