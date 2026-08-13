@@ -1,0 +1,147 @@
+name: Validate project 006
+
+on:
+  push:
+    branches:
+      - main
+      - agent/project-006-wildfire-watch
+    paths:
+      - "projects/006-wildfire-watch/**"
+      - "README.md"
+      - "pyproject.toml"
+      - ".github/workflows/validate-project-006.yml"
+  pull_request:
+    paths:
+      - "projects/006-wildfire-watch/**"
+      - "README.md"
+      - "pyproject.toml"
+      - ".github/workflows/validate-project-006.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Unit tests including scientific map renderer
+        run: pytest -q projects/006-wildfire-watch/tests
+
+      - name: End-to-end retained-fixture build
+        run: |
+          python projects/006-wildfire-watch/build.py \
+            --input-dir projects/006-wildfire-watch/tests/fixtures \
+            --output-root /tmp/project-006-validation
+
+      - name: Verify generated evidence and site
+        run: |
+          set -euo pipefail
+          for file in \
+            detections.csv \
+            clustered_detections.csv \
+            incidents.csv \
+            incidents.geojson \
+            summary.json
+          do
+            test -s "/tmp/project-006-validation/data/derived/${file}"
+          done
+          test -s /tmp/project-006-validation/site/index.html
+          grep -q "not a confirmed wildfire" /tmp/project-006-validation/site/index.html
+          if grep -q "NASA_FIRMS_MAP_KEY" /tmp/project-006-validation/site/index.html; then
+            echo "Generated HTML leaked a credential variable name unexpectedly"
+            exit 1
+          fi
+
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-006-wildfire-watch-validation-evidence
+          path: |
+            /tmp/project-006-validation/data/derived/
+            /tmp/project-006-validation/site/
+          if-no-files-found: error
+
+  live-firms-smoke-test:
+    if: github.event_name == 'push' && github.ref_name == 'agent/project-006-wildfire-watch'
+    runs-on: ubuntu-latest
+    env:
+      NASA_FIRMS_MAP_KEY: ${{ secrets.NASA_FIRMS_MAP_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check repository secret
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${NASA_FIRMS_MAP_KEY:-}" || { echo "NASA_FIRMS_MAP_KEY repository secret is missing"; exit 1; }
+          echo "NASA FIRMS repository secret is available."
+
+      - name: Build from live NASA FIRMS VIIRS data
+        run: |
+          python projects/006-wildfire-watch/build.py \
+            --days 2 \
+            --bbox uk \
+            --output-root /tmp/project-006-live
+
+      - name: Build official-boundary scientific map and candidate-location table
+        run: |
+          python projects/006-wildfire-watch/scientific_map.py \
+            --output-root /tmp/project-006-live
+
+      - name: Verify live outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/project-006-live/data/derived/detections.csv
+          test -s /tmp/project-006-live/data/derived/incidents.csv
+          test -s /tmp/project-006-live/data/derived/incidents.geojson
+          test -s /tmp/project-006-live/data/derived/summary.json
+          test -s /tmp/project-006-live/data/derived/wales_candidate_locations.csv
+          test -s /tmp/project-006-live/data/reference/communities_wales.geojson
+          test -s /tmp/project-006-live/data/reference/communities_wales.provenance.json
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark.png
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark.svg
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark_square.png
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark_square.svg
+          test -s /tmp/project-006-live/site/index.html
+          grep -q "not a confirmed wildfire" /tmp/project-006-live/site/index.html
+          python - <<'PY'
+          import matplotlib.image as mpimg
+          wide = mpimg.imread('/tmp/project-006-live/figures/wales_wildfire_watch_dark.png')
+          square = mpimg.imread('/tmp/project-006-live/figures/wales_wildfire_watch_dark_square.png')
+          assert wide.shape[:2] == (900, 1600), wide.shape
+          assert square.shape[:2] == (1080, 1080), square.shape
+          PY
+          cat /tmp/project-006-live/data/derived/summary.json
+
+      - name: Upload live FIRMS evidence and scientific figures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-006-live-firms-evidence
+          path: |
+            /tmp/project-006-live/data/raw/
+            /tmp/project-006-live/data/reference/
+            /tmp/project-006-live/data/derived/
+            /tmp/project-006-live/figures/
+            /tmp/project-006-live/site/
+          if-no-files-found: error
+          retention-days: 7
