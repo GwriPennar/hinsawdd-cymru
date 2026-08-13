@@ -25,6 +25,7 @@ Each project README is intended to work as a self-contained public results repor
 | [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis and statistical baseline | July 2026 was exceptionally dry, but the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. Rainfall totals and rain-day counts are kept distinct from formal drought indices. |
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Wales received about 920 Ml/day from its two main public suppliers in 2024–25. Current Welsh colocation data-centre direct water use is modelled at about 0.2–2.7 Ml/day, with a central scenario of 0.7 Ml/day (about 0.08% of that public-supply baseline). This is an estimate, not a measured national total. |
 | [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Builds a reference-grade PM2.5 baseline from Welsh AURN monitoring stations, with rolling-year and recent-period views. The first stage measures before attempting wildfire or other source attribution. |
+| [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | Stage A satellite-tracker MVP | Builds a NASA FIRMS VIIRS thermal-anomaly pipeline, retains checksum-pinned source snapshots, groups repeat detections with an explicit space/time heuristic, and generates GeoJSON plus an interactive map. Thermal clusters are not labelled as confirmed wildfires. |
 
 <!-- BEGIN PROJECT 001 CHART PREVIEWS -->
 ## Project 001 visual summary
@@ -74,6 +75,12 @@ Project 005 starts with direct ground observations of air pollution rather than 
 
 The first analysis produces a rolling 365-day view, a recent 70-day view, station distributions and a monitoring-site map in the repository's dark publication style. Recent values are treated as potentially provisional. Wildfire, traffic, industrial and meteorological attribution is explicitly deferred until the measured record itself shows a pattern worth investigating. [Read the Project 005 baseline](projects/005-wales-air-quality/).
 
+## Project 006 summary
+
+Project 006 adds the satellite side of the wildfire question. It uses the NASA FIRMS Area API to ingest the near-real-time 375 m VIIRS active-fire/thermal-anomaly feeds from Suomi NPP, NOAA-20 and NOAA-21, while retaining exact source bytes and SHA-256 provenance for every live snapshot.
+
+The first implementation converts repeat pixels into explicitly labelled **thermal-anomaly clusters** using a documented 5 km / 18 hour heuristic and generates both machine-readable GeoJSON and a Leaflet map with numbered display clusters. The map is centred on Wales, but it does not equate a satellite hotspot with a verified wildfire. Live fetching requires a free NASA FIRMS map key kept outside the repository. [Read the Project 006 MVP](projects/006-wildfire-watch/).
+
 ## Repository structure
 
 ```text
@@ -119,14 +126,22 @@ hinsawdd-cymru/
     │   └── data/
     │       ├── data-centre-evidence-register.csv
     │       └── scenarios.csv
-    └── 005-wales-air-quality/
+    ├── 005-wales-air-quality/
+    │   ├── README.md
+    │   ├── METHODOLOGY.md
+    │   ├── SOURCES.md
+    │   ├── analysis.py
+    │   ├── charts.py
+    │   ├── data/
+    │   ├── figures/
+    │   └── tests/
+    └── 006-wildfire-watch/
         ├── README.md
         ├── METHODOLOGY.md
         ├── SOURCES.md
-        ├── analysis.py
-        ├── charts.py
+        ├── build.py
         ├── data/
-        ├── figures/
+        ├── site/
         └── tests/
 ```
 
@@ -159,6 +174,10 @@ python projects/003-wales-rainfall/verify_dark.py \
   --raindays-manifest "${RAINDAYS%.txt}.provenance.json"
 python projects/004-wales-water-consumption/analysis.py
 python projects/005-wales-air-quality/analysis.py
+pytest -q projects/006-wildfire-watch/tests
+python projects/006-wildfire-watch/build.py \
+  --input-dir projects/006-wildfire-watch/tests/fixtures \
+  --output-root /tmp/hinsawdd-cymru-wildfire-watch
 ```
 
 ## Quality approach
@@ -172,14 +191,15 @@ The repository uses a lightweight Reproducible Analytical Pipeline:
 - explicit separation of published inputs, incomplete or provisional periods and modelled outputs;
 - explicit separation of measured values from resource-demand sensitivity scenarios;
 - explicit separation of measured air-quality observations from later source attribution;
+- explicit separation of satellite thermal anomalies from verified wildfire incidents;
 - GitHub Actions validation on every scientific change.
 
 ## Sources and licensing
 
-Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. Project 004 uses public Welsh Government, UK Government, NRW, Ofwat and Senedd Research publications together with operator technical disclosures and peer-reviewed research; its calculated data-centre scenarios are independent derived estimates rather than official statistics. Project 005 uses DEFRA UK-AIR AURN automatic monitoring data for its Stage A observational baseline and reserves the broader Welsh Air Quality Database for a later stage.
+Projects 001 and 003 use Met Office HadUK-Grid Wales areal climate series, made available under the Open Government Licence. Project 002 consumes the independently verified Project 001 output and adds an illustrative statistical model. Project 004 uses public Welsh Government, UK Government, NRW, Ofwat and Senedd Research publications together with operator technical disclosures and peer-reviewed research; its calculated data-centre scenarios are independent derived estimates rather than official statistics. Project 005 uses DEFRA UK-AIR AURN automatic monitoring data for its Stage A observational baseline and reserves the broader Welsh Air Quality Database for a later stage. Project 006 uses NASA LANCE FIRMS VIIRS near-real-time active-fire/thermal-anomaly data and keeps NASA detections separate from ground-verified wildfire claims.
 
 Source data remain subject to their original licences and copyright. The analysis code is released under the [MIT License](LICENSE).
 
 ## Independence
 
-This is an independent project and is not an official Met Office, Welsh Government, Senedd Cymru, Natural Resources Wales, Ofwat, DEFRA or UK Government product. Derived results should be described as independent calculations from cited public evidence, not as figures published or endorsed by those organisations.
+This is an independent project and is not an official Met Office, Welsh Government, Senedd Cymru, Natural Resources Wales, Ofwat, DEFRA, UK Government or NASA product. Derived results should be described as independent calculations from cited public evidence, not as figures published or endorsed by those organisations.
