@@ -1,1 +1,0 @@
-Replace README.md with ROOT_README_NEXT.md content; remove temporary staging files before publishing.
