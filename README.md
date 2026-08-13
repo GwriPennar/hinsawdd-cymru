@@ -4,57 +4,48 @@
 
 Open and reproducible analysis of public weather, climate and climate-related environmental data for Wales.
 
-Hinsawdd Cymru is a public-facing research repository. Each numbered project asks a specific question, retains source and derived data, documents assumptions, and produces outputs that can be checked independently. New graphics follow the dark-mode-first system in [VISUAL_STYLE.md](VISUAL_STYLE.md).
-
-The repository keeps authoritative published values, independent calculations, provisional results, modelled scenarios and external corroboration clearly separated.
+Hinsawdd Cymru is a public-facing research repository. Each numbered project asks a specific question, retains source and derived data, documents assumptions, and produces outputs that can be checked independently. New graphics follow the dark-mode-first system documented in [VISUAL_STYLE.md](VISUAL_STYLE.md).
 
 ## Project registry
 
 | ID | Project | Status | Main result |
 |---|---|---|---|
-| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | The 12 months ending July 2026 are robustly the warmest equivalent August-to-July period under every scenario tested. |
-| [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | A transparent modern-period regression provides an illustrative comparison baseline, not a physical climate forecast. |
-| [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis | July 2026 was exceptionally dry, while the complete August 2025-July 2026 period was slightly wetter than the 1991-2020 reference. |
-| [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Compares Welsh public water supply with transparent modelled data-centre demand scenarios. |
-| [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Builds a reference-grade PM2.5 baseline from Welsh AURN monitoring stations before attempting source attribution. |
-| [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published first public release, provisional research output** | Reproducibly maps NASA FIRMS VIIRS thermal anomalies over Wales, applies an official Welsh Government boundary, assigns transparent satellite-evidence bands and keeps external wildfire corroboration as a separate auditable layer. |
+| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | Provisional, independently revalidated | Warmest equivalent August-to-July period under every scenario tested. |
+| [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | Transparent statistical comparison baseline; not a physical climate forecast. |
+| [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis | July 2026 was exceptionally dry; the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. |
+| [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Transparent comparison of public water supply and modelled data-centre demand. |
+| [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Reference-grade PM2.5 baseline from Welsh AURN monitoring stations. |
+| [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical record and external corroboration. |
 
-## Project 006: Wales Wildfire Watch
+## Project 006 — Wales Wildfire Watch
 
-Project 006 is the first published satellite-observation project in the repository. It ingests public NASA FIRMS near-real-time VIIRS observations from Suomi NPP, NOAA-20 and NOAA-21, retains source provenance, groups repeated nearby observations transparently, and produces scientific Wales maps using an official Welsh Government DataMapWales boundary.
+Project 006 uses public NASA FIRMS near-real-time VIIRS observations from Suomi NPP, NOAA-20 and NOAA-21 and the official Welsh Government DataMapWales Communities (Wales) boundary.
 
-The maps are generated programmatically with **Python, pandas, Matplotlib and Seaborn**. They are code-generated scientific graphics, not generative-image outputs.
+The map is generated programmatically with **Python, pandas, Matplotlib and Seaborn**. It is a code-generated scientific graphic, not a generative-image output.
 
-### Provisional publication caveat
+### Latest published map
 
-This is a **first public release** and should be treated as provisional research. NASA FIRMS identifies active-fire and thermal-anomaly pixels; it is not an official Welsh wildfire incident register. A thermal anomaly may be a wildfire, industrial heat or another hot source.
+<a href="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark.png"><img src="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark.png" alt="Latest Wales Wildfire Watch scientific map" width="100%"></a>
 
-Project 006 therefore keeps two interpretation layers separate:
+<p align="center"><a href="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark_square.png"><img src="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark_square.png" alt="Latest square Wales Wildfire Watch map" width="72%"></a></p>
 
-1. **Satellite evidence**, currently labelled `low`, `plausible` or `strong satellite evidence`, based only on the satellite record.
-2. **External corroboration**, using a curated register that prioritises fire and rescue services, Welsh Government, NRW, police and other reliable public sources.
+The current published two-day run contains **1,660 VIIRS detections** and **23 derived candidate clusters inside the official Wales boundary**. These are thermal anomalies, **not a confirmed wildfire count**.
 
-A **known recent wildfire site** does not mean the current satellite signal is a confirmed ongoing fire. Likewise, **no current match found** means only that the current curated public-source register has no matching record. Public incident reporting is incomplete, so absence of a report is not evidence that no fire exists.
+Project 006 now also maintains a **60-day cumulative record**, currently covering 15 June–13 August 2026 with 3,177 normalized observations. A daily GitHub Actions workflow refreshes the latest data, rebuilds the maps, adds OpenStreetMap and Google Maps links, runs external corroboration and commits changed outputs back to `main`.
 
-The classification thresholds and external-incident register will be refined as more confirmed Welsh wildfires and known non-wildfire heat sources are added. The underlying observations are retained rather than discarded when interpretation is uncertain.
+The project keeps these evidence layers separate:
 
-[Read the full Project 006 report and methodology](projects/006-wildfire-watch/).
+**satellite observation → derived cluster → satellite-evidence category → independent external corroboration**
+
+[Read the full Project 006 report, caveats and methodology](projects/006-wildfire-watch/).
 
 ## Reproducibility
 
-The repository uses a lightweight Reproducible Analytical Pipeline. Projects retain source provenance, generate machine-readable outputs, document evidence boundaries, and run automated validation through GitHub Actions.
-
-Project 006 adds an explicit separation between:
-
-**satellite observation → derived cluster → satellite-evidence category → independent external corroboration**.
-
-That separation is intentional: no single layer is sufficient by itself to establish a confirmed wildfire.
+The repository uses a lightweight Reproducible Analytical Pipeline: source provenance, machine-readable derived outputs, documented assumptions and GitHub Actions validation.
 
 ## Sources and licensing
 
-Projects use public datasets from organisations including the Met Office, Welsh Government, NRW, DEFRA UK-AIR and NASA FIRMS. Project 006 uses NASA FIRMS VIIRS thermal-anomaly data, Welsh Government DataMapWales boundary data, and a curated external-incident source register with retained source URLs and statements.
-
-Source data remain subject to their original licences and copyright. Repository analysis code is released under the [MIT License](LICENSE).
+Projects use public datasets from organisations including the Met Office, Welsh Government, NRW, DEFRA UK-AIR and NASA FIRMS. Source data remain subject to their original licences and copyright. Repository analysis code is released under the [MIT License](LICENSE).
 
 ## Independence
 
