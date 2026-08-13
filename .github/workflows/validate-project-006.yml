@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - agent/project-006-wildfire-watch
+      - feature/project-006-external-corroboration
     paths:
       - "projects/006-wildfire-watch/**"
       - "README.md"
@@ -34,7 +35,7 @@ jobs:
       - name: Install
         run: python -m pip install -e ".[dev]"
 
-      - name: Unit tests including scientific map renderer
+      - name: Unit tests including scientific map and corroboration model
         run: pytest -q projects/006-wildfire-watch/tests
 
       - name: End-to-end retained-fixture build
@@ -73,7 +74,7 @@ jobs:
           if-no-files-found: error
 
   live-firms-smoke-test:
-    if: github.event_name == 'push' && github.ref_name == 'agent/project-006-wildfire-watch'
+    if: github.event_name == 'push' && (github.ref_name == 'agent/project-006-wildfire-watch' || github.ref_name == 'feature/project-006-external-corroboration')
     runs-on: ubuntu-latest
     env:
       NASA_FIRMS_MAP_KEY: ${{ secrets.NASA_FIRMS_MAP_KEY }}
@@ -106,6 +107,12 @@ jobs:
           python projects/006-wildfire-watch/scientific_map.py \
             --output-root /tmp/project-006-live
 
+      - name: Correlate satellite candidates with curated external wildfire reports
+        run: |
+          python projects/006-wildfire-watch/corroboration.py \
+            --output-root /tmp/project-006-live \
+            --register projects/006-wildfire-watch/data/reference/external_wildfire_incidents.csv
+
       - name: Verify live outputs
         shell: bash
         run: |
@@ -115,6 +122,8 @@ jobs:
           test -s /tmp/project-006-live/data/derived/incidents.geojson
           test -s /tmp/project-006-live/data/derived/summary.json
           test -s /tmp/project-006-live/data/derived/wales_candidate_locations.csv
+          test -s /tmp/project-006-live/data/derived/wales_candidate_locations_corroborated.csv
+          test -s /tmp/project-006-live/data/derived/external_corroboration_matches.csv
           test -s /tmp/project-006-live/data/reference/communities_wales.geojson
           test -s /tmp/project-006-live/data/reference/communities_wales.provenance.json
           test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark.png
@@ -130,7 +139,7 @@ jobs:
           assert wide.shape[:2] == (900, 1600), wide.shape
           assert square.shape[:2] == (1080, 1080), square.shape
           PY
-          cat /tmp/project-006-live/data/derived/summary.json
+          head -20 /tmp/project-006-live/data/derived/wales_candidate_locations_corroborated.csv
 
       - name: Upload live FIRMS evidence and scientific figures
         if: always()
