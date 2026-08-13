@@ -34,7 +34,7 @@ jobs:
       - name: Install
         run: python -m pip install -e ".[dev]"
 
-      - name: Unit tests
+      - name: Unit tests including scientific map renderer
         run: pytest -q projects/006-wildfire-watch/tests
 
       - name: End-to-end retained-fixture build
@@ -101,6 +101,11 @@ jobs:
             --bbox uk \
             --output-root /tmp/project-006-live
 
+      - name: Build official-boundary scientific map and candidate-location table
+        run: |
+          python projects/006-wildfire-watch/scientific_map.py \
+            --output-root /tmp/project-006-live
+
       - name: Verify live outputs
         shell: bash
         run: |
@@ -109,18 +114,34 @@ jobs:
           test -s /tmp/project-006-live/data/derived/incidents.csv
           test -s /tmp/project-006-live/data/derived/incidents.geojson
           test -s /tmp/project-006-live/data/derived/summary.json
+          test -s /tmp/project-006-live/data/derived/wales_candidate_locations.csv
+          test -s /tmp/project-006-live/data/reference/communities_wales.geojson
+          test -s /tmp/project-006-live/data/reference/communities_wales.provenance.json
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark.png
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark.svg
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark_square.png
+          test -s /tmp/project-006-live/figures/wales_wildfire_watch_dark_square.svg
           test -s /tmp/project-006-live/site/index.html
           grep -q "not a confirmed wildfire" /tmp/project-006-live/site/index.html
+          python - <<'PY'
+          import matplotlib.image as mpimg
+          wide = mpimg.imread('/tmp/project-006-live/figures/wales_wildfire_watch_dark.png')
+          square = mpimg.imread('/tmp/project-006-live/figures/wales_wildfire_watch_dark_square.png')
+          assert wide.shape[:2] == (900, 1600), wide.shape
+          assert square.shape[:2] == (1080, 1080), square.shape
+          PY
           cat /tmp/project-006-live/data/derived/summary.json
 
-      - name: Upload live FIRMS evidence
+      - name: Upload live FIRMS evidence and scientific figures
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: project-006-live-firms-evidence
           path: |
             /tmp/project-006-live/data/raw/
+            /tmp/project-006-live/data/reference/
             /tmp/project-006-live/data/derived/
+            /tmp/project-006-live/figures/
             /tmp/project-006-live/site/
           if-no-files-found: error
           retention-days: 7
