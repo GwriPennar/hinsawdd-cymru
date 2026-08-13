@@ -1,10 +1,22 @@
 # Project 006 — Wales Wildfire Watch
 
+## Publication status
+
+**Published first public release — provisional research output.**
+
+This is the first public release of the Wales Wildfire Watch workflow. It is intended as a reproducible research and situational-awareness project, not as an operational emergency-warning service or an official wildfire register.
+
+The underlying NASA FIRMS observations are real public satellite data, but a VIIRS thermal anomaly is **not automatically a wildfire**. Industrial heat, persistent hot sources and other non-wildfire phenomena can appear. The project therefore preserves every observation and keeps interpretation in separate, auditable layers.
+
+The current evidence categories and external-corroboration rules are deliberately provisional. They will be revised as more Welsh incidents, negative controls and official source records are added. Absence of a matching public report must never be interpreted as evidence that no fire exists.
+
+If this project is cited or shared, the safest description is: **a provisional, reproducible map of NASA FIRMS thermal anomalies over Wales, with independent evidence layers for satellite strength and external wildfire corroboration.**
+
 ## Question
 
 Where is NASA detecting recent fire/thermal anomalies over Wales, and how can those observations be turned into a reproducible situational-awareness map **without claiming that every hotspot is a wildfire**?
 
-Project 006 is the satellite counterpart to [Project 005 — Wales air quality](../005-wales-air-quality/). Project 005 starts from measured ground-level pollution. Project 006 starts from space-based thermal anomalies and now keeps a separate external-incident corroboration layer.
+Project 006 is the satellite counterpart to [Project 005 — Wales air quality](../005-wales-air-quality/). Project 005 starts from measured ground-level pollution. Project 006 starts from space-based thermal anomalies and keeps a separate external-incident corroboration layer.
 
 ## Pipeline
 
@@ -48,7 +60,7 @@ No NASA observation is deleted merely because an industrial or persistent heat s
 
 `data/reference/external_wildfire_incidents.csv`
 
-The register currently prioritises:
+The register prioritises:
 
 1. fire and rescue services;
 2. Welsh Government / NRW / police;
@@ -127,6 +139,7 @@ Important limitations include:
 - the same physical event can generate many pixels and be observed by several satellites;
 - FRP is intensity information, not a direct measure of burned area or ground-level pollution;
 - an external report may identify a broad locality rather than a precise coordinate;
+- the external incident register is curated and incomplete;
 - absence from the curated external register does not mean an incident did not occur;
 - recent NRT observations may later be superseded by NASA Standard Processing records.
 
@@ -138,6 +151,12 @@ A later attribution record can combine multiple independent layers:
 
 No single layer is sufficient by itself.
 
+## Validation status
+
+The Project 006 GitHub Actions workflow validates the unit tests, retained-fixture pipeline, scientific map renderer and corroboration model. A live repository-secret run has also completed successfully through NASA FIRMS ingestion, official Wales boundary processing, external correlation, output verification and artifact upload.
+
+This validates the software pipeline. It does **not** validate every current thermal anomaly as a wildfire.
+
 ## Next stages
 
 1. Expand the curated incident register with additional official current/recent Welsh incidents and preserve source provenance.
@@ -146,6 +165,7 @@ No single layer is sufficient by itself.
 4. Add vegetation/land-cover context.
 5. Calculate cross-pass spatial growth and persistence metrics.
 6. Connect candidate windows to Project 005 PM2.5 and authoritative wind/dispersion evidence without treating coincidence as causation.
-7. Introduce scheduled live refresh only after the corroboration and interpretation labels are stable.
+7. Recalibrate the descriptive evidence bands against a growing set of confirmed fires and known non-wildfire heat sources.
+8. Introduce scheduled live refresh only after the corroboration and interpretation labels are stable.
 
 See [METHODOLOGY.md](METHODOLOGY.md) and [SOURCES.md](SOURCES.md) for the processing and source contracts.
