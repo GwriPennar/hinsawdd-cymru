@@ -44,6 +44,7 @@ jobs:
           rm -rf projects/006-wildfire-watch/published
           python projects/006-wildfire-watch/build.py --days 2 --bbox uk --output-root projects/006-wildfire-watch/published
           python projects/006-wildfire-watch/scientific_map.py --output-root projects/006-wildfire-watch/published
+          python projects/006-wildfire-watch/stamp_maps.py --output-root projects/006-wildfire-watch/published
       - name: Add direct map links
         run: |
           python - <<'PY'
@@ -69,11 +70,25 @@ jobs:
           test -s projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark.png
           grep -q openstreetmap_url projects/006-wildfire-watch/published/data/derived/wales_candidate_locations.csv
           grep -q google_maps_url projects/006-wildfire-watch/published/data/derived/wales_candidate_locations.csv
-      - name: Publish refreshed evidence to main
+      - name: Record publication status
+        if: always()
+        run: |
+          state="${{ job.status }}"
+          if [ "$state" = "success" ]; then
+            python projects/006-wildfire-watch/publication_status.py --state success
+          else
+            python projects/006-wildfire-watch/publication_status.py --state failure
+          fi
+      - name: Publish refreshed evidence and status to main
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add projects/006-wildfire-watch/data/history projects/006-wildfire-watch/published
+          if [ "${{ job.status }}" = "success" ]; then
+            git add projects/006-wildfire-watch/data/history projects/006-wildfire-watch/published projects/006-wildfire-watch/README.md
+          else
+            git add projects/006-wildfire-watch/README.md
+          fi
           if ! git diff --cached --quiet; then
             git commit -m "Update Project 006 daily wildfire watch"
             git push origin HEAD:main
