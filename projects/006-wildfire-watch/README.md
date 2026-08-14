@@ -6,15 +6,28 @@
 
 Project 006 is a reproducible research and situational-awareness workflow built from public NASA FIRMS VIIRS observations. A satellite thermal anomaly is not automatically a wildfire, so the project keeps the raw observation, derived cluster, satellite-evidence category and independent external corroboration separate.
 
+<!-- PROJECT006_STATUS_START -->
+> ⚠️ **Latest refresh failed; the previous successful publication is retained.**  
+> Latest successful data snapshot: **14 August 2026 02:02 UTC**.  
+> Latest satellite observation in that snapshot: **13 August 2026 14:22 UTC**.  
+> Published Wales-window detections: **791**. Derived candidate clusters inside the official Wales boundary: **17**.  
+> Latest refresh attempt: **14 August 2026 11:11 UTC**, failed before publication because the live NASA FIRMS `VIIRS_SNPP_NRT` request returned a connection error.  
+> Future successful publications will also write date-stamped map files using the snapshot time, for example `2026-08-14_0202UTC`.
+<!-- PROJECT006_STATUS_END -->
+
 ## Latest published maps
 
 These graphics are generated programmatically from the published data with Python, pandas, Matplotlib and Seaborn. They are not generative-image outputs.
 
-<a href="published/figures/wales_wildfire_watch_dark.png"><img src="published/figures/wales_wildfire_watch_dark.png" alt="Latest Wales Wildfire Watch scientific map" width="100%"></a>
+**Current map shown below:** data snapshot **14 August 2026 02:02 UTC**; latest satellite observation **13 August 2026 14:22 UTC**. The newest attempted refresh failed, so these maps have deliberately not been replaced with partial data.
 
-<p align="center"><a href="published/figures/wales_wildfire_watch_dark_square.png"><img src="published/figures/wales_wildfire_watch_dark_square.png" alt="Latest square Wales Wildfire Watch map" width="72%"></a></p>
+<a href="published/figures/wales_wildfire_watch_dark.png"><img src="published/figures/wales_wildfire_watch_dark.png" alt="Wales Wildfire Watch scientific map, snapshot 14 August 2026 02:02 UTC" width="100%"></a>
 
-The current published two-day run contains **1,660 VIIRS detections** and **23 derived candidate clusters inside the official Wales boundary**. The latest observation is **13 August 2026 at 14:22 UTC**. These are thermal anomalies, not a confirmed wildfire count.
+<p align="center"><a href="published/figures/wales_wildfire_watch_dark_square.png"><img src="published/figures/wales_wildfire_watch_dark_square.png" alt="Square Wales Wildfire Watch map, snapshot 14 August 2026 02:02 UTC" width="72%"></a></p>
+
+The current published two-day snapshot contains **791 VIIRS detections in the Wales watch window** and **17 derived candidate clusters inside the official Wales boundary**. The latest observation is **13 August 2026 at 14:22 UTC**. These are thermal anomalies, not a confirmed wildfire count.
+
+From the next successful publication onward, PNG maps will carry a prominent UTC banner showing both the **data snapshot time** and the **latest observation time**, and a date-stamped copy will be written alongside the stable `latest` filename. This keeps README links stable while making downloaded/shared images self-dating.
 
 ## Data pipeline
 
@@ -32,7 +45,9 @@ Historical outputs are retained under `data/history/`, including `detections.csv
 
 ## Daily publication
 
-A GitHub Actions workflow now runs daily. It retrieves the latest FIRMS data, rebuilds the scientific map, adds location links, runs external corroboration, appends new observations to the cumulative history and commits changed public outputs back to `main`.
+A GitHub Actions workflow runs daily and can also be triggered manually. It retrieves the latest FIRMS data, rebuilds the scientific map, adds location links, runs external corroboration, appends new observations to the cumulative history and commits changed public outputs back to `main`.
+
+Publication status is now explicit: a successful run updates the published data, README status and date-stamped maps; a failed run records the failed attempt in the README while retaining the previous successful publication rather than presenting a partial refresh as current.
 
 ## Evidence interpretation
 
