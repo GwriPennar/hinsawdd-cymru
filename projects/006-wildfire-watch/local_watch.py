@@ -4,15 +4,19 @@ import argparse
 import json
 import math
 import os
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
 import requests
 
+ROOT = Path(__file__).resolve().parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from build import SOURCES, cluster_detections, fetch_firms_csv, parse_and_normalize, summarize_incidents
 
-ROOT = Path(__file__).resolve().parent
 SWANSEA_GOWER_BBOX = (-4.35, 51.52, -3.85, 51.72)
 
 
