@@ -1,8 +1,8 @@
 {
   "source": "VIIRS_NOAA20_NRT",
-  "retrieved_at_utc": "2026-08-13T21:23:55.416307+00:00",
-  "sha256": "e2420c603db14db57c6b665387817cf5dccfba9082b7ad1a7588a28ba1950755",
-  "bytes": 48345,
+  "retrieved_at_utc": "2026-08-14T02:02:32.524771+00:00",
+  "sha256": "dba32c1932d734d10f5884c9f993273f397a8ac8a5b83f70d0824bbb6d1ed191",
+  "bytes": 33778,
   "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_NOAA20_NRT/-8.8,49.7,2,61/2",
   "bbox": [
     -8.8,
