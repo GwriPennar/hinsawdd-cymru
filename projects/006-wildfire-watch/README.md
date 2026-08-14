@@ -7,12 +7,12 @@
 Project 006 is a reproducible research and situational-awareness workflow built from public NASA FIRMS VIIRS observations. A satellite thermal anomaly is not automatically a wildfire, so the project keeps the raw observation, derived cluster, satellite-evidence category and independent external corroboration separate.
 
 <!-- PROJECT006_STATUS_START -->
-> ⚠️ **Latest refresh failed; the previous successful publication is retained.**  
-> Latest successful data snapshot: **14 August 2026 02:02 UTC**.  
-> Latest satellite observation in that snapshot: **13 August 2026 14:22 UTC**.  
-> Published Wales-window detections: **791**. Derived candidate clusters inside the official Wales boundary: **17**.  
-> Latest refresh attempt: **14 August 2026 11:11 UTC**, failed before publication because the live NASA FIRMS `VIIRS_SNPP_NRT` request returned a connection error.  
-> Future successful publications will also write date-stamped map files using the snapshot time, for example `2026-08-14_0202UTC`.
+> ✅ **Latest refresh succeeded.**  
+> Latest successful data snapshot: **14 August 2026 17:57 UTC**.  
+> Latest satellite observation in that snapshot: **14 August 2026 14:01 UTC**.  
+> Published Wales-window detections: **983**. Derived candidate clusters inside the official Wales boundary: **22**.  
+> Latest refresh attempt: **14 August 2026 17:59 UTC**.  
+> Date-stamped map stem for this successful snapshot: `2026-08-14_1757UTC`.
 <!-- PROJECT006_STATUS_END -->
 
 ## Latest published maps
