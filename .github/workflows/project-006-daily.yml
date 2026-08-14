@@ -6,8 +6,6 @@ on:
       - main
     paths:
       - ".github/workflows/project-006-daily.yml"
-  schedule:
-    - cron: "20 7 * * *"
   workflow_dispatch:
 
 permissions:
