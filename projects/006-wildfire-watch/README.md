@@ -8,11 +8,11 @@ Project 006 is a reproducible research and situational-awareness workflow built 
 
 <!-- PROJECT006_STATUS_START -->
 > ✅ **Latest refresh succeeded.**  
-> Latest successful data snapshot: **14 August 2026 17:57 UTC**.  
+> Latest successful data snapshot: **14 August 2026 19:49 UTC**.  
 > Latest satellite observation in that snapshot: **14 August 2026 14:01 UTC**.  
 > Published Wales-window detections: **983**. Derived candidate clusters inside the official Wales boundary: **22**.  
-> Latest refresh attempt: **14 August 2026 17:59 UTC**.  
-> Date-stamped map stem for this successful snapshot: `2026-08-14_1757UTC`.
+> Latest refresh attempt: **14 August 2026 19:52 UTC**.  
+> Date-stamped map stem for this successful snapshot: `2026-08-14_1949UTC`.
 <!-- PROJECT006_STATUS_END -->
 
 ## Latest published maps

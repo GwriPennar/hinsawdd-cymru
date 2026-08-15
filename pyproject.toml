@@ -13,6 +13,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 
+[tool.setuptools.packages.find]
+exclude = ["secrets*", "projects*", "tests*"]
+
 [tool.pytest.ini_options]
 testpaths = [
   "projects/001-rolling-temperature/tests",
