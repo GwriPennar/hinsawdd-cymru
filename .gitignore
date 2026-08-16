@@ -7,3 +7,11 @@ __pycache__/
 secrets/
 
 .skyfield-cache/
+
+# Bulky situational / browse dumps (regenerate locally)
+projects/006-wildfire-watch/published/local/viirs-snapshot/
+projects/006-wildfire-watch/published/local/wales-now/
+projects/006-wildfire-watch/published/local/swansea-gower/data/raw/
+projects/006-wildfire-watch/published/local/refresh/
+# Date-stamped SVG twins are huge duplicates of the stable stems — keep PNGs only
+projects/006-wildfire-watch/published/figures/*UTC*.svg

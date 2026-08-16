@@ -29,15 +29,15 @@ The map is generated programmatically with **Python, pandas, Matplotlib and Seab
 
 <p align="center"><a href="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark_square.png"><img src="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark_square.png" alt="Latest square Wales Wildfire Watch map" width="72%"></a></p>
 
-The current published two-day run contains **1,660 VIIRS detections** and **23 derived candidate clusters inside the official Wales boundary**. These are thermal anomalies, **not a confirmed wildfire count**.
+The current published two-day run (snapshot **16 August 2026 14:03 UTC**, latest obs **12:29 UTC**) contains **307 VIIRS detections in the Wales watch window** and **13 derived candidate clusters inside the official Wales boundary**. These are thermal anomalies, **not a confirmed wildfire count**. The top-ranked cluster this refresh is **Llangynidr** (plausible, multi-satellite).
 
-Project 006 now also maintains a **60-day cumulative record**, currently covering 15 June–13 August 2026 with 3,177 normalized observations. A daily GitHub Actions workflow refreshes the latest data, rebuilds the maps, adds OpenStreetMap and Google Maps links, runs external corroboration and commits changed outputs back to `main`.
+Project 006 maintains a cumulative historical record under `data/history/`. A daily GitHub Actions workflow refreshes the latest data, rebuilds the maps, adds OpenStreetMap and Google Maps links, runs external corroboration and commits changed outputs back to `main`. Local operator tools (`firms_ping`, pass calendar, waiting room) help separate satellite geometry from FIRMS NRT lag.
 
 The project keeps these evidence layers separate:
 
 **satellite observation → derived cluster → satellite-evidence category → independent external corroboration**
 
-[Read the full Project 006 report, caveats and methodology](projects/006-wildfire-watch/).
+[Current situation (16 Aug 2026)](projects/006-wildfire-watch/CURRENT_SITUATION.md) · [Full Project 006 report, caveats and methodology](projects/006-wildfire-watch/)
 
 ## Reproducibility
 

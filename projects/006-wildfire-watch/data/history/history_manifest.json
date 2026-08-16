@@ -1,8 +1,8 @@
 {
-  "updated_at_utc": "2026-08-14T19:52:29.417203+00:00",
+  "updated_at_utc": "2026-08-16T14:06:32.072961+00:00",
   "mode": "append",
-  "detection_count": 3369,
+  "detection_count": 3676,
   "earliest_utc": "2026-06-15T02:38:00Z",
-  "latest_utc": "2026-08-14T14:01:00Z",
+  "latest_utc": "2026-08-16T03:36:00Z",
   "note": "Cumulative coarse-Wales query record; thermal anomalies are not confirmed wildfires."
 }

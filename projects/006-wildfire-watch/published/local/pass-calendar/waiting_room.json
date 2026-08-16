@@ -1,0 +1,254 @@
+{
+  "generated_at_utc": "2026-08-16T04:36:08.310623+00:00",
+  "vibe": "satellite waiting room",
+  "nrt_target_hours": 3.0,
+  "probe": {
+    "probed_at_utc": "2026-08-16T04:36:08.310845+00:00",
+    "uk_detection_count": 353,
+    "uk_latest_obs_utc": "2026-08-15 13:46:00+00:00",
+    "gower_detection_count": 3,
+    "gower_latest_obs_utc": "2026-08-15 13:44:00+00:00",
+    "per_source": {
+      "SNPP": {
+        "count": 110,
+        "latest": "2026-08-15 13:23:00+00:00"
+      },
+      "NOAA20": {
+        "count": 115,
+        "latest": "2026-08-15 13:46:00+00:00"
+      },
+      "NOAA21": {
+        "count": 128,
+        "latest": "2026-08-15 12:46:00+00:00"
+      }
+    },
+    "errors": {}
+  },
+  "status": [
+    {
+      "site": "wales",
+      "mode": "firms_lag_window",
+      "line": "Pass was ~16 min ago (NOAA21 wales 04:20 UTC, elev 16.1\u00b0) \u2014 waiting on FIRMS NRT lag, not geometry. Latest FIRMS obs still 2026-08-15 13:46. Next pass ~04:56 UTC (SNPP, in 20 min).",
+      "last_pass": {
+        "site": "wales",
+        "sat_label": "NOAA21",
+        "culmination_utc": "2026-08-16T04:20:08.310623+00:00",
+        "elev_deg": 16.1,
+        "nadir_km": 1749.0,
+        "minutes_from_now": -16.0
+      },
+      "next_pass": {
+        "site": "wales",
+        "sat_label": "SNPP",
+        "culmination_utc": "2026-08-16T04:56:08.310623+00:00",
+        "elev_deg": 11.5,
+        "nadir_km": 2047.0,
+        "minutes_from_now": 20.0
+      },
+      "firms_latest_obs_utc": "2026-08-15 13:46:00+00:00",
+      "as_of_utc": "2026-08-16T04:36:08.310623+00:00"
+    },
+    {
+      "site": "gower",
+      "mode": "firms_lag_window",
+      "line": "Pass was ~15 min ago (NOAA21 gower 04:21 UTC, elev 15.7\u00b0) \u2014 waiting on FIRMS NRT lag, not geometry. Latest FIRMS obs still 2026-08-15 13:46. Next pass ~04:56 UTC (SNPP, in 20 min).",
+      "last_pass": {
+        "site": "gower",
+        "sat_label": "NOAA21",
+        "culmination_utc": "2026-08-16T04:21:08.310623+00:00",
+        "elev_deg": 15.7,
+        "nadir_km": 1775.0,
+        "minutes_from_now": -15.0
+      },
+      "next_pass": {
+        "site": "gower",
+        "sat_label": "SNPP",
+        "culmination_utc": "2026-08-16T04:56:08.310623+00:00",
+        "elev_deg": 11.0,
+        "nadir_km": 2088.0,
+        "minutes_from_now": 20.0
+      },
+      "firms_latest_obs_utc": "2026-08-15 13:46:00+00:00",
+      "as_of_utc": "2026-08-16T04:36:08.310623+00:00"
+    }
+  ],
+  "nrt_windows": [
+    {
+      "sat": "NOAA21",
+      "pass_utc": "2026-08-16T02:41:08.310623+00:00",
+      "nrt_due_utc": "2026-08-16T05:41:08.310623+00:00",
+      "minutes_until_due": 65.0,
+      "elev_deg": 71.1
+    },
+    {
+      "sat": "SNPP",
+      "pass_utc": "2026-08-16T03:17:08.310623+00:00",
+      "nrt_due_utc": "2026-08-16T06:17:08.310623+00:00",
+      "minutes_until_due": 101.0,
+      "elev_deg": 47.7
+    },
+    {
+      "sat": "NOAA20",
+      "pass_utc": "2026-08-16T03:36:08.310623+00:00",
+      "nrt_due_utc": "2026-08-16T06:36:08.310623+00:00",
+      "minutes_until_due": 120.0,
+      "elev_deg": 32.5
+    },
+    {
+      "sat": "NOAA21",
+      "pass_utc": "2026-08-16T04:20:08.310623+00:00",
+      "nrt_due_utc": "2026-08-16T07:20:08.310623+00:00",
+      "minutes_until_due": 164.0,
+      "elev_deg": 16.1
+    }
+  ],
+  "next_passes": [
+    {
+      "site": "wales",
+      "sat_label": "SNPP",
+      "culmination_utc": "2026-08-16T04:56:08.310623+00:00",
+      "elev_deg": 11.5,
+      "nadir_km": 2047.0,
+      "minutes_from_now": 20.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "SNPP",
+      "culmination_utc": "2026-08-16T04:56:08.310623+00:00",
+      "elev_deg": 11.0,
+      "nadir_km": 2088.0,
+      "minutes_from_now": 20.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T10:51:08.310623+00:00",
+      "elev_deg": 14.0,
+      "nadir_km": 1877.0,
+      "minutes_from_now": 375.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T10:51:08.310623+00:00",
+      "elev_deg": 13.0,
+      "nadir_km": 1946.0,
+      "minutes_from_now": 375.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "SNPP",
+      "culmination_utc": "2026-08-16T11:26:08.310623+00:00",
+      "elev_deg": 20.1,
+      "nadir_km": 1530.0,
+      "minutes_from_now": 410.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "SNPP",
+      "culmination_utc": "2026-08-16T11:26:08.310623+00:00",
+      "elev_deg": 18.9,
+      "nadir_km": 1590.0,
+      "minutes_from_now": 410.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "NOAA20",
+      "culmination_utc": "2026-08-16T11:45:08.310623+00:00",
+      "elev_deg": 28.4,
+      "nadir_km": 1170.0,
+      "minutes_from_now": 429.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "NOAA20",
+      "culmination_utc": "2026-08-16T11:45:08.310623+00:00",
+      "elev_deg": 26.9,
+      "nadir_km": 1227.0,
+      "minutes_from_now": 429.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T12:30:08.310623+00:00",
+      "elev_deg": 60.1,
+      "nadir_km": 416.0,
+      "minutes_from_now": 474.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T12:30:08.310623+00:00",
+      "elev_deg": 56.5,
+      "nadir_km": 475.0,
+      "minutes_from_now": 474.0
+    }
+  ],
+  "recent_passes": [
+    {
+      "site": "wales",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T02:41:08.310623+00:00",
+      "elev_deg": 71.1,
+      "nadir_km": 251.0,
+      "minutes_from_now": -115.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T02:41:08.310623+00:00",
+      "elev_deg": 68.9,
+      "nadir_km": 282.0,
+      "minutes_from_now": -115.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "SNPP",
+      "culmination_utc": "2026-08-16T03:17:08.310623+00:00",
+      "elev_deg": 47.7,
+      "nadir_km": 641.0,
+      "minutes_from_now": -79.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "SNPP",
+      "culmination_utc": "2026-08-16T03:17:08.310623+00:00",
+      "elev_deg": 46.9,
+      "nadir_km": 658.0,
+      "minutes_from_now": -79.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "NOAA20",
+      "culmination_utc": "2026-08-16T03:36:08.310623+00:00",
+      "elev_deg": 32.5,
+      "nadir_km": 1030.0,
+      "minutes_from_now": -60.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "NOAA20",
+      "culmination_utc": "2026-08-16T03:36:08.310623+00:00",
+      "elev_deg": 31.9,
+      "nadir_km": 1050.0,
+      "minutes_from_now": -60.0
+    },
+    {
+      "site": "wales",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T04:20:08.310623+00:00",
+      "elev_deg": 16.1,
+      "nadir_km": 1749.0,
+      "minutes_from_now": -16.0
+    },
+    {
+      "site": "gower",
+      "sat_label": "NOAA21",
+      "culmination_utc": "2026-08-16T04:21:08.310623+00:00",
+      "elev_deg": 15.7,
+      "nadir_km": 1775.0,
+      "minutes_from_now": -15.0
+    }
+  ],
+  "note": "Global FIRMS VIIRS NRT is typically within ~3 hours of observation (best effort). UK does not get US/Canada ultra-real-time direct-readout. Latest-obs only moves when a newer thermal anomaly is published \u2014 clean passes stay quiet."
+}

@@ -1,2 +1,3 @@
 latitude,longitude,acq_datetime_utc,acq_date,acq_time,satellite,instrument,confidence,confidence_label,version,frp,daynight,source,in_wales_watch_bbox,bright_ti4,bright_ti5,scan,track
-51.59103,-4.07489,2026-08-15 02:13:00+00:00,2026-08-15,213,N20,VIIRS,n,nominal,2.0NRT,0.32,N,VIIRS_NOAA20_NRT,1.0,297.71,286.06,0.43,0.38
+51.7114,-4.00228,2026-08-15T13:23:00+00:00,2026-08-15,1323,N,VIIRS,n,nominal,2.0NRT,4.17,D,VIIRS_SNPP_NRT,True,334.09,301.13,0.44,0.38
+51.71233,-4.00643,2026-08-15T13:44:00+00:00,2026-08-15,1344,N20,VIIRS,n,nominal,2.0NRT,6.99,D,VIIRS_NOAA20_NRT,True,339.7,297.72,0.5,0.49

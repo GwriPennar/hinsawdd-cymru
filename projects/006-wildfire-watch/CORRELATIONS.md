@@ -17,6 +17,8 @@ A successful correlation means:
 
 It does **not** reclassify the FIRMS pixel as a confirmed wildfire.
 
+**Candidate** rows may be recorded when an independent report and a FIRMS detection share a plausible area and time window, but spatial offset is larger than a site match (e.g. locality-level observer attribution a few kilometres from the pixel) or the external source is not yet fire-service grade. Candidates are not successful correlations.
+
 ## Current entries
 
 ### CORR-2026-LANGROVE-HC-001 — Langrove Health Club, Parkmill
@@ -32,3 +34,17 @@ It does **not** reclassify the FIRMS pixel as a confirmed wildfire.
 | Pixel | 51.59103, −4.07489 · FRP 0.32 MW · nominal |
 | Offset from site | ~260 m |
 | External IDs | `EXT-2026-LANGROVE-HC-MAWWFRS`, `EXT-2026-LANGROVE-HC-NEWS` |
+
+### CORR-2026-GORSEINON-JAYPLAS-001 — Jayplas / Gorseinon (candidate)
+
+**Report (brief):** On the evening of 15 August 2026, during a west-Swansea smoke episode, a community report attributed activity to the **Jayplas** plastics recycling facility on Heol y Mynydd, Gorseinon (former Toyoda Gosei site). Same-afternoon Swansea/Gower FIRMS watch found a two-pixel VIIRS cluster near **Bryn Bach Road / Brynbach Uchaf Farm**, about **4.3 km** north-east of the factory — close enough for a locality-level “Gorseinon / Jayplas” observer call, not a site pin.
+
+| Field | Value |
+|---|---|
+| Status | **candidate** |
+| Incident type | community smoke report |
+| Report pin | Jayplas, 51.67813, −4.03408 |
+| FIRMS | NOAA-20 (peak) + SNPP · **13:23–13:44 UTC** 15 Aug · cluster `HC-TA-20260815-82E40C8` |
+| Pixel / cluster | 51.71187, −4.00436 · peak FRP 6.99 MW · nominal |
+| Offset from report | ~4.3 km |
+| External IDs | `EXT-2026-GORSEINON-JAYPLAS-COMMUNITY` |
