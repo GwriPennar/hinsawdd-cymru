@@ -356,6 +356,31 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          1.14038,
+          58.04715
+        ]
+      },
+      "properties": {
+        "incident_id": "HC-TA-20260816-1B2C9D5",
+        "detection_count": 1,
+        "satellite_count": 1,
+        "satellites": "N21",
+        "sources": "VIIRS_NOAA21_NRT",
+        "first_detected_utc": "2026-08-16T12:32:00+00:00",
+        "last_detected_utc": "2026-08-16T12:32:00+00:00",
+        "duration_hours": 0.0,
+        "peak_frp_mw": 5.46,
+        "mean_frp_mw": 5.46,
+        "max_confidence": "nominal",
+        "daynight": "D",
+        "in_wales_watch_bbox": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           0.80679,
           51.85751
         ]

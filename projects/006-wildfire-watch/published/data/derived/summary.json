@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-08-16T14:03:03.899834+00:00",
-  "detection_count": 410,
-  "incident_count": 42,
+  "generated_at_utc": "2026-08-16T14:59:49.999226+00:00",
+  "detection_count": 411,
+  "incident_count": 43,
   "wales_watch_detection_count": 307,
   "wales_watch_incident_count": 14,
   "source_count": 3,
@@ -11,7 +11,7 @@
     "VIIRS_SNPP_NRT"
   ],
   "earliest_detection_utc": "2026-08-15T01:17:00+00:00",
-  "latest_detection_utc": "2026-08-16T12:29:00+00:00",
+  "latest_detection_utc": "2026-08-16T12:32:00+00:00",
   "cluster_distance_km": 5.0,
   "cluster_time_hours": 18.0,
   "wales_watch_bbox": [
@@ -22,11 +22,11 @@
   ],
   "status": "satellite thermal anomalies; not confirmed wildfire incidents",
   "input_mode": "live_nrt",
-  "snapshot_dir": "data/raw/20260816T140302Z",
+  "snapshot_dir": "data/raw/20260816T145948Z",
   "input_manifests": [
     {
       "source": "VIIRS_SNPP_NRT",
-      "retrieved_at_utc": "2026-08-16T14:03:02.330014+00:00",
+      "retrieved_at_utc": "2026-08-16T14:59:48.925864+00:00",
       "sha256": "49b408419a95bf889fa6533f0b0fbd1c341dc292921755d319664d5e96c88961",
       "bytes": 10809,
       "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_SNPP_NRT/-8.8,49.7,2,61/2",
@@ -41,7 +41,7 @@
     },
     {
       "source": "VIIRS_NOAA20_NRT",
-      "retrieved_at_utc": "2026-08-16T14:03:02.330014+00:00",
+      "retrieved_at_utc": "2026-08-16T14:59:48.925864+00:00",
       "sha256": "56952696dfc805a618887eccfa8fa5fbf06c121c472c2f08c06aa4a3f4ad9340",
       "bytes": 11088,
       "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_NOAA20_NRT/-8.8,49.7,2,61/2",
@@ -56,9 +56,9 @@
     },
     {
       "source": "VIIRS_NOAA21_NRT",
-      "retrieved_at_utc": "2026-08-16T14:03:02.330014+00:00",
-      "sha256": "92ae1b798cda8622f9d06711f841be4573e55cdd5ae59c278b6ca89a281e5be6",
-      "bytes": 11998,
+      "retrieved_at_utc": "2026-08-16T14:59:48.925864+00:00",
+      "sha256": "2b85cbaf55d31c784bedb99c03ed5d640d7a1e1213ef8551f32372ba9e119853",
+      "bytes": 12081,
       "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_NOAA21_NRT/-8.8,49.7,2,61/2",
       "bbox": [
         -8.8,
@@ -79,7 +79,7 @@
   "query_days": 2,
   "query_date": null,
   "official_wales_candidate_cluster_count": 13,
-  "boundary_sha256": "6be9616dec25de60df3ef8f96afde36cf9cc328b5355c0d9be82709287ca7665",
+  "boundary_sha256": "d60abe0986d120ceb9b823953c99e5d6d15a2106773de184e8ae1330ae9f88b7",
   "boundary_dataset": "Communities (Wales)",
   "official_wales_firms_pixel_count": 303
 }
