@@ -1,0 +1,1 @@
+incident_id,latitude,longitude,detection_count,satellite_count,satellites,sources,first_detected_utc,last_detected_utc,duration_hours,peak_frp_mw,mean_frp_mw,max_confidence,daynight,in_wales_watch_bbox

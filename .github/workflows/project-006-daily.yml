@@ -42,6 +42,7 @@ jobs:
           rm -rf projects/006-wildfire-watch/published
           python projects/006-wildfire-watch/build.py --days 2 --bbox uk --output-root projects/006-wildfire-watch/published
           python projects/006-wildfire-watch/scientific_map.py --output-root projects/006-wildfire-watch/published
+          python projects/006-wildfire-watch/pixel_map.py --output-root projects/006-wildfire-watch/published
           python projects/006-wildfire-watch/stamp_maps.py --output-root projects/006-wildfire-watch/published
       - name: Add direct map links
         run: |

@@ -1,0 +1,427 @@
+{
+  "generated_at_utc": "2026-08-16T14:08:10.005441+00:00",
+  "project": "006-wildfire-watch",
+  "run_count": 12,
+  "kinds": [
+    "swansea-gower-watch",
+    "viirs-browse",
+    "wales-now",
+    "wales-publication"
+  ],
+  "runs": [
+    {
+      "name": "Wales now",
+      "alias": "wales-now",
+      "run_id": "wales-now-latest",
+      "kind": "wales-now",
+      "label": "Ad-hoc Wales situational pixel pull",
+      "description": "One-off situational Wales FIRMS pixel pull (not the canonical publication). Useful for a quick live look; prefer Wales map for the official site/maps.",
+      "generated_at_utc": "2026-08-16T14:07:16.877007+00:00",
+      "path": "published/local/wales-now",
+      "artifacts": {
+        "pixels": "published/local/wales-now/data/derived/wales_latest_pixels.csv",
+        "map": "published/local/wales-now/figures/wales_now_firms_pixels_dark.png",
+        "scan_estimates": "published/local/wales-now/data/derived/scan_estimates.json"
+      },
+      "stats": {
+        "generated_at_utc": "2026-08-16T14:07:16.877007+00:00",
+        "query_days": 2,
+        "estimates": [
+          {
+            "source": "VIIRS_SNPP_NRT",
+            "label": "SUOMI NPP",
+            "pixel_count": 102,
+            "latest_acq_utc": "2026-08-16T03:19:00+00:00",
+            "estimated_scan_utc": "2026-08-16T03:19:00+00:00",
+            "elev_deg": 34.0,
+            "nadir_km": 981.0
+          },
+          {
+            "source": "VIIRS_NOAA20_NRT",
+            "label": "NOAA 20",
+            "pixel_count": 102,
+            "latest_acq_utc": "2026-08-16T03:36:00+00:00",
+            "estimated_scan_utc": "2026-08-16T03:36:00+00:00",
+            "elev_deg": 32.5,
+            "nadir_km": 1030.0
+          },
+          {
+            "source": "VIIRS_NOAA21_NRT",
+            "label": "NOAA 21",
+            "pixel_count": 99,
+            "latest_acq_utc": "2026-08-15T12:46:00+00:00",
+            "estimated_scan_utc": "2026-08-15T12:46:00+00:00",
+            "elev_deg": 30.3,
+            "nadir_km": 1101.0
+          }
+        ],
+        "pixel_count": 303,
+        "latest_detection_utc": "2026-08-16 03:36:00+00:00"
+      },
+      "base_alias": "wales-now",
+      "historical": false,
+      "latest_for_alias": true
+    },
+    {
+      "name": "VIIRS simple",
+      "alias": "viirs-simple",
+      "run_id": "viirs-browse-20260816T140657Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-16: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 5 frames.",
+      "generated_at_utc": "2026-08-16T14:06:57.345588+00:00",
+      "time_date": "2026-08-16",
+      "path": "published/local/viirs-snapshot/20260816T140657Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T140657Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T140657Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T140657Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T140657Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 5,
+        "error_count": 0,
+        "figure_count": 5
+      },
+      "base_alias": "viirs-simple",
+      "historical": false,
+      "latest_for_alias": true
+    },
+    {
+      "name": "VIIRS simple (1406)",
+      "alias": "viirs-simple-1406",
+      "run_id": "viirs-browse-20260816T140633Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-15: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 5 frames.",
+      "generated_at_utc": "2026-08-16T14:06:33.956753+00:00",
+      "time_date": "2026-08-15",
+      "path": "published/local/viirs-snapshot/20260816T140633Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T140633Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T140633Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T140633Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T140633Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 5,
+        "error_count": 0,
+        "figure_count": 5
+      },
+      "base_alias": "viirs-simple",
+      "historical": true,
+      "latest_for_alias": false,
+      "note": "Historical stamp \u2014 prefer the latest alias without a time suffix."
+    },
+    {
+      "name": "Gower watch",
+      "alias": "gower-watch",
+      "run_id": "swansea-gower-20260816T140632Z",
+      "kind": "swansea-gower-watch",
+      "label": "Swansea/Gower FIRMS local watch",
+      "description": "Local FIRMS sweep over the Swansea\u2013Gower bbox only (not the national site). Last window 24.0h; 0 detections; latest obs None. Used for Langrove / Pontarddulais / Jayplas smoke questions.",
+      "generated_at_utc": "2026-08-16T14:06:32.230379+00:00",
+      "latest_obs_utc": null,
+      "path": "published/local/swansea-gower",
+      "artifacts": {
+        "summary": "published/local/swansea-gower/data/derived/summary.json",
+        "detections": "published/local/swansea-gower/data/derived/detections.csv",
+        "map": "published/local/swansea-gower/figures/swansea_gower_firms_dark.png",
+        "raw_snapshot": "data/raw/20260816T140632Z"
+      },
+      "stats": {
+        "window_hours": 24.0,
+        "detections": 0,
+        "incidents": 0
+      },
+      "base_alias": "gower-watch",
+      "historical": false,
+      "latest_for_alias": true
+    },
+    {
+      "name": "Wales map",
+      "alias": "wales-map",
+      "run_id": "wales-pub-20260816T140302Z",
+      "kind": "wales-publication",
+      "label": "Wales FIRMS publication (build + site + maps)",
+      "description": "Canonical national FIRMS publication: UK pull \u2192 Wales detections/clusters, Leaflet site, cluster + pixel maps. Latest obs 2026-08-16T12:29:00+00:00; 307 Wales-window detections, 14 Wales clusters. This is what published/site/index.html tracks.",
+      "generated_at_utc": "2026-08-16T14:03:03.899834+00:00",
+      "latest_obs_utc": "2026-08-16T12:29:00+00:00",
+      "path": "published",
+      "artifacts": {
+        "summary": "published/data/derived/summary.json",
+        "site": "published/site/index.html",
+        "cluster_map": "published/figures/wales_wildfire_watch_dark.png",
+        "pixel_map": "published/figures/wales_firms_pixels_dark.png",
+        "raw_snapshot": "data/raw/20260816T140302Z"
+      },
+      "stats": {
+        "detections": 410,
+        "wales_detections": 307,
+        "wales_clusters": 14,
+        "incidents": 42
+      },
+      "site_matches_summary": true,
+      "site_mtime_utc": "2026-08-16T14:03:03.927803+00:00",
+      "base_alias": "wales-map",
+      "historical": false,
+      "latest_for_alias": true
+    },
+    {
+      "name": "VIIRS simple (0447)",
+      "alias": "viirs-simple-0447",
+      "run_id": "viirs-browse-20260816T044701Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-16: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 4 frames.",
+      "generated_at_utc": "2026-08-16T04:47:01.993100+00:00",
+      "time_date": "2026-08-16",
+      "path": "published/local/viirs-snapshot/20260816T044701Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T044701Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T044701Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T044701Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T044701Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 4,
+        "error_count": 1,
+        "figure_count": 4
+      },
+      "base_alias": "viirs-simple",
+      "historical": true,
+      "latest_for_alias": false,
+      "note": "Historical stamp \u2014 prefer the latest alias without a time suffix."
+    },
+    {
+      "name": "VIIRS simple (0446)",
+      "alias": "viirs-simple-0446",
+      "run_id": "viirs-browse-20260816T044640Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-15: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 5 frames.",
+      "generated_at_utc": "2026-08-16T04:46:40.872423+00:00",
+      "time_date": "2026-08-15",
+      "path": "published/local/viirs-snapshot/20260816T044640Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T044640Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T044640Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T044640Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T044640Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 5,
+        "error_count": 0,
+        "figure_count": 5
+      },
+      "base_alias": "viirs-simple",
+      "historical": true,
+      "latest_for_alias": false,
+      "note": "Historical stamp \u2014 prefer the latest alias without a time suffix."
+    },
+    {
+      "name": "VIIRS simple (0209)",
+      "alias": "viirs-simple-0209",
+      "run_id": "viirs-browse-20260816T020937Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-15: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 5 frames.",
+      "generated_at_utc": "2026-08-16T02:09:37.155389+00:00",
+      "time_date": "2026-08-15",
+      "path": "published/local/viirs-snapshot/20260816T020937Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T020937Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T020937Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T020937Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T020937Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 5,
+        "error_count": 0,
+        "figure_count": 5
+      },
+      "base_alias": "viirs-simple",
+      "historical": true,
+      "latest_for_alias": false,
+      "note": "Historical stamp \u2014 prefer the latest alias without a time suffix."
+    },
+    {
+      "name": "VIIRS simple (0205)",
+      "alias": "viirs-simple-0205",
+      "run_id": "viirs-browse-20260816T020551Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-16: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 4 frames.",
+      "generated_at_utc": "2026-08-16T02:05:51.789051+00:00",
+      "time_date": "2026-08-16",
+      "path": "published/local/viirs-snapshot/20260816T020551Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T020551Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T020551Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T020551Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T020551Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 4,
+        "error_count": 1,
+        "figure_count": 4
+      },
+      "base_alias": "viirs-simple",
+      "historical": true,
+      "latest_for_alias": false,
+      "note": "Historical stamp \u2014 prefer the latest alias without a time suffix."
+    },
+    {
+      "name": "VIIRS simple (0010)",
+      "alias": "viirs-simple-0010",
+      "run_id": "viirs-browse-20260816T001032Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Simplified GIBS browse for Wales on 2026-08-15: NOAA-20 only, five products (true colour, AOD, thermal, land-surface temp, false colour) with Wales outlines and review.html. 5 frames.",
+      "generated_at_utc": "2026-08-16T00:10:32.739776+00:00",
+      "time_date": "2026-08-15",
+      "path": "published/local/viirs-snapshot/20260816T001032Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260816T001032Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260816T001032Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260816T001032Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260816T001032Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": [
+          "NOAA20"
+        ],
+        "themes": [
+          "true_color",
+          "aod",
+          "thermal",
+          "lst_day",
+          "false_color"
+        ],
+        "ok_count": 5,
+        "error_count": 0,
+        "figure_count": 5
+      },
+      "base_alias": "viirs-simple",
+      "historical": true,
+      "latest_for_alias": false,
+      "note": "Historical stamp \u2014 prefer the latest alias without a time suffix."
+    },
+    {
+      "name": "VIIRS full",
+      "alias": "viirs-full",
+      "run_id": "viirs-browse-20260815T192413Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Full GIBS browse experiment for Wales on 2026-08-15: all three VIIRS birds \u00d7 many products (25 explained figures). Superseded as default by VIIRS simple after feedback.",
+      "generated_at_utc": "2026-08-15T19:24:13.184636+00:00",
+      "time_date": "2026-08-15",
+      "path": "published/local/viirs-snapshot/20260815T192413Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260815T192413Z/manifest.json",
+        "review_html": "published/local/viirs-snapshot/20260815T192413Z/review.html",
+        "explainers": "published/local/viirs-snapshot/20260815T192413Z/figures/EXPLAINERS.md",
+        "contact_sheet": "published/local/viirs-snapshot/20260815T192413Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": null,
+        "themes": null,
+        "ok_count": 16,
+        "error_count": 2,
+        "figure_count": 25
+      },
+      "base_alias": "viirs-full",
+      "historical": false,
+      "latest_for_alias": true
+    },
+    {
+      "name": "VIIRS grid",
+      "alias": "viirs-grid",
+      "run_id": "viirs-browse-20260815T191347Z",
+      "kind": "viirs-browse",
+      "label": "VIIRS GIBS browse snapshot",
+      "description": "Early GIBS browse for Wales on 2026-08-15: contact-sheet / raw pulls only (no per-product explained figures). Kept as a historical stamp.",
+      "generated_at_utc": "2026-08-15T19:13:47.327925+00:00",
+      "time_date": "2026-08-15",
+      "path": "published/local/viirs-snapshot/20260815T191347Z",
+      "artifacts": {
+        "manifest": "published/local/viirs-snapshot/20260815T191347Z/manifest.json",
+        "review_html": null,
+        "explainers": null,
+        "contact_sheet": "published/local/viirs-snapshot/20260815T191347Z/figures/viirs_browse_contact_dark.png"
+      },
+      "stats": {
+        "satellites": null,
+        "themes": null,
+        "ok_count": 16,
+        "error_count": 2,
+        "figure_count": 0
+      },
+      "base_alias": "viirs-grid",
+      "historical": false,
+      "latest_for_alias": true
+    }
+  ],
+  "note": "Simple name/alias = chat handle for the latest of that type. run_id = immutable historical stamp (folder/time). Older copies: historical=true and a time-suffixed alias. Full refresh HTML: published/local/refresh/latest/index.html (python projects/006-wildfire-watch/run_all.py).",
+  "refresh_html": "published/local/refresh/latest/index.html"
+}

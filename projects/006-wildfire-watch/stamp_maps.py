@@ -65,16 +65,21 @@ def main() -> int:
     label, stamp = _label(summary)
     figures = output_root / "figures"
 
-    for suffix in ("", "_square"):
-        png = figures / f"wales_wildfire_watch_dark{suffix}.png"
-        dated_png = figures / f"wales_wildfire_watch_{stamp}_dark{suffix}.png"
-        stamp_png(png, label, dated_png)
+    stamped = []
+    for stem in ("wales_wildfire_watch", "wales_firms_pixels"):
+        for suffix in ("", "_square"):
+            png = figures / f"{stem}_dark{suffix}.png"
+            if not png.exists():
+                continue
+            dated_png = figures / f"{stem}_{stamp}_dark{suffix}.png"
+            stamp_png(png, label, dated_png)
+            stamped.append(str(png))
 
-        svg = figures / f"wales_wildfire_watch_dark{suffix}.svg"
-        if svg.exists():
-            shutil.copyfile(svg, figures / f"wales_wildfire_watch_{stamp}_dark{suffix}.svg")
+            svg = figures / f"{stem}_dark{suffix}.svg"
+            if svg.exists():
+                shutil.copyfile(svg, figures / f"{stem}_{stamp}_dark{suffix}.svg")
 
-    print(json.dumps({"snapshot_stamp": stamp, "label": label}, indent=2))
+    print(json.dumps({"snapshot_stamp": stamp, "label": label, "stamped": stamped}, indent=2))
     return 0
 
 

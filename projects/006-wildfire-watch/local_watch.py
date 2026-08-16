@@ -42,7 +42,8 @@ def filter_recent(
 
 
 def _api_days(hours: float) -> int:
-    return max(1, min(5, math.ceil(hours / 24)))
+    # Rolling windows often cross a UTC midnight, so fetch one extra calendar day.
+    return max(1, min(5, math.ceil(hours / 24.0) + 1))
 
 
 def run_local_watch(
