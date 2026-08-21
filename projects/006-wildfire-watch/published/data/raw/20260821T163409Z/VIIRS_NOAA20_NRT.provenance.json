@@ -1,0 +1,15 @@
+{
+  "source": "VIIRS_NOAA20_NRT",
+  "retrieved_at_utc": "2026-08-21T16:34:09.384248+00:00",
+  "sha256": "df2423641f020a3b4345a36ad9ffd94529f181082173b90484a8be7b00013bf2",
+  "bytes": 2508,
+  "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_NOAA20_NRT/-8.8,49.7,2,61/2",
+  "bbox": [
+    -8.8,
+    49.7,
+    2.0,
+    61.0
+  ],
+  "day_range": 2,
+  "date": null
+}

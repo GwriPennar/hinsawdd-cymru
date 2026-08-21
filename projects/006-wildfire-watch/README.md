@@ -6,30 +6,30 @@
 
 Project 006 is a reproducible research and situational-awareness workflow built from public NASA FIRMS VIIRS observations. A satellite thermal anomaly is not automatically a wildfire, so the project keeps the raw observation, derived cluster, satellite-evidence category and independent external corroboration separate.
 
-**For the 16 August 2026 operator readout (Llangynidr, FIRMS lag, watcher timeouts, new tooling), see [CURRENT_SITUATION.md](CURRENT_SITUATION.md).**
+**For the current operator readout (21 August 2026 — quieter Wales picture; Gower quiet), see [CURRENT_SITUATION.md](CURRENT_SITUATION.md).**
 
 <!-- PROJECT006_STATUS_START -->
 > ✅ **Latest refresh succeeded.**  
-> Latest successful data snapshot: **16 August 2026 14:59 UTC**.  
-> Latest satellite observation in that snapshot: **16 August 2026 12:32 UTC**.  
-> Published Wales-window detections: **307**. Derived candidate clusters inside the official Wales boundary: **13**.  
-> Latest refresh attempt: **16 August 2026 15:01 UTC**.  
-> Date-stamped map stem for this successful snapshot: `2026-08-16_1459UTC`.
+> Latest successful data snapshot: **21 August 2026 16:34 UTC**.  
+> Latest satellite observation in that snapshot: **21 August 2026 13:12 UTC**.  
+> Published Wales-window detections: **19**. Derived candidate clusters inside the official Wales boundary: **4**.  
+> Latest refresh attempt: **21 August 2026 16:38 UTC**.  
+> Date-stamped map stem for this successful snapshot: `2026-08-21_1634UTC`.
 <!-- PROJECT006_STATUS_END -->
 
 ## Latest published maps
 
 These graphics are generated programmatically from the published data with Python, pandas, Matplotlib and Seaborn. They are not generative-image outputs.
 
-**Current map shown below:** data snapshot **16 August 2026 14:03 UTC**; latest satellite observation **16 August 2026 12:29 UTC**.
+**Current map shown below:** data snapshot **21 August 2026 16:34 UTC**; latest satellite observation **21 August 2026 13:12 UTC**.
 
-<a href="published/figures/wales_wildfire_watch_dark.png"><img src="published/figures/wales_wildfire_watch_dark.png" alt="Wales Wildfire Watch scientific map, snapshot 16 August 2026 14:03 UTC" width="100%"></a>
+<a href="published/figures/wales_wildfire_watch_dark.png"><img src="published/figures/wales_wildfire_watch_dark.png" alt="Wales Wildfire Watch scientific map, snapshot 21 August 2026 16:34 UTC" width="100%"></a>
 
-<p align="center"><a href="published/figures/wales_wildfire_watch_dark_square.png"><img src="published/figures/wales_wildfire_watch_dark_square.png" alt="Square Wales Wildfire Watch map, snapshot 16 August 2026 14:03 UTC" width="72%"></a></p>
+<p align="center"><a href="published/figures/wales_wildfire_watch_dark_square.png"><img src="published/figures/wales_wildfire_watch_dark_square.png" alt="Square Wales Wildfire Watch map, snapshot 21 August 2026 16:34 UTC" width="72%"></a></p>
 
-The current published two-day snapshot contains **307 VIIRS detections in the Wales watch window** and **13 derived candidate clusters inside the official Wales boundary**. The latest observation is **16 August 2026 at 12:29 UTC**. These are thermal anomalies, not a confirmed wildfire count.
+The current published two-day snapshot contains **19 VIIRS detections in the Wales watch window** and **4 derived candidate clusters inside the official Wales boundary**. The latest observation is **21 August 2026 at 13:12 UTC**. These are thermal anomalies, not a confirmed wildfire count.
 
-Top ranked cluster this refresh: **Llangynidr** (236 detections, multi-satellite, peak FRP ~16.9 MW, evidence band *plausible*). See [CURRENT_SITUATION.md](CURRENT_SITUATION.md).
+Top ranked cluster this refresh: **Glascwm** (7 detections, multi-satellite, peak FRP ~5.6 MW, evidence band *plausible*). Swansea/Gower 24h watch: **0** detections. See [CURRENT_SITUATION.md](CURRENT_SITUATION.md).
 
 PNG maps carry a prominent UTC banner showing both the **data snapshot time** and the **latest observation time**, with a date-stamped copy beside the stable `latest` filename.
 
@@ -46,6 +46,7 @@ The official location label comes from the Welsh Government DataMapWales **Commu
 | Script | Role |
 |---|---|
 | `firms_ping.py` | Minute poll until UK/Gower latest obs moves; optional `--run-all --open` |
+| `watch_and_alert.py` | Long watch (e.g. 6h); on refresh runs `run_all`, writes `ALERTS/`, commits and pushes to GitHub |
 | `pass_calendar.py` | VIIRS overpass calendar for Wales/Gower (TLE culminations) |
 | `waiting_room.py` | Dark local status page tying FIRMS lag to passes |
 | `run_all.py` | Situational full refresh (publication + local Gower/wales-now) |
