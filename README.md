@@ -16,6 +16,7 @@ Hinsawdd Cymru is a public-facing research repository. Each numbered project ask
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Transparent comparison of public water supply and modelled data-centre demand. |
 | [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Reference-grade PM2.5 baseline from Welsh AURN monitoring stations. |
 | [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical GIF playback and external corroboration. |
+| [007](projects/007-wales-coastal-sst/) | Wales coastal sea-surface temperature | **Stage 0 research brief** | Welsh shelf SST from open satellite analyses, with optional ENSO context — not a direct El Niño attribution. |
 
 ## Project 006 — Wales Wildfire Watch
 
