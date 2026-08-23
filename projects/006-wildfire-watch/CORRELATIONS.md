@@ -19,6 +19,8 @@ It does **not** reclassify the FIRMS pixel as a confirmed wildfire.
 
 **Candidate** rows may be recorded when an independent report and a FIRMS detection share a plausible area and time window, but spatial offset is larger than a site match (e.g. locality-level observer attribution a few kilometres from the pixel) or the external source is not yet fire-service grade. Candidates are not successful correlations.
 
+**Likely industrial** rows flag thermal anomalies that sit on or beside a known active industrial heat source (e.g. cement kiln). They are operator assessments, not fire-service confirmations, and they do **not** reclassify the anomaly as a wildfire. Persistent industrial sites are listed in [`data/reference/known_industrial_heat_sources.csv`](data/reference/known_industrial_heat_sources.csv).
+
 ## Current entries
 
 ### CORR-2026-LANGROVE-HC-001 — Langrove Health Club, Parkmill
@@ -48,3 +50,16 @@ It does **not** reclassify the FIRMS pixel as a confirmed wildfire.
 | Pixel / cluster | 51.71187, −4.00436 · peak FRP 6.99 MW · nominal |
 | Offset from report | ~4.3 km |
 | External IDs | `EXT-2026-GORSEINON-JAYPLAS-COMMUNITY` |
+
+### CORR-2026-RHOOSE-TARMAC-001 — Tarmac Aberthaw / Rhoose (likely industrial)
+
+**Assessment (brief):** The **22 August 2026** Wales candidate labelled **Rhoose** (`HC-TA-20260822-77E3817`) is a weak multi-satellite night cluster (~02:28–03:23 UTC; peak FRP ~1.64 MW) whose centroid sits ~280 m from the **active Tarmac Aberthaw Cement Works** at East Aberthaw. Cement kilns routinely produce VIIRS industrial heat. The neighbouring former Aberthaw Power Station is decommissioned (2020) and is a poorer explanation for ongoing process heat.
+
+| Field | Value |
+|---|---|
+| Status | **likely_industrial** |
+| Incident type | industrial heat (cement works) |
+| Site pin | Tarmac Aberthaw, 51.39696, −3.39147 (`IND-2026-TARMAC-ABERTHAW`) |
+| FIRMS cluster | `HC-TA-20260822-77E3817` · 51.39849, −3.39463 |
+| Offset from works | ~280 m |
+| Registry | [`known_industrial_heat_sources.csv`](data/reference/known_industrial_heat_sources.csv) |
