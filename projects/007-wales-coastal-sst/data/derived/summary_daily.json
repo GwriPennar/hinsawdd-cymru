@@ -1,0 +1,28 @@
+{
+  "project": "007-wales-coastal-sst",
+  "stage": "B",
+  "product": "Copernicus Marine ODYSSEA L4 daily (~0.02\u00b0)",
+  "bbox": {
+    "lon_min": -6.5,
+    "lon_max": -2.6,
+    "lat_min": 51.2,
+    "lat_max": 53.6
+  },
+  "climatology": "2019-2023 day-of-year (ODYSSEA)",
+  "series_start": "2018-01-01T00:00:00+00:00",
+  "series_end": "2026-08-21T00:00:00+00:00",
+  "n_days": 3155,
+  "latest_date": "2026-08-21",
+  "latest_sst_c": 17.549,
+  "latest_anomaly_c": 1.189,
+  "mean_anomaly_last_30d_c": 1.388,
+  "mean_sst_last_30d_c": 17.231,
+  "latest_oni_season": "MJJ",
+  "latest_oni_year": 2026,
+  "latest_oni": 1.39,
+  "outputs": {
+    "daily_csv": "wales_shelf_sst_daily.csv",
+    "anomaly_grid_csv": "wales_shelf_sst_daily_anomaly_grid_latest.csv"
+  },
+  "caveat": "Wales-shelf area-mean from ODYSSEA L4 foundation SST (daily analysis). Anomalies use 2019\u20132023 ODYSSEA day-of-year normals (not 1991\u20132020). ONI is Pacific ENSO context only \u2014 not Wales causation."
+}

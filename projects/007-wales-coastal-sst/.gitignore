@@ -1,8 +1,10 @@
-# Bulky full HadISST downloads (case-sensitive names from Met Office)
+# Bulky full HadISST / ODYSSEA NetCDF extracts (retain derived CSV + provenance)
 data/raw/*.nc
 data/raw/*.nc.gz
 data/raw/HadISST_sst.nc
 data/raw/HadISST_sst.nc.gz
+data/raw/odyssea_yearly/
+data/raw/_probe_odyssea.nc
 __pycache__/
 *.pyc
 .pytest_cache/

@@ -1,0 +1,32 @@
+{
+  "product": "Copernicus Marine ODYSSEA NW Shelf / IBI L4 SST (NRT)",
+  "product_id": "SST_ATL_SST_L4_NRT_OBSERVATIONS_010_025",
+  "dataset_id": "IFREMER-ATL-SST-L4-NRT-OBS_FULL_TIME_SERIE",
+  "bbox": {
+    "lon_min": -6.5,
+    "lon_max": -2.6,
+    "lat_min": 51.2,
+    "lat_max": 53.6
+  },
+  "retrieved_at_utc": "2026-08-23T02:12:24.656367+00:00",
+  "start": "2018-01-01",
+  "end": "2026-08-21",
+  "n_days": 3155,
+  "local_daily_csv": "odyssea_wales_shelf_daily_mean.csv",
+  "local_latest_nc": "odyssea_wales_latest.nc",
+  "local_yearly_dir": "odyssea_yearly",
+  "yearly_files": [
+    "odyssea_wales_2018.nc",
+    "odyssea_wales_2019.nc",
+    "odyssea_wales_2020.nc",
+    "odyssea_wales_2021.nc",
+    "odyssea_wales_2022.nc",
+    "odyssea_wales_2023.nc",
+    "odyssea_wales_2024.nc",
+    "odyssea_wales_2025.nc",
+    "odyssea_wales_2026.nc"
+  ],
+  "sha256_daily_csv": "82015c0ec2dde9c189e8036d0d88018b5f1ec89032f5e7474d6b63a853c13611",
+  "sha256_latest_nc": "c20a640194efb597adf707f0943de1a1707f6fd7784df315afc4a3131e29c59e",
+  "note": "Yearly NetCDF extracts are local/cache only; derived daily CSV is retained in git."
+}

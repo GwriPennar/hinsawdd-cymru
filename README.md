@@ -16,15 +16,15 @@ Hinsawdd Cymru is a public-facing research repository. Each numbered project ask
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Transparent comparison of public water supply and modelled data-centre demand. |
 | [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Reference-grade PM2.5 baseline from Welsh AURN monitoring stations. |
 | [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical GIF playback and external corroboration. |
-| [007](projects/007-wales-coastal-sst/) | Wales coastal sea-surface temperature | **Stage A published** | HadISST1 monthly Wales-shelf mean and anomaly (1991–2020); NOAA ONI as Pacific context only. |
+| [007](projects/007-wales-coastal-sst/) | Wales coastal sea-surface temperature | **Stage B published** | ODYSSEA daily (~0.02°) Wales-shelf mean and anomaly; HadISST monthly climate baseline; NOAA ONI as Pacific context only. |
 
 ## Project 007 — Wales coastal SST
 
-Project 007 publishes an open Met Office **HadISST1** monthly Wales-shelf area-mean SST series (bbox lon −6.5…−2.6, lat 51.2…53.6), 1991–2020 anomalies, a latest-month anomaly map, and a separate NOAA ONI ENSO context panel. ENSO is not treated as a Wales causal driver.
+Project 007 publishes Copernicus Marine **ODYSSEA** daily Wales-shelf area-mean SST (bbox lon −6.5…−2.6, lat 51.2…53.6), day-of-year anomalies vs **2019–2023**, a latest-day anomaly map, and a separate NOAA ONI ENSO context panel. Stage A **HadISST1** monthly remains the long climate baseline. ENSO is not treated as a Wales causal driver.
 
-Latest HadISST month in the Stage A run (**2026-06**): shelf-box SST **14.5 °C**, anomaly **+1.07 °C**; trailing 12-month mean anomaly **+0.71 °C**.
+Latest ODYSSEA day (**2026-08-21**): shelf-box SST **17.5 °C**, anomaly **+1.19 °C**; trailing 30-day mean anomaly **+1.39 °C**.
 
-<a href="projects/007-wales-coastal-sst/figures/wales_shelf_sst_history_dark.png"><img src="projects/007-wales-coastal-sst/figures/wales_shelf_sst_history_dark.png" alt="Wales shelf HadISST monthly SST history" width="100%"></a>
+<a href="projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_history_dark.png"><img src="projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_history_dark.png" alt="Wales shelf ODYSSEA daily SST history" width="100%"></a>
 
 <p align="center"><a href="projects/007-wales-coastal-sst/">Project 007</a> · <a href="projects/007-wales-coastal-sst/METHODOLOGY.md">Methodology</a></p>
 

@@ -12,7 +12,13 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
-sst = ["numpy>=1.26", "scipy>=1.11"]
+sst = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "xarray>=2024.10",
+  "h5netcdf>=1.3",
+  "copernicusmarine>=2.0",
+]
 
 [tool.setuptools.packages.find]
 exclude = ["secrets*", "projects*", "tests*"]
