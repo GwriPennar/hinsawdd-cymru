@@ -15,7 +15,7 @@ Hinsawdd Cymru is a public-facing research repository. Each numbered project ask
 | [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis | July 2026 was exceptionally dry; the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. |
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Transparent comparison of public water supply and modelled data-centre demand. |
 | [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Reference-grade PM2.5 baseline from Welsh AURN monitoring stations. |
-| [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical record and external corroboration. |
+| [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical GIF playback and external corroboration. |
 
 ## Project 006 — Wales Wildfire Watch
 
@@ -30,6 +30,14 @@ The map is generated programmatically with **Python, pandas, Matplotlib and Seab
 <p align="center"><a href="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark_square.png"><img src="projects/006-wildfire-watch/published/figures/wales_wildfire_watch_dark_square.png" alt="Latest square Wales Wildfire Watch map" width="72%"></a></p>
 
 The current published two-day run (snapshot **21 August 2026 16:34 UTC**, latest obs **13:12 UTC**) contains **19 VIIRS detections in the Wales watch window** and **4 derived candidate clusters inside the official Wales boundary**. These are thermal anomalies, **not a confirmed wildfire count**. The top-ranked cluster this refresh is **Glascwm** (plausible, multi-satellite). Swansea/Gower 24h watch is quiet (**0** detections).
+
+### Heat-anomaly history animation
+
+Day-by-day playback of Wales-watch VIIRS thermal anomalies from **15 June 2026** onward (4 fps). Not confirmed wildfires.
+
+<a href="projects/006-wildfire-watch/published/figures/wales_heat_anomalies_history_dark.gif"><img src="projects/006-wildfire-watch/published/figures/wales_heat_anomalies_history_dark.gif" alt="Animated GIF of Wales VIIRS heat anomalies from 15 June 2026 onward" width="100%"></a>
+
+<p align="center"><a href="projects/006-wildfire-watch/published/figures/wales_heat_anomalies_history_dark.html">HTML preview</a> · <a href="projects/006-wildfire-watch/">Project 006</a></p>
 
 Project 006 maintains a cumulative historical record under `data/history/`. A daily GitHub Actions workflow refreshes the latest data, rebuilds the maps, adds OpenStreetMap and Google Maps links, runs external corroboration and commits changed outputs back to `main`. Local operator tools (`firms_ping`, pass calendar, waiting room) help separate satellite geometry from FIRMS NRT lag.
 

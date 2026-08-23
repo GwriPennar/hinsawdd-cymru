@@ -16,6 +16,16 @@ Every historical API response is retained under `data/history/raw/` with its sou
 
 The cumulative normalized observation table is `data/history/detections.csv`; `data/history/daily_summary.csv` provides a lightweight day-by-day count for later trend and playback work.
 
+## History GIF
+
+`history_gif.py` renders a simple dark Wales basemap GIF from that cumulative table (default **15 June onward**, **4 fps**, one frame per UTC day, faint 2-day trail, no legend):
+
+```bash
+python projects/006-wildfire-watch/history_gif.py --fps 4 --open
+```
+
+Output: `published/figures/wales_heat_anomalies_history_dark.gif`.
+
 ## Daily continuation
 
 The scheduled GitHub Actions workflow runs once per day. It:

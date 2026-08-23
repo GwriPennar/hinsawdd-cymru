@@ -10,11 +10,11 @@ Project 006 is a reproducible research and situational-awareness workflow built 
 
 <!-- PROJECT006_STATUS_START -->
 > ✅ **Latest refresh succeeded.**  
-> Latest successful data snapshot: **21 August 2026 16:34 UTC**.  
-> Latest satellite observation in that snapshot: **21 August 2026 13:12 UTC**.  
+> Latest successful data snapshot: **21 August 2026 23:31 UTC**.  
+> Latest satellite observation in that snapshot: **21 August 2026 14:16 UTC**.  
 > Published Wales-window detections: **19**. Derived candidate clusters inside the official Wales boundary: **4**.  
-> Latest refresh attempt: **21 August 2026 16:38 UTC**.  
-> Date-stamped map stem for this successful snapshot: `2026-08-21_1634UTC`.
+> Latest refresh attempt: **21 August 2026 23:34 UTC**.  
+> Date-stamped map stem for this successful snapshot: `2026-08-21_2331UTC`.
 <!-- PROJECT006_STATUS_END -->
 
 ## Latest published maps
@@ -32,6 +32,14 @@ The current published two-day snapshot contains **19 VIIRS detections in the Wal
 Top ranked cluster this refresh: **Glascwm** (7 detections, multi-satellite, peak FRP ~5.6 MW, evidence band *plausible*). Swansea/Gower 24h watch: **0** detections. See [CURRENT_SITUATION.md](CURRENT_SITUATION.md).
 
 PNG maps carry a prominent UTC banner showing both the **data snapshot time** and the **latest observation time**, with a date-stamped copy beside the stable `latest` filename.
+
+### Heat-anomaly history animation
+
+Day-by-day playback of **all** Wales-watch VIIRS thermal anomalies in the cumulative history (15 June 2026 onward), dark Wales basemap, **4 fps**, no legend. Thermal anomalies are **not** confirmed wildfires.
+
+<a href="published/figures/wales_heat_anomalies_history_dark.gif"><img src="published/figures/wales_heat_anomalies_history_dark.gif" alt="Animated GIF of Wales VIIRS heat anomalies from 15 June 2026 onward" width="100%"></a>
+
+<p align="center"><a href="published/figures/wales_heat_anomalies_history_dark.html">Open HTML preview</a> · rebuild with <code>python history_gif.py --fps 4</code></p>
 
 ## Data pipeline
 
@@ -51,12 +59,13 @@ The official location label comes from the Welsh Government DataMapWales **Commu
 | `waiting_room.py` | Dark local status page tying FIRMS lag to passes |
 | `run_all.py` | Situational full refresh (publication + local Gower/wales-now) |
 | `local_watch.py` | Swansea–Gower rolling window |
+| `history_gif.py` | Dark 4 fps GIF of cumulative Wales-watch heat anomalies |
 
 Figure registry: [FIGURES.md](FIGURES.md). VIIRS browse products: [VIIRS_PRODUCTS.md](VIIRS_PRODUCTS.md).
 
 ## Historical record
 
-The first automated publication run completed a **60-day backfill**. The cumulative record continues under `data/history/` (`detections.csv`, `daily_summary.csv`, provenance and raw source responses). See [HISTORY.md](HISTORY.md).
+The first automated publication run completed a **60-day backfill**. The cumulative record continues under `data/history/` (`detections.csv`, `daily_summary.csv`, provenance and raw source responses). See [HISTORY.md](HISTORY.md). The published history GIF above is built from that table.
 
 ## Daily publication
 
@@ -85,6 +94,6 @@ A live run additionally requires `NASA_FIRMS_MAP_KEY`. Pass calendar / waiting r
 
 ## Next stages
 
-Next work includes friendlier nearest-settlement labels, recurrence/static-heat screening, vegetation context, a time-series/playback view, and later reconciliation of NRT history against NASA Standard Processing.
+Next work includes friendlier nearest-settlement labels, recurrence/static-heat screening, vegetation context, and later reconciliation of NRT history against NASA Standard Processing.
 
 See [METHODOLOGY.md](METHODOLOGY.md), [SOURCES.md](SOURCES.md), [CORRELATIONS.md](CORRELATIONS.md) and [HISTORY.md](HISTORY.md) for the full contracts and caveats.
