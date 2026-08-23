@@ -2,79 +2,72 @@
 
 ## Publication status
 
-**Stage 0 — research brief.** No published SST figures yet.
+**Stage A published.** Open HadISST1 monthly Wales-shelf series, anomaly map, and ENSO context charts (dark widescreen + square).
 
 ## Question
 
-How have sea-surface temperatures around the Welsh coast been changing in recent years and seasons, and what does the current shelf-sea state look like against a long climatology — including as a public, Wales-focused window while the Pacific El Niño / ENSO cycle evolves?
+How have sea-surface temperatures around the Welsh coast been changing against a long climatology, and what does the current shelf-sea state look like — including as a public Wales window while the Pacific ENSO cycle evolves?
 
-Project 007 is observational. It does **not** treat El Niño as a direct cause of Welsh coastal SST. ENSO is a **global climate-context** layer; any Wales–ENSO link must be shown empirically or left as open context.
+Project 007 is observational. It does **not** treat El Niño as a direct cause of Welsh coastal SST. ENSO is a **global climate-context** layer only.
 
-## Why now
+## What Stage A built
 
-- Welsh coastal and shelf seas are a climate and ecology signal in their own right (Irish Sea, Bristol Channel, Cardigan Bay, Celtic Sea approaches).
-- Public interest in marine heat and ENSO is high; a reproducible Wales product fills a gap between global SST dashboards and local meaning.
-- Fits the Hinsawdd Cymru pattern: open source data → retained provenance → dark-mode scientific graphics → explicit caveats.
+- Met Office **HadISST1** monthly SST subset for Wales shelf bbox `lon −6.5…−2.6`, `lat 51.2…53.6`
+- Box-mean series from **1870–present** with **1991–2020** month-of-year climatology and anomaly (°C)
+- NOAA **ONI** as a separate Pacific ENSO context strip
+- Dark charts matching [VISUAL_STYLE.md](../../VISUAL_STYLE.md): history, latest anomaly map, ENSO context (widescreen + square PNG/SVG)
+- Provenance JSON + SHA-256 for retained raw extracts under `data/raw/`
 
-## Proposed evidence layers (keep separate)
+Latest headline (HadISST month **2026-06**): shelf-box SST **14.5 °C**, anomaly **+1.07 °C** vs 1991–2020; trailing 12-month mean anomaly **+0.71 °C**. Latest ONI (MJJ 2026): **+1.39** (Pacific context only).
 
-1. **Satellite foundation SST** (daily L4 analysis) over a Wales coastal / shelf box  
-2. **Climatology & anomaly** (e.g. 1991–2020 or product-native climate normal)  
-3. **Regional series** (Irish Sea, Cardigan Bay, Bristol Channel / Severn approaches — not one undifferentiated “Wales mean” without saying so)  
-4. **Optional ENSO context** (ONI / MEI or equivalent) plotted beside Wales SST — correlation only if computed and documented  
-5. **Optional in situ checks** later (tide-gauge / buoy / Cefas where openly available)
+### History (widescreen)
 
-## Preferred Stage A data
+<a href="figures/wales_shelf_sst_history_dark.png"><img src="figures/wales_shelf_sst_history_dark.png" alt="Wales shelf HadISST monthly SST history dark chart" width="100%"></a>
 
-| Role | Candidate product | Notes |
-|---|---|---|
-| High-res NRT shelf SST | Copernicus Marine **ODYSSEA** NW Shelf / IBI L4 (`SST_ATL_SST_L4_NRT_OBSERVATIONS_010_025`) | ~0.02°; good coastal Wales / Irish Sea coverage |
-| Long climate baseline | Copernicus / Met Office **OSTIA** reprocessed L4 (`SST_GLO_SST_L4_REP_OBSERVATIONS_010_011`) | Daily foundation SST from ~1981; Met Office heritage |
-| Operational continuity | OSTIA NRT L4 (`SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001`) | Same family as reprocessed; useful for “now” |
-| ENSO context (optional) | NOAA ONI or equivalent open index | Context strip only until a Wales link is tested |
+### Latest anomaly map
 
-Access: Copernicus Marine Data Store (account + Python `copernicusmarine` or equivalent). Retain raw NetCDF (or extracted CSV) plus SHA-256 provenance under `data/raw/`.
+<a href="figures/wales_shelf_sst_anomaly_map_dark.png"><img src="figures/wales_shelf_sst_anomaly_map_dark.png" alt="Wales shelf latest HadISST anomaly map" width="100%"></a>
 
-## Working Wales shelf window (draft)
+### ENSO context
 
-Approximate analysis bbox for Stage A (lon/lat, WGS84):
+<a href="figures/wales_shelf_sst_enso_context_dark.png"><img src="figures/wales_shelf_sst_enso_context_dark.png" alt="Wales shelf SST with NOAA ONI context panel" width="100%"></a>
 
-- west **−6.5°**, south **51.2°**, east **−2.6°**, north **53.6°**
+## Why HadISST for Stage A
 
-This covers Welsh coasts and adjacent shelf water, including Bristol Channel approaches and the eastern Irish Sea fringe. Exact polygons for named sub-basins come in Stage A.
+No Copernicus Marine credentials were available for ODYSSEA/OSTIA. NOAA OISST daily via ERDDAP was unreliable in this environment. **HadISST1** is public (HadOBS), long, and enough to answer the Stage A question with a reproducible Wales-shelf mean and anomaly. Higher-resolution daily products remain the follow-on once access works — see [SOURCES.md](SOURCES.md).
+
+## Caveats
+
+- HadISST is a **1° monthly analysis**, not a coastal thermometer or bathing-water reading.
+- Coastal / land-adjacent cells are coarse; named Irish Sea / Cardigan Bay / Bristol Channel series are Stage B.
+- El Niño / La Niña are Pacific phenomena; do not headline “El Niño warms Wales” from these charts.
+- Not an official Met Office, Copernicus, NRW or Welsh Government product.
+
+## Reproduce
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[sst,dev]"
+python projects/007-wales-coastal-sst/run_stage_a.py
+# or reuse retained extracts:
+python projects/007-wales-coastal-sst/run_stage_a.py --skip-fetch
+pytest -q projects/007-wales-coastal-sst/tests
+```
+
+Bulky full HadISST NetCDF / `.nc.gz` files are gitignored; the Wales-box monthly CSV extract and provenance JSON are retained.
 
 ## Stage plan
 
 | Stage | Deliverable |
 |---|---|
-| **0** | This brief + source shortlist (current) |
-| **A** | Pull ODYSSEA/OSTIA subset; daily mean SST for Wales box; dark time-series + anomaly map; provenance |
-| **B** | Sub-basin series (Irish Sea / Cardigan Bay / Bristol Channel); seasonal climatology |
-| **C** | Optional ENSO context panel; document any (or no) contemporaneous link |
-| **D** | Marine heatwave-day counting with an explicit definition (e.g. Hobday-style) — only after Stage A is solid |
+| **0** | Research brief + source shortlist |
+| **A** | HadISST monthly Wales-box series + anomaly map + ONI context (current) |
+| **B** | Sub-basin series; higher-res daily product when access allows |
+| **C** | Documented Wales–ENSO empirical comparison (or explicit null) |
+| **D** | Marine heatwave-day counting with an explicit definition |
 
-## Caveats (non-negotiable)
+## Docs
 
-- L4 SST is an **analysis**, not a thermometer in the sea. Coastal pixels can be mixed land/sea; mask carefully.
-- Foundation SST ≠ skin SST ≠ bathing-water temperature.
-- El Niño / La Niña are Pacific phenomena; UK shelf SST is dominated by Atlantic / local processes. Do not headline “El Niño warms Wales” without evidence.
-- This is not an official Met Office, Copernicus, NRW or Welsh Government product.
-
-## Visual style
-
-Follow [VISUAL_STYLE.md](../../VISUAL_STYLE.md): dark-mode-first widescreen + square PNG/SVG; cyan/blue for sea temperature; amber/pink only for warm anomalies or extremes that need emphasis.
-
-## Reproduce (when Stage A lands)
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-# plus: copernicusmarine / xarray / netCDF4 as required by Stage A
-```
-
-Copernicus Marine credentials will be required for live pulls (`COPERNICUSMARINE_SERVICE_USERNAME` / password or the CLI login flow).
-
-## Next action
-
-Stage A: register Copernicus Marine access, lock the Wales bbox and product IDs, extract a first daily SST series and anomaly chart for the Welsh shelf.
+- [METHODOLOGY.md](METHODOLOGY.md)
+- [SOURCES.md](SOURCES.md)

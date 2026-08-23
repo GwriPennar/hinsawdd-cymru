@@ -16,7 +16,17 @@ Hinsawdd Cymru is a public-facing research repository. Each numbered project ask
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Transparent comparison of public water supply and modelled data-centre demand. |
 | [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Reference-grade PM2.5 baseline from Welsh AURN monitoring stations. |
 | [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical GIF playback and external corroboration. |
-| [007](projects/007-wales-coastal-sst/) | Wales coastal sea-surface temperature | **Stage 0 research brief** | Welsh shelf SST from open satellite analyses, with optional ENSO context — not a direct El Niño attribution. |
+| [007](projects/007-wales-coastal-sst/) | Wales coastal sea-surface temperature | **Stage A published** | HadISST1 monthly Wales-shelf mean and anomaly (1991–2020); NOAA ONI as Pacific context only. |
+
+## Project 007 — Wales coastal SST
+
+Project 007 publishes an open Met Office **HadISST1** monthly Wales-shelf area-mean SST series (bbox lon −6.5…−2.6, lat 51.2…53.6), 1991–2020 anomalies, a latest-month anomaly map, and a separate NOAA ONI ENSO context panel. ENSO is not treated as a Wales causal driver.
+
+Latest HadISST month in the Stage A run (**2026-06**): shelf-box SST **14.5 °C**, anomaly **+1.07 °C**; trailing 12-month mean anomaly **+0.71 °C**.
+
+<a href="projects/007-wales-coastal-sst/figures/wales_shelf_sst_history_dark.png"><img src="projects/007-wales-coastal-sst/figures/wales_shelf_sst_history_dark.png" alt="Wales shelf HadISST monthly SST history" width="100%"></a>
+
+<p align="center"><a href="projects/007-wales-coastal-sst/">Project 007</a> · <a href="projects/007-wales-coastal-sst/METHODOLOGY.md">Methodology</a></p>
 
 ## Project 006 — Wales Wildfire Watch
 
@@ -54,7 +64,7 @@ The repository uses a lightweight Reproducible Analytical Pipeline: source prove
 
 ## Sources and licensing
 
-Projects use public datasets from organisations including the Met Office, Welsh Government, NRW, DEFRA UK-AIR and NASA FIRMS. Source data remain subject to their original licences and copyright. Repository analysis code is released under the [MIT License](LICENSE).
+Projects use public datasets from organisations including the Met Office, Welsh Government, NRW, DEFRA UK-AIR, NASA FIRMS and NOAA. Source data remain subject to their original licences and copyright. Repository analysis code is released under the [MIT License](LICENSE).
 
 ## Independence
 

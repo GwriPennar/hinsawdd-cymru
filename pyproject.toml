@@ -12,6 +12,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+sst = ["numpy>=1.26", "scipy>=1.11"]
 
 [tool.setuptools.packages.find]
 exclude = ["secrets*", "projects*", "tests*"]
@@ -21,4 +22,5 @@ testpaths = [
   "projects/001-rolling-temperature/tests",
   "projects/002-temperature-pathways/tests",
   "projects/003-wales-rainfall/tests",
+  "projects/007-wales-coastal-sst/tests",
 ]

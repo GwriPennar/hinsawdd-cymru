@@ -1,0 +1,11 @@
+{
+  "product": "Met Office HadISST1 monthly SST",
+  "source_url": "https://www.metoffice.gov.uk/hadobs/hadisst/data/HadISST_sst.nc.gz",
+  "local_gz": "HadISST_sst.nc.gz",
+  "local_csv": "hadisst_wales_shelf_monthly.csv",
+  "bytes_gz": 243001530,
+  "sha256_gz": "f3d05710c4e30c2b37850982fa4fd4f04a5858920cf51b3997575157c586cc72",
+  "sha256_csv": "cb94f11ce5a7d3283765360dae202b265515de596a7cf0d5fb38db912e885297",
+  "n_rows": 18780,
+  "retrieved_at_utc": "2026-08-23T01:02:42.899821+00:00"
+}
