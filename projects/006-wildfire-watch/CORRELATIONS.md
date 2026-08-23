@@ -63,3 +63,16 @@ It does **not** reclassify the FIRMS pixel as a confirmed wildfire.
 | FIRMS cluster | `HC-TA-20260822-77E3817` · 51.39849, −3.39463 |
 | Offset from works | ~280 m |
 | Registry | [`known_industrial_heat_sources.csv`](data/reference/known_industrial_heat_sources.csv) |
+
+### CORR-2026-ANGLE-MILFORD-001 — Angle / Milford Haven (likely industrial)
+
+**Assessment (brief):** The **Angle** Wales candidate (`HC-TA-20260822-BE1D844`) is a weak multi-satellite **night** cluster on 22 August, but the same pin has been lighting up repeatedly since mid-June (~181 hits / ~44 days nearby; almost all night; typical FRP ~1–2 MW). That pattern fits **persistent industrial heat / flaring** in the Milford Haven strip (Valero, LNG terminals, Pembroke Power), not a spreading wildfire. Keeping it visible is useful: we can see the recurring anomaly, and a major landscape fire here would be expected to look different (stronger FRP, day+night, growth away from the usual footprint).
+
+| Field | Value |
+|---|---|
+| Status | **likely_industrial** |
+| Incident type | industrial heat (oil / gas / power complex) |
+| Screening pin | 51.68434, −5.02983 (`IND-2026-MILFORD-HAVEN-ANGLE`) |
+| FIRMS cluster | `HC-TA-20260822-BE1D844` · Angle |
+| History cue | recurring night hits since mid-June 2026 |
+| Registry | [`known_industrial_heat_sources.csv`](data/reference/known_industrial_heat_sources.csv) |
