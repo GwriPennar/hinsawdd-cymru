@@ -19,6 +19,14 @@ Access: free Copernicus Marine account + `copernicusmarine login` (credentials u
 
 WGS84 bbox: lon **−6.5…−2.6**, lat **51.2…53.6**. Daily area-mean SST is cosine-latitude weighted over ocean cells.
 
+### NW Europe snapshot window
+
+WGS84 bbox: lon **−12…3**, lat **49…61** — Ireland, Great Britain, Isle of Man, and surrounding shelf seas. Snapshot maps use the native ~0.02° ODYSSEA grid at full PNG resolution; a dashed box marks the Wales shelf headline area.
+
+### Update timing
+
+Each daily field is a **foundation SST analysis for calendar day D centred on 00:00 UTC** (not a single satellite overpass). Copernicus target delivery is **~12:00 UTC**; run the pipeline after **12:30 UTC** for the most complete latest day.
+
 ### Climatology and anomaly
 
 - Reference: **2019–2023** day-of-year (month-day) means from ODYSSEA (archive starts ~2018; not a 1991–2020 normal).
@@ -30,7 +38,10 @@ WGS84 bbox: lon **−6.5…−2.6**, lat **51.2…53.6**. Daily area-mean SST is
 - `data/derived/wales_shelf_sst_daily.csv`
 - `data/derived/wales_shelf_sst_daily_anomaly_grid_latest.csv`
 - `data/derived/summary_daily.json`
-- Dark widescreen + square PNG/SVG under `figures/wales_shelf_sst_daily_*`
+- `data/derived/nw_europe_sst_snapshot_grid_latest.csv`
+- `data/derived/nw_europe_sst_anomaly_grid_latest.csv`
+- `published/snapshot/index.html`
+- Dark widescreen + square PNG under `figures/wales_shelf_sst_daily_*` and `figures/nw_europe_*`
 
 ---
 

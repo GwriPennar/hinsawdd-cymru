@@ -4,6 +4,12 @@ data/raw/*.nc.gz
 data/raw/HadISST_sst.nc
 data/raw/HadISST_sst.nc.gz
 data/raw/odyssea_yearly/
+data/raw/odyssea_region_latest.nc
+data/raw/odyssea_region_clim.nc
+data/raw/_odyssea_region_clim_*.nc
+# Large regional grids (~20 MB); regenerate with run_stage_b.py
+data/derived/nw_europe_sst_snapshot_grid_latest.csv
+data/derived/nw_europe_sst_anomaly_grid_latest.csv
 data/raw/_probe_odyssea.nc
 __pycache__/
 *.pyc

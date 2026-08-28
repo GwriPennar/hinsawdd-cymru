@@ -8,21 +8,31 @@
     "lat_min": 51.2,
     "lat_max": 53.6
   },
+  "region_bbox": {
+    "lon_min": -12.0,
+    "lon_max": 3.0,
+    "lat_min": 49.0,
+    "lat_max": 61.0
+  },
+  "analysis_time_utc": "00:00",
+  "recommended_refresh_after_utc": "12:30",
   "climatology": "2019-2023 day-of-year (ODYSSEA)",
   "series_start": "2018-01-01T00:00:00+00:00",
-  "series_end": "2026-08-21T00:00:00+00:00",
-  "n_days": 3155,
-  "latest_date": "2026-08-21",
-  "latest_sst_c": 17.549,
-  "latest_anomaly_c": 1.189,
+  "series_end": "2026-08-26T00:00:00+00:00",
+  "n_days": 3160,
+  "latest_date": "2026-08-26",
+  "latest_sst_c": 17.474,
+  "latest_anomaly_c": 0.923,
   "mean_anomaly_last_30d_c": 1.388,
-  "mean_sst_last_30d_c": 17.231,
+  "mean_sst_last_30d_c": 17.339,
   "latest_oni_season": "MJJ",
   "latest_oni_year": 2026,
   "latest_oni": 1.39,
   "outputs": {
     "daily_csv": "wales_shelf_sst_daily.csv",
-    "anomaly_grid_csv": "wales_shelf_sst_daily_anomaly_grid_latest.csv"
+    "anomaly_grid_csv": "wales_shelf_sst_daily_anomaly_grid_latest.csv",
+    "region_sst_grid_csv": "nw_europe_sst_snapshot_grid_latest.csv",
+    "region_anomaly_grid_csv": "nw_europe_sst_anomaly_grid_latest.csv"
   },
   "caveat": "Wales-shelf area-mean from ODYSSEA L4 foundation SST (daily analysis). Anomalies use 2019\u20132023 ODYSSEA day-of-year normals (not 1991\u20132020). ONI is Pacific ENSO context only \u2014 not Wales causation."
 }

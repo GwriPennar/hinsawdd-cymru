@@ -16,9 +16,15 @@ from constants import (
     LAT_MIN,
     LON_MAX,
     LON_MIN,
+    ODYSSEA_CLIM_END,
+    ODYSSEA_CLIM_START,
     ODYSSEA_DATASET_ID,
     ODYSSEA_PRODUCT_ID,
     RAW_DIR,
+    REGION_LAT_MAX,
+    REGION_LAT_MIN,
+    REGION_LON_MAX,
+    REGION_LON_MIN,
 )
 
 try:
@@ -46,6 +52,85 @@ def _area_mean_c(sst_c: xr.DataArray) -> pd.Series:
     series.index = pd.to_datetime(series.index, utc=True)
     series.name = "sst_c"
     return series
+
+
+def fetch_region_snapshot(*, output_dir: Path = RAW_DIR, end_ts: pd.Timestamp | None = None) -> dict:
+    """Download latest-day + DOY climatology grids for the NW Europe snapshot bbox."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    if end_ts is None:
+        probe = cm.open_dataset(
+            dataset_id=ODYSSEA_DATASET_ID,
+            variables=["analysed_sst"],
+            minimum_longitude=REGION_LON_MIN,
+            maximum_longitude=REGION_LON_MIN + 0.05,
+            minimum_latitude=REGION_LAT_MIN,
+            maximum_latitude=REGION_LAT_MIN + 0.05,
+        )
+        end_ts = pd.Timestamp(probe.time.values[-1], tz="UTC")
+        probe.close()
+
+    latest_nc = output_dir / "odyssea_region_latest.nc"
+    print(f"ODYSSEA region latest day → {latest_nc.name}", flush=True)
+    if latest_nc.exists():
+        latest_nc.unlink()
+    cm.subset(
+        dataset_id=ODYSSEA_DATASET_ID,
+        variables=["analysed_sst", "mask"],
+        minimum_longitude=REGION_LON_MIN,
+        maximum_longitude=REGION_LON_MAX,
+        minimum_latitude=REGION_LAT_MIN,
+        maximum_latitude=REGION_LAT_MAX,
+        start_datetime=end_ts.strftime("%Y-%m-%dT00:00:00"),
+        end_datetime=end_ts.strftime("%Y-%m-%dT00:00:00"),
+        output_filename=latest_nc.name,
+        output_directory=str(output_dir),
+    )
+
+    md = f"{end_ts.month:02d}-{end_ts.day:02d}"
+    clim_nc = output_dir / "odyssea_region_clim.nc"
+    print(f"ODYSSEA region clim DOY {md} → {clim_nc.name}", flush=True)
+    if clim_nc.exists():
+        clim_nc.unlink()
+    clim_stacks: list[xr.DataArray] = []
+    for year in range(ODYSSEA_CLIM_START, ODYSSEA_CLIM_END + 1):
+        day = pd.Timestamp(f"{year}-{md}", tz="UTC")
+        tmp = output_dir / f"_odyssea_region_clim_{year}.nc"
+        if tmp.exists():
+            tmp.unlink()
+        cm.subset(
+            dataset_id=ODYSSEA_DATASET_ID,
+            variables=["analysed_sst", "mask"],
+            minimum_longitude=REGION_LON_MIN,
+            maximum_longitude=REGION_LON_MAX,
+            minimum_latitude=REGION_LAT_MIN,
+            maximum_latitude=REGION_LAT_MAX,
+            start_datetime=day.strftime("%Y-%m-%dT00:00:00"),
+            end_datetime=day.strftime("%Y-%m-%dT00:00:00"),
+            output_filename=tmp.name,
+            output_directory=str(output_dir),
+        )
+        with xr.open_dataset(tmp) as ds:
+            clim_stacks.append(_ocean_sst_c(ds).isel(time=0))
+        tmp.unlink(missing_ok=True)
+    clim_grid = xr.concat(clim_stacks, dim="year").mean("year")
+    xr.Dataset({"sst_c": clim_grid}).to_netcdf(clim_nc)
+
+    meta = {
+        "bbox": {
+            "lon_min": REGION_LON_MIN,
+            "lon_max": REGION_LON_MAX,
+            "lat_min": REGION_LAT_MIN,
+            "lat_max": REGION_LAT_MAX,
+        },
+        "latest_date": end_ts.date().isoformat(),
+        "clim_doy": md,
+        "local_latest_nc": latest_nc.name,
+        "local_clim_nc": clim_nc.name,
+        "sha256_latest_nc": _sha256(latest_nc),
+        "sha256_clim_nc": _sha256(clim_nc),
+    }
+    (output_dir / "odyssea_region.provenance.json").write_text(json.dumps(meta, indent=2) + "\n")
+    return meta
 
 
 def fetch_odyssea(
@@ -141,6 +226,7 @@ def fetch_odyssea(
     }
     (output_dir / "odyssea_wales_shelf.provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
     print(f"  daily means: {len(daily)} days · sha256 {provenance['sha256_daily_csv'][:12]}…", flush=True)
+    provenance["region_snapshot"] = fetch_region_snapshot(output_dir=output_dir, end_ts=end_ts)
     return provenance
 
 

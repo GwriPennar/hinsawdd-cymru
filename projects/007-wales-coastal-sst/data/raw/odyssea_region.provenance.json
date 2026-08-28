@@ -1,0 +1,14 @@
+{
+  "bbox": {
+    "lon_min": -12.0,
+    "lon_max": 3.0,
+    "lat_min": 49.0,
+    "lat_max": 61.0
+  },
+  "latest_date": "2026-08-26",
+  "clim_doy": "08-26",
+  "local_latest_nc": "odyssea_region_latest.nc",
+  "local_clim_nc": "odyssea_region_clim.nc",
+  "sha256_latest_nc": "bf470d6a97de4488d07078ed79bf02fb472962332687abbcab4d99294009716a",
+  "sha256_clim_nc": "005cdf0c5cfc25765ac6be0a70bcb2667a4c03f14979cb300aeea77b079216c3"
+}

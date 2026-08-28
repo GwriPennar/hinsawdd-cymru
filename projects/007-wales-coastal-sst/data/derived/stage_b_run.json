@@ -1,5 +1,51 @@
 {
   "stage": "B",
+  "odyssea": {
+    "product": "Copernicus Marine ODYSSEA NW Shelf / IBI L4 SST (NRT)",
+    "product_id": "SST_ATL_SST_L4_NRT_OBSERVATIONS_010_025",
+    "dataset_id": "IFREMER-ATL-SST-L4-NRT-OBS_FULL_TIME_SERIE",
+    "bbox": {
+      "lon_min": -6.5,
+      "lon_max": -2.6,
+      "lat_min": 51.2,
+      "lat_max": 53.6
+    },
+    "retrieved_at_utc": "2026-08-28T00:57:51.281931+00:00",
+    "start": "2018-01-01",
+    "end": "2026-08-26",
+    "n_days": 3160,
+    "local_daily_csv": "odyssea_wales_shelf_daily_mean.csv",
+    "local_latest_nc": "odyssea_wales_latest.nc",
+    "local_yearly_dir": "odyssea_yearly",
+    "yearly_files": [
+      "odyssea_wales_2018.nc",
+      "odyssea_wales_2019.nc",
+      "odyssea_wales_2020.nc",
+      "odyssea_wales_2021.nc",
+      "odyssea_wales_2022.nc",
+      "odyssea_wales_2023.nc",
+      "odyssea_wales_2024.nc",
+      "odyssea_wales_2025.nc",
+      "odyssea_wales_2026.nc"
+    ],
+    "sha256_daily_csv": "be3b35b1cc5e2a78dd58f1f423b3d71f3f10efe94720dacc4139d45b9806c0b6",
+    "sha256_latest_nc": "805709a2073f3491332c4bf738ab03aaa5631fb094a55edff9569c4cceb54472",
+    "note": "Yearly NetCDF extracts are local/cache only; derived daily CSV is retained in git.",
+    "region_snapshot": {
+      "bbox": {
+        "lon_min": -12.0,
+        "lon_max": 3.0,
+        "lat_min": 49.0,
+        "lat_max": 61.0
+      },
+      "latest_date": "2026-08-26",
+      "clim_doy": "08-26",
+      "local_latest_nc": "odyssea_region_latest.nc",
+      "local_clim_nc": "odyssea_region_clim.nc",
+      "sha256_latest_nc": "bf470d6a97de4488d07078ed79bf02fb472962332687abbcab4d99294009716a",
+      "sha256_clim_nc": "005cdf0c5cfc25765ac6be0a70bcb2667a4c03f14979cb300aeea77b079216c3"
+    }
+  },
   "summary": {
     "project": "007-wales-coastal-sst",
     "stage": "B",
@@ -10,21 +56,31 @@
       "lat_min": 51.2,
       "lat_max": 53.6
     },
+    "region_bbox": {
+      "lon_min": -12.0,
+      "lon_max": 3.0,
+      "lat_min": 49.0,
+      "lat_max": 61.0
+    },
+    "analysis_time_utc": "00:00",
+    "recommended_refresh_after_utc": "12:30",
     "climatology": "2019-2023 day-of-year (ODYSSEA)",
     "series_start": "2018-01-01T00:00:00+00:00",
-    "series_end": "2026-08-21T00:00:00+00:00",
-    "n_days": 3155,
-    "latest_date": "2026-08-21",
-    "latest_sst_c": 17.549,
-    "latest_anomaly_c": 1.189,
+    "series_end": "2026-08-26T00:00:00+00:00",
+    "n_days": 3160,
+    "latest_date": "2026-08-26",
+    "latest_sst_c": 17.474,
+    "latest_anomaly_c": 0.923,
     "mean_anomaly_last_30d_c": 1.388,
-    "mean_sst_last_30d_c": 17.231,
+    "mean_sst_last_30d_c": 17.339,
     "latest_oni_season": "MJJ",
     "latest_oni_year": 2026,
     "latest_oni": 1.39,
     "outputs": {
       "daily_csv": "wales_shelf_sst_daily.csv",
-      "anomaly_grid_csv": "wales_shelf_sst_daily_anomaly_grid_latest.csv"
+      "anomaly_grid_csv": "wales_shelf_sst_daily_anomaly_grid_latest.csv",
+      "region_sst_grid_csv": "nw_europe_sst_snapshot_grid_latest.csv",
+      "region_anomaly_grid_csv": "nw_europe_sst_anomaly_grid_latest.csv"
     },
     "caveat": "Wales-shelf area-mean from ODYSSEA L4 foundation SST (daily analysis). Anomalies use 2019\u20132023 ODYSSEA day-of-year normals (not 1991\u20132020). ONI is Pacific ENSO context only \u2014 not Wales causation."
   },
@@ -34,8 +90,13 @@
       "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_history_dark_square.png",
       "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_anomaly_map_dark.png",
       "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_anomaly_map_dark_square.png",
+      "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/nw_europe_sst_snapshot_dark.png",
+      "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/nw_europe_sst_anomaly_snapshot_dark.png",
+      "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/nw_europe_sst_snapshot_dark_square.png",
+      "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/nw_europe_sst_anomaly_snapshot_dark_square.png",
       "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_enso_context_dark.png",
       "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/figures/wales_shelf_sst_daily_enso_context_dark_square.png"
     ]
-  }
+  },
+  "snapshot_html": "/Users/gwri/Documents/hinsawdd-cymru/projects/007-wales-coastal-sst/published/snapshot/index.html"
 }

@@ -8,10 +8,10 @@
     "lat_min": 51.2,
     "lat_max": 53.6
   },
-  "retrieved_at_utc": "2026-08-23T02:12:24.656367+00:00",
+  "retrieved_at_utc": "2026-08-28T00:57:51.281931+00:00",
   "start": "2018-01-01",
-  "end": "2026-08-21",
-  "n_days": 3155,
+  "end": "2026-08-26",
+  "n_days": 3160,
   "local_daily_csv": "odyssea_wales_shelf_daily_mean.csv",
   "local_latest_nc": "odyssea_wales_latest.nc",
   "local_yearly_dir": "odyssea_yearly",
@@ -26,7 +26,7 @@
     "odyssea_wales_2025.nc",
     "odyssea_wales_2026.nc"
   ],
-  "sha256_daily_csv": "82015c0ec2dde9c189e8036d0d88018b5f1ec89032f5e7474d6b63a853c13611",
-  "sha256_latest_nc": "c20a640194efb597adf707f0943de1a1707f6fd7784df315afc4a3131e29c59e",
+  "sha256_daily_csv": "be3b35b1cc5e2a78dd58f1f423b3d71f3f10efe94720dacc4139d45b9806c0b6",
+  "sha256_latest_nc": "805709a2073f3491332c4bf738ab03aaa5631fb094a55edff9569c4cceb54472",
   "note": "Yearly NetCDF extracts are local/cache only; derived daily CSV is retained in git."
 }

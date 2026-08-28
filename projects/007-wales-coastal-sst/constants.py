@@ -8,10 +8,26 @@ RAW_DIR = PROJECT_DIR / "data" / "raw"
 DERIVED_DIR = PROJECT_DIR / "data" / "derived"
 FIGURES_DIR = PROJECT_DIR / "figures"
 
-LON_MIN = -6.5
-LON_MAX = -2.6
-LAT_MIN = 51.2
-LAT_MAX = 53.6
+# Wales shelf headline series (area-mean time series unchanged).
+WALES_LON_MIN = -6.5
+WALES_LON_MAX = -2.6
+WALES_LAT_MIN = 51.2
+WALES_LAT_MAX = 53.6
+# Back-compat aliases used by Stage A and Wales extracts.
+LON_MIN = WALES_LON_MIN
+LON_MAX = WALES_LON_MAX
+LAT_MIN = WALES_LAT_MIN
+LAT_MAX = WALES_LAT_MAX
+
+# NW Europe / British Isles snapshot maps (Ireland, GB, surrounding shelf seas).
+REGION_LON_MIN = -12.0
+REGION_LON_MAX = 3.0
+REGION_LAT_MIN = 49.0
+REGION_LAT_MAX = 61.0
+
+# ODYSSEA daily analysis is centred on 00:00 UTC; Copernicus target delivery ~12:00 UTC.
+ODYSSEA_ANALYSIS_TIME_UTC = "00:00"
+ODYSSEA_RECOMMENDED_REFRESH_AFTER_UTC = "12:30"
 
 CLIM_START = 1991
 CLIM_END = 2020

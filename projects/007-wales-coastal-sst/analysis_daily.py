@@ -14,9 +14,15 @@ from constants import (
     LAT_MIN,
     LON_MAX,
     LON_MIN,
+    ODYSSEA_ANALYSIS_TIME_UTC,
     ODYSSEA_CLIM_END,
     ODYSSEA_CLIM_START,
+    ODYSSEA_RECOMMENDED_REFRESH_AFTER_UTC,
     RAW_DIR,
+    REGION_LAT_MAX,
+    REGION_LAT_MIN,
+    REGION_LON_MAX,
+    REGION_LON_MIN,
 )
 
 
@@ -26,6 +32,42 @@ def _ocean_sst_c(ds: xr.Dataset) -> xr.DataArray:
 
 def _month_day_key(index: pd.DatetimeIndex) -> pd.Index:
     return pd.Index([f"{ts.month:02d}-{ts.day:02d}" for ts in index])
+
+
+def _grid_dataframe(sst_c: xr.DataArray, clim_c: xr.DataArray | None = None) -> pd.DataFrame:
+    anomaly = sst_c - clim_c if clim_c is not None else None
+    lat, lon = np.meshgrid(sst_c["latitude"].values, sst_c["longitude"].values, indexing="ij")
+    frame = {
+        "latitude": lat.ravel(),
+        "longitude": lon.ravel(),
+        "sst_c": sst_c.values.ravel(),
+    }
+    if clim_c is not None:
+        frame["clim_sst"] = clim_c.values.ravel()
+        frame["anomaly_c"] = anomaly.values.ravel()
+    return pd.DataFrame(frame).dropna(subset=["sst_c"])
+
+
+def _analyse_region_snapshot(
+    *,
+    latest_nc: Path,
+    clim_nc: Path,
+    output_dir: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    latest = xr.open_dataset(latest_nc)
+    latest_sst = _ocean_sst_c(latest).isel(time=0)
+    clim_ds = xr.open_dataset(clim_nc)
+    clim_grid = clim_ds["sst_c"]
+    anomaly = latest_sst - clim_grid
+    sst_df = _grid_dataframe(latest_sst).dropna()
+    anom_df = _grid_dataframe(latest_sst, clim_grid).dropna(subset=["anomaly_c"])
+    sst_csv = output_dir / "nw_europe_sst_snapshot_grid_latest.csv"
+    anom_csv = output_dir / "nw_europe_sst_anomaly_grid_latest.csv"
+    sst_df.to_csv(sst_csv, index=False, float_format="%.4f")
+    anom_df.to_csv(anom_csv, index=False, float_format="%.4f")
+    latest.close()
+    clim_ds.close()
+    return sst_df, anom_df
 
 
 def analyse_daily(
@@ -97,6 +139,20 @@ def analyse_daily(
     anom_df.to_csv(anom_csv, index=False, float_format="%.4f")
     latest.close()
 
+    region_latest_nc = RAW_DIR / "odyssea_region_latest.nc"
+    region_clim_nc = RAW_DIR / "odyssea_region_clim.nc"
+    region_outputs: dict[str, str] = {}
+    if region_latest_nc.exists() and region_clim_nc.exists():
+        _analyse_region_snapshot(
+            latest_nc=region_latest_nc,
+            clim_nc=region_clim_nc,
+            output_dir=output_dir,
+        )
+        region_outputs = {
+            "region_sst_grid_csv": "nw_europe_sst_snapshot_grid_latest.csv",
+            "region_anomaly_grid_csv": "nw_europe_sst_anomaly_grid_latest.csv",
+        }
+
     oni = pd.read_csv(oni_path, parse_dates=["date"])
     if getattr(oni["date"].dt, "tz", None) is None:
         oni["date"] = oni["date"].dt.tz_localize("UTC")
@@ -107,6 +163,14 @@ def analyse_daily(
         "stage": "B",
         "product": "Copernicus Marine ODYSSEA L4 daily (~0.02°)",
         "bbox": {"lon_min": LON_MIN, "lon_max": LON_MAX, "lat_min": LAT_MIN, "lat_max": LAT_MAX},
+        "region_bbox": {
+            "lon_min": REGION_LON_MIN,
+            "lon_max": REGION_LON_MAX,
+            "lat_min": REGION_LAT_MIN,
+            "lat_max": REGION_LAT_MAX,
+        },
+        "analysis_time_utc": ODYSSEA_ANALYSIS_TIME_UTC,
+        "recommended_refresh_after_utc": ODYSSEA_RECOMMENDED_REFRESH_AFTER_UTC,
         "climatology": f"{clim_start}-{clim_end} day-of-year (ODYSSEA)",
         "series_start": out_series.index.min().isoformat(),
         "series_end": out_series.index.max().isoformat(),
@@ -122,6 +186,7 @@ def analyse_daily(
         "outputs": {
             "daily_csv": series_csv.name,
             "anomaly_grid_csv": anom_csv.name,
+            **region_outputs,
         },
         "caveat": (
             "Wales-shelf area-mean from ODYSSEA L4 foundation SST (daily analysis). "

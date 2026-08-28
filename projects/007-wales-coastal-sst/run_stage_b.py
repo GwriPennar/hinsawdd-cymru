@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
 from analysis_daily import analyse_daily
 from fetch_odyssea import fetch_odyssea
 from figures_daily import render_all_daily
+from snapshot_html import render_snapshot_html
 
 
 def run(*, skip_fetch: bool = False, start: str | None = None, end: str | None = None) -> dict:
@@ -21,6 +22,7 @@ def run(*, skip_fetch: bool = False, start: str | None = None, end: str | None =
         meta["odyssea"] = fetch_odyssea(start=start, end=end)
     meta["summary"] = analyse_daily()
     meta["figures"] = render_all_daily()
+    meta["snapshot_html"] = str(render_snapshot_html())
     out = ROOT / "data" / "derived" / "stage_b_run.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(meta, indent=2) + "\n")

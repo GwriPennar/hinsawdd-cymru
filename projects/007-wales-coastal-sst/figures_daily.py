@@ -16,19 +16,37 @@ from constants import (
     DERIVED_DIR,
     FIGURES_DIR,
     HOT,
+    LAT_MAX,
+    LAT_MIN,
+    LON_MAX,
+    LON_MIN,
     MUTED,
     ODYSSEA_SERIES_CHART_YEARS,
     RAW_DIR,
+    REGION_LAT_MAX,
+    REGION_LAT_MIN,
+    REGION_LON_MAX,
+    REGION_LON_MIN,
     TEXT,
     WARM,
 )
+from map_render import draw_sst_map
 from style import finish, new_figure, new_figure_panels
+
+MAP_PNG_DPI = 150
 
 
 def _load_series(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path, parse_dates=["date"])
     df["date"] = pd.to_datetime(df["date"], utc=True)
     return df.set_index("date").sort_index()
+
+
+def _anomaly_norm(grid: pd.DataFrame) -> TwoSlopeNorm:
+    pivot = grid.pivot_table(index="latitude", columns="longitude", values="anomaly_c")
+    vmax = float(np.nanmax(np.abs(pivot.values))) if np.isfinite(pivot.values).any() else 1.0
+    vmax = max(0.5, min(5.0, vmax))
+    return TwoSlopeNorm(vmin=-vmax, vcenter=0.0, vmax=vmax)
 
 
 def render_daily_history(series: pd.DataFrame, *, output_dir: Path = FIGURES_DIR) -> list[Path]:
@@ -70,25 +88,19 @@ def render_daily_history(series: pd.DataFrame, *, output_dir: Path = FIGURES_DIR
 
 def render_daily_anomaly_map(grid: pd.DataFrame, latest_date: str, *, output_dir: Path = FIGURES_DIR) -> list[Path]:
     paths: list[Path] = []
-    g = grid
-    if len(g) > 5000:
-        # Thin ~0.02° grid for readable SVG size while keeping PNG quality enough for shelf-scale patterns.
-        lat_keep = sorted(g["latitude"].unique())[::3]
-        lon_keep = sorted(g["longitude"].unique())[::3]
-        g = g[g["latitude"].isin(lat_keep) & g["longitude"].isin(lon_keep)].copy()
-    pivot = g.pivot_table(index="latitude", columns="longitude", values="anomaly_c")
-    vmax = float(np.nanmax(np.abs(pivot.values))) if np.isfinite(pivot.values).any() else 1.0
-    vmax = max(0.5, min(5.0, vmax))
-    norm = TwoSlopeNorm(vmin=-vmax, vcenter=0.0, vmax=vmax)
+    norm = _anomaly_norm(grid)
     for square in (False, True):
         fig, ax = new_figure(square=square)
-        mesh = ax.pcolormesh(
-            pivot.columns.values,
-            pivot.index.values,
-            pivot.values,
+        mesh = draw_sst_map(
+            ax,
+            grid,
+            value_col="anomaly_c",
             cmap="RdBu_r",
             norm=norm,
-            shading="auto",
+            lon_min=LON_MIN,
+            lon_max=LON_MAX,
+            lat_min=LAT_MIN,
+            lat_max=LAT_MAX,
         )
         cb = fig.colorbar(mesh, ax=ax, fraction=0.046, pad=0.04)
         cb.set_label("SST anomaly (°C)", color=MUTED)
@@ -107,9 +119,101 @@ def render_daily_anomaly_map(grid: pd.DataFrame, latest_date: str, *, output_dir
             fig,
             out,
             square=square,
+            png_dpi=MAP_PNG_DPI,
+            save_svg=False,
             source_note=(
                 "Copernicus Marine ODYSSEA L4 · anomaly vs 2019–2023 same calendar day · "
                 "Hinsawdd Cymru Project 007 Stage B"
+            ),
+        )
+        paths.append(out.with_suffix(".png"))
+    return paths
+
+
+def render_region_snapshot_maps(
+    sst_grid: pd.DataFrame,
+    anom_grid: pd.DataFrame,
+    latest_date: str,
+    *,
+    output_dir: Path = FIGURES_DIR,
+) -> list[Path]:
+    paths: list[Path] = []
+    sst_vals = sst_grid["sst_c"]
+    sst_norm = plt.Normalize(vmin=float(sst_vals.quantile(0.02)), vmax=float(sst_vals.quantile(0.98)))
+    anom_norm = _anomaly_norm(anom_grid)
+
+    for square in (False, True):
+        fig, ax = new_figure(square=square)
+        mesh = draw_sst_map(
+            ax,
+            sst_grid,
+            value_col="sst_c",
+            cmap="turbo",
+            norm=sst_norm,
+            lon_min=REGION_LON_MIN,
+            lon_max=REGION_LON_MAX,
+            lat_min=REGION_LAT_MIN,
+            lat_max=REGION_LAT_MAX,
+            show_wales_box=True,
+        )
+        cb = fig.colorbar(mesh, ax=ax, fraction=0.046, pad=0.04)
+        cb.set_label("SST (°C)", color=MUTED)
+        cb.ax.yaxis.set_tick_params(color=MUTED)
+        plt.setp(plt.getp(cb.ax.axes, "yticklabels"), color=MUTED)
+        ax.set_title(
+            f"NW Europe sea-surface temperature (ODYSSEA) · {latest_date}",
+            color=TEXT,
+            fontsize=14 if not square else 12,
+            pad=10,
+        )
+        out = output_dir / ("nw_europe_sst_snapshot_dark" + ("_square" if square else ""))
+        finish(
+            fig,
+            out,
+            square=square,
+            png_dpi=MAP_PNG_DPI,
+            save_svg=False,
+            source_note=(
+                "Copernicus Marine ODYSSEA L4 (~0.02°) · British Isles & surrounding waters · "
+                "dashed box = Wales shelf headline area · daily analysis centred 00:00 UTC · "
+                "Hinsawdd Cymru Project 007"
+            ),
+        )
+        paths.append(out.with_suffix(".png"))
+
+        fig, ax = new_figure(square=square)
+        mesh = draw_sst_map(
+            ax,
+            anom_grid,
+            value_col="anomaly_c",
+            cmap="RdBu_r",
+            norm=anom_norm,
+            lon_min=REGION_LON_MIN,
+            lon_max=REGION_LON_MAX,
+            lat_min=REGION_LAT_MIN,
+            lat_max=REGION_LAT_MAX,
+            show_wales_box=True,
+        )
+        cb = fig.colorbar(mesh, ax=ax, fraction=0.046, pad=0.04)
+        cb.set_label("SST anomaly (°C)", color=MUTED)
+        cb.ax.yaxis.set_tick_params(color=MUTED)
+        plt.setp(plt.getp(cb.ax.axes, "yticklabels"), color=MUTED)
+        ax.set_title(
+            f"NW Europe SST anomaly (ODYSSEA) · {latest_date}",
+            color=TEXT,
+            fontsize=14 if not square else 12,
+            pad=10,
+        )
+        out = output_dir / ("nw_europe_sst_anomaly_snapshot_dark" + ("_square" if square else ""))
+        finish(
+            fig,
+            out,
+            square=square,
+            png_dpi=MAP_PNG_DPI,
+            save_svg=False,
+            source_note=(
+                "Anomaly vs 2019–2023 same calendar day · dashed box = Wales shelf · "
+                "Hinsawdd Cymru Project 007"
             ),
         )
         paths.append(out.with_suffix(".png"))
@@ -189,6 +293,15 @@ def render_all_daily(
     paths: list[Path] = []
     paths += render_daily_history(series, output_dir=output_dir)
     paths += render_daily_anomaly_map(grid, latest, output_dir=output_dir)
+    region_sst = derived_dir / "nw_europe_sst_snapshot_grid_latest.csv"
+    region_anom = derived_dir / "nw_europe_sst_anomaly_grid_latest.csv"
+    if region_sst.exists() and region_anom.exists():
+        paths += render_region_snapshot_maps(
+            pd.read_csv(region_sst),
+            pd.read_csv(region_anom),
+            latest,
+            output_dir=output_dir,
+        )
     paths += render_daily_enso_context(series, oni, output_dir=output_dir)
     return {"figures": [str(p) for p in paths]}
 

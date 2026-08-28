@@ -50,7 +50,15 @@ def new_figure_panels(*, square: bool, nrows: int = 2, height_ratios=(3, 1)):
     )
 
 
-def finish(fig, output: Path, *, square: bool, source_note: str) -> None:
+def finish(
+    fig,
+    output: Path,
+    *,
+    square: bool,
+    source_note: str,
+    png_dpi: int = 100,
+    save_svg: bool = True,
+) -> None:
     for ax in fig.axes:
         ax.spines[["top", "right"]].set_visible(False)
         ax.spines[["left", "bottom"]].set_color(GRID)
@@ -62,6 +70,7 @@ def finish(fig, output: Path, *, square: bool, source_note: str) -> None:
         bottom=0.12,
     )
     output.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output.with_suffix(".png"), dpi=100, facecolor=DARK_BG)
-    fig.savefig(output.with_suffix(".svg"), facecolor=DARK_BG)
+    fig.savefig(output.with_suffix(".png"), dpi=png_dpi, facecolor=DARK_BG)
+    if save_svg:
+        fig.savefig(output.with_suffix(".svg"), facecolor=DARK_BG)
     plt.close(fig)
