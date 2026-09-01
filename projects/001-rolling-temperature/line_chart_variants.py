@@ -56,6 +56,22 @@ def _save(fig: plt.Figure, basename: Path) -> tuple[Path, Path]:
     return png, svg
 
 
+def _july_note(metadata: dict[str, float | str]) -> str:
+    july = float(metadata["july_2026_value_c"])
+    if str(metadata.get("latest_status")) == "published inputs":
+        return f"July 2026 = {july:.1f}°C (published Met Office Wales monthly input)."
+    return (
+        f"July 2026 = {july:.1f}°C illustrative scenario, "
+        "not a published Met Office value."
+    )
+
+
+def _latest_period_label(metadata: dict[str, float | str]) -> str:
+    if str(metadata.get("latest_status")) == "published inputs":
+        return "published"
+    return "illustrative"
+
+
 def render_standard(
     chart: pd.DataFrame,
     metadata: dict[str, float | str],
@@ -178,8 +194,7 @@ def render_standard(
         0.018,
         (
             "Annual boundary shifted to August–July. "
-            f"July 2026 = {float(metadata['july_2026_value_c']):.1f}°C illustrative scenario, "
-            "not a published Met Office value. Trend: Gaussian smoother, 7-year bandwidth."
+            f"{_july_note(metadata)} Trend: Gaussian smoother, 7-year bandwidth."
         ),
         ha="left",
         va="bottom",
@@ -239,14 +254,15 @@ def render_dark(
         va="bottom",
     )
     ax.scatter([latest_year], [latest], s=180, color=latest_colour, edgecolor="white", linewidth=1.1, zorder=7)
-    ax.text(2024.0, 10.74, f"2025–26 illustrative\n{latest:.2f}°C", color=foreground, fontsize=16, fontweight="bold", ha="right", va="bottom")
+    latest_label = _latest_period_label(metadata)
+    ax.text(2024.0, 10.74, f"2025–26 {latest_label}\n{latest:.2f}°C", color=foreground, fontsize=16, fontweight="bold", ha="right", va="bottom")
 
     fig.text(0.07, 0.95, "WALES: AUGUST–JULY", ha="left", va="top", fontsize=33, fontweight="bold", color=foreground)
     fig.text(0.07, 0.905, "MEAN TEMPERATURE", ha="left", va="top", fontsize=33, fontweight="bold", color=foreground)
     fig.text(0.07, 0.855, "Every equivalent 12-month period from 1884–85 to 2025–26", ha="left", va="top", fontsize=18, color=muted)
     fig.text(0.07, 0.782, f"{latest:.2f}°C", ha="left", va="top", fontsize=42, fontweight="bold", color=latest_colour)
     fig.text(0.07, 0.725, "2025–26 is the warmest equivalent period in the series", ha="left", va="top", fontsize=21, color=foreground, fontweight="bold")
-    fig.text(0.07, 0.688, "Current point uses July 2026 at 18.0°C, shown as an illustrative scenario.", ha="left", va="top", fontsize=16.5, color=muted)
+    fig.text(0.07, 0.688, _july_note(metadata), ha="left", va="top", fontsize=16.5, color=muted)
 
     ax.set_position([0.11, 0.17, 0.84, 0.45])
     ax.set_xlim(int(years[0]) - 1, latest_year + 3)
@@ -276,7 +292,7 @@ def render_dark(
         text.set_color(foreground)
     fig.text(0.07, 0.082, "Source: Met Office Wales monthly HadUK-Grid areal series. Monthly means weighted by calendar days.", ha="left", va="bottom", fontsize=12.4, color=muted)
     fig.text(0.07, 0.054, "Independent derived analysis: Hinsawdd Cymru.", ha="left", va="bottom", fontsize=12.4, color=muted)
-    fig.text(0.07, 0.031, "July 2026 remains provisional and is shown as an illustrative scenario only.", ha="left", va="bottom", fontsize=12.4, color=muted)
+    fig.text(0.07, 0.031, _july_note(metadata), ha="left", va="bottom", fontsize=12.4, color=muted)
     return _save(fig, basename)
 
 
@@ -312,7 +328,7 @@ The standard line chart reproduces the conventional historical-series view with 
 
 <p align="center"><a href="projects/001-rolling-temperature/figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png"><img src="projects/001-rolling-temperature/figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png" alt="Square dark-mode Wales August-to-July mean-temperature line chart" width="72%"></a></p>
 
-The final 2025–26 point remains provisional because July 2026 is represented by a clearly labelled illustrative scenario until the official Met Office Wales monthly value is published. [Read the full Project 001 report](projects/001-rolling-temperature/)."""
+The final 2025–26 point uses the **published Met Office July 2026 value (17.8°C)**. [Read the full Project 001 report](projects/001-rolling-temperature/)."""
     project_block = """## Reproduced line-chart views
 
 The following charts show the same validated August-to-July series in two presentation formats. Both use the calendar-day-weighted values produced by `analysis.py`; neither introduces a second temperature calculation.
@@ -329,7 +345,7 @@ The following charts show the same validated August-to-July series in two presen
 
 [Open the dark-mode chart as SVG](figures/wales_august_to_july_mean_temperature_line_chart_square_dark.svg)
 
-Both views show 2025–26 as an illustrative scenario because the retained official Met Office source still ends in June 2026. Full presentation notes are in [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md)."""
+Both views use published Met Office inputs through July 2026 (17.8°C). Full presentation notes are in [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md)."""
 
     root_text = _marked(root.read_text(encoding="utf-8"), ROOT_START, ROOT_END, root_block, "## Repository structure")
     root_text = _migrate(

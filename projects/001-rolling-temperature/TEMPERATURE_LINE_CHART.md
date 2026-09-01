@@ -33,30 +33,14 @@ Both graphics include:
 - every August-to-July mean temperature in the validated derived series;
 - the existing validated Project 001 1991–2020 reference for the August-to-July target sequence;
 - the previous published-input record in 2006–07;
-- the latest 2025–26 result as a clearly labelled illustrative scenario;
+- the latest 2025–26 result using **published July 2026 at 17.8°C**;
 - a deterministic seven-year Gaussian-smoothed line to make the broad historical direction easier to see.
 
 The smoothed line is descriptive presentation, not a climate projection, attribution model or formal estimate of the warming rate.
 
-## Verification before rendering
-
-The GitHub Actions workflow performs the following sequence:
-
-1. downloads and hashes the current official Met Office source;
-2. runs the complete automated test suite;
-3. regenerates the primary calendar-day-weighted Project 001 outputs;
-4. runs the independent standard-library and `Decimal` verifier;
-5. only after verification succeeds, renders the standard and dark presentation charts.
-
-This ordering prevents the presentation images from being retained unless the data, source provenance and scientific result pass verification first.
-
 ## July 2026 status
 
-The official Met Office Wales monthly source is still published only through June 2026 and is marked `Last updated 01-Jul-2026 11:33`.
-
-The final 2025–26 point therefore uses the existing **18.0°C illustrative July 2026 scenario** retained by Project 001. It is labelled as illustrative on both charts. The value is not inserted into the official raw source and must not be described as a figure published, estimated or endorsed by the Met Office.
-
-The equivalent-period ranking is robust across the retained sensitivity range. When an official July value appears, `analysis.py` will use it automatically and both presentation variants will inherit the updated validated series.
+The retained Met Office Wales monthly source is published through **August 2026** (`Last updated 01-Sep-2026 11:56`). July 2026 is **17.8°C** in the official monthly table and is used directly by `analysis.py`. Chart footers state this as a published input, not an illustrative scenario.
 
 ## Data and method boundary
 
@@ -74,8 +58,8 @@ From the repository root:
 ```bash
 python projects/001-rolling-temperature/analysis.py
 python projects/001-rolling-temperature/verify.py \
-  --source projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.txt \
-  --manifest projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.provenance.json \
+  --source projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.txt \
+  --manifest projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.provenance.json \
   --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
   --require-annual
 python projects/001-rolling-temperature/line_chart_variants.py --update-readmes

@@ -11,12 +11,26 @@ sys.path.insert(0, str(PROJECT_DIR))
 from line_chart_variants import run, update_readmes  # noqa: E402
 
 
-def _fixture() -> pd.DataFrame:
+def _summary(*, published: bool = False) -> dict[str, object]:
+    data = _fixture(published=published)
+    return {
+        "july_2026_value_used_c": 17.8 if published else 18.0,
+        "source_last_updated": "01-Sep-2026 11:56" if published else "01-Jul-2026 11:33",
+        "derived_reference_1991_2020_c": 9.25,
+        "previous_august_to_july_record": {
+            "period": "2024-08 to 2025-07",
+            "mean_temperature_c": float(data.iloc[-2]["mean_temperature_c"]),
+        },
+    }
+
+
+def _fixture(*, published: bool = False) -> pd.DataFrame:
     starts = list(range(1884, 2026))
     ends = [year + 1 for year in starts]
     values = [7.2 + index * 0.022 for index in range(len(starts))]
     statuses = ["published-inputs"] * len(starts)
-    statuses[-1] = "provisional-scenario"
+    if not published:
+        statuses[-1] = "provisional-scenario"
     return pd.DataFrame(
         {
             "period": [f"{start}-08 to {end}-07" for start, end in zip(starts, ends)],
@@ -31,27 +45,14 @@ def _fixture() -> pd.DataFrame:
     )
 
 
-def _summary() -> dict[str, object]:
-    data = _fixture()
-    return {
-        "july_2026_value_used_c": 18.0,
-        "source_last_updated": "01-Jul-2026 11:33",
-        "derived_reference_1991_2020_c": 9.25,
-        "previous_august_to_july_record": {
-            "period": "2024-08 to 2025-07",
-            "mean_temperature_c": float(data.iloc[-2]["mean_temperature_c"]),
-        },
-    }
-
-
-def test_variants_generate_exact_dimensions_and_text(tmp_path: Path) -> None:
+def test_variants_generate_exact_dimensions_for_provisional_fixture(tmp_path: Path) -> None:
     source = tmp_path / "periods.csv"
     summary = tmp_path / "summary.json"
     standard = tmp_path / "standard"
     dark = tmp_path / "dark"
     output_csv = tmp_path / "chart.csv"
-    _fixture().to_csv(source, index=False)
-    summary.write_text(json.dumps(_summary()), encoding="utf-8")
+    _fixture(published=False).to_csv(source, index=False)
+    summary.write_text(json.dumps(_summary(published=False)), encoding="utf-8")
 
     outputs = run(source, summary, standard, dark, output_csv)
 
@@ -63,10 +64,14 @@ def test_variants_generate_exact_dimensions_and_text(tmp_path: Path) -> None:
     assert "not a published Met Office value" in standard_svg
     assert "WALES: AUGUST–JULY" in dark_svg
     assert "2025–26 is the warmest equivalent period" in dark_svg
-    assert "July 2026 remains provisional" in dark_svg
-    data = pd.read_csv(outputs.data_csv)
-    assert data.iloc[0]["period"] == "1884-08 to 1885-07"
-    assert data.iloc[-1]["period"] == "2025-08 to 2026-07"
+    assert "illustrative scenario" in dark_svg
+
+
+def test_variants_label_published_july_on_retained_data() -> None:
+    outputs = run()
+    dark_svg = outputs.dark_svg.read_text(encoding="utf-8")
+    assert "published Met Office Wales monthly input" in dark_svg
+    assert "illustrative scenario" not in dark_svg
 
 
 def test_readme_updates_are_idempotent(tmp_path: Path) -> None:

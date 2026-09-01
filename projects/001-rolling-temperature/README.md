@@ -81,14 +81,14 @@ The following charts show the same validated August-to-July series in two presen
 
 [Open the dark-mode chart as SVG](figures/wales_august_to_july_mean_temperature_line_chart_square_dark.svg)
 
-Both views show 2025–26 as an illustrative scenario because the retained official Met Office source still ends in June 2026. Full presentation notes are in [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md).
+Both views use published Met Office inputs through July 2026 (17.8°C). Full presentation notes are in [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md).
 <!-- END LINE CHART PREVIEWS -->
 
 ## Historical trend since records began
 
 ![Wales August-to-July mean temperature from 1884-85 to 2025-26](figures/wales_august_to_july_mean_temperature_provisional.svg)
 
-**Figure 1.** Every complete August-to-July period in the published Wales series is shown from 1884-85 onward. The thinner line shows individual 12-month periods. The heavier line shows the trailing 10-year average, which reduces short-term variability and makes the longer-term direction easier to see. The latest point uses the July 2026 illustrative scenario stated in the chart footer.
+**Figure 1.** Every complete August-to-July period in the published Wales series is shown from 1884-85 onward. The thinner line shows individual 12-month periods. The heavier line shows the trailing 10-year average, which reduces short-term variability and makes the longer-term direction easier to see. The latest point uses the published July 2026 Met Office value (17.8°C).
 
 ### How to read the graph
 
@@ -99,53 +99,45 @@ The trailing 10-year average answers a different question. It shows whether grou
 The chart also marks:
 
 - the previous equivalent-period high in 2006-07;
-- the current 2025-26 illustrative result;
+- the current 2025-26 published result;
 - the repository-derived 1991-2020 reference for the same August-to-July sequence.
 
 ## What the results show
 
-### 1. The equivalent-period record is robust
+### 1. The equivalent-period record is confirmed on published inputs
 
-The central scenario gives a mean of approximately 10.63°C, around 0.31°C above the previous August-to-July high. Even the lowest tested July scenario produces approximately 10.61°C, still well above the previous value.
-
-The more important robustness calculation is the break-even point. July would need to average only 14.33°C for the current August-to-July period to exceed the previous record. This is far below the previous published July record of 17.8°C.
-
-The conclusion that this is the warmest August-to-July period therefore does not depend on guessing the final July figure to the nearest tenth or hundredth of a degree.
+August 2025 to July 2026 averages **10.61°C** on published Met Office monthly values, approximately **0.29°C above** the previous August-to-July high (2006-07, **10.32°C**). This is the warmest equivalent period in the 142-period record.
 
 ### 2. Recent warm periods are strongly represented near the top
 
 Six of the ten highest equivalent August-to-July values are the current period or periods ending between 2022 and 2025. This does not replace a formal trend analysis, but it provides useful descriptive context for the full-record graph.
 
-The 2006-07 period remains the highest equivalent period based entirely on published historical inputs. The 2025-26 period moves above it only after adding the clearly labelled July 2026 scenario.
-
-### 3. The result is fourth across all monthly-start 12-month windows
+### 3. The result is fifth across all monthly-start 12-month windows
 
 An August-to-July ranking compares each period on the same seasonal sequence. The project also tests every possible complete 12-month window beginning in any calendar month.
 
-Under the central scenario, August 2025 to July 2026 ranks fourth in that broader comparison. Three overlapping 12-month windows around the exceptionally warm 2006-07 period remain slightly higher. This distinction prevents the narrower August-to-July result from being described incorrectly as the warmest possible 12-month window in the entire record.
+August 2025 to July 2026 ranks **fifth** in that broader comparison. Three overlapping 12-month windows around the exceptionally warm 2006-07 period remain slightly higher. This distinction prevents the narrower August-to-July result from being described incorrectly as the warmest possible 12-month window in the entire record.
 
 ### 4. The reference-period anomalies are exceptional one-period values
 
-The central scenario is approximately:
+The published 2025-26 period is approximately:
 
-- **1.21°C above** the repository-derived 1991-2020 reference for the August-to-July sequence;
-- **2.02°C above** the repository-derived 1961-1990 reference.
+- **1.19°C above** the repository-derived 1991-2020 reference for the August-to-July sequence;
+- **2.00°C above** the repository-derived 1961-1990 reference.
 
-These are anomalies for one unusually warm 12-month period. They must not be restated as evidence that Wales has permanently warmed by 1.21°C or 2.02°C. Long-term warming is assessed using sustained averages and dedicated climate analyses.
+These are anomalies for one unusually warm 12-month period. They must not be restated as evidence that Wales has permanently warmed by 1.19°C or 2.00°C. Long-term warming is assessed using sustained averages and dedicated climate analyses.
 
-### 5. The exact final mean remains provisional
+### 5. Dataset revisions remain possible
 
-The final Wales July 2026 monthly area-average was not present in the retained Met Office source when this report was generated. The precise 10.63°C figure can therefore change by a few hundredths when July is published.
-
-The script automatically uses the published July value once it appears in the official monthly series. The retained source is never edited to insert a scenario.
+The Met Office may revise provisional or historical values when quality-control processes are updated. Each refresh produces a new immutable snapshot rather than silently replacing the retained source.
 ## Data source and provenance
 
 The project uses the Met Office National Climate Information Centre's published monthly, seasonal and annual mean air-temperature series for Wales.
 
 The retained source file is an exact, unmodified HTTP response:
 
-- [`data/raw/metoffice-wales-tmean-source-2026-07-01.txt`](data/raw/metoffice-wales-tmean-source-2026-07-01.txt)
-- [`data/raw/metoffice-wales-tmean-source-2026-07-01.provenance.json`](data/raw/metoffice-wales-tmean-source-2026-07-01.provenance.json)
+- [`data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.txt`](data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.txt)
+- [`data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.provenance.json`](data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.provenance.json)
 
 The provenance manifest records the source URL, retrieval time, source update time, HTTP metadata, byte count and SHA-256 digest. The raw source and normalized derived data are kept separate.
 
@@ -194,7 +186,7 @@ Project 001 was revalidated end to end against an exact-byte Met Office download
 The validation included:
 
 - checking the SHA-256 source digest against the provenance manifest;
-- checking complete monthly continuity from January 1884 through June 2026;
+- checking complete monthly continuity from January 1884 through August 2026;
 - preventing duplicate year-month observations;
 - using explicit column positions from the official table header;
 - reconstructing annual means from monthly values;
@@ -214,7 +206,7 @@ The results of the validation run were:
 | Primary and independent period mean agreement | **Pass** |
 | Historical rank agreement | **Pass** |
 | Break-even July agreement | **Pass** |
-| Automated tests | **9 passed** |
+| Automated tests | **28 passed** |
 
 The small annual reconciliation differences are expected because the monthly public values are rounded to 0.1°C while the official annual column is published at greater precision.
 
@@ -240,9 +232,9 @@ Those are upstream Met Office responsibilities. Their documented observation, st
 
 The public monthly figures are rounded to 0.1°C. Calculations from the published table may differ by a few hundredths from calculations using the underlying unrounded grids. The margin over the previous August-to-July record is large enough that this does not affect the ranking.
 
-### Illustrative July value
+### Published July 2026
 
-The 18.0°C July value is not a forecast, estimate or confidence interval. It is a transparent scenario used to produce a provisional full-period value while the exact month is absent from the published source.
+July 2026 is now present in the retained Met Office source at **17.8°C**. Earlier refreshes used an illustrative 18.0°C scenario only while the month was absent from the published monthly table; that scenario is no longer used when the official value is available.
 
 ### Descriptive trend
 
@@ -278,8 +270,8 @@ Run the independent verifier against the retained source:
 
 ```bash
 python projects/001-rolling-temperature/verify.py \
-  --source projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.txt \
-  --manifest projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-source-2026-07-01.provenance.json \
+  --source projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.txt \
+  --manifest projects/001-rolling-temperature/data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.provenance.json \
   --primary-summary projects/001-rolling-temperature/data/derived/summary.json \
   --require-annual
 ```

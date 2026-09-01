@@ -46,15 +46,46 @@ The primary implementation uses pandas. The verifier uses standard-library parsi
 
 This avoids a common false assurance in which tests simply call the same function that produced the original result.
 
-## Provisional conclusion under test
+## Published conclusion (September 2026 refresh)
 
-Using an illustrative July 2026 value of 18.0°C:
+Using the published July 2026 Met Office value of **17.8°C**:
 
-- August 2025 to July 2026 mean: approximately 10.63°C;
-- previous August-to-July high: approximately 10.32°C, in 2006-07;
-- July 2026 value required to exceed it: approximately 14.33°C.
+- August 2025 to July 2026 mean: **10.61°C**;
+- previous August-to-July high: **10.32°C**, in 2006-07;
+- margin over previous high: **+0.29°C**;
+- rank among August-to-July periods: **1st of 142**;
+- rank among all monthly-start 12-month windows: **5th**.
 
-The record ranking is therefore insensitive to the final few hundredths of the July value. The exact mean remains provisional until July is published in the official monthly series.
+July 2026 is present in the retained official monthly series. Earlier workflow versions used an illustrative 18.0°C scenario only while the month was absent from the published table.
+
+## Verification run, 1 September 2026
+
+The project was rerun end to end against an exact-byte download of the public Met Office Wales series.
+
+| Item | Verified value |
+|---|---|
+| Source last updated | `01-Sep-2026 11:56` |
+| Exact source SHA-256 | `1d31f8913bdf127550f42e5f8e97cd39270f4bc9c2f6251528d91068340543f0` |
+| Published monthly coverage | January 1884 to August 2026 |
+| Complete years reconciled | 142 |
+| Maximum absolute difference from official annual column | **0.02192°C** |
+| Primary and independent period mean agreement | **Pass** |
+| Primary and independent historical rank agreement | **Pass** |
+| Primary and independent break-even July agreement | **Pass** |
+| Automated tests | **28 passed** |
+
+The two implementations produced the same practical result:
+
+- published July 2026 input: **10.6098630137°C**;
+- rank among August-to-July periods: **1st**;
+- previous high: **10.3150684932°C**, August 2006 to July 2007;
+- July value required to exceed it: **14.3290322581°C**.
+
+The independent implementation uses Python's standard library and `Decimal`. It imports none of the pandas analysis functions. Differences at the last floating-point digits are below `3 × 10⁻¹⁴°C` and arise only from binary floating-point representation.
+
+## Earlier verification run, 1 August 2026
+
+An earlier snapshot (source last updated `01-Jul-2026 11:33`, coverage through June 2026) used an illustrative July scenario pending publication. That provisional workflow is superseded by the September 2026 refresh above.
 
 ## Upstream Met Office checks referenced, not reproduced
 
@@ -80,31 +111,6 @@ The project follows the UK statistical system's RAP principles by using:
 - automated tests;
 - an independent executable verification path;
 - clear separation of official, derived and provisional claims.
-
-## Verification run, 1 August 2026
-
-The project was rerun end to end against an exact-byte download of the public Met Office Wales series.
-
-| Item | Verified value |
-|---|---|
-| Source last updated | `01-Jul-2026 11:33` |
-| Exact source SHA-256 | `f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3` |
-| Published monthly coverage | January 1884 to June 2026 |
-| Complete years reconciled | 142 |
-| Maximum absolute difference from official annual column | **0.02192°C** |
-| Primary and independent period mean agreement | **Pass** |
-| Primary and independent historical rank agreement | **Pass** |
-| Primary and independent break-even July agreement | **Pass** |
-| Automated tests | **9 passed** |
-
-The two implementations produced the same practical result:
-
-- illustrative 18.0°C July scenario: **10.6268493151°C**;
-- rank among August-to-July periods: **1st**;
-- previous high: **10.3150684932°C**, August 2006 to July 2007;
-- July value required to exceed it: **14.3290322581°C**.
-
-The independent implementation uses Python's standard library and `Decimal`. It imports none of the pandas analysis functions. Differences at the last floating-point digits are below `3 × 10⁻¹⁴°C` and arise only from binary floating-point representation.
 
 ## Current status
 

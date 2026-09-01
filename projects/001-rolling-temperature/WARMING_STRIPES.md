@@ -48,7 +48,7 @@ Each mean is the existing calendar-day-weighted value produced by `analysis.py`.
 
 The August-to-July colour and bar reference is the mean of the **50 complete August–July periods ending from 1961 through 2010**, inclusive. This equivalent-period reference is calculated from the August-to-July series, not copied from the calendar-year annual reference.
 
-The retained Met Office source currently contains published Wales monthly values only through June 2026. The final **2025–26** period therefore uses the existing clearly declared **18.0°C illustrative July 2026 scenario** and is marked provisional. The scenario is not inserted into the official raw source and is not a Met Office estimate or endorsement.
+The retained Met Office source includes **published July 2026 at 17.8°C** (source updated 1 September 2026). The final **2025–26** period is therefore marked **published inputs**, not provisional.
 
 ### Pure August-to-July warming stripes
 
@@ -60,7 +60,7 @@ Each stripe is one complete August-to-July period, oldest on the left and newest
 
 ### Explained August-to-July warming stripes
 
-<a href="figures/wales_august_to_july_warming_stripes_explained.png"><img src="figures/wales_august_to_july_warming_stripes_explained.png" alt="Explained Wales August-to-July warming stripes with Celsius colour scale and provisional final-period label, 1884–85 to 2025–26" width="100%"></a>
+<a href="figures/wales_august_to_july_warming_stripes_explained.png"><img src="figures/wales_august_to_july_warming_stripes_explained.png" alt="Explained Wales August-to-July warming stripes with Celsius colour scale and published final-period label, 1884–85 to 2025–26" width="100%"></a>
 
 [Open the explained August-to-July stripes as SVG](figures/wales_august_to_july_warming_stripes_explained.svg)
 
@@ -76,7 +76,7 @@ Each variable-height bar represents one complete August-to-July period. Blue bar
 
 ### Explained August-to-July temperature bars
 
-<a href="figures/wales_august_to_july_temperature_bars_explained.png"><img src="figures/wales_august_to_july_temperature_bars_explained.png" alt="Explained Wales August-to-July temperature anomaly bars with Celsius axis, legend and provisional final-period label, 1884–85 to 2025–26" width="100%"></a>
+<a href="figures/wales_august_to_july_temperature_bars_explained.png"><img src="figures/wales_august_to_july_temperature_bars_explained.png" alt="Explained Wales August-to-July temperature anomaly bars with Celsius axis, legend and published final-period label, 1884–85 to 2025–26" width="100%"></a>
 
 [Open the explained August-to-July bars as SVG](figures/wales_august_to_july_temperature_bars_explained.svg)
 
