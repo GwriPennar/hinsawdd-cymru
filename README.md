@@ -10,7 +10,7 @@ Hinsawdd Cymru is a public-facing research repository. Each numbered project ask
 
 | ID | Project | Status | Main result |
 |---|---|---|---|
-| [001](projects/001-rolling-temperature/) | Wales August-to-July mean temperature | **Published** | Warmest equivalent August-to-July period on record (**10.61°C**, Jul 2026 published at 17.8°C). |
+| [001](projects/001-rolling-temperature/) | Wales rolling 12-month temperature (monthly) | **Published** | Latest window **Sep 2025–Aug 2026**: **10.65°C**, **3rd** warmest of 1,701 monthly-start windows. |
 | [002](projects/002-temperature-pathways/) | Wales temperature pathways | Stage A statistical baseline | Transparent statistical comparison baseline; not a physical climate forecast. |
 | [003](projects/003-wales-rainfall/) | Wales rainfall and dryness since 1836 | Published historical analysis | July 2026 was exceptionally dry; the complete August 2025–July 2026 period was slightly wetter than the 1991–2020 reference. |
 | [004](projects/004-wales-water-consumption/) | Wales water consumption and data-centre demand | Research baseline v0.1 | Transparent comparison of public water supply and modelled data-centre demand. |
