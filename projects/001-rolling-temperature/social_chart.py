@@ -283,7 +283,12 @@ def main() -> None:
         OUTPUT_BASE,
         july_2026_c=float(summary["july_2026_value_used_c"]),
         status=str(summary["analysis_status"]),
-        reference_1991_2020_c=float(summary["derived_reference_1991_2020_c"]),
+        reference_1991_2020_c=float(
+            summary.get(
+                "august_to_july_reference_1991_2020_c",
+                summary["derived_reference_1991_2020_c"],
+            )
+        ),
     )
     print(json.dumps({"png": str(png_path), "svg": str(svg_path)}, indent=2))
 

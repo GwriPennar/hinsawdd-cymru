@@ -71,6 +71,8 @@ The original August-to-July 2025–26 research question is preserved in [`archiv
 <!-- BEGIN LINE CHART PREVIEWS -->
 ## Monthly monitor charts
 
+These are **rolling 12-month windows** (monthly-start), not the archived August-to-July seasonal series. The headline window ends on the **last published calendar month** (currently August 2026).
+
 <a href="figures/wales_rolling_12_month_temperature_history.png"><img src="figures/wales_rolling_12_month_temperature_history.png" alt="Wales rolling 12-month mean temperature history" width="100%"></a>
 
 [Open the history chart as SVG](figures/wales_rolling_12_month_temperature_history.svg)
