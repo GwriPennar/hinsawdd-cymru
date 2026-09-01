@@ -116,10 +116,15 @@ def prepare_chart_data(
     chart["smoothed_trend_c"] = gaussian_smooth(years, values)
 
     try:
-        reference_mean = float(summary["derived_reference_1991_2020_c"])
+        reference_mean = float(
+            summary.get(
+                "august_to_july_reference_1991_2020_c",
+                summary["derived_reference_1991_2020_c"],
+            )
+        )
     except (KeyError, TypeError, ValueError) as exc:
         raise ValueError(
-            "summary.json must contain the validated derived_reference_1991_2020_c"
+            "summary.json must contain the validated August-to-July reference"
         ) from exc
     if not np.isfinite(reference_mean):
         raise ValueError("The validated 1991-2020 reference must be finite")

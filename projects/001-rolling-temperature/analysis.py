@@ -279,6 +279,8 @@ def run(
         )
     ]
     sensitivity = sensitivity_table(published, values)
+    aug_jul_old_reference = reference_value_for_target_sequence(monthly, 1961, 1990)
+    aug_jul_new_reference = reference_value_for_target_sequence(monthly, 1991, 2020)
     old_reference = reference_value_for_window(monthly, 1961, 1990, window_frame)
     new_reference = reference_value_for_window(monthly, 1991, 2020, window_frame)
     required_july = required_july_to_break_record(
@@ -325,7 +327,7 @@ def run(
         FIGURES_DIR / "wales_august_to_july_mean_temperature_provisional",
         july,
         status,
-        new_reference,
+        aug_jul_new_reference,
     )
 
     current_window_rank = int(current_window.rank_warmest)
@@ -381,6 +383,8 @@ def run(
         ),
         "derived_reference_1961_1990_c": old_reference,
         "derived_reference_1991_2020_c": new_reference,
+        "august_to_july_reference_1961_1990_c": aug_jul_old_reference,
+        "august_to_july_reference_1991_2020_c": aug_jul_new_reference,
         "trailing_10_window_mean_c": trailing_10,
         "top_rolling_12_month_windows": [
             {

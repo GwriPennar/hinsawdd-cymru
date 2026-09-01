@@ -72,6 +72,12 @@ def _latest_period_label(metadata: dict[str, float | str]) -> str:
     return "illustrative"
 
 
+def _compact_august_to_july_label(period: str) -> str:
+    start_year, end_part = period.split("-08 to ")
+    end_year = end_part.split("-")[0]
+    return f"{start_year}–{end_year[-2:]}"
+
+
 def render_standard(
     chart: pd.DataFrame,
     metadata: dict[str, float | str],
@@ -232,9 +238,13 @@ def render_dark(
     published = chart[chart["status"] == "published-inputs"]
     if published.empty:
         raise ValueError("No published-input periods found")
-    previous_row = published.nlargest(1, "mean_temperature_c").iloc[0]
+    prior = published[published["end_year"] < latest_year]
+    if prior.empty:
+        raise ValueError("No prior published-input periods found")
+    previous_row = prior.nlargest(1, "mean_temperature_c").iloc[0]
     previous = float(previous_row["mean_temperature_c"])
     previous_year = int(previous_row["end_year"])
+    previous_label = _compact_august_to_july_label(str(previous_row["period"]))
 
     fig, ax = plt.subplots(figsize=(SQUARE_PX / DPI, SQUARE_PX / DPI), dpi=DPI)
     fig.patch.set_facecolor(background)
@@ -246,7 +256,7 @@ def render_dark(
     ax.text(
         previous_year - 6,
         previous + 0.24,
-        f"Previous high\n2006–07  {previous:.2f}°C",
+        f"Previous high\n{previous_label}  {previous:.2f}°C",
         color=previous_colour,
         fontsize=15,
         fontweight="bold",
