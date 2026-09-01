@@ -1,4 +1,5 @@
 {
+  "monitor_mode": "monthly_rolling_12_month",
   "analysis_status": "published-inputs",
   "source": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/Wales.txt",
   "source_path": "data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.txt",
@@ -7,32 +8,134 @@
   "source_last_updated": "01-Sep-2026 11:56",
   "last_published_month": "2026-08",
   "source_provenance_manifest": "data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.provenance.json",
-  "period": "2025-08-01 to 2026-07-31",
-  "july_2026_value_used_c": 17.8,
-  "july_2026_value_kind": "published",
-  "july_2026_scenario_range_c": [
-    17.8,
-    18.3
+  "current_window": {
+    "start_month": "2025-09-01",
+    "end_month": "2026-08-01",
+    "period_label": "Sep 2025 to Aug 2026",
+    "mean_temperature_c": 10.652328767123288,
+    "rank_warmest": 3,
+    "window_count": 1701,
+    "status": "published inputs"
+  },
+  "previous_rolling_12_month_record": {
+    "period_label": "May 2006 to Apr 2007",
+    "start_month": "2006-05-01",
+    "end_month": "2007-04-01",
+    "mean_temperature_c": 10.695890410958905
+  },
+  "margin_over_previous_rolling_record_c": -0.04356164383561634,
+  "anomaly_vs_1961_1990_c": 2.0447945205479456,
+  "anomaly_vs_1991_2020_c": 1.233972602739728,
+  "derived_reference_1961_1990_c": 8.607534246575343,
+  "derived_reference_1991_2020_c": 9.41835616438356,
+  "trailing_10_window_mean_c": 10.459780821917807,
+  "top_rolling_12_month_windows": [
+    {
+      "rank": 1,
+      "period_label": "May 2006 to Apr 2007",
+      "start_month": "2006-05-01",
+      "end_month": "2007-04-01",
+      "mean_temperature_c": 10.695890410958905,
+      "status": "published inputs"
+    },
+    {
+      "rank": 2,
+      "period_label": "Jun 2006 to May 2007",
+      "start_month": "2006-06-01",
+      "end_month": "2007-05-01",
+      "mean_temperature_c": 10.687397260273972,
+      "status": "published inputs"
+    },
+    {
+      "rank": 3,
+      "period_label": "Sep 2025 to Aug 2026",
+      "start_month": "2025-09-01",
+      "end_month": "2026-08-01",
+      "mean_temperature_c": 10.652328767123288,
+      "status": "published inputs"
+    },
+    {
+      "rank": 4,
+      "period_label": "Jul 2006 to Jun 2007",
+      "start_month": "2006-07-01",
+      "end_month": "2007-06-01",
+      "mean_temperature_c": 10.646301369863016,
+      "status": "published inputs"
+    },
+    {
+      "rank": 5,
+      "period_label": "Aug 2025 to Jul 2026",
+      "start_month": "2025-08-01",
+      "end_month": "2026-07-01",
+      "mean_temperature_c": 10.60986301369863,
+      "status": "published inputs"
+    },
+    {
+      "rank": 6,
+      "period_label": "Jun 2023 to May 2024",
+      "start_month": "2023-06-01",
+      "end_month": "2024-05-01",
+      "mean_temperature_c": 10.589071038251365,
+      "status": "published inputs"
+    },
+    {
+      "rank": 7,
+      "period_label": "May 2023 to Apr 2024",
+      "start_month": "2023-05-01",
+      "end_month": "2024-04-01",
+      "mean_temperature_c": 10.521311475409837,
+      "status": "published inputs"
+    },
+    {
+      "rank": 8,
+      "period_label": "Jul 2025 to Jun 2026",
+      "start_month": "2025-07-01",
+      "end_month": "2026-06-01",
+      "mean_temperature_c": 10.507945205479452,
+      "status": "published inputs"
+    },
+    {
+      "rank": 9,
+      "period_label": "Dec 2021 to Nov 2022",
+      "start_month": "2021-12-01",
+      "end_month": "2022-11-01",
+      "mean_temperature_c": 10.503287671232878,
+      "status": "published inputs"
+    },
+    {
+      "rank": 10,
+      "period_label": "Apr 2025 to Mar 2026",
+      "start_month": "2025-04-01",
+      "end_month": "2026-03-01",
+      "mean_temperature_c": 10.499178082191781,
+      "status": "published inputs"
+    }
   ],
-  "period_mean_central_c": 10.60986301369863,
-  "period_mean_scenario_range_c": [
-    10.60986301369863,
-    10.652328767123288
-  ],
-  "rank_among_august_to_july_periods": 1,
+  "archived_august_to_july_report": {
+    "archive_path": "archive/august-to-july-2025-26/",
+    "period": "2025-08-01 to 2026-07-31",
+    "period_mean_c": 10.60986301369863,
+    "rank_among_august_to_july_periods": 1,
+    "august_to_july_period_count": 142,
+    "july_2026_value_used_c": 17.8
+  },
+  "period_mean_central_c": 10.652328767123288,
+  "rank_among_all_monthly_start_12_month_windows": 3,
   "august_to_july_period_count": 142,
+  "rank_among_august_to_july_periods": 1,
   "previous_august_to_july_record": {
     "period": "2006-08 to 2007-07",
     "mean_temperature_c": 10.315068493150687
   },
   "margin_over_previous_record_c": 0.29479452054794386,
+  "july_2026_value_used_c": 17.8,
+  "july_2026_value_kind": "published",
   "july_2026_mean_needed_to_break_previous_august_to_july_record_c": 14.32903225806454,
-  "anomaly_vs_1961_1990_c": 2.002328767123288,
-  "anomaly_vs_1991_2020_c": 1.1915068493150702,
-  "derived_reference_1961_1990_c": 8.607534246575343,
-  "derived_reference_1991_2020_c": 9.41835616438356,
+  "period_mean_scenario_range_c": [
+    10.60986301369863,
+    10.652328767123288
+  ],
   "trailing_10_period_mean_c": 10.01592349726776,
-  "rank_among_all_monthly_start_12_month_windows": 5,
   "top_august_to_july_periods": [
     {
       "rank": 1,

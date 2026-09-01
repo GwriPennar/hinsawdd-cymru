@@ -45,6 +45,8 @@ jobs:
         run: python projects/001-rolling-temperature/august_to_july_stripes.py
       - name: Build standard and dark line-chart variants
         run: python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
+      - name: Build monthly rolling monitor charts
+        run: python projects/001-rolling-temperature/monthly_monitor.py
       - name: Retain verified snapshot and outputs
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         env:
