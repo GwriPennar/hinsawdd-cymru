@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "source_url": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/Wales.txt",
+  "retrieved_at_utc": "2026-09-01T23:03:34Z",
+  "source_last_updated": "01-Sep-2026 11:56",
+  "http_status": 200,
+  "content_type": "text/plain",
+  "etag": null,
+  "last_modified": null,
+  "byte_count": 18833,
+  "sha256": "1d31f8913bdf127550f42e5f8e97cd39270f4bc9c2f6251528d91068340543f0",
+  "exact_upstream_bytes": true,
+  "transformation": "none"
+}

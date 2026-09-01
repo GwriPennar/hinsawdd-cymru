@@ -104,6 +104,6 @@ def test_readme_updates_are_idempotent(tmp_path: Path) -> None:
 def test_retained_result_remains_unchanged() -> None:
     outputs = run()
     data = pd.read_csv(outputs.data_csv)
-    assert data.iloc[-1]["mean_temperature_c"] == 10.626849
-    assert data.iloc[-1]["status"] == "provisional-scenario"
+    assert data.iloc[-1]["mean_temperature_c"] == 10.609863
+    assert data.iloc[-1]["status"] == "published-inputs"
     assert data.iloc[-1]["reference_mean_c"] == 9.418356

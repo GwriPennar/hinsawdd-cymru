@@ -10,11 +10,11 @@ This README is the self-contained public report for Project 001. It explains the
 
 The project asks whether the 12 months from **1 August 2025 to 31 July 2026** were the warmest equivalent August-to-July period in the Wales temperature record.
 
-The answer is **yes, with a strong qualification about the precise value**.
+The answer is **yes**, using published Met Office inputs throughout.
 
-The Met Office monthly Wales series currently contains published values through June 2026. July 2026 is therefore represented by an explicitly labelled illustrative scenario rather than being inserted into the official source data. Under a central July scenario of 18.0°C, the August-to-July mean is approximately **10.63°C**. Across the tested July range, the result remains between approximately **10.61°C and 10.65°C**.
+The Met Office monthly Wales series now includes **July 2026 at 17.8°C** (source updated **1 September 2026**). The August-to-July mean is **10.61°C** — approximately **0.29°C above** the previous high (August 2006 to July 2007, **10.32°C**). This is the warmest equivalent August-to-July period in the 142-period record.
 
-The previous highest equivalent period was August 2006 to July 2007, at approximately **10.32°C**. July 2026 would need to average only **14.33°C** for the current period to exceed it. The Met Office had already described July 2026 as tracking as the warmest July on record for Wales, so the historical ranking is robust even though the final mean remains provisional.
+Among all complete monthly-start 12-month windows, this period ranks **5th**; three overlapping windows around the exceptionally warm 2006–07 year remain slightly higher.
 
 This is a secondary calculation from official Met Office data. It is not an official Met Office statistic and it does not reproduce the upstream station quality-control or HadUK-Grid interpolation process.
 
@@ -27,24 +27,24 @@ The comparison is deliberately specific. It ranks like-for-like August-to-July p
 <!-- BEGIN GENERATED RESULT -->
 ## Headline results
 
-**Status:** Provisional calculation using an illustrative July scenario
+**Status:** Published-input calculation
 
 | Measure | Result |
 |---|---:|
-| Published source coverage | **January 1884 to June 2026** |
-| Illustrative July scenario | **18.0°C** |
-| August 2025 to July 2026 mean | **10.63°C** |
+| Published source coverage | **January 1884 to August 2026** |
+| Published July input | **17.8°C** |
+| August 2025 to July 2026 mean | **10.61°C** |
 | Tested July scenario range | **10.61°C to 10.65°C** |
 | Previous August-to-July high | **10.32°C**, 2006-08 to 2007-07 |
-| Central-scenario margin over previous high | **+0.31°C** |
+| Central-scenario margin over previous high | **+0.29°C** |
 | July value needed to exceed previous high | **14.33°C** |
 | Rank among equivalent August-to-July periods | **1 of 142** |
-| Rank among all monthly-start 12-month windows | **4** |
-| Difference from derived 1991–2020 reference | **+1.21°C** |
-| Difference from derived 1961–1990 reference | **+2.02°C** |
+| Rank among all monthly-start 12-month windows | **5** |
+| Difference from derived 1991–2020 reference | **+1.19°C** |
+| Difference from derived 1961–1990 reference | **+2.00°C** |
 | Current trailing 10-year average | **10.02°C** |
 
-The exact July Wales area-average is not yet present in the source. The 18.0°C value is an **illustrative scenario**, not a Met Office estimate or a confidence interval.
+The July value is present in the retained Met Office source.
 
 The record conclusion is already robust: July 2026 would need to average only **14.33°C** to exceed the previous August-to-July high.
 
@@ -52,7 +52,7 @@ The record conclusion is already robust: July 2026 would need to average only **
 
 | Rank | August-to-July period | Mean temperature | Status |
 |---:|---|---:|---|
-| 1 | 2025-08 to 2026-07 | **10.63°C** | illustrative scenario |
+| 1 | 2025-08 to 2026-07 | **10.61°C** | published inputs |
 | 2 | 2006-08 to 2007-07 | **10.32°C** | published inputs |
 | 3 | 2023-08 to 2024-07 | **10.29°C** | published inputs |
 | 4 | 2021-08 to 2022-07 | **10.27°C** | published inputs |

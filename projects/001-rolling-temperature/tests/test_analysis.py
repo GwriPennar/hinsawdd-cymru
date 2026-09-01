@@ -23,17 +23,25 @@ def test_weighted_mean_uses_days_not_equal_month_weights() -> None:
     assert weighted_mean(frame) == pytest.approx(300 / 61)
 
 
-def test_previous_august_to_july_record_is_2006_07() -> None:
+def test_current_august_to_july_period_is_warmest() -> None:
     bundle = load_source()
     series = august_to_july_series(bundle.monthly)
     warmest = series.nlargest(1, "mean_temperature_c").iloc[0]
-    assert warmest["period"] == "2006-08 to 2007-07"
-    assert warmest["mean_temperature_c"] == pytest.approx(10.3150684932)
+    assert warmest["period"] == "2025-08 to 2026-07"
+    assert warmest["mean_temperature_c"] == pytest.approx(10.6098630137)
+
+
+def test_previous_august_to_july_record_is_2006_07() -> None:
+    bundle = load_source()
+    series = august_to_july_series(bundle.monthly)
+    previous = series.loc[series["period"] == "2006-08 to 2007-07"].iloc[0]
+    assert previous["mean_temperature_c"] == pytest.approx(10.3150684932)
 
 
 def test_july_break_even_is_well_below_record_july_temperature() -> None:
     bundle = load_source()
-    previous = august_to_july_series(bundle.monthly).nlargest(1, "mean_temperature_c").iloc[0]
+    series = august_to_july_series(bundle.monthly)
+    previous = series.loc[series["period"] == "2006-08 to 2007-07"].iloc[0]
     required = required_july_to_break_record(bundle.monthly, float(previous["mean_temperature_c"]))
     assert required == pytest.approx(14.3290322581)
 

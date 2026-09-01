@@ -175,6 +175,7 @@ def update_readme(summary: dict[str, object]) -> None:
     )
     warmest_table = _warmest_periods_table(summary)
 
+    last_month = pd.Timestamp(str(summary.get("last_published_month", "2026-08")) + "-01").strftime("%B %Y")
     block = f"""{RESULT_START}
 ## Headline results
 
@@ -182,7 +183,7 @@ def update_readme(summary: dict[str, object]) -> None:
 
 | Measure | Result |
 |---|---:|
-| Published source coverage | **January 1884 to June 2026** |
+| Published source coverage | **January 1884 to {last_month}** |
 | {label} | **{summary['july_2026_value_used_c']:.1f}°C** |
 | August 2025 to July 2026 mean | **{summary['period_mean_central_c']:.2f}°C** |
 | Tested July scenario range | **{summary['period_mean_scenario_range_c'][0]:.2f}°C to {summary['period_mean_scenario_range_c'][1]:.2f}°C** |
@@ -323,6 +324,7 @@ def run(
         "source_snapshot_kind": bundle.snapshot_kind,
         "source_snapshot_sha256": sha256(bundle.path),
         "source_last_updated": bundle.source_last_updated,
+        "last_published_month": bundle.monthly.iloc[-1]["date"].strftime("%Y-%m"),
         "source_provenance_manifest": (
             str(
                 bundle.path.with_suffix(".provenance.json").relative_to(

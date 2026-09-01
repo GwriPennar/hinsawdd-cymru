@@ -1,19 +1,20 @@
 {
-  "analysis_status": "provisional-scenario",
+  "analysis_status": "published-inputs",
   "source": "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Tmean/date/Wales.txt",
-  "source_path": "data/raw/metoffice-wales-tmean-source-2026-07-01.txt",
+  "source_path": "data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.txt",
   "source_snapshot_kind": "exact_upstream_snapshot",
-  "source_snapshot_sha256": "f7a5ea26e95eb0cc9f31942728caddb2378f9c55b73d40c655a9f67971b68bc3",
-  "source_last_updated": "01-Jul-2026 11:33",
-  "source_provenance_manifest": "data/raw/metoffice-wales-tmean-source-2026-07-01.provenance.json",
+  "source_snapshot_sha256": "1d31f8913bdf127550f42e5f8e97cd39270f4bc9c2f6251528d91068340543f0",
+  "source_last_updated": "01-Sep-2026 11:56",
+  "last_published_month": "2026-08",
+  "source_provenance_manifest": "data/raw/metoffice-wales-tmean-retrieved-2026-09-01T230334Z.provenance.json",
   "period": "2025-08-01 to 2026-07-31",
-  "july_2026_value_used_c": 18.0,
-  "july_2026_value_kind": "illustrative_scenario",
+  "july_2026_value_used_c": 17.8,
+  "july_2026_value_kind": "published",
   "july_2026_scenario_range_c": [
     17.8,
     18.3
   ],
-  "period_mean_central_c": 10.626849315068492,
+  "period_mean_central_c": 10.60986301369863,
   "period_mean_scenario_range_c": [
     10.60986301369863,
     10.652328767123288
@@ -24,20 +25,20 @@
     "period": "2006-08 to 2007-07",
     "mean_temperature_c": 10.315068493150687
   },
-  "margin_over_previous_record_c": 0.31178082191780554,
+  "margin_over_previous_record_c": 0.29479452054794386,
   "july_2026_mean_needed_to_break_previous_august_to_july_record_c": 14.32903225806454,
-  "anomaly_vs_1961_1990_c": 2.0193150684931496,
-  "anomaly_vs_1991_2020_c": 1.2084931506849301,
+  "anomaly_vs_1961_1990_c": 2.002328767123288,
+  "anomaly_vs_1991_2020_c": 1.1915068493150702,
   "derived_reference_1961_1990_c": 8.607534246575343,
-  "derived_reference_1991_2020_c": 9.418356164383562,
-  "trailing_10_period_mean_c": 10.017622127404746,
-  "rank_among_all_monthly_start_12_month_windows": 4,
+  "derived_reference_1991_2020_c": 9.41835616438356,
+  "trailing_10_period_mean_c": 10.01592349726776,
+  "rank_among_all_monthly_start_12_month_windows": 5,
   "top_august_to_july_periods": [
     {
       "rank": 1,
       "period": "2025-08 to 2026-07",
-      "mean_temperature_c": 10.626849315068492,
-      "status": "illustrative scenario"
+      "mean_temperature_c": 10.60986301369863,
+      "status": "published inputs"
     },
     {
       "rank": 2,

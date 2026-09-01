@@ -1709,3 +1709,5 @@ date,year,month,mean_temperature_c,days,status
 2026-04-01,2026,4,9.300000,30,published_monthly_series
 2026-05-01,2026,5,12.400000,31,published_monthly_series
 2026-06-01,2026,6,15.900000,30,published_monthly_series
+2026-07-01,2026,7,17.800000,31,published_monthly_series
+2026-08-01,2026,8,16.800000,31,published_monthly_series

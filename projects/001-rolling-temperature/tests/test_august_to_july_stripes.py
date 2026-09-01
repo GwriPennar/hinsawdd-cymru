@@ -115,8 +115,8 @@ def test_retained_project_result_is_unchanged() -> None:
 
     assert data["period_label"].iloc[0] == "1884–85"
     assert data["period_label"].iloc[-1] == "2025–26"
-    assert data["mean_temperature_c"].iloc[-1] == pytest.approx(10.626849)
-    assert data["status"].iloc[-1] == "illustrative scenario"
+    assert data["mean_temperature_c"].iloc[-1] == pytest.approx(10.609863)
+    assert data["status"].iloc[-1] == "published inputs"
 
 
 def test_rejects_missing_or_duplicate_periods() -> None:

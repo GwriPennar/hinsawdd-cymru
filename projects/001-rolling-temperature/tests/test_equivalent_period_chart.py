@@ -124,10 +124,10 @@ def test_retained_project_result_is_unchanged() -> None:
     data, summary = load_inputs()
     chart, metadata = prepare_chart_data(data, summary)
 
-    assert chart.iloc[-1]["mean_temperature_c"] == pytest.approx(10.626849)
-    assert chart.iloc[-1]["status"] == "provisional-scenario"
-    assert metadata["latest_status"] == "illustrative scenario"
-    assert metadata["july_2026_value_c"] == pytest.approx(18.0)
+    assert chart.iloc[-1]["mean_temperature_c"] == pytest.approx(10.609863)
+    assert chart.iloc[-1]["status"] == "published-inputs"
+    assert metadata["latest_status"] == "published inputs"
+    assert metadata["july_2026_value_c"] == pytest.approx(17.8)
     assert metadata["reference_mean_c"] == pytest.approx(
         float(summary["derived_reference_1991_2020_c"])
     )

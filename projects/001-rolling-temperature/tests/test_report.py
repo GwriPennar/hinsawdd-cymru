@@ -14,8 +14,8 @@ def test_report_summary_contains_full_record_context() -> None:
 
     assert summary["august_to_july_period_count"] == 142
     assert summary["rank_among_august_to_july_periods"] == 1
-    assert summary["rank_among_all_monthly_start_12_month_windows"] == 4
-    assert summary["trailing_10_period_mean_c"] == pytest.approx(10.0176221274)
+    assert summary["rank_among_all_monthly_start_12_month_windows"] == 5
+    assert summary["trailing_10_period_mean_c"] == pytest.approx(10.0159234973)
 
     warmest = summary["top_august_to_july_periods"]
     assert len(warmest) == 10

@@ -12,7 +12,7 @@ from analysis import load_source, sha256  # noqa: E402
 def test_source_monthly_contract() -> None:
     bundle = load_source()
     assert bundle.monthly.iloc[0]["date"].strftime("%Y-%m") == "1884-01"
-    assert bundle.monthly.iloc[-1]["date"] >= pd.Timestamp("2026-06-01")
+    assert bundle.monthly.iloc[-1]["date"] >= pd.Timestamp("2026-08-01")
     assert not bundle.monthly["date"].duplicated().any()
     assert bundle.source_last_updated is not None
 
