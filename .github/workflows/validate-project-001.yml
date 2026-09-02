@@ -33,7 +33,7 @@ jobs:
       - name: Build Wales August-to-July warming stripes
         run: python projects/001-rolling-temperature/august_to_july_stripes.py
       - name: Build standard and dark line-chart variants
-        run: python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
+        run: python projects/001-rolling-temperature/line_chart_variants.py
       - name: Retain verified snapshot and outputs
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         env:
@@ -66,7 +66,7 @@ jobs:
           python projects/001-rolling-temperature/social_chart.py
           python projects/001-rolling-temperature/warming_stripes.py
           python projects/001-rolling-temperature/august_to_july_stripes.py
-          python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
+          python projects/001-rolling-temperature/line_chart_variants.py
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
