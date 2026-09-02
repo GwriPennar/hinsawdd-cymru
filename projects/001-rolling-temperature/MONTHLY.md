@@ -1,6 +1,6 @@
 # Monthly monitor
 
-Project 001 switched to a **monthly rolling 12-month monitor** in September 2026.
+Project 001 is a **monthly rolling 12-month monitor** (from September 2026).
 
 ## Headline definition
 
@@ -23,13 +23,27 @@ The original August-to-July 2025–26 research report is frozen at [`archive/aug
 - Manual: `workflow_dispatch` or locally:
 
 ```bash
-python projects/001-rolling-temperature/analysis.py --refresh
-python projects/001-rolling-temperature/monthly_monitor.py
+python projects/001-rolling-temperature/refresh.py --fetch
 ```
 
-## Outputs
+## Isolated run folders
+
+Each refresh is frozen under `runs/YYYY-MM/`:
+
+- `RUN.md` — short human-readable note
+- `manifest.json` — headline, rank, source digest
+- `data/derived/` — summary and rolling CSVs for that refresh
+- `figures/` — all rolling figures produced that month
+
+The catalog lives in [`runs/index.json`](runs/index.json). Live [`figures/`](figures/) always shows the latest refresh.
+
+## Live outputs
 
 - `data/derived/rolling_12_month_mean_temperature.csv`
 - `data/derived/summary.json`
 - `figures/wales_rolling_12_month_temperature_history.{png,svg}`
 - `figures/wales_rolling_12_month_temperature_square_dark.{png,svg}`
+- `figures/wales_rolling_12_month_temperature_line_chart.{png,svg}`
+- `figures/wales_rolling_12_month_temperature_line_chart_square_dark.{png,svg}`
+
+See [`FIGURE_STYLE.md`](FIGURE_STYLE.md) for visual parity rules.

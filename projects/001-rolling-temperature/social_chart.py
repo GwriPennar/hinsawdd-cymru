@@ -10,32 +10,26 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import pandas as pd
-import seaborn as sns
 
 from figure_style import (
     LABEL_INDIVIDUAL_PERIODS,
     LABEL_REFERENCE_1991_2020,
     LABEL_TRAILING_AVERAGE,
-    SOCIAL_AVERAGE_COLOUR,
-    SOCIAL_BACKGROUND,
-    SOCIAL_DPI,
-    SOCIAL_FIGSIZE_INCHES,
     SOCIAL_FOREGROUND,
-    SOCIAL_GRID,
     SOCIAL_MUTED,
     SOCIAL_PERIOD_COLOUR,
     SOCIAL_PREVIOUS_HIGH,
-    SOCIAL_REFERENCE_COLOUR,
 )
+from trend_charts import PointAnnotation, SocialDarkConfig, SocialHeadline, render_social_dark
 
 PROJECT_DIR = Path(__file__).resolve().parent
-DERIVED_DIR = PROJECT_DIR / "data/derived"
+DERIVED_DIR = PROJECT_DIR / "data" / "derived"
 FIGURES_DIR = PROJECT_DIR / "figures"
 SERIES_PATH = DERIVED_DIR / "august_to_july_mean_temperature.csv"
 SUMMARY_PATH = DERIVED_DIR / "summary.json"
 OUTPUT_BASE = FIGURES_DIR / "wales_august_to_july_mean_temperature_square_dark"
+
 
 def make_square_dark_figure(
     series: pd.DataFrame,
@@ -58,216 +52,54 @@ def make_square_dark_figure(
     data["trailing_10_period_mean_c"] = (
         data["mean_temperature_c"].rolling(10, min_periods=10).mean()
     )
-
     current = data.iloc[-1]
     previous = data.iloc[:-1].nlargest(1, "mean_temperature_c").iloc[0]
     current_kind = "published" if status == "published-inputs" else "illustrative"
     july_kind = "published input" if status == "published-inputs" else "illustrative scenario"
 
-    sns.set_theme(
-        style="darkgrid",
-        context="talk",
-        rc={
-            "figure.facecolor": SOCIAL_BACKGROUND,
-            "axes.facecolor": SOCIAL_BACKGROUND,
-            "axes.edgecolor": SOCIAL_MUTED,
-            "axes.labelcolor": SOCIAL_FOREGROUND,
-            "xtick.color": SOCIAL_MUTED,
-            "ytick.color": SOCIAL_MUTED,
-            "text.color": SOCIAL_FOREGROUND,
-            "grid.color": SOCIAL_GRID,
-            "grid.alpha": 0.55,
-            "legend.facecolor": SOCIAL_BACKGROUND,
-            "legend.edgecolor": SOCIAL_GRID,
-            "font.family": "DejaVu Sans",
-        },
+    return render_social_dark(
+        data,
+        output_base,
+        reference_c=reference_1991_2020_c,
+        config=SocialDarkConfig(
+            label_individual=LABEL_INDIVIDUAL_PERIODS,
+            label_average=LABEL_TRAILING_AVERAGE,
+            label_reference=LABEL_REFERENCE_1991_2020,
+            x_col="end_year",
+            y_col="mean_temperature_c",
+            trailing_col="trailing_10_period_mean_c",
+            previous=PointAnnotation(
+                float(previous.end_year),
+                float(previous.mean_temperature_c),
+                f"Previous high\n2006–07  {previous.mean_temperature_c:.2f}°C",
+                color=SOCIAL_PREVIOUS_HIGH,
+                fontsize=11,
+                fontweight="bold",
+                xytext=(-10, 24),
+            ),
+            current=PointAnnotation(
+                float(current.end_year),
+                float(current.mean_temperature_c),
+                f"2025–26 {current_kind}\n{current.mean_temperature_c:.2f}°C",
+                color=SOCIAL_FOREGROUND,
+                fontsize=12,
+                fontweight="bold",
+                xytext=(-12, 24),
+            ),
+            headline=SocialHeadline(
+                title_line1="WALES: AUGUST–JULY MEAN TEMPERATURE",
+                title_line2="",
+                subtitle="Every equivalent 12-month period from 1884–85 to 2025–26",
+                headline_value=f"{current.mean_temperature_c:.2f}°C",
+                headline_value_color=SOCIAL_PERIOD_COLOUR,
+                claim="2025–26 is the warmest equivalent period in the series",
+                note=f"Current point uses July 2026 at {july_2026_c:.1f}°C ({july_kind}).",
+                footer1="Source: Met Office Wales monthly HadUK-Grid areal series. Monthly means weighted by calendar days.",
+                footer2="Independent derived analysis: Hinsawdd Cymru • github.com/GwriPennar/hinsawdd-cymru",
+            ),
+            xlim_pad=3.0,
+        ),
     )
-    plt.rcParams.update({"svg.fonttype": "none"})
-
-    fig = plt.figure(figsize=SOCIAL_FIGSIZE_INCHES, dpi=SOCIAL_DPI, facecolor=SOCIAL_BACKGROUND)
-    ax = fig.add_axes([0.11, 0.16, 0.84, 0.52], facecolor=SOCIAL_BACKGROUND)
-
-    sns.lineplot(
-        data=data,
-        x="end_year",
-        y="mean_temperature_c",
-        ax=ax,
-        color=SOCIAL_PERIOD_COLOUR,
-        linewidth=1.7,
-        alpha=0.58,
-        label=LABEL_INDIVIDUAL_PERIODS,
-        zorder=2,
-    )
-    sns.lineplot(
-        data=data,
-        x="end_year",
-        y="trailing_10_period_mean_c",
-        ax=ax,
-        color=SOCIAL_AVERAGE_COLOUR,
-        linewidth=4.4,
-        label=LABEL_TRAILING_AVERAGE,
-        zorder=4,
-    )
-
-    ax.axhline(
-        reference_1991_2020_c,
-        color=SOCIAL_REFERENCE_COLOUR,
-        linestyle="--",
-        linewidth=1.4,
-        alpha=0.85,
-        label=LABEL_REFERENCE_1991_2020,
-        zorder=1,
-    )
-
-    ax.scatter(
-        [previous.end_year],
-        [previous.mean_temperature_c],
-        s=85,
-        color=SOCIAL_PREVIOUS_HIGH,
-        edgecolor=SOCIAL_BACKGROUND,
-        linewidth=1.5,
-        zorder=6,
-    )
-    ax.scatter(
-        [current.end_year],
-        [current.mean_temperature_c],
-        s=230,
-        color=SOCIAL_FOREGROUND,
-        edgecolor=SOCIAL_BACKGROUND,
-        linewidth=1.5,
-        zorder=7,
-    )
-    ax.scatter(
-        [current.end_year],
-        [current.mean_temperature_c],
-        s=105,
-        color=SOCIAL_PERIOD_COLOUR,
-        zorder=8,
-    )
-
-    ax.annotate(
-        f"Previous high\n2006–07  {previous.mean_temperature_c:.2f}°C",
-        (previous.end_year, previous.mean_temperature_c),
-        xytext=(-10, 24),
-        textcoords="offset points",
-        ha="right",
-        va="bottom",
-        color=SOCIAL_PREVIOUS_HIGH,
-        fontsize=11,
-        fontweight="bold",
-    )
-    ax.annotate(
-        f"2025–26 {current_kind}\n{current.mean_temperature_c:.2f}°C",
-        (current.end_year, current.mean_temperature_c),
-        xytext=(-12, 24),
-        textcoords="offset points",
-        ha="right",
-        va="bottom",
-        color=SOCIAL_FOREGROUND,
-        fontsize=12,
-        fontweight="bold",
-    )
-
-    first_end_year = int(data["end_year"].min())
-    last_end_year = int(data["end_year"].max())
-    first_tick = ((first_end_year + 9) // 10) * 10
-    ax.set_xticks(list(range(first_tick, last_end_year + 1, 20)))
-    ax.set_xlim(first_end_year, last_end_year + 3)
-    ax.set_ylim(
-        float(data["mean_temperature_c"].min()) - 0.25,
-        float(data["mean_temperature_c"].max()) + 0.55,
-    )
-    ax.set_xlabel("Period end year", fontsize=13, labelpad=12)
-    ax.set_ylabel("Mean temperature (°C)", fontsize=13, labelpad=12)
-    ax.tick_params(axis="both", labelsize=11)
-    ax.spines[["top", "right"]].set_visible(False)
-    ax.spines[["left", "bottom"]].set_color(SOCIAL_GRID)
-
-    legend = ax.legend(
-        loc="lower right",
-        frameon=True,
-        fontsize=10,
-        borderpad=0.8,
-        labelspacing=0.6,
-    )
-    legend.get_frame().set_alpha(0.85)
-    for text in legend.get_texts():
-        text.set_color(SOCIAL_FOREGROUND)
-
-    fig.text(
-        0.07,
-        0.93,
-        "WALES: AUGUST–JULY MEAN TEMPERATURE",
-        color=SOCIAL_FOREGROUND,
-        fontsize=24,
-        fontweight="bold",
-        ha="left",
-        va="top",
-    )
-    fig.text(
-        0.07,
-        0.885,
-        "Every equivalent 12-month period from 1884–85 to 2025–26",
-        color=SOCIAL_MUTED,
-        fontsize=14,
-        ha="left",
-        va="top",
-    )
-    fig.text(
-        0.07,
-        0.81,
-        f"{current.mean_temperature_c:.2f}°C",
-        color=SOCIAL_PERIOD_COLOUR,
-        fontsize=44,
-        fontweight="bold",
-        ha="left",
-        va="top",
-    )
-    fig.text(
-        0.07,
-        0.75,
-        "2025–26 is the warmest equivalent period in the series",
-        color=SOCIAL_FOREGROUND,
-        fontsize=16,
-        fontweight="bold",
-        ha="left",
-        va="top",
-    )
-    fig.text(
-        0.07,
-        0.715,
-        f"Current point uses July 2026 at {july_2026_c:.1f}°C ({july_kind}).",
-        color=SOCIAL_MUTED,
-        fontsize=11.5,
-        ha="left",
-        va="top",
-    )
-    fig.text(
-        0.07,
-        0.08,
-        "Source: Met Office Wales monthly HadUK-Grid areal series. Monthly means weighted by calendar days.",
-        color=SOCIAL_MUTED,
-        fontsize=9.5,
-        ha="left",
-        va="bottom",
-    )
-    fig.text(
-        0.07,
-        0.05,
-        "Independent derived analysis: Hinsawdd Cymru • github.com/GwriPennar/hinsawdd-cymru",
-        color=SOCIAL_MUTED,
-        fontsize=9.5,
-        ha="left",
-        va="bottom",
-    )
-
-    output_base.parent.mkdir(parents=True, exist_ok=True)
-    png_path = output_base.with_suffix(".png")
-    svg_path = output_base.with_suffix(".svg")
-    fig.savefig(png_path, dpi=SOCIAL_DPI, facecolor=SOCIAL_BACKGROUND)
-    fig.savefig(svg_path, facecolor=SOCIAL_BACKGROUND)
-    plt.close(fig)
-    return png_path, svg_path
 
 
 def main() -> None:

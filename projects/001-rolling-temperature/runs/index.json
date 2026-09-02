@@ -1,0 +1,14 @@
+{
+  "runs": [
+    {
+      "run_id": "2026-08",
+      "refreshed_at": "2026-09-02T14:33:39Z",
+      "period_label": "Sep 2025 to Aug 2026",
+      "mean_temperature_c": 10.652328767123288,
+      "rank_warmest": 3,
+      "window_count": 1701,
+      "path": "runs/2026-08"
+    }
+  ],
+  "latest_run_id": "2026-08"
+}

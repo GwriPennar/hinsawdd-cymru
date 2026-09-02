@@ -68,6 +68,16 @@ The original August-to-July 2025–26 research question is preserved in [`archiv
 | 10 | Apr 2025 to Mar 2026 | **10.50°C** | published inputs |
 <!-- END GENERATED RESULT -->
 
+<!-- BEGIN REFRESH HISTORY -->
+## Refresh history
+
+Each monthly refresh is frozen under [`runs/`](runs/index.json). The table below lists isolated run folders; live `figures/` always shows the latest refresh.
+
+| Run | Headline window | Mean | Rank | Note |
+|---|---|---:|---:|---|
+| [2026-08](runs/2026-08/RUN.md) | Sep 2025 to Aug 2026 | **10.65°C** | 3 of 1701 | [manifest](runs/2026-08/manifest.json) |
+<!-- END REFRESH HISTORY -->
+
 <!-- BEGIN LINE CHART PREVIEWS -->
 ## Monthly monitor charts
 
@@ -77,17 +87,25 @@ These are **rolling 12-month windows** (monthly-start), not the archived August-
 
 [Open the history chart as SVG](figures/wales_rolling_12_month_temperature_history.svg)
 
+<a href="figures/wales_rolling_12_month_temperature_line_chart.png"><img src="figures/wales_rolling_12_month_temperature_line_chart.png" alt="Wales rolling 12-month mean temperature line chart" width="100%"></a>
+
+[Open the standard line chart as SVG](figures/wales_rolling_12_month_temperature_line_chart.svg)
+
 <p align="center"><a href="figures/wales_rolling_12_month_temperature_square_dark.png"><img src="figures/wales_rolling_12_month_temperature_square_dark.png" alt="Square dark-mode Wales rolling 12-month temperature chart" width="78%"></a></p>
 
 [Open the dark-mode chart as SVG](figures/wales_rolling_12_month_temperature_square_dark.svg)
+
+<p align="center"><a href="figures/wales_rolling_12_month_temperature_line_chart_square_dark.png"><img src="figures/wales_rolling_12_month_temperature_line_chart_square_dark.png" alt="Square dark-mode rolling line chart" width="72%"></a></p>
+
+[Open the dark-mode line chart as SVG](figures/wales_rolling_12_month_temperature_line_chart_square_dark.svg)
 
 Each point is one complete monthly-start 12-month window. The headline window always ends on the last published calendar month in the retained Met Office source.
 
 ## Historical trend since records began
 
-![Wales August-to-July mean temperature from 1884-85 to 2025-26](figures/wales_august_to_july_mean_temperature_provisional.svg)
+![Wales rolling 12-month mean temperature history](figures/wales_rolling_12_month_temperature_history.svg)
 
-**Figure 1 (archived seasonal view).** August-to-July equivalent periods remain available for the original research question. See [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
+**Figure 1.** Complete monthly-start 12-month windows from 1884 to the latest published month. The archived August-to-July seasonal view remains at [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
 
 ### How to read the graph
 
@@ -248,15 +266,11 @@ From the repository root:
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
-python projects/001-rolling-temperature/analysis.py
-python projects/001-rolling-temperature/social_chart.py
-python projects/001-rolling-temperature/warming_stripes.py
-python projects/001-rolling-temperature/august_to_july_stripes.py
-python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
-pytest
+python projects/001-rolling-temperature/refresh.py
+pytest projects/001-rolling-temperature/tests
 ```
 
-`analysis.py` performs the scientific calculation and produces the original full-width report figure. The presentation modules read validated derived outputs without introducing a second scientific method: `social_chart.py` produces the original square dark chart, `warming_stripes.py` retains the calendar-year stripes and bars, `august_to_july_stripes.py` produces the additional complete August-to-July stripes and bars, and `line_chart_variants.py` produces the standard and square dark-mode line-chart views.
+`refresh.py` runs `analysis.py`, `verify.py`, `monthly_monitor.py` (including rolling line charts), snapshots the refresh under `runs/YYYY-MM/`, and updates the generated README blocks. August-to-July archive figures remain in [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
 
 Run the independent verifier against the retained source:
 
@@ -271,9 +285,7 @@ python projects/001-rolling-temperature/verify.py \
 Download a new immutable upstream snapshot and rerun:
 
 ```bash
-python projects/001-rolling-temperature/analysis.py --refresh
-python projects/001-rolling-temperature/monthly_monitor.py
-python projects/001-rolling-temperature/social_chart.py
+python projects/001-rolling-temperature/refresh.py --fetch
 ```
 
 A refresh writes a new timestamped source snapshot. It does not silently overwrite a different earlier source file.

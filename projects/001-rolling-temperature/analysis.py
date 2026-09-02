@@ -8,9 +8,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import pandas as pd
-import seaborn as sns
 
 from calculations import (
     all_rolling_12_month_series,
@@ -29,19 +27,18 @@ from figure_style import (
     LABEL_INDIVIDUAL_PERIODS,
     LABEL_REFERENCE_1991_2020,
     LABEL_TRAILING_AVERAGE,
-    LIGHT_AVERAGE_COLOUR,
-    LIGHT_PERIOD_COLOUR,
-    LIGHT_REFERENCE_COLOUR,
-    LIGHT_TREND_DPI,
-    LIGHT_TREND_FIGSIZE,
 )
+from snapshot_run import refresh_history_table
 from source_data import PROJECT_DIR, RAW_DIR, load_source, sha256
+from trend_charts import LightTrendConfig, PointAnnotation, render_light_trend
 
 DERIVED_DIR = PROJECT_DIR / "data/derived"
 FIGURES_DIR = PROJECT_DIR / "figures"
 README_PATH = PROJECT_DIR / "README.md"
 RESULT_START = "<!-- BEGIN GENERATED RESULT -->"
 RESULT_END = "<!-- END GENERATED RESULT -->"
+HISTORY_START = "<!-- BEGIN REFRESH HISTORY -->"
+HISTORY_END = "<!-- END REFRESH HISTORY -->"
 
 
 @dataclass(frozen=True)
@@ -58,102 +55,49 @@ def make_figure(
     status: str,
     reference_1991_2020_c: float,
 ) -> None:
-    """Create the public full-record Seaborn trend graphic."""
+    """Create the archived August-to-July full-record trend graphic."""
 
     data = series.copy()
     data["trailing_10_period_mean_c"] = (
         data["mean_temperature_c"].rolling(10, min_periods=10).mean()
     )
-
-    sns.set_theme(style="whitegrid", context="notebook")
-    plt.rcParams.update({"svg.fonttype": "none"})
-
-    fig, ax = plt.subplots(figsize=LIGHT_TREND_FIGSIZE)
-    sns.lineplot(
-        data=data,
-        x="end_year",
-        y="mean_temperature_c",
-        ax=ax,
-        color=LIGHT_PERIOD_COLOUR,
-        linewidth=1.1,
-        alpha=0.72,
-        label=LABEL_INDIVIDUAL_PERIODS,
-    )
-    sns.lineplot(
-        data=data,
-        x="end_year",
-        y="trailing_10_period_mean_c",
-        ax=ax,
-        color=LIGHT_AVERAGE_COLOUR,
-        linewidth=2.8,
-        label=LABEL_TRAILING_AVERAGE,
-    )
-
     current = data.iloc[-1]
     previous = data.iloc[:-1].nlargest(1, "mean_temperature_c").iloc[0]
-
-    ax.axhline(
-        reference_1991_2020_c,
-        color=LIGHT_REFERENCE_COLOUR,
-        linestyle=":",
-        linewidth=1.1,
-        label=LABEL_REFERENCE_1991_2020,
-    )
-    ax.scatter(
-        [previous.end_year],
-        [previous.mean_temperature_c],
-        s=45,
-        zorder=5,
-    )
-    ax.scatter(
-        [current.end_year],
-        [current.mean_temperature_c],
-        s=70,
-        zorder=6,
-    )
-    ax.annotate(
-        f"Previous high\n2006–07: {previous.mean_temperature_c:.2f}°C",
-        (previous.end_year, previous.mean_temperature_c),
-        xytext=(-12, 18),
-        textcoords="offset points",
-        ha="right",
-        fontsize=8,
-    )
     current_label = "published" if status == "published-inputs" else "illustrative"
-    ax.annotate(
-        f"2025–26 {current_label}\n{current.mean_temperature_c:.2f}°C",
-        (current.end_year, current.mean_temperature_c),
-        xytext=(-10, 18),
-        textcoords="offset points",
-        ha="right",
-        fontsize=8,
-    )
-
-    ax.set(
-        title="Wales August-to-July mean temperature, 1884–85 to 2025–26",
-        xlabel="Period end year",
-        ylabel="Mean temperature (°C)",
-    )
-    ax.set_xlim(int(data["end_year"].min()), int(data["end_year"].max()) + 2)
-    ax.spines[["top", "right"]].set_visible(False)
-    ax.legend(frameon=False, loc="upper left")
-
     july_label = "published input" if status == "published-inputs" else "illustrative scenario"
-    fig.text(
-        0.01,
-        0.01,
-        (
-            "Source: Met Office Wales monthly HadUK-Grid areal series. "
-            "Monthly means are weighted by calendar days. "
-            f"July 2026 = {july:.1f}°C ({july_label})."
+    render_light_trend(
+        data,
+        output,
+        reference_c=reference_1991_2020_c,
+        config=LightTrendConfig(
+            title="Wales August-to-July mean temperature, 1884–85 to 2025–26",
+            xlabel="Period end year",
+            ylabel="Mean temperature (°C)",
+            footer=(
+                "Source: Met Office Wales monthly HadUK-Grid areal series. "
+                "Monthly means are weighted by calendar days. "
+                f"July 2026 = {july:.1f}°C ({july_label})."
+            ),
+            label_individual=LABEL_INDIVIDUAL_PERIODS,
+            label_average=LABEL_TRAILING_AVERAGE,
+            label_reference=LABEL_REFERENCE_1991_2020,
+            x_col="end_year",
+            y_col="mean_temperature_c",
+            trailing_col="trailing_10_period_mean_c",
+            previous=PointAnnotation(
+                float(previous.end_year),
+                float(previous.mean_temperature_c),
+                f"Previous high\n2006–07: {previous.mean_temperature_c:.2f}°C",
+            ),
+            current=PointAnnotation(
+                float(current.end_year),
+                float(current.mean_temperature_c),
+                f"2025–26 {current_label}\n{current.mean_temperature_c:.2f}°C",
+                xytext=(-10, 18),
+            ),
+            xlim_pad=2.0,
         ),
-        fontsize=7,
     )
-    fig.tight_layout(rect=(0, 0.045, 1, 1))
-    output.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output.with_suffix(".svg"), bbox_inches="tight")
-    fig.savefig(output.with_suffix(".png"), dpi=LIGHT_TREND_DPI, bbox_inches="tight")
-    plt.close(fig)
 
 
 def _warmest_windows_table(summary: dict[str, object]) -> str:
@@ -235,7 +179,28 @@ The original August-to-July 2025–26 research question is preserved in [`archiv
     )
     if not pattern.search(text):
         raise ValueError("README generated-result markers missing")
-    README_PATH.write_text(pattern.sub(block, text), encoding="utf-8")
+    text = pattern.sub(block, text)
+
+    history_block = f"""{HISTORY_START}
+## Refresh history
+
+Each monthly refresh is frozen under [`runs/`](runs/index.json). The table below lists isolated run folders; live `figures/` always shows the latest refresh.
+
+{refresh_history_table()}
+{HISTORY_END}"""
+    history_pattern = re.compile(
+        re.escape(HISTORY_START) + r".*?" + re.escape(HISTORY_END),
+        re.DOTALL,
+    )
+    if history_pattern.search(text):
+        text = history_pattern.sub(history_block, text)
+    elif "<!-- END GENERATED RESULT -->" in text:
+        text = text.replace(
+            "<!-- END GENERATED RESULT -->",
+            "<!-- END GENERATED RESULT -->\n\n" + history_block,
+            1,
+        )
+    README_PATH.write_text(text, encoding="utf-8")
 
 
 def run(
@@ -334,13 +299,6 @@ def run(
         DERIVED_DIR / "annual_reconciliation.csv",
         index=False,
         float_format="%.6f",
-    )
-    make_figure(
-        august_july,
-        FIGURES_DIR / "wales_august_to_july_mean_temperature_provisional",
-        july,
-        status,
-        aug_jul_new_reference,
     )
 
     current_window_rank = int(current_window.rank_warmest)

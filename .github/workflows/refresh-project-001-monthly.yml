@@ -22,22 +22,10 @@ jobs:
         run: python -m pip install -e ".[dev]"
       - name: Fetch latest Met Office source
         run: python projects/001-rolling-temperature/fetch_source.py --output-dir projects/001-rolling-temperature/data/raw
-      - name: Rebuild analysis and monthly monitor
-        run: |
-          python projects/001-rolling-temperature/analysis.py --no-update-readme
-          python projects/001-rolling-temperature/verify.py \
-            --source "$(find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*.txt' | sort | tail -1)" \
-            --manifest "$(find projects/001-rolling-temperature/data/raw -name 'metoffice-wales-tmean-retrieved-*.txt' | sort | tail -1 | sed 's/.txt$/.provenance.json/')" \
-            --require-annual \
-            --primary-summary projects/001-rolling-temperature/data/derived/summary.json
-          python projects/001-rolling-temperature/monthly_monitor.py
-          python projects/001-rolling-temperature/social_chart.py
-          python projects/001-rolling-temperature/warming_stripes.py
-          python projects/001-rolling-temperature/august_to_july_stripes.py
-          python projects/001-rolling-temperature/line_chart_variants.py --update-readmes
-          pytest -q projects/001-rolling-temperature/tests
-      - name: Update generated README headline block
-        run: python projects/001-rolling-temperature/analysis.py
+      - name: Monthly refresh pipeline
+        run: python projects/001-rolling-temperature/refresh.py
+      - name: Run tests
+        run: pytest -q projects/001-rolling-temperature/tests
       - name: Commit monthly refresh
         run: |
           git config user.name "github-actions[bot]"

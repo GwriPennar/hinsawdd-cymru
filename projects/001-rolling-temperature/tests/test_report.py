@@ -30,6 +30,7 @@ def test_public_report_is_self_contained() -> None:
     required_sections = [
         "## Executive summary",
         "## Monthly monitor charts",
+        "## Refresh history",
         "## Historical trend since records began",
         "## Data source and provenance",
         "## Method in plain English",
@@ -43,12 +44,15 @@ def test_public_report_is_self_contained() -> None:
 
 def test_full_record_graph_contains_trend_context() -> None:
     run(AnalysisConfig(), update_project_readme=False)
+    from monthly_monitor import run as run_monthly_monitor
+
+    run_monthly_monitor()
     svg = (
         PROJECT_DIR
-        / "figures/wales_august_to_july_mean_temperature_provisional.svg"
+        / "figures/wales_rolling_12_month_temperature_history.svg"
     ).read_text(encoding="utf-8")
 
-    assert "1884–85 to 2025–26" in svg
-    assert "Trailing 10-year average" in svg
+    assert "rolling 12-month" in svg.lower()
+    assert "Trailing 10-window average" in svg
     assert "Derived 1991–2020 reference" in svg
     assert "Previous high" in svg
