@@ -26,6 +26,8 @@ MOVING_AVERAGE_CYAN = "#45e0e5"
 PREVIOUS_HIGH_AMBER = "#ffd166"
 REFERENCE_GREY = "#89919c"
 LATEST_GOLD = "#f4c430"
+PERIOD_COLOUR = "#1f77b4"
+AVERAGE_COLOUR = "#ff7f0e"
 
 
 def _load() -> tuple[pd.DataFrame, dict]:
@@ -59,20 +61,38 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
     sns.set_theme(style="whitegrid", context="notebook")
     plt.rcParams.update({"svg.fonttype": "none"})
     fig, ax = plt.subplots(figsize=(12, 6.5))
-    sns.lineplot(data=data, x="end_x", y="mean_temperature_c", ax=ax, linewidth=1.1, alpha=0.72)
+    sns.lineplot(
+        data=data,
+        x="end_x",
+        y="mean_temperature_c",
+        ax=ax,
+        color=PERIOD_COLOUR,
+        linewidth=1.1,
+        alpha=0.72,
+        label="Individual rolling 12-month windows",
+        zorder=2,
+    )
     sns.lineplot(
         data=data,
         x="end_x",
         y="trailing_10_window_mean_c",
         ax=ax,
+        color=AVERAGE_COLOUR,
         linewidth=2.8,
-        color=MOVING_AVERAGE_CYAN,
         label="Trailing 10-window average",
+        zorder=4,
     )
-    ax.axhline(reference, linestyle=":", linewidth=1.1, color=REFERENCE_GREY, label="Derived 1991–2020 reference")
+    ax.axhline(
+        reference,
+        linestyle=":",
+        linewidth=1.1,
+        color=REFERENCE_GREY,
+        label="Derived 1991–2020 reference",
+        zorder=1,
+    )
     prev_x = float(previous["end_x"])
     curr_x = float(current["end_x"])
-    ax.scatter([prev_x], [previous.mean_temperature_c], s=45, zorder=5)
+    ax.scatter([prev_x], [previous.mean_temperature_c], s=45, color=PREVIOUS_HIGH_AMBER, zorder=5)
     ax.scatter([curr_x], [current.mean_temperature_c], s=70, color=LATEST_GOLD, zorder=6)
     period = summary["current_window"]["period_label"]
     ax.annotate(
