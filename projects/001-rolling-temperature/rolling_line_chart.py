@@ -30,7 +30,7 @@ from figure_style import (
     STANDARD_HEIGHT_PX,
     STANDARD_WIDTH_PX,
 )
-from line_chart_variants import _latest_period_label, _save
+from line_chart_variants import _save
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DERIVED_DIR = PROJECT_DIR / "data" / "derived"
@@ -208,17 +208,6 @@ def render_dark(chart: pd.DataFrame, metadata: dict[str, float | str], basename:
         va="bottom",
     )
     ax.scatter([latest_x], [latest], s=180, color=DARK_LINE_LATEST, edgecolor="white", linewidth=1.1, zorder=7)
-    latest_label = _latest_period_label(metadata)
-    ax.text(
-        latest_x - 1.5,
-        latest + 0.24,
-        f"Latest {latest_label}\n{latest:.2f}°C",
-        color=DARK_LINE_FOREGROUND,
-        fontsize=16,
-        fontweight="bold",
-        ha="right",
-        va="bottom",
-    )
     fig.text(0.07, 0.95, "WALES: ROLLING 12-MONTH", ha="left", va="top", fontsize=33, fontweight="bold", color=DARK_LINE_FOREGROUND)
     fig.text(0.07, 0.905, "MEAN TEMPERATURE", ha="left", va="top", fontsize=33, fontweight="bold", color=DARK_LINE_FOREGROUND)
     fig.text(
