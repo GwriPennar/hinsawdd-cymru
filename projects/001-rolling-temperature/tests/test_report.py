@@ -12,16 +12,15 @@ from analysis import AnalysisConfig, run  # noqa: E402
 def test_report_summary_contains_full_record_context() -> None:
     summary = run(AnalysisConfig(), update_project_readme=False)
 
-    assert summary["monitor_mode"] == "monthly_rolling_12_month"
-    assert summary["current_window"]["period_label"] == "Sep 2025 to Aug 2026"
-    assert summary["current_window"]["mean_temperature_c"] == pytest.approx(10.6523287671)
-    assert summary["current_window"]["rank_warmest"] == 3
-    assert summary["current_window"]["window_count"] == 1701
-    assert summary["archived_august_to_july_report"]["rank_among_august_to_july_periods"] == 1
+    assert summary["august_to_july_period_count"] == 142
+    assert summary["rank_among_august_to_july_periods"] == 1
+    assert summary["rank_among_all_monthly_start_12_month_windows"] == 5
+    assert summary["trailing_10_period_mean_c"] == pytest.approx(10.0159234973)
 
-    warmest = summary["top_rolling_12_month_windows"]
+    warmest = summary["top_august_to_july_periods"]
     assert len(warmest) == 10
-    assert warmest[2]["period_label"] == "Sep 2025 to Aug 2026"
+    assert warmest[0]["period"] == "2025-08 to 2026-07"
+    assert warmest[1]["period"] == "2006-08 to 2007-07"
 
 
 def test_public_report_is_self_contained() -> None:
@@ -29,7 +28,6 @@ def test_public_report_is_self_contained() -> None:
 
     required_sections = [
         "## Executive summary",
-        "## Monthly monitor charts",
         "## Historical trend since records began",
         "## Data source and provenance",
         "## Method in plain English",

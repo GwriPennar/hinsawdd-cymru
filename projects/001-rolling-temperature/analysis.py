@@ -1,4 +1,4 @@
-"""Project 001: Wales rolling 12-month mean-temperature monthly monitor."""
+"""Project 001: Wales August-to-July mean-temperature analysis."""
 
 from __future__ import annotations
 
@@ -16,9 +16,7 @@ from calculations import (
     all_rolling_12_month_series,
     annual_reconciliation,
     august_to_july_series,
-    latest_rolling_12_month_window,
     reference_value_for_target_sequence,
-    reference_value_for_window,
     required_july_to_break_record,
     sensitivity_table,
     weighted_mean,
@@ -143,23 +141,6 @@ def make_figure(
     plt.close(fig)
 
 
-def _warmest_windows_table(summary: dict[str, object]) -> str:
-    rows = [
-        "| Rank | 12-month window | Mean temperature | Status |",
-        "|---:|---|---:|---|",
-    ]
-    for item in summary["top_rolling_12_month_windows"]:
-        rows.append(
-            "| {rank} | {period} | **{mean:.2f}°C** | {status} |".format(
-                rank=item["rank"],
-                period=item["period_label"],
-                mean=item["mean_temperature_c"],
-                status=item["status"],
-            )
-        )
-    return "\n".join(rows)
-
-
 def _warmest_periods_table(summary: dict[str, object]) -> str:
     rows = [
         "| Rank | August-to-July period | Mean temperature | Status |",
@@ -181,37 +162,45 @@ def update_readme(summary: dict[str, object]) -> None:
     """Refresh the machine-generated results section of the public report."""
 
     text = README_PATH.read_text(encoding="utf-8")
-    current = summary["current_window"]
     published = summary["analysis_status"] == "published-inputs"
-    last_month = pd.Timestamp(str(summary.get("last_published_month", "2026-08")) + "-01").strftime("%B %Y")
-    warmest_table = _warmest_windows_table(summary)
-    archived = summary["archived_august_to_july_report"]
+    label = "Published July input" if published else "Illustrative July scenario"
+    note = (
+        "The July value is present in the retained Met Office source."
+        if published
+        else (
+            "The exact July Wales area-average is not yet present in the source. "
+            "The 18.0°C value is an **illustrative scenario**, not a Met Office estimate "
+            "or a confidence interval."
+        )
+    )
+    warmest_table = _warmest_periods_table(summary)
 
+    last_month = pd.Timestamp(str(summary.get("last_published_month", "2026-08")) + "-01").strftime("%B %Y")
     block = f"""{RESULT_START}
 ## Headline results
 
-**Status:** {'Published-input calculation' if published else 'Provisional calculation using incomplete monthly inputs'}
-**Monitor cadence:** Monthly refresh on published Met Office Wales monthly data
-**Latest complete window:** **{current['period_label']}**
+**Status:** {'Published-input calculation' if published else 'Provisional calculation using an illustrative July scenario'}
 
 | Measure | Result |
 |---|---:|
 | Published source coverage | **January 1884 to {last_month}** |
-| Latest 12-month mean | **{current['mean_temperature_c']:.2f}°C** |
-| Rank among all monthly-start 12-month windows | **{current['rank_warmest']} of {current['window_count']}** |
-| Previous record window | **{summary['previous_rolling_12_month_record']['mean_temperature_c']:.2f}°C**, {summary['previous_rolling_12_month_record']['period_label']} |
-| Margin over previous record | **{summary['margin_over_previous_rolling_record_c']:+.2f}°C** |
+| {label} | **{summary['july_2026_value_used_c']:.1f}°C** |
+| August 2025 to July 2026 mean | **{summary['period_mean_central_c']:.2f}°C** |
+| Tested July scenario range | **{summary['period_mean_scenario_range_c'][0]:.2f}°C to {summary['period_mean_scenario_range_c'][1]:.2f}°C** |
+| Previous August-to-July high | **{summary['previous_august_to_july_record']['mean_temperature_c']:.2f}°C**, {summary['previous_august_to_july_record']['period']} |
+| Central-scenario margin over previous high | **{summary['margin_over_previous_record_c']:+.2f}°C** |
+| July value needed to exceed previous high | **{summary['july_2026_mean_needed_to_break_previous_august_to_july_record_c']:.2f}°C** |
+| Rank among equivalent August-to-July periods | **{summary['rank_among_august_to_july_periods']} of {summary['august_to_july_period_count']}** |
+| Rank among all monthly-start 12-month windows | **{summary['rank_among_all_monthly_start_12_month_windows']}** |
 | Difference from derived 1991–2020 reference | **{summary['anomaly_vs_1991_2020_c']:+.2f}°C** |
 | Difference from derived 1961–1990 reference | **{summary['anomaly_vs_1961_1990_c']:+.2f}°C** |
-| Current trailing 10-window average | **{summary['trailing_10_window_mean_c']:.2f}°C** |
+| Current trailing 10-year average | **{summary['trailing_10_period_mean_c']:.2f}°C** |
 
-The headline window ends on the **last published calendar month** in the retained Met Office source ({last_month}). Each refresh advances the window by one month when a new monthly value is published.
+{note}
 
-### Archived August-to-July report
+The record conclusion is already robust: July 2026 would need to average only **{summary['july_2026_mean_needed_to_break_previous_august_to_july_record_c']:.2f}°C** to exceed the previous August-to-July high.
 
-The original August-to-July 2025–26 research question is preserved in [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md): warmest equivalent August-to-July period at **{archived['period_mean_c']:.2f}°C** ({archived['rank_among_august_to_july_periods']} of {archived['august_to_july_period_count']}).
-
-### Ten warmest rolling 12-month windows
+### Ten warmest equivalent periods
 
 {warmest_table}
 {RESULT_END}"""
@@ -262,12 +251,8 @@ def run(
         july = float(official.iloc[0])
 
     august_july = august_to_july_series(monthly)
-    rolling = all_rolling_12_month_series(monthly)
-    current_window = latest_rolling_12_month_window(monthly)
-    current_aug_jul = august_july.iloc[-1]
-    window_frame = monthly[
-        monthly["date"].between(current_window.start_month, current_window.end_month)
-    ]
+    all_windows = all_rolling_12_month_series(monthly)
+    current = august_july.iloc[-1]
 
     values = [
         round(config.july_2026_low_c + i * 0.1, 1)
@@ -279,16 +264,13 @@ def run(
         )
     ]
     sensitivity = sensitivity_table(published, values)
-    old_reference = reference_value_for_window(monthly, 1961, 1990, window_frame)
-    new_reference = reference_value_for_window(monthly, 1991, 2020, window_frame)
+    old_reference = reference_value_for_target_sequence(published, 1961, 1990)
+    new_reference = reference_value_for_target_sequence(published, 1991, 2020)
     required_july = required_july_to_break_record(
         published,
         float(previous.mean_temperature_c),
     )
     reconciliation = annual_reconciliation(bundle)
-    previous_window = rolling.iloc[:-1].nlargest(1, "mean_temperature_c").iloc[0]
-    top_windows = rolling.nlargest(10, "mean_temperature_c")
-    trailing_10 = float(rolling["mean_temperature_c"].tail(10).mean())
 
     published.to_csv(
         DERIVED_DIR / "wales_monthly_mean_temperature.csv",
@@ -300,12 +282,7 @@ def run(
         index=False,
         float_format="%.6f",
     )
-    rolling.to_csv(
-        DERIVED_DIR / "rolling_12_month_mean_temperature.csv",
-        index=False,
-        float_format="%.6f",
-    )
-    rolling.to_csv(
+    all_windows.to_csv(
         DERIVED_DIR / "all_rolling_12_month_windows.csv",
         index=False,
         float_format="%.6f",
@@ -328,9 +305,15 @@ def run(
         new_reference,
     )
 
-    current_window_rank = int(current_window.rank_warmest)
+    current_window = all_windows[
+        all_windows["end_month"] == "2026-07-01"
+    ].iloc[0]
+    top_periods = august_july.nlargest(10, "mean_temperature_c")
+    trailing_10 = float(
+        august_july["mean_temperature_c"].tail(10).mean()
+    )
+
     summary = {
-        "monitor_mode": "monthly_rolling_12_month",
         "analysis_status": status,
         "source": SERIES_URL,
         "source_path": (
@@ -351,82 +334,41 @@ def run(
             if bundle.manifest
             else None
         ),
-        "current_window": {
-            "start_month": str(current_window.start_month),
-            "end_month": str(current_window.end_month),
-            "period_label": str(current_window.period_label),
-            "mean_temperature_c": float(current_window.mean_temperature_c),
-            "rank_warmest": current_window_rank,
-            "window_count": int(len(rolling)),
-            "status": (
-                "published inputs"
-                if current_window.status == "published-inputs"
-                else "illustrative scenario"
-            ),
-        },
-        "previous_rolling_12_month_record": {
-            "period_label": str(previous_window.period_label),
-            "start_month": str(previous_window.start_month),
-            "end_month": str(previous_window.end_month),
-            "mean_temperature_c": float(previous_window.mean_temperature_c),
-        },
-        "margin_over_previous_rolling_record_c": float(
-            current_window.mean_temperature_c - previous_window.mean_temperature_c
+        "period": "2025-08-01 to 2026-07-31",
+        "july_2026_value_used_c": july,
+        "july_2026_value_kind": (
+            "published" if status == "published-inputs" else "illustrative_scenario"
         ),
-        "anomaly_vs_1961_1990_c": float(
-            current_window.mean_temperature_c - old_reference
-        ),
-        "anomaly_vs_1991_2020_c": float(
-            current_window.mean_temperature_c - new_reference
-        ),
-        "derived_reference_1961_1990_c": old_reference,
-        "derived_reference_1991_2020_c": new_reference,
-        "trailing_10_window_mean_c": trailing_10,
-        "top_rolling_12_month_windows": [
-            {
-                "rank": int(row.rank_warmest),
-                "period_label": str(row.period_label),
-                "start_month": str(row.start_month),
-                "end_month": str(row.end_month),
-                "mean_temperature_c": float(row.mean_temperature_c),
-                "status": (
-                    "illustrative scenario"
-                    if row.status == "provisional-scenario"
-                    else "published inputs"
-                ),
-            }
-            for row in top_windows.itertuples(index=False)
+        "july_2026_scenario_range_c": [
+            config.july_2026_low_c,
+            config.july_2026_high_c,
         ],
-        "archived_august_to_july_report": {
-            "archive_path": "archive/august-to-july-2025-26/",
-            "period": "2025-08-01 to 2026-07-31",
-            "period_mean_c": float(current_aug_jul.mean_temperature_c),
-            "rank_among_august_to_july_periods": int(current_aug_jul.rank_warmest),
-            "august_to_july_period_count": int(len(august_july)),
-            "july_2026_value_used_c": july,
-        },
-        "period_mean_central_c": float(current_window.mean_temperature_c),
-        "rank_among_all_monthly_start_12_month_windows": current_window_rank,
+        "period_mean_central_c": float(current.mean_temperature_c),
+        "period_mean_scenario_range_c": [
+            float(sensitivity.iloc[0, 1]),
+            float(sensitivity.iloc[-1, 1]),
+        ],
+        "rank_among_august_to_july_periods": int(current.rank_warmest),
         "august_to_july_period_count": int(len(august_july)),
-        "rank_among_august_to_july_periods": int(current_aug_jul.rank_warmest),
         "previous_august_to_july_record": {
             "period": str(previous.period),
             "mean_temperature_c": float(previous.mean_temperature_c),
         },
         "margin_over_previous_record_c": float(
-            current_aug_jul.mean_temperature_c - previous.mean_temperature_c
-        ),
-        "july_2026_value_used_c": july,
-        "july_2026_value_kind": (
-            "published" if status == "published-inputs" else "illustrative_scenario"
+            current.mean_temperature_c - previous.mean_temperature_c
         ),
         "july_2026_mean_needed_to_break_previous_august_to_july_record_c": required_july,
-        "period_mean_scenario_range_c": [
-            float(sensitivity.iloc[0, 1]),
-            float(sensitivity.iloc[-1, 1]),
-        ],
-        "trailing_10_period_mean_c": float(
-            august_july["mean_temperature_c"].tail(10).mean()
+        "anomaly_vs_1961_1990_c": float(
+            current.mean_temperature_c - old_reference
+        ),
+        "anomaly_vs_1991_2020_c": float(
+            current.mean_temperature_c - new_reference
+        ),
+        "derived_reference_1961_1990_c": old_reference,
+        "derived_reference_1991_2020_c": new_reference,
+        "trailing_10_period_mean_c": trailing_10,
+        "rank_among_all_monthly_start_12_month_windows": int(
+            current_window.rank_warmest
         ),
         "top_august_to_july_periods": [
             {
@@ -439,7 +381,7 @@ def run(
                     else "published inputs"
                 ),
             }
-            for row in august_july.nlargest(10, "mean_temperature_c").itertuples(index=False)
+            for row in top_periods.itertuples(index=False)
         ],
         "annual_reconciliation_years": int(len(reconciliation)),
         "annual_reconciliation_max_abs_difference_c": (

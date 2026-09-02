@@ -29,65 +29,18 @@ def august_to_july_series(monthly: pd.DataFrame) -> pd.DataFrame:
     result["rank_warmest"] = result["mean_temperature_c"].rank(method="min", ascending=False).astype(int)
     return result.sort_values("end_year").reset_index(drop=True)
 
-def month_label(date: pd.Timestamp) -> str:
-    return date.strftime("%b %Y")
-
-
-def period_label(start: pd.Timestamp, end: pd.Timestamp) -> str:
-    return f"{month_label(start)} to {month_label(end)}"
-
-
 def all_rolling_12_month_series(monthly: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for end in range(11, len(monthly)):
-        window = monthly.iloc[end - 11 : end + 1]
+        window = monthly.iloc[end - 11:end + 1]
         expected = pd.date_range(window.iloc[0]["date"], window.iloc[-1]["date"], freq="MS")
         if expected.equals(pd.DatetimeIndex(window["date"])):
-            start = pd.Timestamp(window.iloc[0]["date"])
-            finish = pd.Timestamp(window.iloc[-1]["date"])
-            rows.append(
-                {
-                    "start_month": start.date().isoformat(),
-                    "end_month": finish.date().isoformat(),
-                    "period_label": period_label(start, finish),
-                    "mean_temperature_c": weighted_mean(window),
-                    "days": int(window["days"].sum()),
-                    "status": (
-                        "provisional-scenario"
-                        if (window["status"] != "published_monthly_series").any()
-                        else "published-inputs"
-                    ),
-                }
-            )
+            rows.append({"start_month": window.iloc[0]["date"].date().isoformat(), "end_month": window.iloc[-1]["date"].date().isoformat(),
+                "mean_temperature_c": weighted_mean(window), "days": int(window["days"].sum()),
+                "status": "provisional-scenario" if (window["status"] != "published_monthly_series").any() else "published-inputs"})
     result = pd.DataFrame(rows)
     result["rank_warmest"] = result["mean_temperature_c"].rank(method="min", ascending=False).astype(int)
-    result["window_count"] = len(result)
     return result
-
-
-def latest_rolling_12_month_window(monthly: pd.DataFrame) -> pd.Series:
-    series = all_rolling_12_month_series(monthly)
-    if series.empty:
-        raise ValueError("No complete rolling 12-month windows")
-    return series.iloc[-1]
-
-
-def reference_value_for_window(
-    monthly: pd.DataFrame,
-    ref_start_year: int,
-    ref_end_year: int,
-    window: pd.DataFrame,
-) -> float:
-    reference = monthly[monthly["year"].between(ref_start_year, ref_end_year)]
-    expected = (ref_end_year - ref_start_year + 1) * 12
-    if len(reference) != expected:
-        raise ValueError(f"Reference period incomplete: expected {expected}, found {len(reference)}")
-    normals = reference.groupby("month")["mean_temperature_c"].mean()
-    total_days = int(window["days"].sum())
-    weighted = sum(
-        float(normals.loc[int(row.month)]) * int(row.days) for row in window.itertuples(index=False)
-    )
-    return weighted / total_days
 
 def reference_value_for_target_sequence(monthly: pd.DataFrame, start_year: int, end_year: int) -> float:
     reference = monthly[monthly["year"].between(start_year, end_year)]

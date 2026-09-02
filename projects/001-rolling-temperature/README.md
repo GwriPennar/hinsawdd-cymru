@@ -1,91 +1,94 @@
-# 001: Tymheredd cymedrig 12 mis yn olwynu
+# 001: Tymheredd cymedrig Awst i Orffennaf
 
-## Wales rolling 12-month mean temperature (monthly monitor)
+## Wales August-to-July mean temperature
 
 **Adroddiad canlyniadau / Results report**
 
-This README is the live monthly monitor for Project 001. Each refresh uses the latest published Met Office Wales monthly mean-temperature series and reports the **most recent complete monthly-start 12-month window** — currently **September 2025 to August 2026**.
-
-The original August-to-July 2025–26 research report is archived at [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
+This README is the self-contained public report for Project 001. It explains the question, result, data, historical context, method, validation and limitations without requiring the reader to inspect the source code. More detailed technical records remain available in [`METHODOLOGY.md`](METHODOLOGY.md) and [`VALIDATION.md`](VALIDATION.md).
 
 ## Executive summary
 
-The monitor tracks Wales mean air temperature over every complete rolling 12-month window aligned to calendar month-ends. When the Met Office publishes a new monthly value, the headline window advances by one month.
+The project asks whether the 12 months from **1 August 2025 to 31 July 2026** were the warmest equivalent August-to-July period in the Wales temperature record.
 
-**Latest complete window (published inputs):** **September 2025 to August 2026** — **10.65°C**, **3rd warmest** of **1,701** complete monthly-start windows in the record.
+The answer is **yes**, using published Met Office inputs throughout.
 
-The previous archived August-to-July report found that **August 2025 to July 2026** was the warmest equivalent August-to-July period (**10.61°C**, **1st of 142**). That narrower seasonal comparison remains available in the archive; this live monitor uses the broader monthly rolling definition.
+The Met Office monthly Wales series now includes **July 2026 at 17.8°C** (source updated **1 September 2026**). The August-to-July mean is **10.61°C** — approximately **0.29°C above** the previous high (August 2006 to July 2007, **10.32°C**). This is the warmest equivalent August-to-July period in the 142-period record.
+
+Among all complete monthly-start 12-month windows, this period ranks **5th**; three overlapping windows around the exceptionally warm 2006–07 year remain slightly higher.
 
 This is a secondary calculation from official Met Office data. It is not an official Met Office statistic and it does not reproduce the upstream station quality-control or HadUK-Grid interpolation process.
 
 ## Research question
 
-> What is the Wales mean temperature over the latest complete rolling 12-month window ending on the last published calendar month, and how does it rank in the historical record?
+> Was 1 August 2025 to 31 July 2026 the warmest equivalent August-to-July period in the published Wales mean-temperature record?
 
-Each month, when Met Office Wales monthly data are updated, the project:
-
-1. retains an immutable source snapshot;
-2. recalculates every complete monthly-start 12-month window;
-3. publishes the latest window, its rank and supporting charts.
+The comparison is deliberately specific. It ranks like-for-like August-to-July periods first, then separately checks the result against every possible complete monthly-start 12-month window.
 
 <!-- BEGIN GENERATED RESULT -->
 ## Headline results
 
 **Status:** Published-input calculation
-**Monitor cadence:** Monthly refresh on published Met Office Wales monthly data
-**Latest complete window:** **Sep 2025 to Aug 2026**
 
 | Measure | Result |
 |---|---:|
 | Published source coverage | **January 1884 to August 2026** |
-| Latest 12-month mean | **10.65°C** |
-| Rank among all monthly-start 12-month windows | **3 of 1701** |
-| Previous record window | **10.70°C**, May 2006 to Apr 2007 |
-| Margin over previous record | **-0.04°C** |
-| Difference from derived 1991–2020 reference | **+1.23°C** |
-| Difference from derived 1961–1990 reference | **+2.04°C** |
-| Current trailing 10-window average | **10.46°C** |
+| Published July input | **17.8°C** |
+| August 2025 to July 2026 mean | **10.61°C** |
+| Tested July scenario range | **10.61°C to 10.65°C** |
+| Previous August-to-July high | **10.32°C**, 2006-08 to 2007-07 |
+| Central-scenario margin over previous high | **+0.29°C** |
+| July value needed to exceed previous high | **14.33°C** |
+| Rank among equivalent August-to-July periods | **1 of 142** |
+| Rank among all monthly-start 12-month windows | **5** |
+| Difference from derived 1991–2020 reference | **+1.19°C** |
+| Difference from derived 1961–1990 reference | **+2.00°C** |
+| Current trailing 10-year average | **10.02°C** |
 
-The headline window ends on the **last published calendar month** in the retained Met Office source (August 2026). Each refresh advances the window by one month when a new monthly value is published.
+The July value is present in the retained Met Office source.
 
-### Archived August-to-July report
+The record conclusion is already robust: July 2026 would need to average only **14.33°C** to exceed the previous August-to-July high.
 
-The original August-to-July 2025–26 research question is preserved in [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md): warmest equivalent August-to-July period at **10.61°C** (1 of 142).
+### Ten warmest equivalent periods
 
-### Ten warmest rolling 12-month windows
-
-| Rank | 12-month window | Mean temperature | Status |
+| Rank | August-to-July period | Mean temperature | Status |
 |---:|---|---:|---|
-| 1 | May 2006 to Apr 2007 | **10.70°C** | published inputs |
-| 2 | Jun 2006 to May 2007 | **10.69°C** | published inputs |
-| 3 | Sep 2025 to Aug 2026 | **10.65°C** | published inputs |
-| 4 | Jul 2006 to Jun 2007 | **10.65°C** | published inputs |
-| 5 | Aug 2025 to Jul 2026 | **10.61°C** | published inputs |
-| 6 | Jun 2023 to May 2024 | **10.59°C** | published inputs |
-| 7 | May 2023 to Apr 2024 | **10.52°C** | published inputs |
-| 8 | Jul 2025 to Jun 2026 | **10.51°C** | published inputs |
-| 9 | Dec 2021 to Nov 2022 | **10.50°C** | published inputs |
-| 10 | Apr 2025 to Mar 2026 | **10.50°C** | published inputs |
+| 1 | 2025-08 to 2026-07 | **10.61°C** | published inputs |
+| 2 | 2006-08 to 2007-07 | **10.32°C** | published inputs |
+| 3 | 2023-08 to 2024-07 | **10.29°C** | published inputs |
+| 4 | 2021-08 to 2022-07 | **10.27°C** | published inputs |
+| 5 | 2022-08 to 2023-07 | **10.22°C** | published inputs |
+| 6 | 2024-08 to 2025-07 | **10.21°C** | published inputs |
+| 7 | 2013-08 to 2014-07 | **10.11°C** | published inputs |
+| 8 | 2016-08 to 2017-07 | **10.02°C** | published inputs |
+| 9 | 1997-08 to 1998-07 | **9.90°C** | published inputs |
+| 10 | 2015-08 to 2016-07 | **9.83°C** | published inputs |
 <!-- END GENERATED RESULT -->
 
 <!-- BEGIN LINE CHART PREVIEWS -->
-## Monthly monitor charts
+## Reproduced line-chart views
 
-<a href="figures/wales_rolling_12_month_temperature_history.png"><img src="figures/wales_rolling_12_month_temperature_history.png" alt="Wales rolling 12-month mean temperature history" width="100%"></a>
+The following charts show the same validated August-to-July series in two presentation formats. Both use the calendar-day-weighted values produced by `analysis.py`; neither introduces a second temperature calculation.
 
-[Open the history chart as SVG](figures/wales_rolling_12_month_temperature_history.svg)
+### Standard light view
 
-<p align="center"><a href="figures/wales_rolling_12_month_temperature_square_dark.png"><img src="figures/wales_rolling_12_month_temperature_square_dark.png" alt="Square dark-mode Wales rolling 12-month temperature chart" width="78%"></a></p>
+<a href="figures/wales_august_to_july_mean_temperature_line_chart.png"><img src="figures/wales_august_to_july_mean_temperature_line_chart.png" alt="Wales August-to-July mean-temperature line chart" width="100%"></a>
 
-[Open the dark-mode chart as SVG](figures/wales_rolling_12_month_temperature_square_dark.svg)
+[Open the standard chart as SVG](figures/wales_august_to_july_mean_temperature_line_chart.svg)
 
-Each point is one complete monthly-start 12-month window. The headline window always ends on the last published calendar month in the retained Met Office source.
+### Square dark-mode view
+
+<p align="center"><a href="figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png"><img src="figures/wales_august_to_july_mean_temperature_line_chart_square_dark.png" alt="Square dark-mode Wales August-to-July mean-temperature line chart" width="78%"></a></p>
+
+[Open the dark-mode chart as SVG](figures/wales_august_to_july_mean_temperature_line_chart_square_dark.svg)
+
+Both views use published Met Office inputs through July 2026 (17.8°C). Full presentation notes are in [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md).
+<!-- END LINE CHART PREVIEWS -->
 
 ## Historical trend since records began
 
 ![Wales August-to-July mean temperature from 1884-85 to 2025-26](figures/wales_august_to_july_mean_temperature_provisional.svg)
 
-**Figure 1 (archived seasonal view).** August-to-July equivalent periods remain available for the original research question. See [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
+**Figure 1.** Every complete August-to-July period in the published Wales series is shown from 1884-85 onward. The thinner line shows individual 12-month periods. The heavier line shows the trailing 10-year average, which reduces short-term variability and makes the longer-term direction easier to see. The latest point uses the published July 2026 Met Office value (17.8°C).
 
 ### How to read the graph
 
@@ -101,21 +104,28 @@ The chart also marks:
 
 ## What the results show
 
-### 1. The latest rolling window is exceptionally warm
+### 1. The equivalent-period record is confirmed on published inputs
 
-**September 2025 to August 2026** averages **10.65°C** on published Met Office monthly values. It ranks **3rd** among all **1,701** complete monthly-start 12-month windows. The record holder remains **May 2006 to April 2007** at **10.70°C**.
+August 2025 to July 2026 averages **10.61°C** on published Met Office monthly values, approximately **0.29°C above** the previous August-to-July high (2006-07, **10.32°C**). This is the warmest equivalent period in the 142-period record.
 
-### 2. The archived August-to-July result still stands
+### 2. Recent warm periods are strongly represented near the top
 
-The frozen August-to-July report concluded that **August 2025 to July 2026** was the warmest equivalent August-to-July period at **10.61°C** (**1st of 142**). That seasonal boundary answered a specific research question and is preserved in the archive.
+Six of the ten highest equivalent August-to-July values are the current period or periods ending between 2022 and 2025. This does not replace a formal trend analysis, but it provides useful descriptive context for the full-record graph.
 
-### 3. Recent warm windows cluster near the top
+### 3. The result is fifth across all monthly-start 12-month windows
 
-Six of the ten warmest rolling windows end between 2021 and 2026. This is descriptive context, not a formal attribution analysis.
+An August-to-July ranking compares each period on the same seasonal sequence. The project also tests every possible complete 12-month window beginning in any calendar month.
 
-### 4. Reference-period anomalies are one-window values
+August 2025 to July 2026 ranks **fifth** in that broader comparison. Three overlapping 12-month windows around the exceptionally warm 2006-07 period remain slightly higher. This distinction prevents the narrower August-to-July result from being described incorrectly as the warmest possible 12-month window in the entire record.
 
-The latest window is approximately **+1.23°C** above the repository-derived 1991–2020 reference for the same month sequence and **+2.04°C** above the 1961–1990 reference. These are anomalies for one 12-month period, not long-term warming rates.
+### 4. The reference-period anomalies are exceptional one-period values
+
+The published 2025-26 period is approximately:
+
+- **1.19°C above** the repository-derived 1991-2020 reference for the August-to-July sequence;
+- **2.00°C above** the repository-derived 1961-1990 reference.
+
+These are anomalies for one unusually warm 12-month period. They must not be restated as evidence that Wales has permanently warmed by 1.19°C or 2.00°C. Long-term warming is assessed using sustained averages and dedicated climate analyses.
 
 ### 5. Dataset revisions remain possible
 
@@ -270,8 +280,6 @@ Download a new immutable upstream snapshot and rerun:
 
 ```bash
 python projects/001-rolling-temperature/analysis.py --refresh
-python projects/001-rolling-temperature/monthly_monitor.py
-python projects/001-rolling-temperature/social_chart.py
 ```
 
 A refresh writes a new timestamped source snapshot. It does not silently overwrite a different earlier source file.

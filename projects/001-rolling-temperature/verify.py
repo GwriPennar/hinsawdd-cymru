@@ -149,27 +149,10 @@ def verify(
         months = aug_to_jul_months(end_year)
         if all(key in monthly for key in months):
             complete_periods.append((end_year, weighted_period_mean(monthly, months)))
-    current_aug_jul = next(value for year, value in complete_periods if year == 2026)
+    current = next(value for year, value in complete_periods if year == 2026)
     historical = [(year, value) for year, value in complete_periods if year < 2026]
     previous_year, previous = max(historical, key=lambda item: item[1])
-    aug_jul_rank = 1 + sum(value > current_aug_jul for _, value in complete_periods)
-
-    rolling_periods: list[Decimal] = []
-    cursor_months: list[tuple[int, int]] = []
-    year, month = first_month
-    while (year, month) <= last_month:
-        cursor_months.append((year, month))
-        if month == 12:
-            year += 1
-            month = 1
-        else:
-            month += 1
-    for index in range(11, len(cursor_months)):
-        window = cursor_months[index - 11 : index + 1]
-        if all(key in monthly for key in window):
-            rolling_periods.append(weighted_period_mean(monthly, window))
-    current_rolling = rolling_periods[-1]
-    rolling_rank = 1 + sum(value > current_rolling for value in rolling_periods)
+    rank = 1 + sum(value > current for _, value in complete_periods)
 
     known_months = [(2025, month) for month in range(8, 13)] + [(2026, month) for month in range(1, 7)]
     known_temperature_days = sum(source.monthly[key] * days_in_month(*key) for key in known_months)
@@ -192,11 +175,9 @@ def verify(
         "last_published_month": f"{last_month[0]:04d}-{last_month[1]:02d}",
         "july_2026_value_c": float(monthly[(2026, 7)]),
         "july_2026_value_kind": july_kind,
-        "august_to_july_period_mean_c": float(current_aug_jul),
-        "rank_among_august_to_july_periods": aug_jul_rank,
-        "rolling_12_month_period_mean_c": float(current_rolling),
-        "rank_among_rolling_12_month_windows": rolling_rank,
-        "previous_august_to_july_record": {
+        "period_mean_c": float(current),
+        "rank_among_august_to_july_periods": rank,
+        "previous_record": {
             "period": f"{previous_year - 1}-08 to {previous_year}-07",
             "mean_temperature_c": float(previous),
         },
@@ -209,9 +190,8 @@ def verify(
     if primary_summary_path is not None:
         primary = json.loads(primary_summary_path.read_text(encoding="utf-8"))
         comparisons = {
-            "period_mean_central_c": float(current_rolling),
-            "rank_among_all_monthly_start_12_month_windows": rolling_rank,
-            "rank_among_august_to_july_periods": aug_jul_rank,
+            "period_mean_central_c": float(current),
+            "rank_among_august_to_july_periods": rank,
             "july_2026_mean_needed_to_break_previous_august_to_july_record_c": float(required_july),
         }
         for key, independent in comparisons.items():
