@@ -9,6 +9,27 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
+from figure_style import (
+    LABEL_REFERENCE_1991_2020,
+    LABEL_ROLLING_AVERAGE,
+    LABEL_ROLLING_WINDOWS,
+    LIGHT_AVERAGE_COLOUR,
+    LIGHT_PERIOD_COLOUR,
+    LIGHT_REFERENCE_COLOUR,
+    LIGHT_TREND_DPI,
+    LIGHT_TREND_FIGSIZE,
+    SOCIAL_AVERAGE_COLOUR,
+    SOCIAL_BACKGROUND,
+    SOCIAL_DPI,
+    SOCIAL_FIGSIZE_INCHES,
+    SOCIAL_FOREGROUND,
+    SOCIAL_GRID,
+    SOCIAL_MUTED,
+    SOCIAL_PERIOD_COLOUR,
+    SOCIAL_PREVIOUS_HIGH,
+    SOCIAL_REFERENCE_COLOUR,
+)
+
 PROJECT_DIR = Path(__file__).resolve().parent
 DERIVED_DIR = PROJECT_DIR / "data" / "derived"
 FIGURES_DIR = PROJECT_DIR / "figures"
@@ -16,18 +37,7 @@ SERIES_PATH = DERIVED_DIR / "rolling_12_month_mean_temperature.csv"
 SUMMARY_PATH = DERIVED_DIR / "summary.json"
 HISTORY_BASENAME = FIGURES_DIR / "wales_rolling_12_month_temperature_history"
 DARK_BASENAME = FIGURES_DIR / "wales_rolling_12_month_temperature_square_dark"
-
-BACKGROUND = "#090b10"
-FOREGROUND = "#f5f7fa"
-MUTED = "#aab2bd"
-GRID = "#303641"
-TEMPERATURE_RED = "#ff4d5a"
-MOVING_AVERAGE_CYAN = "#45e0e5"
-PREVIOUS_HIGH_AMBER = "#ffd166"
-REFERENCE_GREY = "#89919c"
 LATEST_GOLD = "#f4c430"
-PERIOD_COLOUR = "#1f77b4"
-AVERAGE_COLOUR = "#ff7f0e"
 
 
 def _load() -> tuple[pd.DataFrame, dict]:
@@ -36,12 +46,12 @@ def _load() -> tuple[pd.DataFrame, dict]:
     return series, summary
 
 
-def _save(fig: plt.Figure, basename: Path) -> tuple[Path, Path]:
+def _save(fig: plt.Figure, basename: Path, *, dpi: int, bbox_inches: str | None = None) -> tuple[Path, Path]:
     basename.parent.mkdir(parents=True, exist_ok=True)
     png = basename.with_suffix(".png")
     svg = basename.with_suffix(".svg")
-    fig.savefig(png, dpi=150, facecolor=fig.get_facecolor(), bbox_inches="tight")
-    fig.savefig(svg, facecolor=fig.get_facecolor(), bbox_inches="tight")
+    fig.savefig(png, dpi=dpi, facecolor=fig.get_facecolor(), bbox_inches=bbox_inches)
+    fig.savefig(svg, facecolor=fig.get_facecolor(), bbox_inches=bbox_inches)
     plt.close(fig)
     return png, svg
 
@@ -60,16 +70,16 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
 
     sns.set_theme(style="whitegrid", context="notebook")
     plt.rcParams.update({"svg.fonttype": "none"})
-    fig, ax = plt.subplots(figsize=(12, 6.5))
+    fig, ax = plt.subplots(figsize=LIGHT_TREND_FIGSIZE)
     sns.lineplot(
         data=data,
         x="end_x",
         y="mean_temperature_c",
         ax=ax,
-        color=PERIOD_COLOUR,
+        color=LIGHT_PERIOD_COLOUR,
         linewidth=1.1,
         alpha=0.72,
-        label="Individual rolling 12-month windows",
+        label=LABEL_ROLLING_WINDOWS,
         zorder=2,
     )
     sns.lineplot(
@@ -77,22 +87,22 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
         x="end_x",
         y="trailing_10_window_mean_c",
         ax=ax,
-        color=AVERAGE_COLOUR,
+        color=LIGHT_AVERAGE_COLOUR,
         linewidth=2.8,
-        label="Trailing 10-window average",
+        label=LABEL_ROLLING_AVERAGE,
         zorder=4,
     )
     ax.axhline(
         reference,
         linestyle=":",
         linewidth=1.1,
-        color=REFERENCE_GREY,
-        label="Derived 1991–2020 reference",
+        color=LIGHT_REFERENCE_COLOUR,
+        label=LABEL_REFERENCE_1991_2020,
         zorder=1,
     )
     prev_x = float(previous["end_x"])
     curr_x = float(current["end_x"])
-    ax.scatter([prev_x], [previous.mean_temperature_c], s=45, color=PREVIOUS_HIGH_AMBER, zorder=5)
+    ax.scatter([prev_x], [previous.mean_temperature_c], s=45, color=SOCIAL_PREVIOUS_HIGH, zorder=5)
     ax.scatter([curr_x], [current.mean_temperature_c], s=70, color=LATEST_GOLD, zorder=6)
     period = summary["current_window"]["period_label"]
     ax.annotate(
@@ -130,7 +140,7 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
         fontsize=7,
     )
     fig.tight_layout(rect=(0, 0.045, 1, 1))
-    return _save(fig, basename)
+    return _save(fig, basename, dpi=LIGHT_TREND_DPI, bbox_inches="tight")
 
 
 def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DARK_BASENAME) -> tuple[Path, Path]:
@@ -150,37 +160,64 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         style="darkgrid",
         context="talk",
         rc={
-            "figure.facecolor": BACKGROUND,
-            "axes.facecolor": BACKGROUND,
-            "axes.edgecolor": MUTED,
-            "axes.labelcolor": FOREGROUND,
-            "xtick.color": MUTED,
-            "ytick.color": MUTED,
-            "text.color": FOREGROUND,
-            "grid.color": GRID,
+            "figure.facecolor": SOCIAL_BACKGROUND,
+            "axes.facecolor": SOCIAL_BACKGROUND,
+            "axes.edgecolor": SOCIAL_MUTED,
+            "axes.labelcolor": SOCIAL_FOREGROUND,
+            "xtick.color": SOCIAL_MUTED,
+            "ytick.color": SOCIAL_MUTED,
+            "text.color": SOCIAL_FOREGROUND,
+            "grid.color": SOCIAL_GRID,
             "grid.alpha": 0.55,
-            "legend.facecolor": BACKGROUND,
-            "legend.edgecolor": GRID,
+            "legend.facecolor": SOCIAL_BACKGROUND,
+            "legend.edgecolor": SOCIAL_GRID,
             "font.family": "DejaVu Sans",
         },
     )
     plt.rcParams.update({"svg.fonttype": "none"})
-    fig = plt.figure(figsize=(10.8, 10.8), dpi=100, facecolor=BACKGROUND)
-    ax = fig.add_axes([0.11, 0.16, 0.84, 0.52], facecolor=BACKGROUND)
-    sns.lineplot(data=data, x="end_x", y="mean_temperature_c", ax=ax, linewidth=1.7, alpha=0.58, color=TEMPERATURE_RED)
+    fig = plt.figure(figsize=SOCIAL_FIGSIZE_INCHES, dpi=SOCIAL_DPI, facecolor=SOCIAL_BACKGROUND)
+    ax = fig.add_axes([0.11, 0.16, 0.84, 0.52], facecolor=SOCIAL_BACKGROUND)
+    sns.lineplot(
+        data=data,
+        x="end_x",
+        y="mean_temperature_c",
+        ax=ax,
+        linewidth=1.7,
+        alpha=0.58,
+        color=SOCIAL_PERIOD_COLOUR,
+        label=LABEL_ROLLING_WINDOWS,
+        zorder=2,
+    )
     sns.lineplot(
         data=data,
         x="end_x",
         y="trailing_10_window_mean_c",
         ax=ax,
         linewidth=4.4,
-        color=MOVING_AVERAGE_CYAN,
-        label="Trailing 10-window average",
+        color=SOCIAL_AVERAGE_COLOUR,
+        label=LABEL_ROLLING_AVERAGE,
+        zorder=4,
     )
-    ax.axhline(reference, linestyle="--", linewidth=1.4, color=REFERENCE_GREY, alpha=0.85, label="Derived 1991–2020 reference")
-    ax.scatter([previous_x], [previous.mean_temperature_c], s=85, color=PREVIOUS_HIGH_AMBER, zorder=6)
-    ax.scatter([current_x], [current.mean_temperature_c], s=230, color=FOREGROUND, edgecolor=BACKGROUND, linewidth=1.5, zorder=7)
-    ax.scatter([current_x], [current.mean_temperature_c], s=105, color=TEMPERATURE_RED, zorder=8)
+    ax.axhline(
+        reference,
+        linestyle="--",
+        linewidth=1.4,
+        color=SOCIAL_REFERENCE_COLOUR,
+        alpha=0.85,
+        label=LABEL_REFERENCE_1991_2020,
+        zorder=1,
+    )
+    ax.scatter([previous_x], [previous.mean_temperature_c], s=85, color=SOCIAL_PREVIOUS_HIGH, zorder=6)
+    ax.scatter(
+        [current_x],
+        [current.mean_temperature_c],
+        s=230,
+        color=SOCIAL_FOREGROUND,
+        edgecolor=SOCIAL_BACKGROUND,
+        linewidth=1.5,
+        zorder=7,
+    )
+    ax.scatter([current_x], [current.mean_temperature_c], s=105, color=SOCIAL_PERIOD_COLOUR, zorder=8)
     ax.annotate(
         f"Previous high\n{previous['period_label']}: {previous.mean_temperature_c:.2f}°C",
         (previous_x, previous.mean_temperature_c),
@@ -188,7 +225,7 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         textcoords="offset points",
         ha="right",
         va="bottom",
-        color=PREVIOUS_HIGH_AMBER,
+        color=SOCIAL_PREVIOUS_HIGH,
         fontsize=11,
         fontweight="bold",
     )
@@ -199,7 +236,7 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         textcoords="offset points",
         ha="right",
         va="bottom",
-        color=FOREGROUND,
+        color=SOCIAL_FOREGROUND,
         fontsize=12,
         fontweight="bold",
     )
@@ -208,17 +245,21 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
     ax.set_xlim(float(data["end_x"].min()) - 0.5, float(data["end_x"].max()) + 0.5)
     ax.set_ylim(float(data["mean_temperature_c"].min()) - 0.25, float(data["mean_temperature_c"].max()) + 0.55)
     ax.spines[["top", "right"]].set_visible(False)
-    ax.legend(loc="lower right", frameon=True, fontsize=10)
+    ax.spines[["left", "bottom"]].set_color(SOCIAL_GRID)
+    legend = ax.legend(loc="lower right", frameon=True, fontsize=10)
+    legend.get_frame().set_alpha(0.85)
+    for text in legend.get_texts():
+        text.set_color(SOCIAL_FOREGROUND)
 
-    fig.text(0.07, 0.93, "WALES: ROLLING 12-MONTH", color=FOREGROUND, fontsize=24, fontweight="bold", ha="left", va="top")
-    fig.text(0.07, 0.885, "MEAN TEMPERATURE", color=FOREGROUND, fontsize=24, fontweight="bold", ha="left", va="top")
-    fig.text(0.07, 0.84, f"Latest complete window: {period}", color=MUTED, fontsize=14, ha="left", va="top")
-    fig.text(0.07, 0.77, f"{current.mean_temperature_c:.2f}°C", color=TEMPERATURE_RED, fontsize=44, fontweight="bold", ha="left", va="top")
+    fig.text(0.07, 0.93, "WALES: ROLLING 12-MONTH", color=SOCIAL_FOREGROUND, fontsize=24, fontweight="bold", ha="left", va="top")
+    fig.text(0.07, 0.885, "MEAN TEMPERATURE", color=SOCIAL_FOREGROUND, fontsize=24, fontweight="bold", ha="left", va="top")
+    fig.text(0.07, 0.84, f"Latest complete window: {period}", color=SOCIAL_MUTED, fontsize=14, ha="left", va="top")
+    fig.text(0.07, 0.77, f"{current.mean_temperature_c:.2f}°C", color=SOCIAL_PERIOD_COLOUR, fontsize=44, fontweight="bold", ha="left", va="top")
     fig.text(
         0.07,
         0.715,
         f"Ranks {rank} of {total} complete monthly-start windows",
-        color=FOREGROUND,
+        color=SOCIAL_FOREGROUND,
         fontsize=16,
         fontweight="bold",
         ha="left",
@@ -228,7 +269,7 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         0.07,
         0.678,
         f"Source updated {summary.get('source_last_updated', 'unknown')}.",
-        color=MUTED,
+        color=SOCIAL_MUTED,
         fontsize=11.5,
         ha="left",
         va="top",
@@ -237,12 +278,12 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         0.07,
         0.03,
         "Monthly monitor refreshed on published Met Office Wales inputs.",
-        color=MUTED,
+        color=SOCIAL_MUTED,
         fontsize=12.4,
         ha="left",
         va="bottom",
     )
-    return _save(fig, basename)
+    return _save(fig, basename, dpi=SOCIAL_DPI)
 
 
 def run() -> dict[str, Path]:
