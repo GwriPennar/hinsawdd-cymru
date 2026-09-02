@@ -13,6 +13,24 @@ import seaborn as sns
 from matplotlib.lines import Line2D
 
 from equivalent_period_chart import load_inputs, prepare_chart_data
+from figure_style import (
+    DARK_LINE_BACKGROUND,
+    DARK_LINE_FOREGROUND,
+    DARK_LINE_FRAME,
+    DARK_LINE_GRID,
+    DARK_LINE_LATEST,
+    DARK_LINE_MUTED,
+    DARK_LINE_PERIOD_COLOUR,
+    DARK_LINE_PREVIOUS_HIGH,
+    DARK_LINE_REFERENCE_COLOUR,
+    DARK_LINE_TREND_COLOUR,
+    LABEL_INDIVIDUAL_PERIODS,
+    LABEL_REFERENCE_1991_2020,
+    LINE_CHART_DPI,
+    SQUARE_PX,
+    STANDARD_HEIGHT_PX,
+    STANDARD_WIDTH_PX,
+)
 
 PROJECT_DIR = Path(__file__).resolve().parent
 REPOSITORY_DIR = PROJECT_DIR.parents[1]
@@ -26,10 +44,9 @@ OUTPUT_CSV = DERIVED_DIR / "wales_august_to_july_temperature_line_chart.csv"
 ROOT_README = REPOSITORY_DIR / "README.md"
 PROJECT_README = PROJECT_DIR / "README.md"
 
-WIDTH_PX = 1600
-HEIGHT_PX = 900
-SQUARE_PX = 1080
-DPI = 100
+WIDTH_PX = STANDARD_WIDTH_PX
+HEIGHT_PX = STANDARD_HEIGHT_PX
+DPI = LINE_CHART_DPI
 TREND_BANDWIDTH_YEARS = 7.0
 ROOT_START = "<!-- BEGIN PROJECT 001 CHART PREVIEWS -->"
 ROOT_END = "<!-- END PROJECT 001 CHART PREVIEWS -->"
@@ -213,16 +230,16 @@ def render_dark(
 
     sns.set_theme(style="darkgrid", context="talk")
     plt.rcParams.update({"font.family": "DejaVu Sans", "svg.fonttype": "none"})
-    background = "#040914"
-    foreground = "#e5e7eb"
-    muted = "#a9b1bf"
-    grid = "#334155"
-    period_colour = "#cc3a53"
-    trend_colour = "#32d3e2"
-    reference_colour = "#94a3b8"
-    previous_colour = "#f2c94c"
-    latest_colour = "#ff5a67"
-    frame = "#2b3445"
+    background = DARK_LINE_BACKGROUND
+    foreground = DARK_LINE_FOREGROUND
+    muted = DARK_LINE_MUTED
+    grid = DARK_LINE_GRID
+    period_colour = DARK_LINE_PERIOD_COLOUR
+    trend_colour = DARK_LINE_TREND_COLOUR
+    reference_colour = DARK_LINE_REFERENCE_COLOUR
+    previous_colour = DARK_LINE_PREVIOUS_HIGH
+    latest_colour = DARK_LINE_LATEST
+    frame = DARK_LINE_FRAME
 
     years = chart["end_year"].to_numpy(dtype=int)
     values = chart["mean_temperature_c"].to_numpy(dtype=float)
@@ -232,7 +249,10 @@ def render_dark(
     published = chart[chart["status"] == "published-inputs"]
     if published.empty:
         raise ValueError("No published-input periods found")
-    previous_row = published.nlargest(1, "mean_temperature_c").iloc[0]
+    prior_published = published.iloc[:-1]
+    if prior_published.empty:
+        raise ValueError("No prior published period available for previous-high label")
+    previous_row = prior_published.nlargest(1, "mean_temperature_c").iloc[0]
     previous = float(previous_row["mean_temperature_c"])
     previous_year = int(previous_row["end_year"])
 
@@ -278,9 +298,9 @@ def render_dark(
     ax.spines[["left", "bottom"]].set_linewidth(2)
     legend = ax.legend(
         handles=[
-            Line2D([0], [0], color=period_colour, lw=2.2, label="Individual August-to-July periods"),
+            Line2D([0], [0], color=period_colour, lw=2.2, label=LABEL_INDIVIDUAL_PERIODS),
             Line2D([0], [0], color=trend_colour, lw=3.8, label="Smoothed historical trend"),
-            Line2D([0], [0], color=reference_colour, lw=1.8, linestyle="--", label="Derived 1991–2020 reference"),
+            Line2D([0], [0], color=reference_colour, lw=1.8, linestyle="--", label=LABEL_REFERENCE_1991_2020),
         ],
         loc="lower right",
         frameon=True,

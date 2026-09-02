@@ -14,22 +14,28 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
+from figure_style import (
+    LABEL_INDIVIDUAL_PERIODS,
+    LABEL_REFERENCE_1991_2020,
+    LABEL_TRAILING_AVERAGE,
+    SOCIAL_AVERAGE_COLOUR,
+    SOCIAL_BACKGROUND,
+    SOCIAL_DPI,
+    SOCIAL_FIGSIZE_INCHES,
+    SOCIAL_FOREGROUND,
+    SOCIAL_GRID,
+    SOCIAL_MUTED,
+    SOCIAL_PERIOD_COLOUR,
+    SOCIAL_PREVIOUS_HIGH,
+    SOCIAL_REFERENCE_COLOUR,
+)
+
 PROJECT_DIR = Path(__file__).resolve().parent
 DERIVED_DIR = PROJECT_DIR / "data/derived"
 FIGURES_DIR = PROJECT_DIR / "figures"
 SERIES_PATH = DERIVED_DIR / "august_to_july_mean_temperature.csv"
 SUMMARY_PATH = DERIVED_DIR / "summary.json"
 OUTPUT_BASE = FIGURES_DIR / "wales_august_to_july_mean_temperature_square_dark"
-
-BACKGROUND = "#090b10"
-FOREGROUND = "#f5f7fa"
-MUTED = "#aab2bd"
-GRID = "#303641"
-TEMPERATURE_RED = "#ff4d5a"
-MOVING_AVERAGE_CYAN = "#45e0e5"
-PREVIOUS_HIGH_AMBER = "#ffd166"
-REFERENCE_GREY = "#89919c"
-
 
 def make_square_dark_figure(
     series: pd.DataFrame,
@@ -62,34 +68,34 @@ def make_square_dark_figure(
         style="darkgrid",
         context="talk",
         rc={
-            "figure.facecolor": BACKGROUND,
-            "axes.facecolor": BACKGROUND,
-            "axes.edgecolor": MUTED,
-            "axes.labelcolor": FOREGROUND,
-            "xtick.color": MUTED,
-            "ytick.color": MUTED,
-            "text.color": FOREGROUND,
-            "grid.color": GRID,
+            "figure.facecolor": SOCIAL_BACKGROUND,
+            "axes.facecolor": SOCIAL_BACKGROUND,
+            "axes.edgecolor": SOCIAL_MUTED,
+            "axes.labelcolor": SOCIAL_FOREGROUND,
+            "xtick.color": SOCIAL_MUTED,
+            "ytick.color": SOCIAL_MUTED,
+            "text.color": SOCIAL_FOREGROUND,
+            "grid.color": SOCIAL_GRID,
             "grid.alpha": 0.55,
-            "legend.facecolor": BACKGROUND,
-            "legend.edgecolor": GRID,
+            "legend.facecolor": SOCIAL_BACKGROUND,
+            "legend.edgecolor": SOCIAL_GRID,
             "font.family": "DejaVu Sans",
         },
     )
     plt.rcParams.update({"svg.fonttype": "none"})
 
-    fig = plt.figure(figsize=(10.8, 10.8), dpi=100, facecolor=BACKGROUND)
-    ax = fig.add_axes([0.11, 0.16, 0.84, 0.52], facecolor=BACKGROUND)
+    fig = plt.figure(figsize=SOCIAL_FIGSIZE_INCHES, dpi=SOCIAL_DPI, facecolor=SOCIAL_BACKGROUND)
+    ax = fig.add_axes([0.11, 0.16, 0.84, 0.52], facecolor=SOCIAL_BACKGROUND)
 
     sns.lineplot(
         data=data,
         x="end_year",
         y="mean_temperature_c",
         ax=ax,
-        color=TEMPERATURE_RED,
+        color=SOCIAL_PERIOD_COLOUR,
         linewidth=1.7,
         alpha=0.58,
-        label="Individual August-to-July periods",
+        label=LABEL_INDIVIDUAL_PERIODS,
         zorder=2,
     )
     sns.lineplot(
@@ -97,19 +103,19 @@ def make_square_dark_figure(
         x="end_year",
         y="trailing_10_period_mean_c",
         ax=ax,
-        color=MOVING_AVERAGE_CYAN,
+        color=SOCIAL_AVERAGE_COLOUR,
         linewidth=4.4,
-        label="Trailing 10-year average",
+        label=LABEL_TRAILING_AVERAGE,
         zorder=4,
     )
 
     ax.axhline(
         reference_1991_2020_c,
-        color=REFERENCE_GREY,
+        color=SOCIAL_REFERENCE_COLOUR,
         linestyle="--",
         linewidth=1.4,
         alpha=0.85,
-        label="Derived 1991–2020 reference",
+        label=LABEL_REFERENCE_1991_2020,
         zorder=1,
     )
 
@@ -117,8 +123,8 @@ def make_square_dark_figure(
         [previous.end_year],
         [previous.mean_temperature_c],
         s=85,
-        color=PREVIOUS_HIGH_AMBER,
-        edgecolor=BACKGROUND,
+        color=SOCIAL_PREVIOUS_HIGH,
+        edgecolor=SOCIAL_BACKGROUND,
         linewidth=1.5,
         zorder=6,
     )
@@ -126,8 +132,8 @@ def make_square_dark_figure(
         [current.end_year],
         [current.mean_temperature_c],
         s=230,
-        color=FOREGROUND,
-        edgecolor=BACKGROUND,
+        color=SOCIAL_FOREGROUND,
+        edgecolor=SOCIAL_BACKGROUND,
         linewidth=1.5,
         zorder=7,
     )
@@ -135,7 +141,7 @@ def make_square_dark_figure(
         [current.end_year],
         [current.mean_temperature_c],
         s=105,
-        color=TEMPERATURE_RED,
+        color=SOCIAL_PERIOD_COLOUR,
         zorder=8,
     )
 
@@ -146,7 +152,7 @@ def make_square_dark_figure(
         textcoords="offset points",
         ha="right",
         va="bottom",
-        color=PREVIOUS_HIGH_AMBER,
+        color=SOCIAL_PREVIOUS_HIGH,
         fontsize=11,
         fontweight="bold",
     )
@@ -157,7 +163,7 @@ def make_square_dark_figure(
         textcoords="offset points",
         ha="right",
         va="bottom",
-        color=FOREGROUND,
+        color=SOCIAL_FOREGROUND,
         fontsize=12,
         fontweight="bold",
     )
@@ -175,7 +181,7 @@ def make_square_dark_figure(
     ax.set_ylabel("Mean temperature (°C)", fontsize=13, labelpad=12)
     ax.tick_params(axis="both", labelsize=11)
     ax.spines[["top", "right"]].set_visible(False)
-    ax.spines[["left", "bottom"]].set_color(GRID)
+    ax.spines[["left", "bottom"]].set_color(SOCIAL_GRID)
 
     legend = ax.legend(
         loc="lower right",
@@ -186,13 +192,13 @@ def make_square_dark_figure(
     )
     legend.get_frame().set_alpha(0.85)
     for text in legend.get_texts():
-        text.set_color(FOREGROUND)
+        text.set_color(SOCIAL_FOREGROUND)
 
     fig.text(
         0.07,
         0.93,
         "WALES: AUGUST–JULY MEAN TEMPERATURE",
-        color=FOREGROUND,
+        color=SOCIAL_FOREGROUND,
         fontsize=24,
         fontweight="bold",
         ha="left",
@@ -202,7 +208,7 @@ def make_square_dark_figure(
         0.07,
         0.885,
         "Every equivalent 12-month period from 1884–85 to 2025–26",
-        color=MUTED,
+        color=SOCIAL_MUTED,
         fontsize=14,
         ha="left",
         va="top",
@@ -211,7 +217,7 @@ def make_square_dark_figure(
         0.07,
         0.81,
         f"{current.mean_temperature_c:.2f}°C",
-        color=TEMPERATURE_RED,
+        color=SOCIAL_PERIOD_COLOUR,
         fontsize=44,
         fontweight="bold",
         ha="left",
@@ -221,7 +227,7 @@ def make_square_dark_figure(
         0.07,
         0.75,
         "2025–26 is the warmest equivalent period in the series",
-        color=FOREGROUND,
+        color=SOCIAL_FOREGROUND,
         fontsize=16,
         fontweight="bold",
         ha="left",
@@ -231,7 +237,7 @@ def make_square_dark_figure(
         0.07,
         0.715,
         f"Current point uses July 2026 at {july_2026_c:.1f}°C ({july_kind}).",
-        color=MUTED,
+        color=SOCIAL_MUTED,
         fontsize=11.5,
         ha="left",
         va="top",
@@ -240,7 +246,7 @@ def make_square_dark_figure(
         0.07,
         0.08,
         "Source: Met Office Wales monthly HadUK-Grid areal series. Monthly means weighted by calendar days.",
-        color=MUTED,
+        color=SOCIAL_MUTED,
         fontsize=9.5,
         ha="left",
         va="bottom",
@@ -249,7 +255,7 @@ def make_square_dark_figure(
         0.07,
         0.05,
         "Independent derived analysis: Hinsawdd Cymru • github.com/GwriPennar/hinsawdd-cymru",
-        color=MUTED,
+        color=SOCIAL_MUTED,
         fontsize=9.5,
         ha="left",
         va="bottom",
@@ -258,8 +264,8 @@ def make_square_dark_figure(
     output_base.parent.mkdir(parents=True, exist_ok=True)
     png_path = output_base.with_suffix(".png")
     svg_path = output_base.with_suffix(".svg")
-    fig.savefig(png_path, dpi=100, facecolor=BACKGROUND)
-    fig.savefig(svg_path, facecolor=BACKGROUND)
+    fig.savefig(png_path, dpi=SOCIAL_DPI, facecolor=SOCIAL_BACKGROUND)
+    fig.savefig(svg_path, facecolor=SOCIAL_BACKGROUND)
     plt.close(fig)
     return png_path, svg_path
 

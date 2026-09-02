@@ -23,6 +23,16 @@ from calculations import (
     with_july_2026,
 )
 from fetch_source import SERIES_URL, download_source
+from figure_style import (
+    LABEL_INDIVIDUAL_PERIODS,
+    LABEL_REFERENCE_1991_2020,
+    LABEL_TRAILING_AVERAGE,
+    LIGHT_AVERAGE_COLOUR,
+    LIGHT_PERIOD_COLOUR,
+    LIGHT_REFERENCE_COLOUR,
+    LIGHT_TREND_DPI,
+    LIGHT_TREND_FIGSIZE,
+)
 from source_data import PROJECT_DIR, RAW_DIR, load_source, sha256
 
 DERIVED_DIR = PROJECT_DIR / "data/derived"
@@ -56,23 +66,25 @@ def make_figure(
     sns.set_theme(style="whitegrid", context="notebook")
     plt.rcParams.update({"svg.fonttype": "none"})
 
-    fig, ax = plt.subplots(figsize=(12, 6.5))
+    fig, ax = plt.subplots(figsize=LIGHT_TREND_FIGSIZE)
     sns.lineplot(
         data=data,
         x="end_year",
         y="mean_temperature_c",
         ax=ax,
+        color=LIGHT_PERIOD_COLOUR,
         linewidth=1.1,
         alpha=0.72,
-        label="Individual August-to-July periods",
+        label=LABEL_INDIVIDUAL_PERIODS,
     )
     sns.lineplot(
         data=data,
         x="end_year",
         y="trailing_10_period_mean_c",
         ax=ax,
+        color=LIGHT_AVERAGE_COLOUR,
         linewidth=2.8,
-        label="Trailing 10-year average",
+        label=LABEL_TRAILING_AVERAGE,
     )
 
     current = data.iloc[-1]
@@ -80,9 +92,10 @@ def make_figure(
 
     ax.axhline(
         reference_1991_2020_c,
+        color=LIGHT_REFERENCE_COLOUR,
         linestyle=":",
         linewidth=1.1,
-        label="Derived 1991–2020 reference",
+        label=LABEL_REFERENCE_1991_2020,
     )
     ax.scatter(
         [previous.end_year],
@@ -137,7 +150,7 @@ def make_figure(
     fig.tight_layout(rect=(0, 0.045, 1, 1))
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output.with_suffix(".svg"), bbox_inches="tight")
-    fig.savefig(output.with_suffix(".png"), dpi=220, bbox_inches="tight")
+    fig.savefig(output.with_suffix(".png"), dpi=LIGHT_TREND_DPI, bbox_inches="tight")
     plt.close(fig)
 
 
