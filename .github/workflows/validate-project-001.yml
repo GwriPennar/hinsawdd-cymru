@@ -23,7 +23,7 @@ jobs:
       - name: Fetch exact upstream source
         run: python projects/001-rolling-temperature/fetch_source.py --output-dir projects/001-rolling-temperature/data/raw
       - name: Unit and integration tests
-        run: pytest -q
+        run: pytest -q projects/001-rolling-temperature/tests
       - name: Rebuild rolling monitor outputs
         run: python projects/001-rolling-temperature/refresh.py --no-update-readme
       - name: Build square social chart
