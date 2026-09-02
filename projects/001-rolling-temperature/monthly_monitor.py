@@ -44,13 +44,9 @@ def _save(fig: plt.Figure, basename: Path) -> tuple[Path, Path]:
     return png, svg
 
 
-def _end_year_fraction(frame: pd.DataFrame) -> pd.Series:
-    return frame["end_month"].dt.year + (frame["end_month"].dt.month / 12.0)
-
-
 def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY_BASENAME) -> tuple[Path, Path]:
     data = series.copy()
-    data["end_x"] = _end_year_fraction(data)
+    data["end_year"] = data["end_month"].dt.year + (data["end_month"].dt.month / 12.0)
     data["trailing_10_window_mean_c"] = data["mean_temperature_c"].rolling(10, min_periods=10).mean()
     current = data.iloc[-1]
     previous = data.iloc[:-1].nlargest(1, "mean_temperature_c").iloc[0]
@@ -59,10 +55,10 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
     sns.set_theme(style="whitegrid", context="notebook")
     plt.rcParams.update({"svg.fonttype": "none"})
     fig, ax = plt.subplots(figsize=(12, 6.5))
-    sns.lineplot(data=data, x="end_x", y="mean_temperature_c", ax=ax, linewidth=1.1, alpha=0.72)
+    sns.lineplot(data=data, x="end_year", y="mean_temperature_c", ax=ax, linewidth=1.1, alpha=0.72)
     sns.lineplot(
         data=data,
-        x="end_x",
+        x="end_year",
         y="trailing_10_window_mean_c",
         ax=ax,
         linewidth=2.8,
@@ -70,8 +66,11 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
         label="Trailing 10-window average",
     )
     ax.axhline(reference, linestyle=":", linewidth=1.1, color=REFERENCE_GREY, label="Derived 1991–2020 reference")
-    prev_x = float(previous["end_x"])
-    curr_x = float(current["end_x"])
+    def end_fraction(row: pd.Series) -> float:
+        return float(row["end_month"].year) + float(row["end_month"].month) / 12.0
+
+    prev_x = end_fraction(previous)
+    curr_x = end_fraction(current)
     ax.scatter([prev_x], [previous.mean_temperature_c], s=45, zorder=5)
     ax.scatter([curr_x], [current.mean_temperature_c], s=70, color=LATEST_GOLD, zorder=6)
     period = summary["current_window"]["period_label"]
@@ -96,7 +95,7 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
         xlabel="Window end (year)",
         ylabel="Mean temperature (°C)",
     )
-    ax.set_xlim(float(data["end_x"].min()) - 0.5, float(data["end_x"].max()) + 0.5)
+    ax.set_xlim(float(data["end_year"].min()) - 0.5, float(data["end_year"].max()) + 0.5)
     ax.spines[["top", "right"]].set_visible(False)
     ax.legend(frameon=False, loc="upper left")
     fig.text(
@@ -115,7 +114,7 @@ def render_history(series: pd.DataFrame, summary: dict, basename: Path = HISTORY
 
 def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DARK_BASENAME) -> tuple[Path, Path]:
     data = series.copy()
-    data["end_x"] = _end_year_fraction(data)
+    data["end_year"] = data["end_month"].dt.year
     data["trailing_10_window_mean_c"] = data["mean_temperature_c"].rolling(10, min_periods=10).mean()
     current = data.iloc[-1]
     previous = data.iloc[:-1].nlargest(1, "mean_temperature_c").iloc[0]
@@ -123,8 +122,6 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
     period = summary["current_window"]["period_label"]
     rank = int(summary["current_window"]["rank_warmest"])
     total = int(summary["current_window"]["window_count"])
-    current_x = float(current["end_x"])
-    previous_x = float(previous["end_x"])
 
     sns.set_theme(
         style="darkgrid",
@@ -147,10 +144,10 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
     plt.rcParams.update({"svg.fonttype": "none"})
     fig = plt.figure(figsize=(10.8, 10.8), dpi=100, facecolor=BACKGROUND)
     ax = fig.add_axes([0.11, 0.16, 0.84, 0.52], facecolor=BACKGROUND)
-    sns.lineplot(data=data, x="end_x", y="mean_temperature_c", ax=ax, linewidth=1.7, alpha=0.58, color=TEMPERATURE_RED)
+    sns.lineplot(data=data, x="end_year", y="mean_temperature_c", ax=ax, linewidth=1.7, alpha=0.58, color=TEMPERATURE_RED)
     sns.lineplot(
         data=data,
-        x="end_x",
+        x="end_year",
         y="trailing_10_window_mean_c",
         ax=ax,
         linewidth=4.4,
@@ -158,34 +155,12 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         label="Trailing 10-window average",
     )
     ax.axhline(reference, linestyle="--", linewidth=1.4, color=REFERENCE_GREY, alpha=0.85, label="Derived 1991–2020 reference")
-    ax.scatter([previous_x], [previous.mean_temperature_c], s=85, color=PREVIOUS_HIGH_AMBER, zorder=6)
-    ax.scatter([current_x], [current.mean_temperature_c], s=230, color=FOREGROUND, edgecolor=BACKGROUND, linewidth=1.5, zorder=7)
-    ax.scatter([current_x], [current.mean_temperature_c], s=105, color=TEMPERATURE_RED, zorder=8)
-    ax.annotate(
-        f"Previous high\n{previous['period_label']}: {previous.mean_temperature_c:.2f}°C",
-        (previous_x, previous.mean_temperature_c),
-        xytext=(-10, 24),
-        textcoords="offset points",
-        ha="right",
-        va="bottom",
-        color=PREVIOUS_HIGH_AMBER,
-        fontsize=11,
-        fontweight="bold",
-    )
-    ax.annotate(
-        f"Latest\n{current.mean_temperature_c:.2f}°C",
-        (current_x, current.mean_temperature_c),
-        xytext=(-12, 24),
-        textcoords="offset points",
-        ha="right",
-        va="bottom",
-        color=FOREGROUND,
-        fontsize=12,
-        fontweight="bold",
-    )
-    ax.set_xlabel("Window end (year)", fontsize=13, labelpad=12)
+    ax.scatter([previous.end_year], [previous.mean_temperature_c], s=85, color=PREVIOUS_HIGH_AMBER, zorder=6)
+    ax.scatter([current.end_year], [current.mean_temperature_c], s=230, color=FOREGROUND, edgecolor=BACKGROUND, linewidth=1.5, zorder=7)
+    ax.scatter([current.end_year], [current.mean_temperature_c], s=105, color=TEMPERATURE_RED, zorder=8)
+    ax.set_xlabel("Window end year", fontsize=13, labelpad=12)
     ax.set_ylabel("Mean temperature (°C)", fontsize=13, labelpad=12)
-    ax.set_xlim(float(data["end_x"].min()) - 0.5, float(data["end_x"].max()) + 0.5)
+    ax.set_xlim(int(data["end_year"].min()), int(data["end_year"].max()) + 3)
     ax.set_ylim(float(data["mean_temperature_c"].min()) - 0.25, float(data["mean_temperature_c"].max()) + 0.55)
     ax.spines[["top", "right"]].set_visible(False)
     ax.legend(loc="lower right", frameon=True, fontsize=10)
@@ -201,15 +176,6 @@ def render_dark_square(series: pd.DataFrame, summary: dict, basename: Path = DAR
         color=FOREGROUND,
         fontsize=16,
         fontweight="bold",
-        ha="left",
-        va="top",
-    )
-    fig.text(
-        0.07,
-        0.678,
-        f"Source updated {summary.get('source_last_updated', 'unknown')}.",
-        color=MUTED,
-        fontsize=11.5,
         ha="left",
         va="top",
     )

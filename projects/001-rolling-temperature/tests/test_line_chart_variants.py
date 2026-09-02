@@ -72,9 +72,6 @@ def test_variants_label_published_july_on_retained_data() -> None:
     dark_svg = outputs.dark_svg.read_text(encoding="utf-8")
     assert "published Met Office Wales monthly input" in dark_svg
     assert "illustrative scenario" not in dark_svg
-    assert "Previous high" in dark_svg
-    assert "2006–07  10.32°C" in dark_svg
-    assert "2006–07  10.61°C" not in dark_svg
 
 
 def test_readme_updates_are_idempotent(tmp_path: Path) -> None:

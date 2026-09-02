@@ -28,8 +28,6 @@
   "anomaly_vs_1991_2020_c": 1.233972602739728,
   "derived_reference_1961_1990_c": 8.607534246575343,
   "derived_reference_1991_2020_c": 9.41835616438356,
-  "august_to_july_reference_1961_1990_c": 8.607534246575343,
-  "august_to_july_reference_1991_2020_c": 9.41835616438356,
   "trailing_10_window_mean_c": 10.459780821917807,
   "top_rolling_12_month_windows": [
     {
