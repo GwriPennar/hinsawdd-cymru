@@ -72,7 +72,7 @@ The project was rerun end to end against an exact-byte download of the public Me
 | Primary and independent period mean agreement | **Pass** |
 | Primary and independent historical rank agreement | **Pass** |
 | Primary and independent break-even July agreement | **Pass** |
-| Automated tests | **28 passed** |
+| Automated tests | **43 passed** |
 
 The two implementations produced the same practical result:
 

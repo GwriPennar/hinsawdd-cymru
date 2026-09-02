@@ -42,6 +42,21 @@ def test_public_report_is_self_contained() -> None:
         assert section in report
 
 
+def test_readme_has_machine_managed_chart_preview_markers() -> None:
+    report = (PROJECT_DIR / "README.md").read_text(encoding="utf-8")
+
+    assert "<!-- BEGIN CHART PREVIEW NOTE -->" in report
+    assert "<!-- END CHART PREVIEW NOTE -->" in report
+    assert "<!-- END LINE CHART PREVIEWS -->" in report
+
+
+def test_snapshot_captures_current_live_outputs() -> None:
+    from snapshot_run import latest_run_matches_live, snapshot_run
+
+    snapshot_run(refreshed_at="2099-01-01T00:00:00Z")
+    assert latest_run_matches_live()
+
+
 def test_full_record_graph_contains_trend_context() -> None:
     run(AnalysisConfig(), update_project_readme=False)
     from monthly_monitor import run as run_monthly_monitor

@@ -30,13 +30,27 @@ def _latest_source() -> tuple[Path, Path]:
     return source, manifest
 
 
-def refresh(*, fetch: bool = False, update_readme_block: bool = True) -> Path:
+def refresh(
+    *,
+    fetch: bool = False,
+    update_readme_block: bool = True,
+    source_path: Path | None = None,
+) -> Path:
     if fetch:
         _run_script("fetch_source.py", "--output-dir", "data/raw")
 
-    summary = run_analysis(AnalysisConfig(), refresh=False, update_project_readme=False)
+    summary = run_analysis(
+        AnalysisConfig(),
+        refresh=False,
+        source_path=source_path,
+        update_project_readme=False,
+    )
 
-    source, manifest = _latest_source()
+    if source_path is not None:
+        source = source_path if source_path.is_absolute() else PROJECT_DIR / source_path
+        manifest = source.with_suffix(".provenance.json")
+    else:
+        source, manifest = _latest_source()
     _run_script(
         "verify.py",
         "--source",
@@ -46,6 +60,8 @@ def refresh(*, fetch: bool = False, update_readme_block: bool = True) -> Path:
         "--require-annual",
         "--primary-summary",
         "data/derived/summary.json",
+        "--json-out",
+        "data/derived/independent_verification.json",
     )
 
     run_monthly_monitor()
@@ -60,8 +76,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fetch", action="store_true", help="Download latest Met Office source first")
     parser.add_argument("--no-update-readme", action="store_true")
+    parser.add_argument("--source", type=Path, help="Optional Met Office source snapshot path")
     args = parser.parse_args()
-    run_dir = refresh(fetch=args.fetch, update_readme_block=not args.no_update_readme)
+    run_dir = refresh(
+        fetch=args.fetch,
+        update_readme_block=not args.no_update_readme,
+        source_path=args.source,
+    )
     print(run_dir)
 
 

@@ -39,6 +39,9 @@ RESULT_START = "<!-- BEGIN GENERATED RESULT -->"
 RESULT_END = "<!-- END GENERATED RESULT -->"
 HISTORY_START = "<!-- BEGIN REFRESH HISTORY -->"
 HISTORY_END = "<!-- END REFRESH HISTORY -->"
+CHART_PREVIEW_START = "<!-- BEGIN CHART PREVIEW NOTE -->"
+CHART_PREVIEW_END = "<!-- END CHART PREVIEW NOTE -->"
+LINE_CHART_PREVIEW_END = "<!-- END LINE CHART PREVIEWS -->"
 
 
 @dataclass(frozen=True)
@@ -200,6 +203,17 @@ Each monthly refresh is frozen under [`runs/`](runs/index.json). The table below
             "<!-- END GENERATED RESULT -->\n\n" + history_block,
             1,
         )
+
+    chart_note = f"""{CHART_PREVIEW_START}
+These are **rolling 12-month windows** (monthly-start), not the archived August-to-July seasonal series. The headline window ends on the **last published calendar month** ({last_month}).
+{CHART_PREVIEW_END}"""
+    chart_pattern = re.compile(
+        re.escape(CHART_PREVIEW_START) + r".*?" + re.escape(CHART_PREVIEW_END),
+        re.DOTALL,
+    )
+    if chart_pattern.search(text):
+        text = chart_pattern.sub(chart_note, text)
+
     README_PATH.write_text(text, encoding="utf-8")
 
 

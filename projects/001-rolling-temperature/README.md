@@ -81,7 +81,9 @@ Each monthly refresh is frozen under [`runs/`](runs/index.json). The table below
 <!-- BEGIN LINE CHART PREVIEWS -->
 ## Monthly monitor charts
 
-These are **rolling 12-month windows** (monthly-start), not the archived August-to-July seasonal series. The headline window ends on the **last published calendar month** (currently August 2026).
+<!-- BEGIN CHART PREVIEW NOTE -->
+These are **rolling 12-month windows** (monthly-start), not the archived August-to-July seasonal series. The headline window ends on the **last published calendar month** (August 2026).
+<!-- END CHART PREVIEW NOTE -->
 
 <a href="figures/wales_rolling_12_month_temperature_history.png"><img src="figures/wales_rolling_12_month_temperature_history.png" alt="Wales rolling 12-month mean temperature history" width="100%"></a>
 
@@ -99,25 +101,25 @@ These are **rolling 12-month windows** (monthly-start), not the archived August-
 
 [Open the dark-mode line chart as SVG](figures/wales_rolling_12_month_temperature_line_chart_square_dark.svg)
 
-Each point is one complete monthly-start 12-month window. The headline window always ends on the last published calendar month in the retained Met Office source.
+Each point is one complete monthly-start 12-month window.
+
+<!-- END LINE CHART PREVIEWS -->
 
 ## Historical trend since records began
 
-![Wales rolling 12-month mean temperature history](figures/wales_rolling_12_month_temperature_history.svg)
-
-**Figure 1.** Complete monthly-start 12-month windows from 1884 to the latest published month. The archived August-to-July seasonal view remains at [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
+**Figure 1.** Complete monthly-start 12-month windows from 1884 to the latest published month (see chart previews above). The archived August-to-July seasonal view remains at [`archive/august-to-july-2025-26/`](archive/august-to-july-2025-26/ARCHIVE.md).
 
 ### How to read the graph
 
-The individual period line is expected to move up and down because temperatures vary substantially from year to year. A single hot or cold period does not by itself define the long-term climate.
+The thinner blue line shows individual monthly-start 12-month windows. Short-term ups and downs are normal; one warm window does not by itself define long-term climate.
 
-The trailing 10-year average answers a different question. It shows whether groups of recent periods are generally warmer or cooler than earlier groups. It is descriptive, not a climate-attribution model, but it makes the broad rise in the Wales series visible without fitting a complicated statistical curve.
+The orange **trailing 10-window average** smooths groups of ten consecutive windows. It is descriptive, not a formal attribution model, but it makes the broad rise in the Wales series easier to see.
 
 The chart also marks:
 
-- the previous equivalent-period high in 2006-07;
-- the current 2025-26 published result;
-- the repository-derived 1991-2020 reference for the same August-to-July sequence.
+- the previous record rolling window (currently May 2006 to April 2007 at 10.70°C);
+- the latest complete window (currently September 2025 to August 2026);
+- the repository-derived 1991–2020 reference for the same month sequence.
 
 ## What the results show
 
@@ -159,22 +161,22 @@ This repository begins with that published Wales series. It does not claim to re
 
 The calculation is intentionally simple once the official Wales monthly series has been obtained.
 
-For each August-to-July period:
+For each complete monthly-start 12-month window:
 
 1. take the twelve published monthly Wales mean temperatures;
 2. multiply each monthly value by the number of calendar days in that month;
 3. add the twelve temperature-day totals;
-4. divide by the total number of days in the period;
-5. repeat the calculation for every complete August-to-July period in the record;
+4. divide by the total number of days in the window;
+5. repeat for every complete window in the record;
 6. rank the results from warmest to coolest.
 
 The formula is:
 
 ```text
-period mean = sum(monthly mean × calendar days) / total calendar days
+window mean = sum(monthly mean × calendar days) / total calendar days
 ```
 
-Day weighting matters because calendar months have different lengths and some August-to-July periods include 29 February.
+Day weighting matters because calendar months have different lengths and some windows include 29 February.
 
 The public monthly series is rounded to 0.1°C. Derived values are therefore reported to 0.01°C, and reference-period comparisons are described approximately rather than with false precision.
 
@@ -216,7 +218,7 @@ The results of the validation run were:
 | Primary and independent period mean agreement | **Pass** |
 | Historical rank agreement | **Pass** |
 | Break-even July agreement | **Pass** |
-| Automated tests | **28 passed** |
+| Automated tests | **43 passed** |
 
 The small annual reconciliation differences are expected because the monthly public values are rounded to 0.1°C while the official annual column is published at greater precision.
 
@@ -240,7 +242,7 @@ Those are upstream Met Office responsibilities. Their documented observation, st
 
 ### Rounded monthly inputs
 
-The public monthly figures are rounded to 0.1°C. Calculations from the published table may differ by a few hundredths from calculations using the underlying unrounded grids. The margin over the previous August-to-July record is large enough that this does not affect the ranking.
+The public monthly figures are rounded to 0.1°C. Calculations from the published table may differ by a few hundredths from calculations using the underlying unrounded grids. This rounding does not change the headline ranking at the precision reported here.
 
 ### Published July 2026
 
@@ -248,7 +250,7 @@ July 2026 is now present in the retained Met Office source at **17.8°C**. Earli
 
 ### Descriptive trend
 
-The trailing 10-year line is a descriptive moving average. It is not a formal estimate of the long-term warming rate, a causal attribution analysis or a climate projection.
+The trailing 10-window line is a descriptive moving average over consecutive rolling windows. It is not a formal estimate of the long-term warming rate, a causal attribution analysis or a climate projection.
 
 ### National rather than local result
 
@@ -300,20 +302,26 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 
 ### Analysis and figure code
 
-- [`analysis.py`](analysis.py), primary calculation, derived outputs and original report figure
-- [`social_chart.py`](social_chart.py), square dark social figure rendered from the validated derived outputs
-- [`warming_stripes.py`](warming_stripes.py), retained calendar-year stripes and temperature bars
-- [`august_to_july_stripes.py`](august_to_july_stripes.py), additional August-to-July stripes and temperature bars
-- [`line_chart_variants.py`](line_chart_variants.py), standard and square dark-mode August-to-July line charts
-- [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md), line-chart interpretation and reproduction notes
-- [`WARMING_STRIPES.md`](WARMING_STRIPES.md), full-width previews and interpretation for both annual boundaries
+- [`refresh.py`](refresh.py), monthly refresh orchestrator (analyse, verify, render, snapshot, update README)
+- [`analysis.py`](analysis.py), primary calculation and derived outputs
+- [`monthly_monitor.py`](monthly_monitor.py), rolling history and dark social figures
+- [`rolling_line_chart.py`](rolling_line_chart.py), standard and square dark rolling line charts
+- [`snapshot_run.py`](snapshot_run.py), freeze each refresh under `runs/YYYY-MM/`
+- [`trend_charts.py`](trend_charts.py), shared light/dark trend renderers
+- [`figure_style.py`](figure_style.py) and [`FIGURE_STYLE.md`](FIGURE_STYLE.md), colours, dimensions and legend rules
+- [`social_chart.py`](social_chart.py), archived August-to-July square dark figure
+- [`line_chart_variants.py`](line_chart_variants.py), archived August-to-July line charts
+- [`warming_stripes.py`](warming_stripes.py), calendar-year stripes and temperature bars
+- [`august_to_july_stripes.py`](august_to_july_stripes.py), archived August-to-July stripes and bars
 - [`verify.py`](verify.py), independent standard-library and `Decimal` verification
 
 ### Machine-readable results
 
 - [`data/derived/summary.json`](data/derived/summary.json), headline results and source provenance
 - [`data/derived/wales_monthly_mean_temperature.csv`](data/derived/wales_monthly_mean_temperature.csv), normalized published monthly inputs
-- [`data/derived/august_to_july_mean_temperature.csv`](data/derived/august_to_july_mean_temperature.csv), every equivalent period and rank
+- [`data/derived/rolling_12_month_mean_temperature.csv`](data/derived/rolling_12_month_mean_temperature.csv), complete monthly-start 12-month windows
+- [`data/derived/wales_rolling_12_month_temperature_line_chart.csv`](data/derived/wales_rolling_12_month_temperature_line_chart.csv), presentation data for rolling line charts
+- [`data/derived/august_to_july_mean_temperature.csv`](data/derived/august_to_july_mean_temperature.csv), archived August-to-July periods (see `archive/`)
 - [`data/derived/all_rolling_12_month_windows.csv`](data/derived/all_rolling_12_month_windows.csv), all complete monthly-start 12-month windows
 - [`data/derived/july_2026_sensitivity.csv`](data/derived/july_2026_sensitivity.csv), tested July scenarios
 - [`data/derived/annual_reconciliation.csv`](data/derived/annual_reconciliation.csv), reconstructed and official annual values
@@ -324,23 +332,16 @@ A refresh writes a new timestamped source snapshot. It does not silently overwri
 
 ### Graphics
 
-Original full-width report figure:
+Live rolling monitor figures (`figures/`):
 
-- [`figures/wales_august_to_july_mean_temperature_provisional.svg`](figures/wales_august_to_july_mean_temperature_provisional.svg), scalable vector version
-- [`figures/wales_august_to_july_mean_temperature_provisional.png`](figures/wales_august_to_july_mean_temperature_provisional.png), high-resolution raster version
+- `figures/wales_rolling_12_month_temperature_history.{png,svg}`
+- `figures/wales_rolling_12_month_temperature_square_dark.{png,svg}`
+- `figures/wales_rolling_12_month_temperature_line_chart.{png,svg}`
+- `figures/wales_rolling_12_month_temperature_line_chart_square_dark.{png,svg}`
 
-Square dark social figure:
+Frozen per refresh under [`runs/`](runs/index.json). Archived August-to-July figures live in [`archive/august-to-july-2025-26/figures/`](archive/august-to-july-2025-26/figures/).
 
-- [`figures/wales_august_to_july_mean_temperature_square_dark.svg`](figures/wales_august_to_july_mean_temperature_square_dark.svg), scalable vector version
-- [`figures/wales_august_to_july_mean_temperature_square_dark.png`](figures/wales_august_to_july_mean_temperature_square_dark.png), 1080 × 1080 raster version
-
-Standard and square dark-mode August-to-July line charts:
-
-- `figures/wales_august_to_july_mean_temperature_line_chart.{png,svg}`
-- `figures/wales_august_to_july_mean_temperature_line_chart_square_dark.{png,svg}`
-- [`TEMPERATURE_LINE_CHART.md`](TEMPERATURE_LINE_CHART.md), full previews and interpretation
-
-Calendar-year and August-to-July warming stripes and temperature bars:
+Calendar-year and archived August-to-July warming stripes:
 
 - [`WARMING_STRIPES.md`](WARMING_STRIPES.md), full-width clickable previews of all retained PNG assets and links to their SVG counterparts
 - `figures/wales_august_to_july_warming_stripes.{png,svg}`

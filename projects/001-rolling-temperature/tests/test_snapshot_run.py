@@ -4,7 +4,7 @@ import sys
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_DIR))
 
-from snapshot_run import snapshot_run  # noqa: E402
+from snapshot_run import FIGURE_STEMS, snapshot_run  # noqa: E402
 
 
 def test_snapshot_run_creates_manifest_and_index(tmp_path: Path, monkeypatch) -> None:
@@ -31,7 +31,9 @@ def test_snapshot_run_creates_manifest_and_index(tmp_path: Path, monkeypatch) ->
     )
     (derived / "rolling_12_month_mean_temperature.csv").write_text("period_label,mean_temperature_c\n", encoding="utf-8")
     (derived / "wales_rolling_12_month_temperature_line_chart.csv").write_text("end_x,mean_temperature_c\n", encoding="utf-8")
-    (figures / "wales_rolling_12_month_temperature_history.svg").write_text("<svg></svg>", encoding="utf-8")
+    for stem in FIGURE_STEMS:
+        for suffix in (".png", ".svg"):
+            (figures / f"{stem}{suffix}").write_bytes(b"figure")
 
     import snapshot_run as module
 
@@ -47,6 +49,12 @@ def test_snapshot_run_creates_manifest_and_index(tmp_path: Path, monkeypatch) ->
 
     assert manifest["headline"]["mean_temperature_c"] == 10.65
     assert (run_dir / "RUN.md").exists()
+    run_md = (run_dir / "RUN.md").read_text(encoding="utf-8")
+    assert "2026-09-02T12:00:00Z" in run_md
+    assert "01-Sep-2026" not in run_md
+    for stem in FIGURE_STEMS:
+        for suffix in (".png", ".svg"):
+            assert (run_dir / "figures" / f"{stem}{suffix}").exists()
     assert index["latest_run_id"] == "2026-08"
     assert index["runs"][0]["run_id"] == "2026-08"
 

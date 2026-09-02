@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,6 +27,16 @@ FIGURE_STEMS = (
     "wales_rolling_12_month_temperature_line_chart",
     "wales_rolling_12_month_temperature_line_chart_square_dark",
 )
+
+_SVG_DATE_RE = re.compile(r"<dc:date>.*?</dc:date>\n", re.DOTALL)
+
+
+def _svg_content_equal(left: Path, right: Path) -> bool:
+    if not left.exists() or not right.exists():
+        return False
+    left_text = _SVG_DATE_RE.sub("", left.read_text(encoding="utf-8"))
+    right_text = _SVG_DATE_RE.sub("", right.read_text(encoding="utf-8"))
+    return left_text == right_text
 
 
 def _load_index() -> dict[str, object]:
@@ -57,11 +68,11 @@ def _copy_raw_snapshot(summary: dict[str, object], run_dir: Path) -> None:
         _copy_if_exists(manifest_path, raw_out / manifest_path.name)
 
 
-def _run_markdown(summary: dict[str, object], run_id: str) -> str:
+def _run_markdown(summary: dict[str, object], run_id: str, refreshed_at: str) -> str:
     current = summary["current_window"]
     return f"""# Monthly refresh run {run_id}
 
-**Refreshed:** {summary.get('source_last_updated', 'unknown')}  
+**Refreshed:** {refreshed_at}  
 **Headline window:** {current['period_label']}  
 **Mean temperature:** {current['mean_temperature_c']:.2f}°C  
 **Rank:** {current['rank_warmest']} of {current['window_count']} complete monthly-start windows
@@ -116,7 +127,7 @@ def snapshot_run(*, run_id: str | None = None, refreshed_at: str | None = None) 
         },
     }
     (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    (run_dir / "RUN.md").write_text(_run_markdown(summary, run_id), encoding="utf-8")
+    (run_dir / "RUN.md").write_text(_run_markdown(summary, run_id, refreshed_at), encoding="utf-8")
 
     index = _load_index()
     runs = [entry for entry in index.get("runs", []) if entry.get("run_id") != run_id]
@@ -158,3 +169,30 @@ def refresh_history_table() -> str:
             )
         )
     return "\n".join(rows)
+
+
+def latest_run_matches_live() -> bool:
+    """Return True when the latest run snapshot matches live derived data and figures."""
+
+    index = _load_index()
+    run_id = index.get("latest_run_id")
+    if not run_id:
+        return False
+    run_dir = RUNS_DIR / str(run_id)
+    if not run_dir.exists():
+        return False
+    for name in DERIVED_FILES:
+        live = DERIVED_DIR / name
+        snap = run_dir / "data" / "derived" / name
+        if not live.exists() or not snap.exists() or live.read_bytes() != snap.read_bytes():
+            return False
+    for stem in FIGURE_STEMS:
+        live_png = FIGURES_DIR / f"{stem}.png"
+        snap_png = run_dir / "figures" / f"{stem}.png"
+        if not live_png.exists() or not snap_png.exists() or live_png.read_bytes() != snap_png.read_bytes():
+            return False
+        live_svg = FIGURES_DIR / f"{stem}.svg"
+        snap_svg = run_dir / "figures" / f"{stem}.svg"
+        if not _svg_content_equal(live_svg, snap_svg):
+            return False
+    return True
