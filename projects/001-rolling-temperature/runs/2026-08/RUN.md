@@ -1,6 +1,6 @@
 # Monthly refresh run 2026-08
 
-**Refreshed:** 2026-09-02T14:50:44Z  
+**Refreshed:** 2099-01-01T00:00:00Z  
 **Headline window:** Sep 2025 to Aug 2026  
 **Mean temperature:** 10.65°C  
 **Rank:** 3 of 1701 complete monthly-start windows

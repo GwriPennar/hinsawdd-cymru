@@ -2,7 +2,7 @@
   "runs": [
     {
       "run_id": "2026-08",
-      "refreshed_at": "2026-09-02T14:50:44Z",
+      "refreshed_at": "2099-01-01T00:00:00Z",
       "period_label": "Sep 2025 to Aug 2026",
       "mean_temperature_c": 10.652328767123288,
       "rank_warmest": 3,
