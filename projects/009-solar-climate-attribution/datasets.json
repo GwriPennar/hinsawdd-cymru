@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-05",
+  "datasets": [
+    {"id":"D01","name":"GISTEMP v4 global temperature","sources":["S17"],"status":"not_acquired","units":"degree_C_anomaly","measurement_class":"instrument_based_analysis","purpose":"Modern descriptive temperature baseline; use complete years and retain declared anomaly baseline."},
+    {"id":"D02","name":"NNLTSI Version 3 historical irradiance","sources":["S18"],"status":"not_acquired","units":"W_m-2_at_1_AU","measurement_class":"model_based_reconstruction","purpose":"Historical irradiance comparison, not a substitute for an independently constructed satellite composite."},
+    {"id":"D03","name":"Independent satellite TSI composite and spectral irradiance","sources":["S01","S10","S18"],"status":"product_selection_pending","units":"TSI_W_m-2_and_SSI_W_m-2_nm-1","measurement_class":"observations_with_calibration","purpose":"Evaluate trend and calibration uncertainty, plus UV-specific hypotheses; exact products must be registered before analysis."},
+    {"id":"D04","name":"IntCal13 calibration and derived production records","sources":["S09","S03"],"status":"not_acquired","units":"product_specific_do_not_assume_temperature","measurement_class":"proxy_measurements_and_models","purpose":"Reproduce claimed filtering; account for carbon-cycle and geomagnetic influences. Newer calibration is sensitivity analysis."},
+    {"id":"D05","name":"Holocene solar and geomagnetic reconstruction ensembles","sources":["S05","S06","S03","S04"],"status":"not_acquired","units":"product_specific_SSN_MV_and_geomagnetic_units","measurement_class":"proxy_based_reconstruction","purpose":"Compare competing reconstructions and priors, not a hand-drawn composite curve."},
+    {"id":"D06","name":"Common Era global and regional temperature ensembles","sources":["S12"],"status":"product_selection_pending","units":"degree_C_with_declared_baseline","measurement_class":"proxy_based_reconstruction","purpose":"Use the appropriate companion global-mean product for global means; retain spatial reconstructions separately."},
+    {"id":"D07","name":"Forcing, ocean heat content and top-of-atmosphere flux products","sources":["S15","S10"],"status":"product_selection_pending","units":"forcing_W_m-2_heat_ZJ_flux_W_m-2","measurement_class":"mixed_keep_components_separate","purpose":"Constrain energy budget and attribution; register exact forcing, CERES, ocean and reanalysis products before use."},
+    {"id":"D08","name":"Grand solar minima event catalogues","sources":["S07","S06","S02"],"status":"not_acquired","units":"event_start_end_calendar_years_with_uncertainty","measurement_class":"proxy_based_event_catalogue","purpose":"Test alignment while preserving event duration, chronology uncertainty and clustering; obtain all lists cited by the circulated figure."}
+  ]
+}
