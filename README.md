@@ -17,6 +17,7 @@ Hinsawdd Cymru is a public-facing research repository. Each numbered project ask
 | [005](projects/005-wales-air-quality/) | Wales air quality | Stage A observational baseline | Reference-grade PM2.5 baseline from Welsh AURN monitoring stations. |
 | [006](projects/006-wildfire-watch/) | Wales Wildfire Watch | **Published, provisional research output** | Reproducible NASA FIRMS VIIRS thermal-anomaly mapping, official Wales boundary, historical GIF playback and external corroboration. |
 | [007](projects/007-wales-coastal-sst/) | Wales coastal sea-surface temperature | **Stage B published** | NW Europe ODYSSEA snapshot maps + Wales-shelf daily series; HadISST monthly baseline; NOAA ONI as Pacific context only. |
+| [009](projects/009-solar-climate-attribution/) | Solar variability and modern warming | **Stage A evidence review, provisional** | Source and claim audit, competing hypotheses and reproducible research protocol; numerical attribution pending. |
 
 ## Project 007 — Wales coastal SST
 
