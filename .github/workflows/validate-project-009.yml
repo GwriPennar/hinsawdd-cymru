@@ -1,0 +1,40 @@
+name: Validate project 009 evidence registers
+
+on:
+  pull_request:
+    paths:
+      - 'projects/009-solar-climate-attribution/**'
+      - '.github/workflows/validate-project-009.yml'
+  push:
+    branches: [main, research/project-009-solar-climate-attribution]
+    paths:
+      - 'projects/009-solar-climate-attribution/**'
+      - '.github/workflows/validate-project-009.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-009-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Offline register checks
+        run: python projects/009-solar-climate-attribution/validate.py --output build/project-009/validation.json --catalogue build/project-009/SOURCES.md
+      - name: Unit tests
+        run: python -m unittest discover -s projects/009-solar-climate-attribution/tests -v
+      - name: Retain structural validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-009-evidence-register-validation
+          path: build/project-009/
+          if-no-files-found: warn
