@@ -2,6 +2,8 @@
 
 ## Wales rainfall and dryness
 
+**Status: Frozen (Autumn 2026).** Published historical analysis is complete; reopen only for source or licence fixes.
+
 **Adroddiad canlyniadau / Results report**
 
 Project 003 now asks four linked but distinct questions:

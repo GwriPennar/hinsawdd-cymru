@@ -1,18 +1,7 @@
+# Frozen Autumn 2026: manual validation only (project 003 is complete).
 name: Validate project 003
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "projects/003-wales-rainfall/**"
-      - "pyproject.toml"
-      - ".github/workflows/validate-project-003.yml"
-  pull_request:
-    paths:
-      - "projects/003-wales-rainfall/**"
-      - "README.md"
-      - "pyproject.toml"
-      - ".github/workflows/validate-project-003.yml"
   workflow_dispatch:
 
 permissions:

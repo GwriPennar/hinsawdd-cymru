@@ -2,7 +2,7 @@
 
 ## Publication status
 
-**Stage B published** — Copernicus Marine **ODYSSEA** daily (~0.02°) NW Europe snapshot maps + Wales-shelf time series, alongside Stage A HadISST monthly climate baseline.
+**Active (Autumn 2026)** — Stage B published. Copernicus Marine **ODYSSEA** daily (~0.02°) NW Europe snapshot maps + Wales-shelf time series, alongside Stage A HadISST monthly climate baseline. Refresh when publishing a new ODYSSEA snapshot; **not on a fixed cron**.
 
 **Browse the snapshot:** [`published/snapshot/index.html`](published/snapshot/index.html) · [Figure guide](FIGURES.md) · [Methodology](METHODOLOGY.md)
 

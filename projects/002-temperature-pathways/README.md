@@ -2,6 +2,8 @@
 
 ## Wales temperature pathways
 
+**Status: Frozen (Autumn 2026).** Stage A baseline is complete; reopen only for source or licence fixes.
+
 **Adroddiad canlyniadau / Results report**
 
 Project 002 asks a deliberately narrow question:

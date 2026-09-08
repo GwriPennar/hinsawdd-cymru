@@ -2,19 +2,19 @@
 
 ## Publication status
 
-**Published first public release — provisional research output.**
+**Seasonal hold (Autumn 2026)** — published provisional research output; day-to-day operator watching is paused while Wales fire season eases. Refresh manually via GitHub Actions `workflow_dispatch` or `run_all.py` if needed. No watchers.
 
 Project 006 is a reproducible research and situational-awareness workflow built from public NASA FIRMS VIIRS observations. A satellite thermal anomaly is not automatically a wildfire, so the project keeps the raw observation, derived cluster, satellite-evidence category and independent external corroboration separate.
 
-**For the current operator readout (21 August 2026 — quieter Wales picture; Gower quiet), see [CURRENT_SITUATION.md](CURRENT_SITUATION.md).**
+**For the current operator readout and autumn hold note, see [CURRENT_SITUATION.md](CURRENT_SITUATION.md).**
 
 <!-- PROJECT006_STATUS_START -->
 > ✅ **Latest refresh succeeded.**  
-> Latest successful data snapshot: **21 August 2026 23:31 UTC**.  
-> Latest satellite observation in that snapshot: **21 August 2026 14:16 UTC**.  
-> Published Wales-window detections: **19**. Derived candidate clusters inside the official Wales boundary: **4**.  
-> Latest refresh attempt: **21 August 2026 23:34 UTC**.  
-> Date-stamped map stem for this successful snapshot: `2026-08-21_2331UTC`.
+> Latest successful data snapshot: **02 September 2026 14:28 UTC**.  
+> Latest satellite observation in that snapshot: **02 September 2026 04:00 UTC**.  
+> Published Wales-window detections: **8**. Derived candidate clusters inside the official Wales boundary: **2**.  
+> Latest refresh attempt: **02 September 2026 14:32 UTC**.  
+> Date-stamped map stem for this successful snapshot: `2026-09-02_1428UTC`.
 <!-- PROJECT006_STATUS_END -->
 
 ## Latest published maps
@@ -67,9 +67,9 @@ Figure registry: [FIGURES.md](FIGURES.md). VIIRS browse products: [VIIRS_PRODUCT
 
 The first automated publication run completed a **60-day backfill**. The cumulative record continues under `data/history/` (`detections.csv`, `daily_summary.csv`, provenance and raw source responses). See [HISTORY.md](HISTORY.md). The published history GIF above is built from that table.
 
-## Daily publication
+## Publication workflow (manual in autumn)
 
-A GitHub Actions workflow runs daily and can also be triggered manually. It retrieves the latest FIRMS data, rebuilds the scientific map, adds location links, runs external corroboration, appends new observations to the cumulative history and commits changed public outputs back to `main`.
+The GitHub Actions workflow [`project-006-daily.yml`](../../.github/workflows/project-006-daily.yml) is **manual-only** during the Autumn 2026 hold (`workflow_dispatch`; no cron). It retrieves the latest FIRMS data, rebuilds the scientific map, adds location links, runs external corroboration, appends new observations to the cumulative history and commits changed public outputs back to `main`.
 
 Publication status is explicit: a successful run updates the published data, README status and date-stamped maps; a failed run records the failed attempt in the README while retaining the previous successful publication rather than presenting a partial refresh as current.
 

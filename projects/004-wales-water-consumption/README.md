@@ -1,5 +1,7 @@
 # Project 004 — Water consumption in Wales
 
+**Status: Frozen (Autumn 2026).** Research baseline v0.1 is complete; reopen only for source or licence fixes.
+
 ## Research question
 
 How much water is used in Wales, how is public-supply water divided between households and non-households, and how material is direct operational water use by Welsh data centres today and under plausible future growth?

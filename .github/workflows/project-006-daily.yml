@@ -1,3 +1,4 @@
+# Autumn 2026 seasonal hold: no cron. Run by hand (workflow_dispatch) when a refresh is needed.
 name: Project 006 daily wildfire watch
 
 on:

@@ -1,5 +1,7 @@
 # Project 005 — Wales air quality baseline
 
+**Status: Frozen (Autumn 2026).** Stage A observational baseline is complete; reopen only for source or licence fixes.
+
 ## Question
 
 What have measured air-pollution concentrations across Wales looked like over the latest year, and does the recent exceptionally dry period show any unusual particulate pattern worth investigating further?

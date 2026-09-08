@@ -4,6 +4,10 @@ This note explains **where Wales Wildfire Watch stands right now**: what the lat
 
 It is a situational readout, not a fire-service bulletin. Satellite thermal anomalies are **not** automatically wildfires.
 
+## Autumn 2026 seasonal hold
+
+Wales fire-season intensity typically eases in September. From Autumn 2026 the project stays **published and reproducible**, but the day-to-day operator loop (watchers, minute pings, alert pushes) is **paused**. The last successful public snapshot remains the face of the project until a manual refresh is run via GitHub Actions `workflow_dispatch` or `run_all.py`.
+
 ---
 
 ## Snapshot in one paragraph
